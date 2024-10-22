@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ -d "front" ]; then
+  cd front && npm run build || exit 1
+  cd ..
+fi
+
+# backend 빌드
+if [ -d "backend" ]; then
+  cd backend/yarae/yarae && ./gradlew clean build || exit 1
+fi

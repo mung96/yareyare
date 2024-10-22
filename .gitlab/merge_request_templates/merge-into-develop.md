@@ -1,5 +1,5 @@
 - 제목 : feat(jira 이슈번호) : 기능명
-<!--   ex) feat(add-mr-template-S11P21A401-362) : 기능명 -->
+<!--   ex) feat(add-mr-template-S11P31A106-362) : 기능명 -->
 
 ### Part
 - [ ] FE
@@ -16,6 +16,7 @@
 - [ ] 리팩토링 (no functional changes, no api changes)
 - [ ] 빌드 관련 변경
 - [ ] 문서 내용 변경
+- [ ] 테스트 작성
 - [ ] Other… Please describe:
 
 ### 요약(Summary)
@@ -30,9 +31,3 @@
 
 <br/>
 -->
-
-### Jira 링크
-<!-- 
-- [S11P21A401-197-testtest](https://ssafy.atlassian.net/jira/software/c/projects/S11P21A401/boards/7225?selectedIssue=S11P21A401-93)
--->
-- [Jira-이슈번호](Jira URL)
