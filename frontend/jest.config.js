@@ -4,6 +4,9 @@ module.exports = {
   transform: {
     '^.+.tsx?$': ['ts-jest', {}],
   },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
   coverageReporters: ['lcov', 'text'],
   coverageThreshold: {
     './src/': {
