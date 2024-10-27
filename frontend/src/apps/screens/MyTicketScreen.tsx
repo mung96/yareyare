@@ -1,10 +1,10 @@
-import {SafeAreaView, Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 function MyTicketPage() {
   return (
-    <SafeAreaView>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>마이티켓 화면</Text>
-    </SafeAreaView>
+    </View>
   );
 }
 

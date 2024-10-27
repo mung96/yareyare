@@ -1,10 +1,10 @@
-import {SafeAreaView, Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 function GameScheduleScreen() {
   return (
-    <SafeAreaView>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>경기 일정 페이지</Text>
-    </SafeAreaView>
+    </View>
   );
 }
 
