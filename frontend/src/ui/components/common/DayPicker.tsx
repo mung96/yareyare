@@ -1,6 +1,8 @@
-import {Calendar} from 'react-native-calendars';
+import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {COLORS} from '@/shared/styles';
 import {useState} from 'react';
+import dayjs, {Dayjs} from 'dayjs';
+import 'dayjs/locale/ko';
 
 type DateString = `${number}-${number}-${number}`; //YYYY-MM-DD
 
@@ -59,20 +61,30 @@ function DayPicker() {
     };
   }
 
+  function convertDateToDateString(date: Dayjs): string {
+    const dateString: DateString = date
+      .toISOString()
+      .split('T')[0] as DateString;
+    return dateString;
+  }
+
+  //TODO: disabled 막아야하는 날짜
+  //TODO: 디테일한 css 설정해야함.
+
   return (
     <Calendar
-      style={{width: '100%'}}
-      monthFormat={'MMM yyyy'}
-      markedDates={changeSelectedDate(date!)}
+      style={{width: '100%', borderRadius: 20, padding: 8}}
+      monthFormat={'yyyy년 M월'}
+      markedDates={date && changeSelectedDate(date)}
+      minDate={convertDateToDateString(dayjs())}
       theme={{
-        todayBackgroundColor: COLORS.PURPLE_100,
         arrowColor: COLORS.PURPLE_300,
-        todayTextColor: COLORS.WHITE,
-        selectedDayTextColor: COLORS.PURPLE_100,
+        todayTextColor: COLORS.PURPLE_100,
+        selectedDayTextColor: COLORS.WHITE,
+        selectedDayBackgroundColor: COLORS.PURPLE_100,
       }}
       onDayPress={day => {
         setDate(day.dateString as DateString);
-        console.log('selected day', day);
       }}
     />
   );

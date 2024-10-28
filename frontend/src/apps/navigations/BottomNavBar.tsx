@@ -18,7 +18,6 @@ type TabProps = {
 
 function TabBarIcons(route: RouteProp<TabProps>, focused: boolean) {
   let iconName = '';
-  console.log(route);
   switch (route.name) {
     case PATH.HOME: {
       iconName = focused ? 'home' : 'home-outline';
