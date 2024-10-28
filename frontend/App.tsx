@@ -1,4 +1,4 @@
-import BottomNavBar from '@/apps/navigations/BottomNavBar';
+import BottomNavBar from '@/main/apps/navigations/BottomNavBar';
 import {NavigationContainer} from '@react-navigation/native';
 
 function App(): React.JSX.Element {
