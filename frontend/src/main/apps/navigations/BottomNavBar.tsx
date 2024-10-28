@@ -1,12 +1,12 @@
 import React from 'react';
-import HomeScreen from '@/apps/screens/HomeScreen.tsx';
-import {PATH} from '@/shared/constants';
-import GameScheduleScreen from '@/apps/screens/GameScheduleScreen.tsx';
-import MyTicketScreen from '@/apps/screens/MyTicketScreen.tsx';
-import MapScreen from '@/apps/screens/MapScreen.tsx';
+import HomeScreen from '@/main/apps/screens/HomeScreen.tsx';
+import {PATH} from '@/main/shared/constants';
+import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
+import MyTicketScreen from '@/main/apps/screens/MyTicketScreen.tsx';
+import MapScreen from '@/main/apps/screens/MapScreen.tsx';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
-import {COLORS} from '@/shared/styles';
+import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type TabProps = {
@@ -18,7 +18,6 @@ type TabProps = {
 
 function TabBarIcons(route: RouteProp<TabProps>, focused: boolean) {
   let iconName = '';
-  console.log(route);
   switch (route.name) {
     case PATH.HOME: {
       iconName = focused ? 'home' : 'home-outline';
