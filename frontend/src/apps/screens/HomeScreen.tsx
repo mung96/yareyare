@@ -1,10 +1,16 @@
 import {View} from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import DayPicker from '@/ui/components/common/DayPicker';
 
 function HomeScreen() {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Calendar />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+      }}>
+      <DayPicker />
     </View>
   );
 }
