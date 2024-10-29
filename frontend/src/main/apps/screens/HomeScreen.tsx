@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
-import GameScheduleCardList from '@/main/ui/components/game/GameScheduleCardList.tsx';
+import GameScheduleCardList from '@/main/ui/components/game/GameScheduleCardList';
+import GameResultCard from '@/main/ui/components/game/GameResultCard.tsx';
 
 function HomeScreen() {
   return (
@@ -15,6 +16,7 @@ function HomeScreen() {
       {/*<DayPicker />*/}
 
       <GameScheduleCardList />
+      <GameResultCard />
     </View>
   );
 }

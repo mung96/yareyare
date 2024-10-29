@@ -1,4 +1,4 @@
-import {Team} from '@/main/shared/types';
+import {Team, TeamKey} from '@/main/shared/types';
 
 const LOGO_PATH = {
   DOOSAN: require('@/main/assets/Doosan.png'),
@@ -14,18 +14,6 @@ const LOGO_PATH = {
 };
 
 //TODO: 백엔드 로직 나오면 값 수정해야함.
-export type TeamKey =
-  | 'DOOSAN'
-  | 'KIWOOM'
-  | 'LG'
-  | 'KT'
-  | 'NC'
-  | 'SAMSUNG'
-  | 'HANHWA'
-  | 'KIA'
-  | 'LOTTE'
-  | 'SSG';
-
 export const TEAM_LIST: {[key in TeamKey]: Team} = {
   DOOSAN: {name: '두산', logo: LOGO_PATH.DOOSAN, stadium: '고척 야구장'},
   KIWOOM: {name: '키움', logo: LOGO_PATH.KIWOOM, stadium: '고척 야구장'},

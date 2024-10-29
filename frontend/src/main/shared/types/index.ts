@@ -1,2 +1,3 @@
 export * from './date';
-export * from './team';
+export * from './Team.ts';
+export * from './date.ts';
