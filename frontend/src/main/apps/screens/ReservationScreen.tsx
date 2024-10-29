@@ -31,10 +31,27 @@ function ReservationScreen() {
 
   return (
     <SafeAreaView>
-      {reservationStep === 'SectionStep' && <SectionScreen />}
-      {reservationStep === 'SeatStep' && <SeatScreen />}
-      {reservationStep === 'UserStep' && <UserScreen />}
-      {reservationStep === 'PaymentStep' && <PaymentScreen />}
+      {reservationStep === 'SectionStep' && (
+        <SectionScreen onNext={() => history.push('SeatStep')} />
+      )}
+      {reservationStep === 'SeatStep' && (
+        <SeatScreen
+          onPrev={() => history.back()}
+          onNext={() => history.push('UserStep')}
+        />
+      )}
+      {reservationStep === 'UserStep' && (
+        <UserScreen
+          onPrev={() => history.back()}
+          onNext={() => history.push('PaymentStep')}
+        />
+      )}
+      {reservationStep === 'PaymentStep' && (
+        <PaymentScreen
+          onPrev={() => history.back()}
+          onSubmit={() => '제출완료'}
+        />
+      )}
     </SafeAreaView>
   );
 }
