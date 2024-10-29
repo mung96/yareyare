@@ -3128,6 +3128,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@use-funnel/core@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@use-funnel/core@npm:0.0.7"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 6f08ef60d185367dda171b959ac00d96e0155406518a047ba2d46cc2670b75116356f94955cf8fbbf92afacda3daacf69380985dc34503e5055650a9f6242008
+  languageName: node
+  linkType: hard
+
+"@use-funnel/react-navigation-native@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@use-funnel/react-navigation-native@npm:0.0.7"
+  dependencies:
+    "@use-funnel/core": ^0.0.7
+  peerDependencies:
+    "@react-navigation/native": ">=6"
+    react: ">=16.8"
+  checksum: 8b4988b1c05034a54e60994ffac14cd84a63ae2f15b4df0f0e2331fd31405561f74723c119e7a2323375210e26fb06ead805d6a01817f0aaa863a523043522bd
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -5400,6 +5421,7 @@ __metadata:
     "@types/react": ^18.2.6
     "@types/react-native-vector-icons": ^6.4.18
     "@types/react-test-renderer": ^18.0.0
+    "@use-funnel/react-navigation-native": ^0.0.7
     babel-jest: ^29.6.3
     babel-plugin-module-resolver: ^5.0.2
     dayjs: ^1.11.13
