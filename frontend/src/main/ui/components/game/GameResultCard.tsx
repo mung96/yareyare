@@ -1,6 +1,19 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import GameResultItem from '@/main/ui/components/game/GameResultItem.tsx';
+import {Game} from '@/main/shared/types/game.ts';
+
+const gameList: Game[] = [
+  {homeTeam: 'DOOSAN', awayTeam: 'NC', result: {homeScore: 1, awayScore: 12}},
+  {homeTeam: 'KT', awayTeam: 'KIA', result: {homeScore: 13, awayScore: 12}},
+  {homeTeam: 'SSG', awayTeam: 'KIWOOM', result: {homeScore: 1, awayScore: 2}},
+  {homeTeam: 'SAMSUNG', awayTeam: 'LG', result: {homeScore: 3, awayScore: 2}},
+  {
+    homeTeam: 'LOTTE',
+    awayTeam: 'HANHWA',
+    result: {homeScore: 13, awayScore: 12},
+  },
+];
 
 function GameResultCard() {
   return (
@@ -10,11 +23,9 @@ function GameResultCard() {
         <Text style={styles.text}>경기 결과</Text>
       </View>
       <View style={styles.resultList}>
-        <GameResultItem />
-        <GameResultItem />
-        <GameResultItem />
-        <GameResultItem />
-        <GameResultItem />
+        {gameList.map(game => (
+          <GameResultItem game={game} />
+        ))}
       </View>
     </View>
   );
