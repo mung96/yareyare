@@ -1,12 +1,21 @@
-import {Button, Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
+import MainButton from '@/main/ui/widgets/MainButton.tsx';
+import {Team} from '@/main/shared/types';
 
-function GameScheduleCard() {
+type Props = {
+  dateTime: string;
+  homeTeam: Team;
+  awayTeam: Team;
+  onPress: () => void;
+};
+
+function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Text style={styles.date}>24.08.15(목) 17:00</Text>
-        <Text style={styles.place}>고척 야구장</Text>
+        <Text style={styles.date}>{dateTime}</Text>
+        <Text style={styles.place}>{homeTeam.stadium}</Text>
       </View>
       <View style={styles.body}>
         <View style={styles.teamCard}>
@@ -14,25 +23,25 @@ function GameScheduleCard() {
             {/*TODO: resizeMode 조정해야함*/}
             <Image
               style={styles.image}
-              source={require('@/main/assets/Doosan.png')}
+              source={homeTeam.logo}
               resizeMode={'contain'}
             />
           </View>
-          <Text style={styles.teamName}>두산</Text>
+          <Text style={styles.teamName}>{homeTeam.name}</Text>
         </View>
         <Text>VS</Text>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
             <Image
               style={styles.image}
-              source={require('@/main/assets/Kiwoom.png')}
-              resizeMode={'cover'}
+              source={awayTeam.logo}
+              resizeMode={'contain'}
             />
           </View>
-          <Text style={styles.teamName}>키움</Text>
+          <Text style={styles.teamName}>{awayTeam.name}</Text>
         </View>
       </View>
-      <Button title={'예매하기'} />
+      <MainButton label={'예매하기'} onPress={onPress} />
     </View>
   );
 }
