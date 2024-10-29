@@ -24,7 +24,7 @@ function GameResultCard() {
       </View>
       <View style={styles.resultList}>
         {gameList.map(game => (
-          <GameResultItem game={game} />
+          <GameResultItem game={game} key={game.homeTeam} />
         ))}
       </View>
     </View>
