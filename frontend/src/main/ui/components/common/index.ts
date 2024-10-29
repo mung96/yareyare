@@ -1,1 +1,1 @@
-export * from './DayPicker.tsx';
+export * from './DayPicker';
