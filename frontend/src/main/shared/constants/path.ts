@@ -6,4 +6,6 @@ export const PATH = {
   MAP: 'Map',
 
   MY_TICKET: 'MyTicket',
+
+  RESERVATION: 'Reservation',
 } as const;
