@@ -54,19 +54,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   disabled: {
     opacity: 0.5,
   },
 
   text: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: '700',
   },
 
   filled: {
-    backgroundColor: COLORS.PURPLE_100,
+    backgroundColor: COLORS.PURPLE_400,
   },
   filledText: {
     color: COLORS.WHITE,
