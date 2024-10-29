@@ -1,1 +1,2 @@
-export * from './GameScheduleCard';
+export * from './GameScheduleCardList';
+export * from './GameResultCard';
