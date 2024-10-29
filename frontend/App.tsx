@@ -1,11 +1,12 @@
-import BottomNavBar from '@/main/apps/navigations/BottomNavBar';
 import {NavigationContainer} from '@react-navigation/native';
+import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';
 
 function App(): React.JSX.Element {
   return (
     <>
       <NavigationContainer>
-        <BottomNavBar />
+        <ReservationNavigation />
+        {/*<BottomNavBar />*/}
       </NavigationContainer>
     </>
   );
