@@ -1,7 +1,6 @@
 import {View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
-import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
-import {TEAM_LIST} from '@/main/shared/constants/team.ts';
+import GameScheduleCardList from '@/main/ui/components/game/GameScheduleCardList.tsx';
 
 function HomeScreen() {
   return (
@@ -14,12 +13,8 @@ function HomeScreen() {
         backgroundColor: COLORS.WHITE,
       }}>
       {/*<DayPicker />*/}
-      <GameScheduleCard
-        dateTime={'24.08.15(목)17:00'}
-        awayTeam={TEAM_LIST.DOOSAN}
-        homeTeam={TEAM_LIST.NC}
-        onPress={() => console.log('예매버튼 클릭')}
-      />
+
+      <GameScheduleCardList />
     </View>
   );
 }
