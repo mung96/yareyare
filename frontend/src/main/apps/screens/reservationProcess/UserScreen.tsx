@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
 import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
@@ -10,10 +10,11 @@ type Props = {
 };
 
 function UserScreen({onPrev, onNext}: Props) {
+  const [method, setMethod] = useState('모바일 티켓');
   return (
     <View style={styles.container}>
       <UserInput />
-      <MethodSelector />
+      <MethodSelector value={method} onSelect={setMethod} />
       <MainButton label={'다음'} onPress={onNext} size={'large'} />
     </View>
   );

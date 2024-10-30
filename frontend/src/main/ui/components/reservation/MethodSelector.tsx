@@ -4,14 +4,17 @@ import {Pressable, PressableProps, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-interface Props extends PressableProps {}
+interface Props extends PressableProps {
+  value: string;
+  onSelect: (value: string) => void;
+}
 
 const categoryList = [
   {label: '모바일 티켓', value: '모바일 티켓'},
   {label: '현장 수령', value: '현장 수령'},
 ];
 
-const MethodSelector = ({}: Props) => {
+const MethodSelector = ({value, onSelect}: Props) => {
   return (
     <View style={styles.componentContainer}>
       <Text style={styles.inputContainerTitle}>티켓수령방법 선택</Text>
@@ -20,14 +23,20 @@ const MethodSelector = ({}: Props) => {
           <Pressable
             key={method.value}
             style={styles.boxContainer}
-            onPress={() => console.log(method)}>
-            <View style={[styles.selectBox, styles.pressedSelectBox]}>
-              <Icon
-                name={'checkmark-sharp'}
-                color={COLORS.PURPLE_100}
-                size={12}
-                style={{bottom: 1}}
-              />
+            onPress={() => onSelect(method.value)}>
+            <View
+              style={[
+                styles.selectBox,
+                value === method.value && styles.pressedSelectBox,
+              ]}>
+              {value === method.value && (
+                <Icon
+                  name={'checkmark-sharp'}
+                  color={COLORS.PURPLE_100}
+                  size={12}
+                  style={{bottom: 1}}
+                />
+              )}
             </View>
 
             <Text style={styles.text}>{method.label}</Text>
