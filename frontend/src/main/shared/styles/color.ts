@@ -18,4 +18,4 @@ export const COLORS = {
   GREEN: '#34C759',
   BLUE: '#1C6FE3',
   PINK: '#EF5DA8',
-};
+} as const;

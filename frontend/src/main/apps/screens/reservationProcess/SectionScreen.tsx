@@ -1,13 +1,15 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {COLORS} from '@/main/shared/styles';
 import SectionList from '@/main/ui/components/reservation/SectionList';
+import {SECTION_LIST} from '@/main/shared/constants';
 
 type Props = {
   onNext: () => void;
 };
 
 function SectionScreen({onNext}: Props) {
+  console.log('section' + SECTION_LIST);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -15,6 +17,7 @@ function SectionScreen({onNext}: Props) {
         <Text style={styles.date}>2024.08.15(목) 17:00 기아 챔피언스 필드</Text>
       </View>
 
+      <Image source={SECTION_LIST.FIRST_INFIELD.img} />
       <SectionList />
 
       <MainButton label={'다음'} onPress={onNext} size={'large'} />
