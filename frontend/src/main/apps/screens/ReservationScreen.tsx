@@ -25,7 +25,7 @@ function ReservationScreen() {
   }>({
     id: 'reservation',
     initial: {
-      step: 'SectionStep',
+      step: 'UserStep',
       context: {},
     },
   });
