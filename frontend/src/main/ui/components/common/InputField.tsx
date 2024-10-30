@@ -33,7 +33,12 @@ const InputField = forwardRef(
     return (
       <Pressable
         onPress={handlePressInput}
-        style={{display: 'flex', flexDirection: 'column', gap: 3}}>
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 3,
+          width: '75%',
+        }}>
         {label && <Text style={styles.label}>{label}</Text>}
         <View
           style={[
@@ -47,7 +52,7 @@ const InputField = forwardRef(
             <TextInput
               ref={ref ? mergeRefs(innerRef, ref) : innerRef}
               editable={!disabled}
-              placeholderTextColor={COLORS.GRAY_400}
+              placeholderTextColor={COLORS.GRAY_200}
               style={[styles.input, disabled && styles.disabled]}
               autoCapitalize="none"
               spellCheck={false}
@@ -66,22 +71,24 @@ const InputField = forwardRef(
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: COLORS.GRAY_200,
-    padding: 2,
+    padding: 1,
     borderRadius: 8,
   },
   label: {
     color: COLORS.BLACK,
-    fontSize: 16,
+    fontSize: 14,
   },
   multiLine: {
     paddingBottom: 30,
   },
   input: {
     fontSize: 14,
+    backgroundColor: COLORS.WHITE,
     color: COLORS.BLACK,
-    padding: 2,
+    paddingVertical: 1,
+    paddingHorizontal: 8,
   },
   innerContainer: {
     flexDirection: 'row',
@@ -89,7 +96,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   disabled: {
-    backgroundColor: COLORS.GRAY_400,
+    backgroundColor: COLORS.GRAY_500,
     color: COLORS.BLACK,
   },
   inputError: {
