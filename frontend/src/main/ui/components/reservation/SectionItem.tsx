@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 4,
+
+    borderBottomColor: COLORS.GRAY_200,
+    borderBottomWidth: 0.4,
   },
   sectionColor: {
     backgroundColor: COLORS.BLACK,
