@@ -1,4 +1,4 @@
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {useFunnel} from '@use-funnel/react-navigation-native';
 import {
   PaymentStep,
@@ -10,6 +10,7 @@ import SectionScreen from '@/main/apps/screens/reservationProcess/SectionScreen.
 import SeatScreen from '@/main/apps/screens/reservationProcess/SeatScreen.tsx';
 import UserScreen from '@/main/apps/screens/reservationProcess/UserScreen.tsx';
 import PaymentScreen from '@/main/apps/screens/reservationProcess/PaymentScreen.tsx';
+import {COLORS} from '@/main/shared/styles';
 
 function ReservationScreen() {
   const {
@@ -30,7 +31,7 @@ function ReservationScreen() {
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {reservationStep === 'SectionStep' && (
         <SectionScreen onNext={() => history.push('SeatStep')} />
       )}
@@ -56,4 +57,9 @@ function ReservationScreen() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.WHITE,
+  },
+});
 export default ReservationScreen;

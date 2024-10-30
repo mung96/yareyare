@@ -41,7 +41,7 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
           <Text style={styles.teamName}>{awayTeam.name}</Text>
         </View>
       </View>
-      <MainButton label={'예매하기'} onPress={onPress} />
+      <MainButton label={'예매하기'} onPress={onPress} variant={'filledSub'} />
     </View>
   );
 }
