@@ -15,10 +15,8 @@ function SectionItem({section, onSelect}: Props) {
         onSelect(section);
       }}>
       <View style={styles.textContainer}>
-        <View
-          style={[styles.sectionColor, , {backgroundColor: section.color}]}
-        />
-        <Text style={[styles.text]}>{section.label}</Text>
+        <View style={[styles.sectionColor, {backgroundColor: section.color}]} />
+        <Text style={styles.text}>{section.label}</Text>
       </View>
       <View style={styles.textContainer}>
         <Text style={[styles.text, styles.restText]}>1</Text>
