@@ -1,6 +1,8 @@
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import InputField from '@/main/ui/components/common/InputField.tsx';
+import React from 'react';
+import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
 
 type Props = {
   onPrev: () => void;
@@ -9,8 +11,9 @@ type Props = {
 
 function UserScreen({onPrev, onNext}: Props) {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.componentContainer}>
+        <MethodSelector />
         <View style={styles.titleContainer}>
           <Text style={styles.categoryText}>일반</Text>
           <Text style={styles.totalPrice}>15,000원</Text>
@@ -26,12 +29,18 @@ function UserScreen({onPrev, onNext}: Props) {
           </Text>
         </View>
       </View>
+
       <Button title={'다음'} onPress={onNext} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
   titleContainer: {
     borderBottomWidth: 0.7,
     borderColor: COLORS.BLACK,
@@ -54,6 +63,7 @@ const styles = StyleSheet.create({
   componentContainer: {
     backgroundColor: COLORS.GRAY_400,
     paddingHorizontal: 14,
+    paddingVertical: 14,
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
   inputContainerTitle: {
     fontSize: 14,
     color: COLORS.BLACK,
-    fontWeight: '700',
+    fontWeight: '900',
   },
 });
 
