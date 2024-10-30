@@ -13,9 +13,9 @@ import {COLORS} from '@/main/shared/styles';
 
 interface Props extends PressableProps {
   label: string;
-  variant?: 'filled' | 'outlined';
+  variant?: 'filledMain' | 'filledSub' | 'outlined';
   inValid?: boolean;
-  size?: 'large';
+  size?: 'large' | 'medium';
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   icon?: ReactNode;
@@ -24,9 +24,9 @@ interface Props extends PressableProps {
 //TODO: 버튼 제출중일때 로딩띄우기
 function MainButton({
   label,
-  variant = 'filled',
+  variant = 'filledMain',
   disabled = false,
-  size = 'large',
+  size = 'medium',
   style = null,
   ...props
 }: Props) {
@@ -54,24 +54,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 8,
   },
   disabled: {
-    opacity: 0.5,
+    backgroundColor: COLORS.PURPLE_200,
   },
 
   text: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '900',
   },
 
-  filled: {
-    backgroundColor: COLORS.PURPLE_400,
+  filledMain: {
+    backgroundColor: COLORS.PURPLE_100,
   },
-  filledText: {
+  filledMainText: {
     color: COLORS.WHITE,
   },
-  filledPressed: {
+  filledMainPressed: {
+    backgroundColor: COLORS.PURPLE_200,
+  },
+
+  filledSub: {
+    backgroundColor: COLORS.PURPLE_400,
+  },
+  filledSubText: {
+    color: COLORS.WHITE,
+  },
+  filledSubPressed: {
     backgroundColor: COLORS.PURPLE_200,
   },
 
@@ -88,11 +97,20 @@ const styles = StyleSheet.create({
     color: COLORS.PURPLE_100,
   },
 
+  medium: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
+  },
+
   large: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 12,
   },
 });
 

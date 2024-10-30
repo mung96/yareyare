@@ -1,1 +1,3 @@
-export * from './path.ts';
+export * from './path';
+export * from './team';
+export * from './reservation';

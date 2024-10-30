@@ -14,4 +14,8 @@ export const COLORS = {
   PURPLE_200: '#4A4CBC',
   PURPLE_300: '#AEAFF7',
   PURPLE_400: '#3337BF',
-};
+
+  GREEN: '#34C759',
+  BLUE: '#1C6FE3',
+  PINK: '#EF5DA8',
+} as const;

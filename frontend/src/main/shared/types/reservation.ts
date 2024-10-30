@@ -1,3 +1,19 @@
+import {COLORS} from '../styles';
+import {ImageSourcePropType} from 'react-native';
+
+export type SectionKey =
+  | 'FIRST_INFIELD'
+  | 'FIRST_OUTFIELD'
+  | 'CENTER'
+  | 'THIRD_INFIELD'
+  | 'THIRD_OUTFIELD';
+
+export type Section = {
+  label: string;
+  color: (typeof COLORS)[keyof typeof COLORS];
+  img: ImageSourcePropType;
+};
+
 export type ReservationProcess =
   | 'SectionStep'
   | 'SeatStep'
