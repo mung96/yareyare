@@ -3,17 +3,27 @@ import InputField from '@/main/ui/components/common/InputField.tsx';
 import React from 'react';
 import {COLORS} from '@/main/shared/styles';
 
-function UserInput() {
+type Props = {
+  user: {
+    name: string;
+    birthday: string;
+    phoneNumber: string;
+    email: string;
+  };
+  totalPrice: string;
+};
+
+function UserInput({user, totalPrice}: Props) {
   return (
     <View style={styles.componentContainer}>
       <View style={styles.titleContainer}>
         <Text style={styles.categoryText}>일반</Text>
-        <Text style={styles.totalPrice}>15,000원</Text>
+        <Text style={styles.totalPrice}>{totalPrice}원</Text>
       </View>
       <Text style={styles.inputContainerTitle}>예매자 정보 입력</Text>
       <View style={styles.inputContainer}>
-        <InputField label={'성명'} value={'정지연'} disabled={true} />
-        <InputField label={'생년월일'} value={'000315'} disabled={true} />
+        <InputField label={'성명'} value={user.name} disabled={true} />
+        <InputField label={'생년월일'} value={user.birthday} disabled={true} />
         <InputField label={'전화번호'} placeholder={'000-0000-0000'} />
         <InputField label={'이메일주소'} placeholder={'example@naver.com'} />
         <Text style={styles.description}>
