@@ -1,13 +1,14 @@
 import {COLORS} from '@/main/shared/styles';
 import {Section, SectionKey} from '@/main/shared/types';
 
-const SECTION_IMG = {
+export const SECTION_IMG = {
+  DEFAULT: require('@/main/assets/defaultStadium.png'),
   FIRST_INFIELD: require('@/main/assets/firstInfield.png'),
   FIRST_OUTFIELD: require('@/main/assets/firstoutfield.png'),
   CENTER: require('@/main/assets/center.png'),
   THIRD_INFIELD: require('@/main/assets/thirdInfield.png'),
   THIRD_OUTFIELD: require('@/main/assets/thirdOutfield.png'),
-};
+} as const;
 
 export const SECTION_LIST: {[key in SectionKey]: Section} = {
   FIRST_INFIELD: {

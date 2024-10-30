@@ -1,18 +1,30 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
+import {Section} from '@/main/shared/types';
 
-function SectionItem() {
+type Props = {
+  section: Section;
+  onSelect: (section: Section) => void;
+};
+
+function SectionItem({section, onSelect}: Props) {
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => {
+        onSelect(section);
+      }}>
       <View style={styles.textContainer}>
-        <View style={styles.sectionColor} />
-        <Text style={[styles.text]}>1루 내야</Text>
+        <View
+          style={[styles.sectionColor, , {backgroundColor: section.color}]}
+        />
+        <Text style={[styles.text]}>{section.label}</Text>
       </View>
       <View style={styles.textContainer}>
         <Text style={[styles.text, styles.restText]}>1</Text>
         <Text style={[styles.text]}>석</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

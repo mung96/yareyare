@@ -1,18 +1,28 @@
 import SectionItem from '@/main/ui/components/reservation/SectionItem.tsx';
 import {Image, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
-import {SECTION_LIST} from '@/main/shared/constants';
+import {Section, SectionKey} from '@/main/shared/types';
+import {SECTION_IMG, SECTION_LIST} from '@/main/shared/constants';
+import {useState} from 'react';
 
 function SectionList() {
+  const [selctedSection, setSelctedSection] = useState<Section | undefined>();
+
   return (
     <>
       <View style={styles.imgContainer}>
-        <Image source={SECTION_LIST.FIRST_INFIELD.img} />
+        <Image
+          source={selctedSection ? selctedSection.img : SECTION_IMG.DEFAULT}
+        />
       </View>
       <View style={styles.sectionContainer}>
-        <SectionItem />
-        <SectionItem />
-        <SectionItem />
+        {Object.keys(SECTION_LIST).map(sectionKey => (
+          <SectionItem
+            key={sectionKey}
+            section={SECTION_LIST[sectionKey as SectionKey]}
+            onSelect={setSelctedSection}
+          />
+        ))}
       </View>
     </>
   );
