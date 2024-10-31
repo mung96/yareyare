@@ -11,6 +11,8 @@ function StepBar({totalStep, currentStep}: Props) {
     <View style={styles.container}>
       {Array.from({length: totalStep}).map((item, stepNumber) => (
         <View
+          //TODO: 인덱스르르 key로 박으면 안되는데...
+          key={stepNumber}
           style={[
             styles.stepItem,
             stepNumber + 1 <= currentStep && styles.prevStepItem,
