@@ -11,6 +11,8 @@ import SeatScreen from '@/main/apps/screens/reservationProcess/SeatScreen.tsx';
 import UserScreen from '@/main/apps/screens/reservationProcess/UserScreen.tsx';
 import PaymentScreen from '@/main/apps/screens/reservationProcess/PaymentScreen.tsx';
 import {COLORS} from '@/main/shared/styles';
+import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
+import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 
 function ReservationScreen() {
   const {
@@ -32,6 +34,10 @@ function ReservationScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StepBar
+        totalStep={4}
+        currentStep={convertReservationStepToStepNumber(reservationStep)}
+      />
       {reservationStep === 'SectionStep' && (
         <SectionScreen onNext={() => history.push('SeatStep')} />
       )}
