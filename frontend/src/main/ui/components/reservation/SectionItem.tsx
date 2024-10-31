@@ -1,6 +1,7 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import {Section} from '@/main/shared/types';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
   section: Section;
@@ -16,11 +17,11 @@ function SectionItem({section, onSelect}: Props) {
       }}>
       <View style={styles.textContainer}>
         <View style={[styles.sectionColor, {backgroundColor: section.color}]} />
-        <Text style={styles.text}>{section.label}</Text>
+        <CustomText style={styles.text}>{section.label}</CustomText>
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.text, styles.restText]}>1</Text>
-        <Text style={[styles.text]}>석</Text>
+        <CustomText style={[styles.text, styles.restText]}>1</CustomText>
+        <CustomText style={[styles.text]}>석</CustomText>
       </View>
     </Pressable>
   );

@@ -1,4 +1,5 @@
-import {Button, Text, View} from 'react-native';
+import {Button, View} from 'react-native';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
   onPrev: () => void;
@@ -9,7 +10,7 @@ function SeatScreen({onPrev, onNext}: Props) {
   return (
     <View>
       <Button title={'이전'} onPress={onPrev} />
-      <Text>좌석선택</Text>
+      <CustomText>좌석선택</CustomText>
       <Button title={'다음'} onPress={onNext} />
     </View>
   );

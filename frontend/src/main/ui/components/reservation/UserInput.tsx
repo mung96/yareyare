@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import InputField from '@/main/ui/components/common/InputField.tsx';
 import React from 'react';
 import {COLORS} from '@/main/shared/styles';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
   user: {
@@ -17,18 +18,20 @@ function UserInput({user, totalPrice}: Props) {
   return (
     <View style={styles.componentContainer}>
       <View style={styles.titleContainer}>
-        <Text style={styles.categoryText}>일반</Text>
-        <Text style={styles.totalPrice}>{totalPrice}원</Text>
+        <CustomText style={styles.categoryText}>일반</CustomText>
+        <CustomText style={styles.totalPrice}>{totalPrice}원</CustomText>
       </View>
-      <Text style={styles.inputContainerTitle}>예매자 정보 입력</Text>
+      <CustomText style={styles.inputContainerTitle}>
+        예매자 정보 입력
+      </CustomText>
       <View style={styles.inputContainer}>
         <InputField label={'성명'} value={user.name} disabled={true} />
         <InputField label={'생년월일'} value={user.birthday} disabled={true} />
         <InputField label={'전화번호'} placeholder={'000-0000-0000'} />
         <InputField label={'이메일주소'} placeholder={'example@naver.com'} />
-        <Text style={styles.description}>
+        <CustomText style={styles.description}>
           티켓수령 및 본인확인을 위해 정확한 정보를 입력해주세요
-        </Text>
+        </CustomText>
       </View>
     </View>
   );

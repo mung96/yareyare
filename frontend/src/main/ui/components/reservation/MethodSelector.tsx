@@ -1,8 +1,9 @@
 import React from 'react';
-import {Pressable, PressableProps, StyleSheet, Text, View} from 'react-native';
+import {Pressable, PressableProps, StyleSheet, View} from 'react-native';
 
 import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 interface Props extends PressableProps {
   value: string;
@@ -17,7 +18,9 @@ const categoryList = [
 const MethodSelector = ({value, onSelect}: Props) => {
   return (
     <View style={styles.componentContainer}>
-      <Text style={styles.inputContainerTitle}>티켓수령방법 선택</Text>
+      <CustomText style={styles.inputContainerTitle}>
+        티켓수령방법 선택
+      </CustomText>
       <View style={styles.selectContainer}>
         {categoryList.map(method => (
           <Pressable
@@ -39,7 +42,7 @@ const MethodSelector = ({value, onSelect}: Props) => {
               )}
             </View>
 
-            <Text style={styles.text}>{method.label}</Text>
+            <CustomText style={styles.text}>{method.label}</CustomText>
           </Pressable>
         ))}
       </View>

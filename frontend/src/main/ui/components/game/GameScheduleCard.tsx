@@ -1,7 +1,8 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Team} from '@/main/shared/types';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
   dateTime: string;
@@ -14,8 +15,8 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Text style={styles.date}>{dateTime}</Text>
-        <Text style={styles.place}>{homeTeam.stadium}</Text>
+        <CustomText style={styles.date}>{dateTime}</CustomText>
+        <CustomText style={styles.place}>{homeTeam.stadium}</CustomText>
       </View>
       <View style={styles.body}>
         <View style={styles.teamCard}>
@@ -27,9 +28,9 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
               resizeMode={'contain'}
             />
           </View>
-          <Text style={styles.teamName}>{homeTeam.name}</Text>
+          <CustomText style={styles.teamName}>{homeTeam.name}</CustomText>
         </View>
-        <Text>VS</Text>
+        <CustomText>VS</CustomText>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
             <Image
@@ -38,7 +39,7 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
               resizeMode={'contain'}
             />
           </View>
-          <Text style={styles.teamName}>{awayTeam.name}</Text>
+          <CustomText style={styles.teamName}>{awayTeam.name}</CustomText>
         </View>
       </View>
       <MainButton label={'예매하기'} onPress={onPress} variant={'filledSub'} />
