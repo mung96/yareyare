@@ -1,7 +1,8 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {TEAM_LIST} from '@/main/shared/constants/team.ts';
 import {COLORS} from '@/main/shared/styles';
 import {Game} from '@/main/shared/types/game.ts';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
   game: Game;
@@ -18,21 +19,21 @@ function GameResultItem({game}: Props) {
           resizeMode={'contain'}
         />
       </View>
-      <Text
+      <CustomText
         style={[
           styles.score,
           game.result.homeScore > game.result.awayScore && styles.winScore,
         ]}>
         {game.result.homeScore}
-      </Text>
-      <Text style={styles.text}>vs</Text>
-      <Text
+      </CustomText>
+      <CustomText style={styles.text}>vs</CustomText>
+      <CustomText
         style={[
           styles.score,
           game.result.homeScore < game.result.awayScore && styles.winScore,
         ]}>
         {game.result.awayScore}
-      </Text>
+      </CustomText>
       <View style={styles.imageBox}>
         <Image
           style={styles.image}

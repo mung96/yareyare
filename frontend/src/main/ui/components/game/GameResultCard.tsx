@@ -1,7 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import GameResultItem from '@/main/ui/components/game/GameResultItem.tsx';
 import {Game} from '@/main/shared/types/game.ts';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 const gameList: Game[] = [
   {homeTeam: 'DOOSAN', awayTeam: 'NC', result: {homeScore: 1, awayScore: 12}},
@@ -19,8 +20,8 @@ function GameResultCard() {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={[styles.date, styles.text]}>2024.08.14</Text>
-        <Text style={styles.text}>경기 결과</Text>
+        <CustomText style={[styles.date, styles.text]}>2024.08.14</CustomText>
+        <CustomText style={styles.text}>경기 결과</CustomText>
       </View>
       <View style={styles.resultList}>
         {gameList.map(game => (

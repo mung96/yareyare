@@ -10,6 +10,7 @@ import {
 
 import {COLORS} from '@/main/shared/styles';
 import {mergeRefs} from '@/main/shared/utils/common.ts';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 interface Props extends TextInputProps {
   disabled?: boolean;
@@ -39,7 +40,7 @@ const InputField = forwardRef(
           gap: 3,
           width: '75%',
         }}>
-        {label && <Text style={styles.label}>{label}</Text>}
+        {label && <CustomText style={styles.label}>{label}</CustomText>}
         <View
           style={[
             styles.container,
