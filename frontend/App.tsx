@@ -1,14 +1,15 @@
-import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation';
-import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import rootReducer from '@/main/stores/clients/rootReducer.ts';
+import RootNavigation from '@/main/apps/navigations/RootNavigation.tsx';
+
+const store = createStore(rootReducer);
 
 function App(): React.JSX.Element {
   return (
-    <>
-      <NavigationContainer>
-        <ReservationNavigation />
-        {/*<BottomNavBar />*/}
-      </NavigationContainer>
-    </>
+    <Provider store={store}>
+      <RootNavigation />
+    </Provider>
   );
 }
 
