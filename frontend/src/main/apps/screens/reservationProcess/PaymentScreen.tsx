@@ -1,4 +1,9 @@
-import {Button, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import PaymentMethodList from '@/main/ui/components/reservation/PaymentMethodList';
+import ExpectedPayment from '@/main/ui/components/reservation/ExpectedPayment.tsx';
+import MainButton from '@/main/ui/widgets/MainButton.tsx';
+import {COLORS} from '@/main/shared/styles';
 
 type Props = {
   onPrev: () => void;
@@ -6,13 +11,24 @@ type Props = {
 };
 
 function PaymentScreen({onPrev, onSubmit}: Props) {
+  const [method, setMethod] = useState('');
   return (
-    <View>
-      <Button title={'이전'} onPress={onPrev} />
-      <Text>결제페이지</Text>
-      <Button title={'다음'} onPress={onSubmit} />
+    <View style={styles.container}>
+      <PaymentMethodList select={method} onSelect={setMethod} />
+
+      <ExpectedPayment />
+
+      <MainButton label={'결제 및 완료'} onPress={onSubmit} size={'large'} />
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.WHITE,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+  },
+});
 export default PaymentScreen;
