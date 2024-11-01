@@ -2,6 +2,7 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import React from 'react';
 import {COLORS} from '@/main/shared/styles';
+import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';
 
 type Props = {
   select: string;
@@ -21,19 +22,25 @@ const paymentMethod = [
 
 function PaymentMethodList({select, onSelect}: Props) {
   return (
-    <View style={styles.container}>
-      {paymentMethod.map(method => (
-        <Pressable
-          style={[styles.item, select === method.value && styles.selectItem]}
-          onPress={() => onSelect(method.value)}>
-          <CustomText
-            style={[styles.text, select === method.value && styles.selectText]}
-            key={method.label}>
-            {method.label}
-          </CustomText>
-        </Pressable>
-      ))}
-    </View>
+    <ReservationBox title={'결제 방법 입력'}>
+      <View style={styles.container}>
+        {paymentMethod.map(method => (
+          <Pressable
+            key={method.label}
+            style={[styles.item, select === method.value && styles.selectItem]}
+            onPress={() => onSelect(method.value)}>
+            <CustomText
+              style={[
+                styles.text,
+                select === method.value && styles.selectText,
+              ]}
+              key={method.label}>
+              {method.label}
+            </CustomText>
+          </Pressable>
+        ))}
+      </View>
+    </ReservationBox>
   );
 }
 
