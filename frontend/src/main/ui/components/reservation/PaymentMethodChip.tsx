@@ -24,10 +24,7 @@ function PaymentMethodList({select, onSelect}: Props) {
     <View style={styles.container}>
       {paymentMethod.map(method => (
         <Pressable
-          style={[
-            styles.item,
-            select === method.value && styles.selectContainer,
-          ]}
+          style={[styles.item, select === method.value && styles.selectItem]}
           onPress={() => onSelect(method.value)}>
           <CustomText
             style={[styles.text, select === method.value && styles.selectText]}
@@ -66,8 +63,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 16,
   },
-  selectContainer: {
+  selectItem: {
     backgroundColor: COLORS.PURPLE_100,
+    borderWidth: 0,
   },
   selectText: {
     color: COLORS.WHITE,
