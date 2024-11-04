@@ -2,6 +2,7 @@ import {Button, StyleSheet, View} from 'react-native';
 import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
 import {COLORS} from '@/main/shared/styles';
 import {useState} from 'react';
+import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.tsx';
 
 type Props = {
   onPrev: () => void;
@@ -30,6 +31,7 @@ function SeatScreen({onPrev, onNext}: Props) {
   return (
     <View style={styles.container}>
       <SeatContainment value={seatList} onAdd={addSeat} onRemove={removeSeat} />
+      <SelectedSeatList />
       <Button title={'다음'} onPress={onNext} />
     </View>
   );
@@ -38,6 +40,9 @@ function SeatScreen({onPrev, onNext}: Props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.WHITE,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
   },
 });
 
