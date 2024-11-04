@@ -1,5 +1,6 @@
 package yare.yare.domain.game.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.game.dto.*;
 import yare.yare.global.dto.ResponseDto;
@@ -166,6 +167,17 @@ public class GameController {
         
         result.setSections(sections);
         
+        return ResponseDto.success(OK, result);
+    }
+
+    @PostMapping("/{gameId}/seats")
+    public ResponseDto<ReserveSeatRes> reserveSeat(
+            @PathVariable Long gameId,
+            @RequestBody @Valid ReserveSeatReq reserveSeatReq) {
+
+        ReserveSeatRes result = new ReserveSeatRes();
+        result.setPrice(15000);
+
         return ResponseDto.success(OK, result);
     }
 }

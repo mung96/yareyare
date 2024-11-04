@@ -1,9 +1,13 @@
 package yare.yare.domain.game.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ReserveSeatReq {
 
-    private Long seatId;
+    @NotEmpty
+    private List<Long> seats;
 }
