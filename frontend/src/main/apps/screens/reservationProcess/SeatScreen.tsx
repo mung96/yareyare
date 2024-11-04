@@ -24,7 +24,7 @@ function SeatScreen({onPrev, onNext}: Props) {
 
   function removeSeat(arr: Seat[], seat: Seat) {
     const newSeatList = arr.filter(
-      item => !(item.row == seat.row && item.col == seat.col),
+      item => !(item.row === seat.row && item.col === seat.col),
     );
     setSeatList(newSeatList);
   }
