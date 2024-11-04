@@ -134,6 +134,8 @@ public class GameController {
         
         List<SectionDto> sections = new ArrayList<>();
 
+        int seatId = 9241;
+
         for (int sectionName = 101; sectionName <= 106 ; sectionName++) {
             List<RowDto> rows = new ArrayList<>();
 
@@ -142,9 +144,9 @@ public class GameController {
 
                 for (int j = 0; j < 20; j++) {
                     seats.add(SeatDto.builder()
-                            .seatId((long) 9241 + 11 * i + j)
+                            .seatId((long) seatId++)
                             .seatNumber(j + 1)
-                            .isAvailable((i + j) / 5 == 0)
+                            .isAvailable((i + j) % 5 != 0)
                             .build()
                     );
                 }
