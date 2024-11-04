@@ -2,7 +2,7 @@ import {ReservationProcess} from '@/main/shared/types';
 import {neverExpected} from '@/main/shared/utils/type.ts';
 
 export function convertReservationStepToStepNumber(step: ReservationProcess) {
-  if (step === 'SectionStep') {
+  if (step === 'GradeStep') {
     return 1;
   }
   if (step === 'SeatStep') {
