@@ -24,6 +24,5 @@ public class Team {
     private String name;
 
     @NotNull
-    @Column(length = 255)
     private String logo;
 }
