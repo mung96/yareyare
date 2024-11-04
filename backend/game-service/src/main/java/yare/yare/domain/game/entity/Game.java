@@ -52,18 +52,20 @@ public class Game {
 
     @NotNull
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @NotNull
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @NotNull
+    @Column(columnDefinition = "TINYINT")
+    private Boolean isFinished;
+
     @Column(columnDefinition = "TINYINT")
     private Integer homeScore;
 
     @Column(columnDefinition = "TINYINT")
     private Integer awayScore;
-
-    @NotNull
-    private LocalDateTime matchedAt;
 }

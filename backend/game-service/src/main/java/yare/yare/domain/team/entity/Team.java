@@ -26,7 +26,4 @@ public class Team {
     @NotNull
     @Column(length = 255)
     private String logo;
-
-    @Column(columnDefinition = "SMALLINT")
-    private Integer stadiumId;
 }
