@@ -18,7 +18,7 @@ export const SECTION_LIST: {[key in SectionKey]: Section} = {
   },
   FIRST_OUTFIELD: {
     label: '1루 외야',
-    color: COLORS.GREEN,
+    color: COLORS.GREEN_100,
     img: SECTION_IMG.FIRST_OUTFIELD,
   },
   CENTER: {
@@ -33,7 +33,7 @@ export const SECTION_LIST: {[key in SectionKey]: Section} = {
   },
   THIRD_OUTFIELD: {
     label: '3루 외야',
-    color: COLORS.GREEN,
+    color: COLORS.GREEN_100,
     img: SECTION_IMG.THIRD_OUTFIELD,
   },
 };

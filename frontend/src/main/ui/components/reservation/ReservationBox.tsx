@@ -4,14 +4,14 @@ import {COLORS} from '@/main/shared/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
-  title: string;
+  title?: string;
   children: ReactNode;
 };
 
 function ReservationBox({title, children}: Props) {
   return (
     <View style={styles.container}>
-      <CustomText style={styles.title}>{title}</CustomText>
+      {title && <CustomText style={styles.title}>{title}</CustomText>}
       {children}
     </View>
   );
