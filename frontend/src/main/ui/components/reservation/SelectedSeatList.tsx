@@ -2,6 +2,7 @@ import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx'
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
+import SelectedSeatItem from '@/main/ui/components/reservation/SelectedSeatItem.tsx';
 
 function SelectedSeatList() {
   return (
@@ -12,6 +13,7 @@ function SelectedSeatList() {
           <Text style={styles.seatCntText}>2</Text>
         </View>
       </View>
+      <SelectedSeatItem seat={{section: 101, row: 'E', col: 12}} />
     </ReservationBox>
   );
 }

@@ -9,6 +9,7 @@ type Props = {
   onNext: () => void;
 };
 export type Seat = {
+  section: number;
   row: string;
   col: number;
 };
