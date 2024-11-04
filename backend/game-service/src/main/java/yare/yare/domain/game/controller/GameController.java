@@ -1,8 +1,6 @@
 package yare.yare.domain.game.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.game.dto.*;
 import yare.yare.global.dto.ResponseDto;
 
@@ -128,7 +126,8 @@ public class GameController {
 
     @GetMapping("/{gameId}/seats")
     public ResponseDto<SeatListRes> seatList(
-            @PathVariable Long gameId) {
+            @PathVariable Long gameId,
+            @RequestParam Integer gradeId) {
         
         SeatListRes result = new SeatListRes();
         
@@ -169,5 +168,4 @@ public class GameController {
         
         return ResponseDto.success(OK, result);
     }
-        
 }
