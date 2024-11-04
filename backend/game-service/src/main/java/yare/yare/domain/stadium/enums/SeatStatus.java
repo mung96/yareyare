@@ -8,5 +8,4 @@ public enum SeatStatus {
     AVAILABLE,
     PENDING,
     SOLD_OUT,
-    ;
 }

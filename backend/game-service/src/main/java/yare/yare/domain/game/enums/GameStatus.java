@@ -10,5 +10,4 @@ public enum GameStatus {
     DRAW,
     OFF,
     SCHEDULED
-    ;
 }
