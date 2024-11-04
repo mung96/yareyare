@@ -25,5 +25,5 @@ public class Seat {
 
     @NotNull
     @Column(columnDefinition = "SMALLINT")
-    private Integer seatNo;
+    private Integer seatNumber;
 }
