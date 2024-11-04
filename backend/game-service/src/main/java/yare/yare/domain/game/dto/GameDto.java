@@ -1,11 +1,13 @@
 package yare.yare.domain.game.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
+@Builder
 public class GameDto {
 
     private Long gameId;
