@@ -1,11 +1,12 @@
 spring:
   application:
     name: payment-service
+
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yare-payment
-    username: ssafy
-    password: ssafy
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:payment;MODE=MYSQL
+    username: sa
+    password:
 
   h2:
     console:
@@ -17,7 +18,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
