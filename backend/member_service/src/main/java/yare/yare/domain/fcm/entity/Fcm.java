@@ -24,7 +24,7 @@ public class Fcm {
     private Member member;
 
     @NotNull
-    @Column(length = 50, unique = true)
+    @Column(length = 256, unique = true)
     private String token;
 
     @NotNull
