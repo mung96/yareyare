@@ -3,9 +3,7 @@ package yare.yare.domain.game.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import yare.yare.domain.game.dto.GameDetailsRes;
-import yare.yare.domain.game.dto.GameDto;
-import yare.yare.domain.game.dto.GameListRes;
+import yare.yare.domain.game.dto.*;
 import yare.yare.global.dto.ResponseDto;
 
 import java.time.LocalDate;
@@ -81,6 +79,49 @@ public class GameController {
                 .startTime(LocalTime.of(18, 30))
                 .stadiumName("광주-기아 챔피언스 필드")
                 .build();
+
+        return ResponseDto.success(OK, result);
+    }
+
+    @GetMapping("/{gameId}/grades")
+    public ResponseDto<AvailableSeatListRes> availableSeatList(
+            @PathVariable Long gameId) {
+
+        AvailableSeatListRes result = new AvailableSeatListRes();
+
+        List<GradeDto> grades = new ArrayList<>();
+
+        grades.add(GradeDto.builder()
+                .gradeId(36)
+                .gradeName("1루 내야")
+                .availableSeats(1)
+                .build());
+
+        grades.add(GradeDto.builder()
+                .gradeId(37)
+                .gradeName("1루 외야")
+                .availableSeats(237)
+                .build());
+
+        grades.add(GradeDto.builder()
+                .gradeId(38)
+                .gradeName("중앙테이블석")
+                .availableSeats(30)
+                .build());
+
+        grades.add(GradeDto.builder()
+                .gradeId(39)
+                .gradeName("3루 내야")
+                .availableSeats(147)
+                .build());
+
+        grades.add(GradeDto.builder()
+                .gradeId(40)
+                .gradeName("3루 외야")
+                .availableSeats(234)
+                .build());
+
+        result.setGrades(grades);
 
         return ResponseDto.success(OK, result);
     }
