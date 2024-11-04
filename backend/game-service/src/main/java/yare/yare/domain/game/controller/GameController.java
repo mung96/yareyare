@@ -11,6 +11,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static yare.yare.global.statuscode.SuccessCode.CREATED;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
@@ -179,7 +180,7 @@ public class GameController {
         ReserveSeatRes result = new ReserveSeatRes();
         result.setPrice(15000);
 
-        return ResponseDto.success(OK, result);
+        return ResponseDto.success(CREATED, result);
     }
 
     @GetMapping("/teams/{teamId}/schedule")
