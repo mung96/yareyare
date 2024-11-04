@@ -14,9 +14,22 @@ export type Seat = {
 
 function SeatScreen({onPrev, onNext}: Props) {
   const [seatList, setSeatList] = useState<Seat[]>([]);
+
+  function addSeat(arr: Seat[], seat: Seat) {
+    const newSeatList = [...arr, seat];
+    setSeatList(newSeatList);
+  }
+
+  function removeSeat(arr: Seat[], seat: Seat) {
+    const newSeatList = arr.filter(
+      item => !(item.row == seat.row && item.col == seat.col),
+    );
+    setSeatList(newSeatList);
+  }
+
   return (
     <View style={styles.container}>
-      <SeatContainment value={seatList} onSelect={setSeatList} />
+      <SeatContainment value={seatList} onAdd={addSeat} onRemove={removeSeat} />
       <Button title={'다음'} onPress={onNext} />
     </View>
   );

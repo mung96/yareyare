@@ -9,8 +9,11 @@ import {seats} from '@/main/dummy.ts';
 
 type Props = {
   value: Seat[];
-  onSelect: (seat: Seat[]) => void;
+  // onSelect: (seat: Seat[]) => void;
+  onAdd: (seatList: Seat[], seat: Seat) => void;
+  onRemove: (seatList: Seat[], seat: Seat) => void;
 };
+
 type SeatList = {
   [key: number]: {
     [key: string]: {
@@ -18,8 +21,9 @@ type SeatList = {
     };
   };
 };
-
-function SeatContainment({value, onSelect}: Props) {
+//TODO: 2번 누르면 삭제하도록
+//TODO: 누르면 아래 리스트 넣도록
+function SeatContainment({value, onAdd, onRemove}: Props) {
   const seatList: SeatList = seats;
   return (
     <ReservationBox>
@@ -55,7 +59,12 @@ function SeatContainment({value, onSelect}: Props) {
                             },
                           ]}
                           onPress={() => {
-                            onSelect([...value, {row: row, col: colIdx}]);
+                            includeSeatWithRowAndCol(value, row, colIdx)
+                              ? onRemove(value, {
+                                  row: row,
+                                  col: colIdx,
+                                })
+                              : onAdd(value, {row: row, col: colIdx});
                           }}>
                           <View
                             style={[
