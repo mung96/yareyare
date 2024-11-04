@@ -1,5 +1,6 @@
-import {Button, View} from 'react-native';
-import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import {Button, StyleSheet, View} from 'react-native';
+import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
+import {COLORS} from '@/main/shared/styles';
 
 type Props = {
   onPrev: () => void;
@@ -8,12 +9,17 @@ type Props = {
 
 function SeatScreen({onPrev, onNext}: Props) {
   return (
-    <View>
-      <Button title={'이전'} onPress={onPrev} />
-      <CustomText>좌석선택</CustomText>
+    <View style={styles.container}>
+      <SeatContainment />
       <Button title={'다음'} onPress={onNext} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.WHITE,
+  },
+});
 
 export default SeatScreen;
