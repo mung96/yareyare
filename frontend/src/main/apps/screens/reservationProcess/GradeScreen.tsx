@@ -7,7 +7,7 @@ type Props = {
   onNext: () => void;
 };
 
-function SectionScreen({onNext}: Props) {
+function GradeScreen({onNext}: Props) {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
-export default SectionScreen;
+export default GradeScreen;

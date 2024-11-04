@@ -15,20 +15,20 @@ export type Section = {
 };
 
 export type ReservationProcess =
-  | 'SectionStep'
+  | 'GradeStep'
   | 'SeatStep'
   | 'UserStep'
   | 'PaymentStep';
 
-export type SectionInput = {};
+export type GradeInput = {};
 
 export type SeatInput = {};
 
 export type UserInput = {};
 
-export type SectionStep = Partial<SectionInput> &
+export type GradeStep = Partial<GradeInput> &
   Partial<SeatInput> &
   Partial<UserInput>;
-export type SeatStep = SectionInput & Partial<SeatInput> & Partial<UserInput>;
-export type UserStep = SectionInput & SeatInput & Partial<UserInput>;
-export type PaymentStep = SectionInput & SeatInput & UserInput;
+export type SeatStep = GradeInput & Partial<SeatInput> & Partial<UserInput>;
+export type UserStep = GradeInput & SeatInput & Partial<UserInput>;
+export type PaymentStep = GradeInput & SeatInput & UserInput;

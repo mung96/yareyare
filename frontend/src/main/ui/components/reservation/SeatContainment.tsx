@@ -9,8 +9,10 @@ import {seats} from '@/main/dummy.ts';
 
 type Props = {
   value: Seat[];
-  onSelect: (seat: Seat[]) => void;
+  onAdd: (seatList: Seat[], seat: Seat) => void;
+  onRemove: (seatList: Seat[], seat: Seat) => void;
 };
+
 type SeatList = {
   [key: number]: {
     [key: string]: {
@@ -19,7 +21,7 @@ type SeatList = {
   };
 };
 
-function SeatContainment({value, onSelect}: Props) {
+function SeatContainment({value, onAdd, onRemove}: Props) {
   const seatList: SeatList = seats;
   return (
     <ReservationBox>
@@ -39,25 +41,38 @@ function SeatContainment({value, onSelect}: Props) {
                   <View style={styles.column}>
                     {Object.keys(seatList[sectionNum][row]).map(col => {
                       const colIdx = Number(col);
+                      const disabled = !seatList[sectionNum][row][col];
                       return (
                         <Pressable
+                          disabled={disabled}
                           style={[
                             styles.seatBox,
-                            (colIdx + 1) % 4 === 1 && {
+                            colIdx % 4 === 1 && {
                               paddingLeft: 5,
                               width: 17,
                             },
-                            (colIdx + 1) % 4 === 0 && {
+                            colIdx % 4 === 0 && {
                               paddingRight: 5,
                               width: 17,
                             },
                           ]}
                           onPress={() => {
-                            onSelect([...value, {row: row, col: colIdx}]);
+                            includeSeatWithRowAndCol(value, row, colIdx)
+                              ? onRemove(value, {
+                                  section: sectionNum,
+                                  row: row,
+                                  col: colIdx,
+                                })
+                              : onAdd(value, {
+                                  section: sectionNum,
+                                  row: row,
+                                  col: colIdx,
+                                });
                           }}>
                           <View
                             style={[
                               styles.seat,
+                              disabled && styles.disabledSeat,
                               includeSeatWithRowAndCol(value, row, colIdx) &&
                                 styles.selectedSeat,
                             ]}
@@ -128,13 +143,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   seat: {
-    backgroundColor: COLORS.GRAY_200,
+    backgroundColor: COLORS.BLUE,
     opacity: 0.8,
     width: 8,
     height: 8,
   },
+  disabledSeat: {
+    backgroundColor: COLORS.GRAY_200,
+  },
   selectedSeat: {
     backgroundColor: COLORS.BLUE,
+    borderRadius: 4,
+    borderWidth: 2,
   },
   column: {
     display: 'flex',

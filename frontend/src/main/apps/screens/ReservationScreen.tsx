@@ -1,12 +1,7 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {useFunnel} from '@use-funnel/react-navigation-native';
-import {
-  PaymentStep,
-  SeatStep,
-  SectionStep,
-  UserStep,
-} from '@/main/shared/types';
-import SectionScreen from '@/main/apps/screens/reservationProcess/SectionScreen.tsx';
+import {GradeStep, PaymentStep, SeatStep, UserStep} from '@/main/shared/types';
+import GradeScreen from '@/main/apps/screens/reservationProcess/GradeScreen.tsx';
 import SeatScreen from '@/main/apps/screens/reservationProcess/SeatScreen.tsx';
 import UserScreen from '@/main/apps/screens/reservationProcess/UserScreen.tsx';
 import PaymentScreen from '@/main/apps/screens/reservationProcess/PaymentScreen.tsx';
@@ -20,7 +15,7 @@ function ReservationScreen() {
     history,
     context,
   } = useFunnel<{
-    SectionStep: SectionStep;
+    GradeStep: GradeStep;
     SeatStep: SeatStep;
     UserStep: UserStep;
     PaymentStep: PaymentStep;
@@ -38,8 +33,8 @@ function ReservationScreen() {
         totalStep={4}
         currentStep={convertReservationStepToStepNumber(reservationStep)}
       />
-      {reservationStep === 'SectionStep' && (
-        <SectionScreen onNext={() => history.push('SeatStep')} />
+      {reservationStep === 'GradeStep' && (
+        <GradeScreen onNext={() => history.push('SeatStep')} />
       )}
       {reservationStep === 'SeatStep' && (
         <SeatScreen
