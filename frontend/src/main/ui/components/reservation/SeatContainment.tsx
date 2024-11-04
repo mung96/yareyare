@@ -5,15 +5,22 @@ import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import {Seat} from '@/main/apps/screens/reservationProcess';
 import {includeSeatWithRowAndCol} from '@/main/services/helper/reservation/seat.ts';
+import {seats} from '@/main/dummy.ts';
 
-const COL = Array.from({length: 20}, (_, idx) => 1 + idx);
-const ROW = Array.from({length: 11}, (_, idx) => String.fromCharCode(idx + 65));
 type Props = {
   value: Seat[];
   onSelect: (seat: Seat[]) => void;
 };
+type SeatList = {
+  [key: number]: {
+    [key: string]: {
+      [key: string]: boolean;
+    };
+  };
+};
 
 function SeatContainment({value, onSelect}: Props) {
+  const seatList: SeatList = seats;
   return (
     <ReservationBox>
       <View>
@@ -25,36 +32,53 @@ function SeatContainment({value, onSelect}: Props) {
         <View style={styles.seatContainer}>
           <CustomText style={styles.seatNumber}>101</CustomText>
           <View style={styles.row}>
-            {ROW.map(row => (
-              <View style={styles.column}>
-                {COL.map((col, idx) => (
-                  <Pressable
-                    style={[
-                      // {borderWidth: 0.3},
-                      styles.seatBox,
-                      (idx + 1) % 4 === 1 && {paddingLeft: 5, width: 17},
-                      (idx + 1) % 4 === 0 && {paddingRight: 5, width: 17},
-                    ]}
-                    onPress={() => {
-                      onSelect([...value, {row: row, col: col}]);
-                    }}>
-                    <View
-                      style={[
-                        styles.seat,
-                        includeSeatWithRowAndCol(value, row, col) &&
-                          styles.selectedSeat,
-                      ]}
-                    />
-                  </Pressable>
-                ))}
-                <View style={styles.colBox}>
-                  <CustomText
-                    style={{fontSize: 10, lineHeight: 10, fontWeight: '900'}}>
-                    {row}
-                  </CustomText>
-                </View>
-              </View>
-            ))}
+            {Object.keys(seatList).map(section => {
+              const sectionNum = Number(section);
+              return Object.keys(seatList[sectionNum]).map(row => {
+                return (
+                  <View style={styles.column}>
+                    {Object.keys(seatList[sectionNum][row]).map(col => {
+                      const colIdx = Number(col);
+                      return (
+                        <Pressable
+                          style={[
+                            styles.seatBox,
+                            (colIdx + 1) % 4 === 1 && {
+                              paddingLeft: 5,
+                              width: 17,
+                            },
+                            (colIdx + 1) % 4 === 0 && {
+                              paddingRight: 5,
+                              width: 17,
+                            },
+                          ]}
+                          onPress={() => {
+                            onSelect([...value, {row: row, col: colIdx}]);
+                          }}>
+                          <View
+                            style={[
+                              styles.seat,
+                              includeSeatWithRowAndCol(value, row, colIdx) &&
+                                styles.selectedSeat,
+                            ]}
+                          />
+                        </Pressable>
+                      );
+                    })}
+                    <View style={styles.colBox}>
+                      <CustomText
+                        style={{
+                          fontSize: 10,
+                          lineHeight: 10,
+                          fontWeight: '900',
+                        }}>
+                        {row}
+                      </CustomText>
+                    </View>
+                  </View>
+                );
+              });
+            })}
           </View>
         </View>
       </View>
