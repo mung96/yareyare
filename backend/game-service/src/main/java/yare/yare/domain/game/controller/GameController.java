@@ -31,9 +31,9 @@ public class GameController {
                     .gameDate(LocalDate.now().plusDays(i))
                     .startTime(LocalTime.of(18, 30))
                     .stadiumName("광주 기아 챔피언스 필드")
-                    .homeTeamName("기아 타이거즈")
+                    .homeTeamName("기아")
                     .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kia.svg")
-                    .awayTeamName("삼성 라이온즈")
+                    .awayTeamName("삼성")
                     .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/samsung.svg")
                     .build());
         }
@@ -57,9 +57,9 @@ public class GameController {
                     .gameDate(LocalDate.now().plusDays(i))
                     .startTime(LocalTime.of(18, 30))
                     .stadiumName("광주 기아 챔피언스 필드")
-                    .homeTeamName("기아 타이거즈")
+                    .homeTeamName("기아")
                     .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kia.svg")
-                    .awayTeamName("삼성 라이온즈")
+                    .awayTeamName("삼성")
                     .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/samsung.svg")
                     .build());
         }
@@ -70,12 +70,13 @@ public class GameController {
     }
 
     @GetMapping("/{gameId}/details")
-    public ResponseDto<GameDetailsRes> gameDetails(@PathVariable Long gameId) {
+    public ResponseDto<GameDetailsRes> gameDetails(
+            @PathVariable Long gameId) {
 
         GameDetailsRes result = GameDetailsRes.builder()
                 .seasonName("신한 SOL Bank KBO 리그")
-                .homeTeamName("기아 타이거즈")
-                .awayTeamName("삼성 라이온즈")
+                .homeTeamName("기아")
+                .awayTeamName("삼성")
                 .gameDate(LocalDate.now().plusDays(1))
                 .startTime(LocalTime.of(18, 30))
                 .stadiumName("광주-기아 챔피언스 필드")
