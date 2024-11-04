@@ -3,6 +3,7 @@ package yare.yare.domain.game.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import yare.yare.domain.game.dto.GameDetailsRes;
 import yare.yare.domain.game.dto.GameDto;
 import yare.yare.domain.game.dto.GameListRes;
 import yare.yare.global.dto.ResponseDto;
@@ -42,7 +43,6 @@ public class GameController {
         return ResponseDto.success(OK, result);
     }
 
-
     @GetMapping("/teams/{teamId}")
     public ResponseDto<GameListRes> gameList(
             @PathVariable Integer teamId) {
@@ -65,6 +65,21 @@ public class GameController {
         }
 
         result.setGames(games);
+
+        return ResponseDto.success(OK, result);
+    }
+
+    @GetMapping("/{gameId}/details")
+    public ResponseDto<GameDetailsRes> gameDetails(@PathVariable Long gameId) {
+
+        GameDetailsRes result = GameDetailsRes.builder()
+                .seasonName("신한 SOL Bank KBO 리그")
+                .homeTeamName("기아 타이거즈")
+                .awayTeamName("삼성 라이온즈")
+                .gameDate(LocalDate.now().plusDays(1))
+                .startTime(LocalTime.of(18, 30))
+                .stadiumName("광주-기아 챔피언스 필드")
+                .build();
 
         return ResponseDto.success(OK, result);
     }
