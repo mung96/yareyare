@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import yare.yare.global.statuscode.ErrorCode;
 import yare.yare.global.statuscode.SuccessCode;
+import yare.yare.global.dto.ResponseHeader;
 
 @Getter
 public class ResponseDto<T> extends ResponseEntity<ResponseData<T>> {
