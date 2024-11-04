@@ -39,15 +39,17 @@ function SeatContainment({value, onSelect}: Props) {
                   <View style={styles.column}>
                     {Object.keys(seatList[sectionNum][row]).map(col => {
                       const colIdx = Number(col);
+                      const disabled = !seatList[sectionNum][row][col];
                       return (
                         <Pressable
+                          disabled={disabled}
                           style={[
                             styles.seatBox,
-                            (colIdx + 1) % 4 === 1 && {
+                            colIdx % 4 === 1 && {
                               paddingLeft: 5,
                               width: 17,
                             },
-                            (colIdx + 1) % 4 === 0 && {
+                            colIdx % 4 === 0 && {
                               paddingRight: 5,
                               width: 17,
                             },
@@ -58,6 +60,7 @@ function SeatContainment({value, onSelect}: Props) {
                           <View
                             style={[
                               styles.seat,
+                              disabled && styles.disabledSeat,
                               includeSeatWithRowAndCol(value, row, colIdx) &&
                                 styles.selectedSeat,
                             ]}
@@ -128,13 +131,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   seat: {
-    backgroundColor: COLORS.GRAY_200,
+    backgroundColor: COLORS.BLUE,
     opacity: 0.8,
     width: 8,
     height: 8,
   },
+  disabledSeat: {
+    backgroundColor: COLORS.GRAY_200,
+  },
   selectedSeat: {
     backgroundColor: COLORS.BLUE,
+    borderRadius: 4,
+    borderWidth: 2,
   },
   column: {
     display: 'flex',
