@@ -17,7 +17,7 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 @RestController
 public class GameController {
 
-    @GetMapping("/teams")
+    @GetMapping
     public ResponseDto<GameListRes> gameList() {
 
         GameListRes result = new GameListRes();
