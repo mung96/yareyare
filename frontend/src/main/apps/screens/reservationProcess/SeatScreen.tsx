@@ -32,7 +32,7 @@ function SeatScreen({onPrev, onNext}: Props) {
   return (
     <View style={styles.container}>
       <SeatContainment value={seatList} onAdd={addSeat} onRemove={removeSeat} />
-      <SelectedSeatList />
+      <SelectedSeatList seatList={seatList} />
       <Button title={'다음'} onPress={onNext} />
     </View>
   );

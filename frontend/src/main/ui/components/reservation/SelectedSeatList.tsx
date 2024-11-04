@@ -3,17 +3,27 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import SelectedSeatItem from '@/main/ui/components/reservation/SelectedSeatItem.tsx';
+import {Seat} from '@/main/apps/screens/reservationProcess';
 
-function SelectedSeatList() {
+type Props = {
+  seatList: Seat[];
+};
+
+function SelectedSeatList({seatList}: Props) {
   return (
     <ReservationBox>
       <View style={styles.textContainer}>
         <CustomText style={styles.text}>선택한 좌석</CustomText>
         <View style={styles.seatCnt}>
-          <Text style={styles.seatCntText}>2</Text>
+          <Text style={styles.seatCntText}>{seatList.length}</Text>
         </View>
       </View>
-      <SelectedSeatItem seat={{section: 101, row: 'E', col: 12}} />
+      {seatList.map(seat => (
+        <SelectedSeatItem
+          key={seat.section + seat.row + ' ' + seat.col}
+          seat={seat}
+        />
+      ))}
     </ReservationBox>
   );
 }
