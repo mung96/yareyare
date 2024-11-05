@@ -5,7 +5,6 @@ import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Seat, SeatContext, UserContext} from '@/main/shared/types';
 import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import {Controller, useForm} from 'react-hook-form';
-import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
 
 type Props = {
   onPrev: () => void;
@@ -13,7 +12,6 @@ type Props = {
 };
 
 function UserScreen({onPrev, onNext}: Props) {
-  const [method, setMethod] = useState('모바일 티켓');
   const {control, handleSubmit} = useForm<UserContext>({
     defaultValues: {
       name: '정지연',
@@ -27,7 +25,15 @@ function UserScreen({onPrev, onNext}: Props) {
   return (
     <View style={styles.container}>
       <UserInput totalPrice={'15,000'} control={control} />
-      <MethodSelector value={method} onSelect={setMethod} />
+
+      <Controller
+        control={control}
+        render={({field: {value, onChange}}) => (
+          <MethodSelector value={value} onSelect={onChange} />
+        )}
+        name="method"
+      />
+
       <MainButton
         label={'다음'}
         onPress={handleSubmit(onNext)}
