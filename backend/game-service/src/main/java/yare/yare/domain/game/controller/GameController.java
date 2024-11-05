@@ -15,6 +15,7 @@ import static yare.yare.global.statuscode.SuccessCode.CREATED;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
+@RequestMapping("/games")
 public class GameController {
 
     @GetMapping
