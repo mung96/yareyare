@@ -8,7 +8,7 @@ export type SectionKey =
   | 'THIRD_INFIELD'
   | 'THIRD_OUTFIELD';
 
-export type Section = {
+export type Grade = {
   label: string;
   color: (typeof COLORS)[keyof typeof COLORS];
   img: ImageSourcePropType;
@@ -20,7 +20,9 @@ export type ReservationProcess =
   | 'UserStep'
   | 'PaymentStep';
 
-export type GradeInput = {};
+export type GradeInput = {
+  grade: Grade;
+};
 
 export type SeatInput = {};
 
