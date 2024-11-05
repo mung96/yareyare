@@ -1489,7 +1489,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.25.7, @babel/runtime@npm:^7.9.2":
   version: 7.26.0
   resolution: "@babel/runtime@npm:7.26.0"
   dependencies:
@@ -2185,6 +2185,22 @@ __metadata:
   version: 0.0.10
   resolution: "@portone/browser-sdk@npm:0.0.10"
   checksum: 966ea6efe8960c9fd6f5d52f6c06edc8072cc4c08f40a527f633b24af4dfbc03a4e3179b5b6593df5ba84d124677faa2244b79e00835a40445fc442d6aae54eb
+  languageName: node
+  linkType: hard
+
+"@portone/react-native-sdk@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@portone/react-native-sdk@npm:0.1.4"
+  dependencies:
+    "@babel/runtime": ^7.25.7
+    "@portone/browser-sdk": ^0.0.10
+    react-native-webview: ~13.8.7
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+    react-native-webview: "*"
+  checksum: a3551994a24574278eec0f99623da5049b5fbfde9523507aeda96258bd24f81d5308ce1058c2984d6e9175cefdb945e4dc5841c2f508b73ed64b4eb0b28e1774
   languageName: node
   linkType: hard
 
@@ -2906,6 +2922,13 @@ __metadata:
   version: 15.7.13
   resolution: "@types/prop-types@npm:15.7.13"
   checksum: 8935cad87c683c665d09a055919d617fe951cb3b2d5c00544e3a913f861a2bd8d2145b51c9aa6d2457d19f3107ab40784c40205e757232f6a80cc8b1c815513c
+  languageName: node
+  linkType: hard
+
+"@types/react-native-dotenv@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@types/react-native-dotenv@npm:0.2.2"
+  checksum: a300037b84e7ae7db7f2609aa0893eccf596c5a78f6215b2733a8dfb7172277766a058f21a6852a223926763e6d3fc34da2a980d30ded585c555994db322a537
   languageName: node
   linkType: hard
 
@@ -4549,6 +4572,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.4.5":
+  version: 16.4.5
+  resolution: "dotenv@npm:16.4.5"
+  checksum: 301a12c3d44fd49888b74eb9ccf9f07a1f5df43f489e7fcb89647a2edcd84c42d6bc349dc8df099cd18f07c35c7b04685c1a4f3e6a6a9e6b30f8d48c15b7f49c
+  languageName: node
+  linkType: hard
+
 "eastasianwidth@npm:^0.2.0":
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
@@ -4832,17 +4862,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"escape-string-regexp@npm:2.0.0, escape-string-regexp@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "escape-string-regexp@npm:2.0.0"
+  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
+  languageName: node
+  linkType: hard
+
 "escape-string-regexp@npm:^1.0.5":
   version: 1.0.5
   resolution: "escape-string-regexp@npm:1.0.5"
   checksum: 6092fda75c63b110c706b6a9bfde8a612ad595b628f0bd2147eea1d3406723020810e591effc7db1da91d80a71a737a313567c5abb3813e8d9c71f4aa595b410
-  languageName: node
-  linkType: hard
-
-"escape-string-regexp@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "escape-string-regexp@npm:2.0.0"
-  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
   languageName: node
   linkType: hard
 
@@ -5474,7 +5504,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@emotion/native": ^11.11.0
     "@emotion/react": ^11.13.3
-    "@portone/browser-sdk": ^0.0.10
+    "@portone/react-native-sdk": ^0.1.4
     "@react-native/babel-preset": 0.75.4
     "@react-native/eslint-config": 0.75.4
     "@react-native/metro-config": 0.75.4
@@ -5486,6 +5516,7 @@ __metadata:
     "@tanstack/react-query": ^5.59.16
     "@types/jest": ^29.5.14
     "@types/react": ^18.2.6
+    "@types/react-native-dotenv": ^0.2.2
     "@types/react-native-vector-icons": ^6.4.18
     "@types/react-redux": ^7.1.34
     "@types/react-test-renderer": ^18.0.0
@@ -5502,9 +5533,11 @@ __metadata:
     react-hook-form: ^7.53.1
     react-native: 0.75.4
     react-native-calendars: ^1.1307.0
+    react-native-dotenv: ^3.4.11
     react-native-safe-area-context: ^4.12.0
     react-native-screens: ^3.35.0
     react-native-vector-icons: ^10.2.0
+    react-native-webview: ^13.12.3
     react-redux: ^9.1.2
     react-test-renderer: 18.3.1
     redux: ^5.0.1
@@ -6050,7 +6083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.2.4":
+"invariant@npm:2.2.4, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -8657,6 +8690,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-dotenv@npm:^3.4.11":
+  version: 3.4.11
+  resolution: "react-native-dotenv@npm:3.4.11"
+  dependencies:
+    dotenv: ^16.4.5
+  peerDependencies:
+    "@babel/runtime": ^7.20.6
+  checksum: 3ebac2c2ed79dd7e4920fd3fc2da9187413b7190231618e4858b46c47833677838b96d531afe7bd5c4b0a60454dba40cb8708722210df5d522e30aefbf41da05
+  languageName: node
+  linkType: hard
+
 "react-native-safe-area-context@npm:^4.12.0":
   version: 4.12.0
   resolution: "react-native-safe-area-context@npm:4.12.0"
@@ -8699,6 +8743,32 @@ __metadata:
     fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
   checksum: fda930df4e63f12533268f5b339ebe4c77c691eae43503328466b3087ed868a06a4593fd246e75ac6b5ec955543eec35608c7922191bdcc3b3a94ed7f3575ef0
+  languageName: node
+  linkType: hard
+
+"react-native-webview@npm:^13.12.3":
+  version: 13.12.3
+  resolution: "react-native-webview@npm:13.12.3"
+  dependencies:
+    escape-string-regexp: ^4.0.0
+    invariant: 2.2.4
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 94d824fedc6b5c0402926b99a96f71f4752416e4f038be827552015c0bf6d595d71ba656079618402662aec5e2c539018b0bff2906b6f95261f70893e5dd5d80
+  languageName: node
+  linkType: hard
+
+"react-native-webview@npm:~13.8.7":
+  version: 13.8.7
+  resolution: "react-native-webview@npm:13.8.7"
+  dependencies:
+    escape-string-regexp: 2.0.0
+    invariant: 2.2.4
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 67ee40f45cf46736775c1db338f235191eba8e59ef136fa369fa60002312839ec8591b9a767e9fd27856744976aa157db03189c417ea7323db0d7e794e3ff318
   languageName: node
   linkType: hard
 
