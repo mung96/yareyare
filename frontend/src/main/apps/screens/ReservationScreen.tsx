@@ -22,7 +22,7 @@ function ReservationScreen() {
   }>({
     id: 'reservation',
     initial: {
-      step: 'SeatStep',
+      step: 'GradeStep',
       context: {},
     },
   });

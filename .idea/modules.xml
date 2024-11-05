@@ -3,6 +3,26 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/S11P31A106.iml" filepath="$PROJECT_DIR$/.idea/S11P31A106.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/frontend.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/frontend.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2103410944/frontend.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/2103410944/frontend.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1026023144/frontend.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-1026023144/frontend.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-41259809/frontend.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/-41259809/frontend.react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-plugins-root.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-plugins-root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-plugins-root.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-plugins-root.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/react-native-gradle-plugin/gradle-plugins-root.react-native-gradle-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/react-native-gradle-plugin/gradle-plugins-root.react-native-gradle-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/react-native-gradle-plugin/gradle-plugins-root.react-native-gradle-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/react-native-gradle-plugin/gradle-plugins-root.react-native-gradle-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/react-native-gradle-plugin/gradle-plugins-root.react-native-gradle-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/react-native-gradle-plugin/gradle-plugins-root.react-native-gradle-plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/settings-plugin/gradle-plugins-root.settings-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/settings-plugin/gradle-plugins-root.settings-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/settings-plugin/gradle-plugins-root.settings-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/settings-plugin/gradle-plugins-root.settings-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/settings-plugin/gradle-plugins-root.settings-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/settings-plugin/gradle-plugins-root.settings-plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/gradle-plugins-root.shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/gradle-plugins-root.shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared-testutil/gradle-plugins-root.shared-testutil.iml" filepath="$PROJECT_DIR$/.idea/modules/shared-testutil/gradle-plugins-root.shared-testutil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared-testutil/gradle-plugins-root.shared-testutil.main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared-testutil/gradle-plugins-root.shared-testutil.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared-testutil/gradle-plugins-root.shared-testutil.test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared-testutil/gradle-plugins-root.shared-testutil.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/gradle-plugins-root.shared.main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/gradle-plugins-root.shared.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/gradle-plugins-root.shared.test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/gradle-plugins-root.shared.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-plugins-root.test.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-plugins-root.test.iml" />
     </modules>
   </component>
 </project>
