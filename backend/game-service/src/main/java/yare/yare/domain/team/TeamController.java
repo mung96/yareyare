@@ -1,6 +1,7 @@
 package yare.yare.domain.team;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yare.yare.domain.team.dto.TeamDto;
 import yare.yare.domain.team.dto.TeamListRes;
@@ -12,6 +13,7 @@ import java.util.List;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
+@RequestMapping("/games")
 public class TeamController {
 
     @GetMapping("/teams")
