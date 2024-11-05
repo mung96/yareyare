@@ -1,4 +1,6 @@
 export const PATH = {
+  LOGIN: 'Login',
+
   HOME: 'Home',
 
   GAME_SCHEDULE: 'GameSchedule',
