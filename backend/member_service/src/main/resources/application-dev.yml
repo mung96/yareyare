@@ -1,0 +1,24 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MEMBER_RDS_URL}
+    username: ${MEMBER_RDS_USERNAME}
+    password: ${MEMBER_RDS_PASSWORD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
