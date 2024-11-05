@@ -1,8 +1,7 @@
 import {StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
 import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {Seat, SeatContext, UserContext} from '@/main/shared/types';
+import {UserContext} from '@/main/shared/types';
 import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import {Controller, useForm} from 'react-hook-form';
 
