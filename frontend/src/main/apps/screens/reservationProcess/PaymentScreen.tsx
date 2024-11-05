@@ -1,5 +1,4 @@
 import {StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
 import PaymentMethodList from '@/main/ui/components/reservation/PaymentMethodList';
 import ExpectedPayment from '@/main/ui/components/reservation/ExpectedPayment.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';

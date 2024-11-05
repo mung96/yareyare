@@ -18,11 +18,7 @@ import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 
 function ReservationScreen() {
-  const {
-    step: reservationStep,
-    history,
-    context,
-  } = useFunnel<{
+  const {step: reservationStep, history} = useFunnel<{
     GradeStep: GradeStep;
     SeatStep: SeatStep;
     UserStep: UserStep;

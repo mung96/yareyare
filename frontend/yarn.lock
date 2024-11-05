@@ -2181,6 +2181,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@portone/browser-sdk@npm:^0.0.10":
+  version: 0.0.10
+  resolution: "@portone/browser-sdk@npm:0.0.10"
+  checksum: 966ea6efe8960c9fd6f5d52f6c06edc8072cc4c08f40a527f633b24af4dfbc03a4e3179b5b6593df5ba84d124677faa2244b79e00835a40445fc442d6aae54eb
+  languageName: node
+  linkType: hard
+
 "@react-native-community/cli-clean@npm:14.1.0":
   version: 14.1.0
   resolution: "@react-native-community/cli-clean@npm:14.1.0"
@@ -5467,6 +5474,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@emotion/native": ^11.11.0
     "@emotion/react": ^11.13.3
+    "@portone/browser-sdk": ^0.0.10
     "@react-native/babel-preset": 0.75.4
     "@react-native/eslint-config": 0.75.4
     "@react-native/metro-config": 0.75.4
