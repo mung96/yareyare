@@ -15,10 +15,15 @@ export function convertIdxToRow(idx: number) {
 
 export function includeSeatWithRowAndCol(
   seatList: Seat[],
+  section: number,
   row: string,
   col: number,
 ) {
-  return includeObjectWithKeyAndValue(seatList, ['row', 'col'], [row, col]);
+  return includeObjectWithKeyAndValue(
+    seatList,
+    ['section', 'row', 'col'],
+    [section, row, col],
+  );
 }
 
 const row = 'K'.charCodeAt(0) - 'A'.charCodeAt(0);
