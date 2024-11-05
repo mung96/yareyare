@@ -40,5 +40,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join fetch g.awayTeam at " +
             "join fetch ht.stadium s " +
             "where g.id = :gameId")
-    Optional<Game> findGameByGameId(@Param("gameId") Integer gameId);
+    Optional<Game> findGameByGameId(@Param("gameId") Long gameId);
 }

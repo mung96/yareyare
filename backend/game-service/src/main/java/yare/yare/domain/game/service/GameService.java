@@ -10,5 +10,5 @@ public interface GameService {
 
     GameListRes findGamesByTeam(Integer teamId);
 
-    GameDetailsRes findGame(Integer gameId);
+    GameDetailsRes findGame(Long gameId);
 }

@@ -49,7 +49,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public GameDetailsRes findGame(Integer gameId) {
+    public GameDetailsRes findGame(Long gameId) {
 
         Game game = gameRepository.findGameByGameId(gameId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND));

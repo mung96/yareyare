@@ -42,7 +42,7 @@ public class GameController {
 
     @GetMapping("/{gameId}/details")
     public ResponseDto<GameDetailsRes> gameDetails(
-            @PathVariable Integer gameId) {
+            @PathVariable Long gameId) {
 
         GameDetailsRes result = gameService.findGame(gameId);
 
