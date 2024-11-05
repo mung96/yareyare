@@ -1,13 +1,18 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {COLORS} from '@/main/shared/styles';
-import SectionList from '@/main/ui/components/reservation/SectionList';
+import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
+import {Controller, useForm} from 'react-hook-form';
+import {GradeContext} from '@/main/shared/types';
 
 type Props = {
-  onNext: () => void;
+  onNext: (grade: GradeContext) => void;
 };
 
 function GradeScreen({onNext}: Props) {
+  const {control, handleSubmit} = useForm<GradeContext>({
+    defaultValues: undefined,
+  });
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -19,10 +24,19 @@ function GradeScreen({onNext}: Props) {
             2024.08.15(목) 17:00 기아 챔피언스 필드
           </Text>
         </View>
-
-        <SectionList />
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <GradeList value={value} onSelect={onChange} />
+          )}
+          name="grade"
+        />
       </ScrollView>
-      <MainButton label={'다음'} onPress={onNext} size={'large'} />
+      <MainButton
+        label={'다음'}
+        onPress={handleSubmit(onNext)}
+        size={'large'}
+      />
     </View>
   );
 }

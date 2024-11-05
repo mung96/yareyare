@@ -1,26 +1,26 @@
 import SectionItem from '@/main/ui/components/reservation/SectionItem.tsx';
 import {Image, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
-import {Section, SectionKey} from '@/main/shared/types';
-import {SECTION_IMG, SECTION_LIST} from '@/main/shared/constants';
-import {useState} from 'react';
+import {Grade, GradeKey} from '@/main/shared/types';
+import {GRADE_IMG, GRADE_LIST} from '@/main/shared/constants';
 
-function SectionList() {
-  const [selctedSection, setSelctedSection] = useState<Section | undefined>();
-
+type Props = {
+  value: Grade | undefined;
+  onSelect: (section: Grade) => void;
+};
+function GradeList({value, onSelect}: Props) {
+  console.log(value);
   return (
     <>
       <View style={styles.imgContainer}>
-        <Image
-          source={selctedSection ? selctedSection.img : SECTION_IMG.DEFAULT}
-        />
+        <Image source={value ? value.img : GRADE_IMG.DEFAULT} />
       </View>
       <View style={styles.sectionContainer}>
-        {Object.keys(SECTION_LIST).map(sectionKey => (
+        {Object.keys(GRADE_LIST).map(gradeKey => (
           <SectionItem
-            key={sectionKey}
-            section={SECTION_LIST[sectionKey as SectionKey]}
-            onSelect={setSelctedSection}
+            key={gradeKey}
+            section={GRADE_LIST[gradeKey as GradeKey]}
+            onSelect={onSelect}
           />
         ))}
       </View>
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SectionList;
+export default GradeList;

@@ -3,18 +3,15 @@ import InputField from '@/main/ui/components/common/InputField.tsx';
 import React from 'react';
 import {COLORS} from '@/main/shared/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import {Control, Controller} from 'react-hook-form';
+import {UserContext} from '@/main/shared/types';
 
 type Props = {
-  user: {
-    name: string;
-    birthday: string;
-    phoneNumber: string;
-    email: string;
-  };
   totalPrice: string;
+  control: Control<UserContext, any>;
 };
 
-function UserInput({user, totalPrice}: Props) {
+function UserInput({totalPrice, control}: Props) {
   return (
     <View style={styles.componentContainer}>
       <View style={styles.titleContainer}>
@@ -25,10 +22,45 @@ function UserInput({user, totalPrice}: Props) {
         예매자 정보 입력
       </CustomText>
       <View style={styles.inputContainer}>
-        <InputField label={'성명'} value={user.name} disabled={true} />
-        <InputField label={'생년월일'} value={user.birthday} disabled={true} />
-        <InputField label={'전화번호'} placeholder={'000-0000-0000'} />
-        <InputField label={'이메일주소'} placeholder={'example@naver.com'} />
+        <Controller
+          control={control}
+          render={({field: {value}}) => (
+            <InputField label={'성명'} value={value} disabled={true} />
+          )}
+          name="name"
+        />
+        <Controller
+          control={control}
+          render={({field: {value}}) => (
+            <InputField label={'생년월일'} value={value} disabled={true} />
+          )}
+          name="birthday"
+        />
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <InputField
+              label={'전화번호'}
+              placeholder={'000-0000-0000'}
+              value={value}
+              onChangeText={onChange}
+              // onChange
+            />
+          )}
+          name="phoneNumber"
+        />
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <InputField
+              label={'이메일주소'}
+              placeholder={'example@naver.com'}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="email"
+        />
         <CustomText style={styles.description}>
           티켓수령 및 본인확인을 위해 정확한 정보를 입력해주세요
         </CustomText>

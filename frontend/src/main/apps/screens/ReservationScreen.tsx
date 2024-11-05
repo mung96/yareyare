@@ -1,6 +1,14 @@
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {useFunnel} from '@use-funnel/react-navigation-native';
-import {GradeStep, PaymentStep, SeatStep, UserStep} from '@/main/shared/types';
+import {
+  GradeContext,
+  GradeStep,
+  PaymentStep,
+  SeatContext,
+  SeatStep,
+  UserContext,
+  UserStep,
+} from '@/main/shared/types';
 import GradeScreen from '@/main/apps/screens/reservationProcess/GradeScreen.tsx';
 import SeatScreen from '@/main/apps/screens/reservationProcess/SeatScreen.tsx';
 import UserScreen from '@/main/apps/screens/reservationProcess/UserScreen.tsx';
@@ -22,7 +30,7 @@ function ReservationScreen() {
   }>({
     id: 'reservation',
     initial: {
-      step: 'SeatStep',
+      step: 'GradeStep',
       context: {},
     },
   });
@@ -34,18 +42,26 @@ function ReservationScreen() {
         currentStep={convertReservationStepToStepNumber(reservationStep)}
       />
       {reservationStep === 'GradeStep' && (
-        <GradeScreen onNext={() => history.push('SeatStep')} />
+        <GradeScreen
+          onNext={(graderContext: GradeContext) =>
+            history.push('SeatStep', graderContext)
+          }
+        />
       )}
       {reservationStep === 'SeatStep' && (
         <SeatScreen
           onPrev={() => history.back()}
-          onNext={() => history.push('UserStep')}
+          onNext={(seatContext: SeatContext) =>
+            history.push('UserStep', seatContext)
+          }
         />
       )}
       {reservationStep === 'UserStep' && (
         <UserScreen
           onPrev={() => history.back()}
-          onNext={() => history.push('PaymentStep')}
+          onNext={(userContext: UserContext) =>
+            history.push('PaymentStep', userContext)
+          }
         />
       )}
       {reservationStep === 'PaymentStep' && (

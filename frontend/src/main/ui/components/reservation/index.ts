@@ -1,1 +1,1 @@
-export * from './SectionList';
+export * from './GradeList.tsx';
