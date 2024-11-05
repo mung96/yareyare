@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -25,4 +26,6 @@ public class GameDto {
     private String awayTeamName;
 
     private String awayTeamLogo;
+
+    private LocalDateTime ticketOpenTime;
 }

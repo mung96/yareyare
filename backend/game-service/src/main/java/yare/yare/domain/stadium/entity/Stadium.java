@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import yare.yare.domain.team.entity.Team;
 
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -37,4 +39,7 @@ public class Stadium {
     @NotNull
     @Column(length = 15)
     private String region;
+
+    @NotNull
+    private LocalTime ticketOpenTime;
 }
