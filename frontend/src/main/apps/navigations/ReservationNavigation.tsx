@@ -6,12 +6,14 @@ import Icon from 'react-native-vector-icons/Feather';
 import {Pressable} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
+import PortOnePaymentScreen from '@/main/apps/screens/reservationProcess/PortOnePaymentScreen';
 
-type TabProps = {
+export type ReservationParamList = {
   [PATH.RESERVATION]: undefined;
+  [PATH.PORTONE_PAYMENT]: undefined;
 };
 
-const Stack = createNativeStackNavigator<TabProps>();
+const Stack = createNativeStackNavigator<ReservationParamList>();
 
 function ReservationNavigation() {
   const dispatch = useDispatch();
@@ -25,6 +27,10 @@ function ReservationNavigation() {
         ),
       }}>
       <Stack.Screen name={PATH.RESERVATION} component={ReservationScreen} />
+      <Stack.Screen
+        name={PATH.PORTONE_PAYMENT}
+        component={PortOnePaymentScreen}
+      />
     </Stack.Navigator>
   );
 }

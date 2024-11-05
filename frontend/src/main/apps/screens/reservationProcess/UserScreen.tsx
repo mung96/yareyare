@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {UserContext} from '@/main/shared/types';
@@ -22,7 +22,7 @@ function UserScreen({onPrev, onNext}: Props) {
   });
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <UserInput totalPrice={'15,000'} control={control} />
 
       <Controller
@@ -38,7 +38,7 @@ function UserScreen({onPrev, onNext}: Props) {
         onPress={handleSubmit(onNext)}
         size={'large'}
       />
-    </View>
+    </ScrollView>
   );
 }
 
