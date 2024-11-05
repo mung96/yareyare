@@ -92,4 +92,8 @@ public class Game {
     public LocalDateTime getTicketOpenTime() {
         return LocalDateTime.of(gameDate.minusDays(7), homeTeam.getStadium().getTicketOpenTime());
     }
+
+    public String getSeasonName() {
+        return season.getName();
+    }
 }
