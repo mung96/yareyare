@@ -27,7 +27,7 @@ export type ReservationProcess =
 export type GradeContext = {
   grade: Grade;
 };
-
+export type ReceiveMethod = '모바일 티켓' | '현장 수령';
 export type SeatContext = {
   seatList: Seat[];
 };
@@ -37,6 +37,7 @@ export type UserContext = {
   birthday: string;
   phoneNumber: string;
   email: string;
+  method: ReceiveMethod;
 };
 
 export type GradeStep = Partial<GradeContext> &
