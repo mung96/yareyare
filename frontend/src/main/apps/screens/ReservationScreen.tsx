@@ -67,7 +67,7 @@ function ReservationScreen() {
       {reservationStep === 'PaymentStep' && (
         <PaymentScreen
           onPrev={() => history.back()}
-          onSubmit={() => '제출완료'}
+          onSubmit={() => console.log('제출완료')}
         />
       )}
     </SafeAreaView>

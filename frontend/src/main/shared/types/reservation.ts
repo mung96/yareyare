@@ -28,6 +28,7 @@ export type GradeContext = {
   grade: Grade;
 };
 export type ReceiveMethod = '모바일 티켓' | '현장 수령';
+export type PaymentMethod = '계좌이체' | '카드결제' | '토스페이' | '카카오페이';
 export type SeatContext = {
   seatList: Seat[];
 };
@@ -37,7 +38,11 @@ export type UserContext = {
   birthday: string;
   phoneNumber: string;
   email: string;
-  method: ReceiveMethod;
+  receiveMethod: ReceiveMethod;
+};
+
+export type PaymentContext = {
+  paymentMethod: PaymentMethod;
 };
 
 export type GradeStep = Partial<GradeContext> &

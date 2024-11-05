@@ -17,7 +17,7 @@ function UserScreen({onPrev, onNext}: Props) {
       birthday: '000315',
       phoneNumber: '',
       email: '',
-      method: '모바일 티켓',
+      receiveMethod: '모바일 티켓',
     },
   });
 
@@ -30,7 +30,7 @@ function UserScreen({onPrev, onNext}: Props) {
         render={({field: {value, onChange}}) => (
           <MethodSelector value={value} onSelect={onChange} />
         )}
-        name="method"
+        name="receiveMethod"
       />
 
       <MainButton

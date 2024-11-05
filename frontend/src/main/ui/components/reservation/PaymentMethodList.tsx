@@ -9,11 +9,12 @@ type Props = {
   onSelect: (method: string) => void;
 };
 const paymentMethod = [
-  {label: '계좌이체', value: '계좌이체'},
   {
     label: '카드결제',
     value: '카드결제',
   },
+  {label: '계좌이체', value: '계좌이체'},
+
   {label: '토스페이', value: '토스페이'},
   {label: '카카오페이', value: '카카오페이'},
 ];
