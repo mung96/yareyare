@@ -1,41 +1,62 @@
 import {StyleSheet, View} from 'react-native';
 import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
 import {COLORS} from '@/main/shared/styles';
-import React, {useState} from 'react';
 import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {SeatInput} from '@/main/shared/types';
+import {Seat, SeatContext} from '@/main/shared/types';
+import {Controller, useForm} from 'react-hook-form';
 
 type Props = {
   onPrev: () => void;
-  onNext: (seatInput: SeatInput) => void;
-};
-export type Seat = {
-  section: number;
-  row: string;
-  col: number;
+  onNext: (context: SeatContext) => void;
 };
 
 function SeatScreen({onPrev, onNext}: Props) {
-  const [seatList, setSeatList] = useState<Seat[]>([]);
+  const {control, handleSubmit} = useForm<SeatContext>({
+    defaultValues: {seatList: []},
+  });
 
-  function addSeat(arr: Seat[], seat: Seat) {
+  function addSeat(arr: Seat[], seat: Seat, onChange: (value: Seat[]) => void) {
     const newSeatList = [...arr, seat];
-    setSeatList(newSeatList);
+    onChange(newSeatList);
   }
 
-  function removeSeat(arr: Seat[], seat: Seat) {
+  function removeSeat(
+    arr: Seat[],
+    seat: Seat,
+    onChange: (value: Seat[]) => void,
+  ) {
     const newSeatList = arr.filter(
       item => !(item.row === seat.row && item.col === seat.col),
     );
-    setSeatList(newSeatList);
+    onChange(newSeatList);
   }
 
   return (
     <View style={styles.container}>
-      <SeatContainment value={seatList} onAdd={addSeat} onRemove={removeSeat} />
-      <SelectedSeatList seatList={seatList} />
-      <MainButton label={'다음'} onPress={onNext} size={'large'} />
+      <Controller
+        control={control}
+        render={({field: {onChange, value}}) => (
+          <SeatContainment
+            value={value}
+            onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
+            onRemove={(seat: Seat) => removeSeat(value, seat, onChange)}
+          />
+        )}
+        name="seatList"
+      />
+
+      <Controller
+        control={control}
+        render={({field: {value}}) => <SelectedSeatList seatList={value} />}
+        name="seatList"
+      />
+
+      <MainButton
+        label={'다음'}
+        onPress={handleSubmit(onNext)}
+        size={'large'}
+      />
     </View>
   );
 }

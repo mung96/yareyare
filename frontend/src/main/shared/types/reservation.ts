@@ -1,6 +1,5 @@
 import {COLORS} from '../styles';
 import {ImageSourcePropType} from 'react-native';
-import {Seat} from '@/main/apps/screens/reservationProcess';
 
 export type GradeKey =
   | 'FIRST_INFIELD'
@@ -14,7 +13,11 @@ export type Grade = {
   color: (typeof COLORS)[keyof typeof COLORS];
   img: ImageSourcePropType;
 };
-
+export type Seat = {
+  section: number;
+  row: string;
+  col: number;
+};
 export type ReservationProcess =
   | 'GradeStep'
   | 'SeatStep'

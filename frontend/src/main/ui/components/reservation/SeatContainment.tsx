@@ -3,14 +3,14 @@ import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx'
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Entypo';
-import {Seat} from '@/main/apps/screens/reservationProcess';
 import {includeSeatWithRowAndCol} from '@/main/services/helper/reservation/seat.ts';
 import {seats} from '@/main/dummy.ts';
+import {Seat} from '@/main/shared/types';
 
 type Props = {
   value: Seat[];
-  onAdd: (seatList: Seat[], seat: Seat) => void;
-  onRemove: (seatList: Seat[], seat: Seat) => void;
+  onAdd: (seat: Seat) => void;
+  onRemove: (seat: Seat) => void;
 };
 
 type SeatList = {
@@ -57,13 +57,18 @@ function SeatContainment({value, onAdd, onRemove}: Props) {
                             },
                           ]}
                           onPress={() => {
-                            includeSeatWithRowAndCol(value, row, colIdx)
-                              ? onRemove(value, {
+                            includeSeatWithRowAndCol(
+                              value,
+                              sectionNum,
+                              row,
+                              colIdx,
+                            )
+                              ? onRemove({
                                   section: sectionNum,
                                   row: row,
                                   col: colIdx,
                                 })
-                              : onAdd(value, {
+                              : onAdd({
                                   section: sectionNum,
                                   row: row,
                                   col: colIdx,
@@ -73,8 +78,12 @@ function SeatContainment({value, onAdd, onRemove}: Props) {
                             style={[
                               styles.seat,
                               disabled && styles.disabledSeat,
-                              includeSeatWithRowAndCol(value, row, colIdx) &&
-                                styles.selectedSeat,
+                              includeSeatWithRowAndCol(
+                                value,
+                                sectionNum,
+                                row,
+                                colIdx,
+                              ) && styles.selectedSeat,
                             ]}
                           />
                         </Pressable>
