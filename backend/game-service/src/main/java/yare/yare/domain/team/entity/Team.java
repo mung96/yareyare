@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import yare.yare.domain.stadium.entity.Stadium;
 
 @Entity
 @Getter
@@ -18,6 +19,10 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "team_id", columnDefinition = "TINYINT")
     private Integer id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stadium_id")
+    private Stadium stadium;
 
     @NotNull
     @Column(length = 50)
