@@ -1,7 +1,11 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AuthParamList} from '@/main/apps/navigations/AuthNavigation.tsx';
+import {PATH} from '@/main/shared/constants';
 
 function LoginScreen() {
+  const navigation = useNavigation<NavigationProp<AuthParamList>>();
   return (
     <View
       style={{
@@ -26,7 +30,9 @@ function LoginScreen() {
             네이버로 계속하기
           </Text>
         </Pressable>
-        <Pressable style={[styles.button, styles.kakaoButton]}>
+        <Pressable
+          style={[styles.button, styles.kakaoButton]}
+          onPress={() => navigation.navigate(PATH.SOCIAL)}>
           <Image
             source={require('@/main/assets/Kakao.png')}
             resizeMode={'contain'}
