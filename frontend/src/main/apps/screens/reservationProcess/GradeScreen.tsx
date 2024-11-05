@@ -1,16 +1,16 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {COLORS} from '@/main/shared/styles';
-import SectionList from '@/main/ui/components/reservation/SectionList';
+import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
 import {Controller, useForm} from 'react-hook-form';
-import {GradeInput} from '@/main/shared/types';
+import {GradeContext} from '@/main/shared/types';
 
 type Props = {
-  onNext: (grade: GradeInput) => void;
+  onNext: (grade: GradeContext) => void;
 };
 
 function GradeScreen({onNext}: Props) {
-  const {control, handleSubmit} = useForm<GradeInput>({
+  const {control, handleSubmit} = useForm<GradeContext>({
     defaultValues: undefined,
   });
   return (
@@ -27,7 +27,7 @@ function GradeScreen({onNext}: Props) {
         <Controller
           control={control}
           render={({field: {onChange, value}}) => (
-            <SectionList value={value} onSelect={onChange} />
+            <GradeList value={value} onSelect={onChange} />
           )}
           name="grade"
         />

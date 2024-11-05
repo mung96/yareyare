@@ -1,12 +1,13 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
-import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
+import {UserContext} from '@/main/shared/types';
+import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 
 type Props = {
   onPrev: () => void;
-  onNext: () => void;
+  onNext: (userInput: UserContext) => void;
 };
 
 function UserScreen({onPrev, onNext}: Props) {

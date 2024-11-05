@@ -1,13 +1,14 @@
-import {Button, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
 import {COLORS} from '@/main/shared/styles';
 import React, {useState} from 'react';
 import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
+import {SeatInput} from '@/main/shared/types';
 
 type Props = {
   onPrev: () => void;
-  onNext: () => void;
+  onNext: (seatInput: SeatInput) => void;
 };
 export type Seat = {
   section: number;

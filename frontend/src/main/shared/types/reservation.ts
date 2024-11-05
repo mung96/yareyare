@@ -1,7 +1,7 @@
 import {COLORS} from '../styles';
 import {ImageSourcePropType} from 'react-native';
 
-export type SectionKey =
+export type GradeKey =
   | 'FIRST_INFIELD'
   | 'FIRST_OUTFIELD'
   | 'CENTER'
@@ -20,17 +20,19 @@ export type ReservationProcess =
   | 'UserStep'
   | 'PaymentStep';
 
-export type GradeInput = {
+export type GradeContext = {
   grade: Grade;
 };
 
-export type SeatInput = {};
+export type SeatContext = {};
 
-export type UserInput = {};
+export type UserContext = {};
 
-export type GradeStep = Partial<GradeInput> &
-  Partial<SeatInput> &
-  Partial<UserInput>;
-export type SeatStep = GradeInput & Partial<SeatInput> & Partial<UserInput>;
-export type UserStep = GradeInput & SeatInput & Partial<UserInput>;
-export type PaymentStep = GradeInput & SeatInput & UserInput;
+export type GradeStep = Partial<GradeContext> &
+  Partial<SeatContext> &
+  Partial<UserContext>;
+export type SeatStep = GradeContext &
+  Partial<SeatContext> &
+  Partial<UserContext>;
+export type UserStep = GradeContext & SeatContext & Partial<UserContext>;
+export type PaymentStep = GradeContext & SeatContext & UserContext;
