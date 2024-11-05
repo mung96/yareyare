@@ -10,4 +10,5 @@ export const PATH = {
   MY_TICKET: 'MyTicket',
 
   RESERVATION: 'Reservation',
+  PORTONE_PAYMENT: 'PortOnePayment',
 } as const;

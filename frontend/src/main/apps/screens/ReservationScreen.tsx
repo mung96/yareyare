@@ -17,12 +17,11 @@ import {COLORS} from '@/main/shared/styles';
 import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {PATH} from '@/main/shared/constants';
+import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
 function ReservationScreen() {
-  const {
-    step: reservationStep,
-    history,
-    context,
-  } = useFunnel<{
+  const {step: reservationStep, history} = useFunnel<{
     GradeStep: GradeStep;
     SeatStep: SeatStep;
     UserStep: UserStep;
@@ -34,6 +33,8 @@ function ReservationScreen() {
       context: {},
     },
   });
+
+  const navigation = useNavigation<NavigationProp<ReservationParamList>>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,7 +68,7 @@ function ReservationScreen() {
       {reservationStep === 'PaymentStep' && (
         <PaymentScreen
           onPrev={() => history.back()}
-          onSubmit={() => '제출완료'}
+          onSubmit={() => navigation.navigate(PATH.PORTONE_PAYMENT)}
         />
       )}
     </SafeAreaView>
