@@ -6,4 +6,6 @@ import yare.yare.domain.game.dto.GameListRes;
 public interface GameService {
 
     GameListRes findGames();
+
+    GameListRes findGamesByTeam(Integer teamId);
 }

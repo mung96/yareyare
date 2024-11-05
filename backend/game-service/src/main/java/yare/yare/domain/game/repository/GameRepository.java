@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import yare.yare.domain.game.entity.Game;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -21,4 +22,14 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "from Game g " +
             "where g.gameDate > CURRENT_DATE)")
     List<Game> findNextGames();
+
+    @Query("select g " +
+            "from Game g " +
+            "join fetch g.homeTeam ht " +
+            "join fetch g.awayTeam at " +
+            "join fetch ht.stadium s " +
+            "where g.gameDate > CURRENT_DATE " +
+            "and g.gameDate <= :lastDate " +
+            "and (ht.id = :teamId or at.id = :teamId)")
+    List<Game> findNextGamesByTeam(@Param("teamId") Integer teamId, @Param("lastDate") LocalDate lastDate);
 }

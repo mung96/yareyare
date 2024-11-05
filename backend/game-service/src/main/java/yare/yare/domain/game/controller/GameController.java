@@ -35,24 +35,7 @@ public class GameController {
     public ResponseDto<GameListRes> gameList(
             @PathVariable Integer teamId) {
 
-        GameListRes result = new GameListRes();
-
-        List<GameDto> games = new ArrayList<>();
-
-        for (int i = 1; i < 4; i++) {
-            games.add(GameDto.builder()
-                    .gameId(1L)
-                    .gameDate(LocalDate.now().plusDays(i))
-                    .startTime(LocalTime.of(18, 30))
-                    .stadiumName("광주 기아 챔피언스 필드")
-                    .homeTeamName("기아")
-                    .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kia.svg")
-                    .awayTeamName("삼성")
-                    .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/samsung.svg")
-                    .build());
-        }
-
-        result.setGames(games);
+        GameListRes result = gameService.findGamesByTeam(teamId);
 
         return ResponseDto.success(OK, result);
     }
