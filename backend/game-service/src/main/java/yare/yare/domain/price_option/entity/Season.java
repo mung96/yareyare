@@ -20,7 +20,7 @@ public class Season {
     private Integer id;
 
     @NotNull
-    @Column(columnDefinition = "TINYINT")
+    @Column(columnDefinition = "SMALLINT")
     private Integer year;
 
     @NotNull
