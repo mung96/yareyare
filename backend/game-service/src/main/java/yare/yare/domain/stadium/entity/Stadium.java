@@ -6,7 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import yare.yare.domain.team.entity.Team;
+
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -19,10 +20,6 @@ public class Stadium {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stadium_id", columnDefinition = "SMALLINT")
     private Integer id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
-    private Team team;
 
     @NotNull
     @Column(length = 50)
@@ -37,4 +34,7 @@ public class Stadium {
     @NotNull
     @Column(length = 15)
     private String region;
+
+    @NotNull
+    private LocalTime ticketOpenTime;
 }

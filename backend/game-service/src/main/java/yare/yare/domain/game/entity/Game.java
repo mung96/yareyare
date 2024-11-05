@@ -68,4 +68,28 @@ public class Game {
 
     @Column(columnDefinition = "TINYINT")
     private Integer awayScore;
+
+    public String getStadiumName() {
+        return homeTeam.getStadium().getName();
+    }
+
+    public String getHomeTeamName() {
+        return homeTeam.getName();
+    }
+
+    public String getAwayTeamName() {
+        return awayTeam.getName();
+    }
+
+    public String getHomeTeamLogo() {
+        return homeTeam.getLogo();
+    }
+
+    public String getAwayTeamLogo() {
+        return awayTeam.getLogo();
+    }
+
+    public LocalDateTime getTicketOpenTime() {
+        return LocalDateTime.of(gameDate.minusDays(7), homeTeam.getStadium().getTicketOpenTime());
+    }
 }
