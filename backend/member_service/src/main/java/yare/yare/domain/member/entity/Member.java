@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -17,13 +19,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@SQLDelete(sql = " UPDATE Member SET is_deleted = true WHERE member_id = ? ")
+@SQLRestriction("is_deleted = false")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", columnDefinition = "INT UNSIGNED")
     private Long id;
 
-    @NotNull
     @Column(length = 50)
     private String name;
 
@@ -35,11 +38,9 @@ public class Member {
     @Column(length = 320, unique = true)
     private String email;
 
-    @NotNull
     @Column(columnDefinition = "CHAR(11)")
     private String tel;
 
-    @NotNull
     private LocalDate birth;
 
     @Column(length = 50)
@@ -52,6 +53,15 @@ public class Member {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @NotNull
+    private String providerType;
+
+    @NotNull
+    private Boolean isDeleted;
+
+    @NotNull
+    private Boolean isCertificated;
 
     @NotNull
     @CreatedDate
