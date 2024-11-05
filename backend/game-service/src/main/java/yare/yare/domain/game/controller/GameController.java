@@ -42,16 +42,9 @@ public class GameController {
 
     @GetMapping("/{gameId}/details")
     public ResponseDto<GameDetailsRes> gameDetails(
-            @PathVariable Long gameId) {
+            @PathVariable Integer gameId) {
 
-        GameDetailsRes result = GameDetailsRes.builder()
-                .seasonName("신한 SOL Bank KBO 리그")
-                .homeTeamName("기아")
-                .awayTeamName("삼성")
-                .gameDate(LocalDate.now().plusDays(1))
-                .startTime(LocalTime.of(18, 30))
-                .stadiumName("광주-기아 챔피언스 필드")
-                .build();
+        GameDetailsRes result = gameService.findGame(gameId);
 
         return ResponseDto.success(OK, result);
     }

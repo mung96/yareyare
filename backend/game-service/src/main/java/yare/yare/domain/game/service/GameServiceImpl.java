@@ -3,17 +3,21 @@ package yare.yare.domain.game.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yare.yare.domain.game.dto.GameDetailsRes;
 import yare.yare.domain.game.dto.GameDto;
 import yare.yare.domain.game.dto.GameListRes;
 import yare.yare.domain.game.entity.Game;
 import yare.yare.domain.game.repository.GameRepository;
+import yare.yare.global.exception.CustomException;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static yare.yare.global.statuscode.ErrorCode.NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
@@ -42,5 +46,14 @@ public class GameServiceImpl implements GameService {
         gameListRes.setGames(games);
 
         return gameListRes;
+    }
+
+    @Override
+    public GameDetailsRes findGame(Integer gameId) {
+
+        Game game = gameRepository.findGameByGameId(gameId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND));
+
+        return GameDetailsRes.toDto(game);
     }
 }

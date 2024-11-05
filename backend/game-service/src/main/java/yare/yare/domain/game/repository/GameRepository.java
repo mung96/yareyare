@@ -8,6 +8,7 @@ import yare.yare.domain.game.entity.Game;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
@@ -32,4 +33,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "and g.gameDate <= :lastDate " +
             "and (ht.id = :teamId or at.id = :teamId)")
     List<Game> findNextGamesByTeam(@Param("teamId") Integer teamId, @Param("lastDate") LocalDate lastDate);
+
+    @Query("select g " +
+            "from Game g " +
+            "join fetch g.homeTeam ht " +
+            "join fetch g.awayTeam at " +
+            "join fetch ht.stadium s " +
+            "where g.id = :gameId")
+    Optional<Game> findGameByGameId(@Param("gameId") Integer gameId);
 }
