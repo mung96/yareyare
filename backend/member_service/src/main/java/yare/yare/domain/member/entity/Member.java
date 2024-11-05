@@ -70,4 +70,20 @@ public class Member {
     @NotNull
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateBirth(LocalDate birth) {
+        this.birth = birth;
+    }
+
+    public void updateTel(String tel) {
+        this.tel = tel;
+    }
+
+    public void updateIsCertificated(Boolean isCertificated) {
+        this.isCertificated = isCertificated;
+    }
 }
