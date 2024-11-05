@@ -21,7 +21,7 @@ public class Team {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stadium_id")
+    @JoinColumn(name = "stadium_id", columnDefinition = "SMALLINT")
     private Stadium stadium;
 
     @NotNull
