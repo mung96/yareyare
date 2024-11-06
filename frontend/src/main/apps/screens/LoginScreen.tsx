@@ -1,4 +1,4 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthParamList} from '@/main/apps/navigations/AuthNavigation.tsx';
@@ -6,6 +6,16 @@ import {PATH} from '@/main/shared/constants';
 
 function LoginScreen() {
   const navigation = useNavigation<NavigationProp<AuthParamList>>();
+
+  const handleGoogleLoginBtn = () => {
+    Alert.alert('알림', '아직 개발 중이에요. 다른 방법으로 로그인해주세요', [
+      {
+        text: '확인',
+        onPress: () => {},
+        style: 'destructive',
+      },
+    ]);
+  };
   return (
     <View
       style={{
@@ -45,7 +55,7 @@ function LoginScreen() {
         </Pressable>
         <Pressable
           style={[styles.button, styles.googleButton]}
-          onPress={() => navigation.navigate(PATH.SOCIAL, {social: 'google'})}>
+          onPress={handleGoogleLoginBtn}>
           <Image
             source={require('@/main/assets/Google.png')}
             resizeMode={'contain'}
