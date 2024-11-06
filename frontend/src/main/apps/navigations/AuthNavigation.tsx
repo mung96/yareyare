@@ -6,7 +6,7 @@ import {PATH} from '@/main/shared/constants';
 
 export type AuthParamList = {
   [PATH.LOGIN]: undefined;
-  [PATH.SOCIAL]: undefined;
+  [PATH.SOCIAL]: {social: 'naver' | 'kakao' | 'google'};
 };
 
 const Stack = createNativeStackNavigator<AuthParamList>();

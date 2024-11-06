@@ -21,7 +21,9 @@ function LoginScreen() {
         resizeMode={'contain'}
       />
       <View style={styles.buttonContainer}>
-        <Pressable style={[styles.button, styles.naverButton]}>
+        <Pressable
+          style={[styles.button, styles.naverButton]}
+          onPress={() => navigation.navigate(PATH.SOCIAL, {social: 'naver'})}>
           <Image
             source={require('@/main/assets/Naver.png')}
             resizeMode={'contain'}
@@ -32,7 +34,7 @@ function LoginScreen() {
         </Pressable>
         <Pressable
           style={[styles.button, styles.kakaoButton]}
-          onPress={() => navigation.navigate(PATH.SOCIAL)}>
+          onPress={() => navigation.navigate(PATH.SOCIAL, {social: 'kakao'})}>
           <Image
             source={require('@/main/assets/Kakao.png')}
             resizeMode={'contain'}
@@ -41,7 +43,9 @@ function LoginScreen() {
             카카오로 계속하기
           </Text>
         </Pressable>
-        <Pressable style={[styles.button, styles.googleButton]}>
+        <Pressable
+          style={[styles.button, styles.googleButton]}
+          onPress={() => navigation.navigate(PATH.SOCIAL, {social: 'google'})}>
           <Image
             source={require('@/main/assets/Google.png')}
             resizeMode={'contain'}

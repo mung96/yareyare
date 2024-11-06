@@ -11,14 +11,7 @@ function RootNavigation() {
   );
   const isLogin = useSelector((state: RootState) => state.member.isLogin);
 
-  // const fetchToken = async () => {
-  //   const a = await getEncryptStorage('token');
-  //   console.log('fetchToken');
-  //   console.log(a);
-  // };
-  //
-  // fetchToken();
-
+  //TODO: 앱을 켰어 => 스토리지에 토큰이 있어 => isLogin = true, 회원정보 조회/ 없으면 로그인 페이지 가야함.
   return (
     <NavigationContainer>
       {isLogin ? (
