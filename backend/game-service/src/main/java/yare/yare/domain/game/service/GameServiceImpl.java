@@ -57,6 +57,21 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public AvailableSeatListRes findAvailableSeatListByGame(Long gameId) {
+
+        if (!gameRepository.existsById(gameId)) {
+            throw new CustomException(NOT_FOUND);
+        }
+
+        AvailableSeatListRes availableSeatListRes = new AvailableSeatListRes();
+
+        List<GradeDto> grades = gameRepository.findAvailableSeatListByGameId(gameId);
+        availableSeatListRes.setGrades(grades);
+
+        return availableSeatListRes;
+    }
+
+    @Override
     public SeatListRes findSeats(Long gameId, Integer gradeId) {
 
         List<GameSeat> gameSeats = gameRepository.findGameSeatsByGradeId(gameId, gradeId);

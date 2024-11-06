@@ -211,7 +211,7 @@ public class GameControllerTest {
     @Test
     public void 등급별_잔여_좌석_조회_성공() throws Exception {
         //given
-        Long gameId = 1L;
+        Long gameId = 693L;
 
         //when
         ResultActions actions = mockMvc.perform(
