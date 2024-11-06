@@ -28,12 +28,15 @@ public class ScheduleDto {
     private Boolean isHome;
 
     public static ScheduleDto of(Game game, Integer teamId) {
+        Boolean isHome = Objects.equals(game.getHomeTeam().getId(), teamId);
         GameStatus gameStatus;
+        Integer myTeamScore = isHome ? game.getHomeScore() : game.getAwayScore();
+        Integer awayScore = isHome ? game.getAwayScore() : game.getHomeScore();
 
         if (game.getIsFinished()) {
-            if (game.getHomeScore() > game.getAwayScore()) {
+            if (myTeamScore > awayScore) {
                 gameStatus = WIN;
-            } else if (game.getHomeScore() < game.getAwayScore()) {
+            } else if (myTeamScore < awayScore) {
                 gameStatus = LOSE;
             } else {
                 gameStatus = DRAW;
@@ -49,10 +52,10 @@ public class ScheduleDto {
         return ScheduleDto.builder()
                 .gameDate(game.getGameDate())
                 .startTime(game.getStartTime())
-                .opponentTeamLogo(game.getAwayTeamLogo())
+                .opponentTeamLogo(isHome ? game.getAwayTeamLogo() : game.getHomeTeamLogo())
                 .gameStatus(gameStatus)
                 .region(game.getRegion())
-                .isHome(Objects.equals(game.getHomeTeam().getId(), teamId))
+                .isHome(isHome)
                 .build();
     }
 }

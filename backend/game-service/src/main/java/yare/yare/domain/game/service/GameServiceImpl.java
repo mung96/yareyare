@@ -94,9 +94,10 @@ public class GameServiceImpl implements GameService {
     @Override
     public ScheduleListRes findScheduleList(Integer teamId, Integer year, Integer month) {
 
-        LocalDate findOptionDate = LocalDate.of(year, month, 1);
+        LocalDate findOptionStartDate = LocalDate.of(year, month, 1);
+        LocalDate findOptionEndDate = LocalDate.of(year, month, 1).plusMonths(1);
 
-        List<Game> games = gameRepository.findScheduleListWithYearAndMonth(teamId, findOptionDate);
+        List<Game> games = gameRepository.findScheduleListWithYearAndMonth(teamId, findOptionStartDate, findOptionEndDate);
 
         return ScheduleListRes.of(games, teamId);
     }

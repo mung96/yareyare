@@ -78,6 +78,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join fetch g.awayTeam at " +
             "join fetch g.homeTeam.stadium st " +
             "where (ht.id = :teamId or at.id = :teamId) " +
-            "and g.gameDate >= :findOptionDate ")
-    List<Game> findScheduleListWithYearAndMonth(Integer teamId, LocalDate findOptionDate);
+            "and g.gameDate >= :findOptionStartDate " +
+            "and g.gameDate < :findOptionEndDate")
+    List<Game> findScheduleListWithYearAndMonth(Integer teamId, LocalDate findOptionStartDate, LocalDate findOptionEndDate);
 }
