@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Member} from '@/main/shared/types/member.ts';
+import {Member} from '@/main/shared/types/member/domain.ts';
 
 type State = {
   isLogin: boolean;

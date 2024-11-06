@@ -12,6 +12,17 @@ export type TeamKey =
   | 'LOTTE'
   | 'SSG';
 
+export type Game = {
+  homeTeam: TeamKey;
+  awayTeam: TeamKey;
+  result: GameResult;
+};
+
+export type GameResult = {
+  homeScore: number;
+  awayScore: number;
+};
+
 export type Team = {
   name: string;
   logo: ImageSourcePropType;

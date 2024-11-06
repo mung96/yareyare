@@ -1,8 +1,8 @@
 import {StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import GameResultItem from '@/main/ui/components/game/GameResultItem.tsx';
-import {Game} from '@/main/shared/types/game.ts';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import {Game} from '@/main/shared/types';
 
 const gameList: Game[] = [
   {homeTeam: 'DOOSAN', awayTeam: 'NC', result: {homeScore: 1, awayScore: 12}},
