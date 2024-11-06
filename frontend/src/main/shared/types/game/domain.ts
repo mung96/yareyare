@@ -15,10 +15,10 @@ export type TeamKey =
 export type Game = {
   homeTeam: TeamKey;
   awayTeam: TeamKey;
-  result: Result;
+  result: GameResult;
 };
 
-export type Result = {
+export type GameResult = {
   homeScore: number;
   awayScore: number;
 };
