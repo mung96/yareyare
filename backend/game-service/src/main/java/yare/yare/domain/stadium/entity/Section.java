@@ -19,8 +19,8 @@ public class Section {
     @Column(name = "section_id", columnDefinition = "SMALLINT")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grade_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "grade_id", nullable = false)
     private Grade grade;
 
     @NotNull

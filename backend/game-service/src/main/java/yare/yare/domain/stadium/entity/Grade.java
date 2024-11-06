@@ -19,7 +19,7 @@ public class Grade {
     @Column(name = "grade_id", columnDefinition = "SMALLINT")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "stadium_id")
     private Stadium stadium;
 
