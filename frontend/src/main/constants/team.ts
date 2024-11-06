@@ -1,4 +1,4 @@
-import {Team, TeamKey} from '@/main/shared/types';
+import {Team, TeamKey} from '@/main/types';
 
 const LOGO_PATH = {
   DOOSAN: require('@/main/assets/Doosan.png'),

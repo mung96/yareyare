@@ -1,8 +1,8 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthParamList} from '@/main/apps/navigations/AuthNavigation.tsx';
-import {PATH} from '@/main/shared/constants';
+import {PATH} from 'src/main/constants';
 
 function LoginScreen() {
   const navigation = useNavigation<NavigationProp<AuthParamList>>();

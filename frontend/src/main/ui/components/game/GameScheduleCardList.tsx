@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
-import {TEAM_LIST} from '@/main/shared/constants/team.ts';
+import {TEAM_LIST} from '@/main/constants/team.ts';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
 

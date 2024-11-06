@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TextProps} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 
 const CustomText = ({children, style, ...props}: TextProps) => {
   return (

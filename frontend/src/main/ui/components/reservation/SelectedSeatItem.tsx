@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {Seat} from '@/main/apps/screens/reservationProcess';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 
 type Props = {
   seat: Seat;

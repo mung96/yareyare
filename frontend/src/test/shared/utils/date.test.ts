@@ -1,4 +1,4 @@
-import {convertDateToDateString} from '@/main/shared/utils';
+import {convertDateToDateString} from 'src/main/utils';
 import dayjs from 'dayjs';
 
 describe('Dayjs 형식의 날짜를 YYYY-MM-DD 형식으로 바꿔주는 함수', () => {

@@ -1,9 +1,9 @@
 import {StyleSheet, View} from 'react-native';
 import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {Seat, SeatContext} from '@/main/shared/types';
+import {Seat, SeatContext} from 'src/main/types';
 import {Controller, useForm} from 'react-hook-form';
 
 type Props = {

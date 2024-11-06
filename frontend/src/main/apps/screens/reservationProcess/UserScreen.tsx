@@ -1,7 +1,7 @@
 import {ScrollView, StyleSheet} from 'react-native';
 import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {UserContext} from '@/main/shared/types';
+import {UserContext} from 'src/main/types';
 import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import {Controller, useForm} from 'react-hook-form';
 

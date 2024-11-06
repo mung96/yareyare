@@ -1,7 +1,7 @@
 import {Image, StyleSheet, View} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {Team} from '@/main/shared/types';
+import {Team} from 'src/main/types';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {

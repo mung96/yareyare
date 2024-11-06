@@ -1,22 +1,22 @@
 import React from 'react';
 import HomeScreen from '@/main/apps/screens/HomeScreen.tsx';
-import {PATH} from '@/main/shared/constants';
+import {PATH} from 'src/main/constants';
 import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
 import MyTicketScreen from '@/main/apps/screens/MyTicketScreen.tsx';
 import MapScreen from '@/main/apps/screens/MapScreen.tsx';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-type TabProps = {
+export type BottomParamList = {
   [PATH.HOME]: undefined;
   [PATH.GAME_SCHEDULE]: undefined;
   [PATH.MAP]: undefined;
   [PATH.MY_TICKET]: undefined;
 };
 
-function TabBarIcons(route: RouteProp<TabProps>, focused: boolean) {
+function TabBarIcons(route: RouteProp<BottomParamList>, focused: boolean) {
   let iconName = '';
   switch (route.name) {
     case PATH.HOME: {
@@ -46,7 +46,7 @@ function TabBarIcons(route: RouteProp<TabProps>, focused: boolean) {
   );
 }
 
-const Tab = createBottomTabNavigator<TabProps>();
+const Tab = createBottomTabNavigator<BottomParamList>();
 
 function BottomNavBar() {
   return (

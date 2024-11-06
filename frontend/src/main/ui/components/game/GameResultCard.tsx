@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import GameResultItem from '@/main/ui/components/game/GameResultItem.tsx';
-import {Game} from '@/main/shared/types/game.ts';
+import {Game} from '@/main/types/game.ts';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 const gameList: Game[] = [

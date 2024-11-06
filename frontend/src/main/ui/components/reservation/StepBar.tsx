@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 
 type Props = {
   currentStep: number;

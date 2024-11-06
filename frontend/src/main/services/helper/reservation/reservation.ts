@@ -1,5 +1,5 @@
-import {ReservationProcess} from '@/main/shared/types';
-import {neverExpected} from '@/main/shared/utils/type.ts';
+import {ReservationProcess} from 'src/main/types';
+import {neverExpected} from '@/main/utils/type.ts';
 
 export function convertReservationStepToStepNumber(step: ReservationProcess) {
   if (step === 'GradeStep') {

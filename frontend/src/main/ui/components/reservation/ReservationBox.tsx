@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React, {ReactNode} from 'react';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {

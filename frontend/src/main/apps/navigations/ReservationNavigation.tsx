@@ -1,5 +1,5 @@
 import React from 'react';
-import {PATH} from '@/main/shared/constants';
+import {PATH} from 'src/main/constants';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ReservationScreen from '@/main/apps/screens/ReservationScreen.tsx';
 import Icon from 'react-native-vector-icons/Feather';

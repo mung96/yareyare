@@ -1,9 +1,11 @@
 import {View} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
+import {COLORS} from 'src/main/styles';
 import GameScheduleCardList from '@/main/ui/components/game/GameScheduleCardList';
 import GameResultCard from '@/main/ui/components/game/GameResultCard.tsx';
+import {getEncryptStorage} from '@/main/utils/encryptStorage.ts';
 
 function HomeScreen() {
+  console.log(getEncryptStorage('token'));
   return (
     <View
       style={{
