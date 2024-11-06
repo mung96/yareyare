@@ -1,24 +1,30 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-type NavigationCategory = 'reservation' | 'navbar';
+import {Member} from '@/main/types/member.ts';
 
 type State = {
-  navigationCategory: NavigationCategory;
+  isLogin: boolean;
+  member: Member | null;
 };
 
 const initialState: State = {
-  navigationCategory: 'navbar',
+  isLogin: false,
+  member: null,
 };
 
-const navigationSlice = createSlice({
-  name: 'navigation',
+const memberSlice = createSlice({
+  name: 'member',
   initialState,
   reducers: {
-    moveNavigation(state, action: PayloadAction<NavigationCategory>) {
-      state.navigationCategory = action.payload;
+    login(state, action: PayloadAction<Member>) {
+      state.member = action.payload;
+      state.isLogin = true;
+    },
+    logout(state) {
+      state.member = null;
+      state.isLogin = false;
     },
   },
 });
 
-export default navigationSlice.reducer;
-export const {moveNavigation} = navigationSlice.actions;
+export default memberSlice.reducer;
+export const {login, logout} = memberSlice.actions;
