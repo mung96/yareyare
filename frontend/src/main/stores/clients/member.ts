@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Member} from '@/main/shared/types/member.ts';
+import {Domain} from '@/main/shared/types/member/domain.ts';
 
 type State = {
   isLogin: boolean;
-  member: Member | null;
+  member: Domain | null;
 };
 
 const initialState: State = {

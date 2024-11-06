@@ -1,4 +1,4 @@
-export type Member = {
+export type Domain = {
   id: string;
   name: string;
   email: string;
