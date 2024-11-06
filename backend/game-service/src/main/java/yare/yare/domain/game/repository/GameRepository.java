@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import yare.yare.domain.game.dto.GradeDto;
 import yare.yare.domain.game.entity.Game;
 
 import java.time.LocalDate;
@@ -41,4 +42,16 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join fetch ht.stadium s " +
             "where g.id = :gameId")
     Optional<Game> findGameByGameId(@Param("gameId") Long gameId);
+
+    @Query("select new yare.yare.domain.game.dto.GradeDto( " +
+            "gr.id, gr.name, count(gs)) " +
+            "from GameSeat gs " +
+            "join gs.seat s " +
+            "join s.section sec " +
+            "join sec.grade gr " +
+            "where gs.game.id = :gameId " +
+            "and gs.seatStatus = 'AVAILABLE' " +
+            "group by gr.id " +
+            "order by gr.id")
+    List<GradeDto> findAvailableSeatListByGameId(@Param("gameId") Long gameId);
 }
