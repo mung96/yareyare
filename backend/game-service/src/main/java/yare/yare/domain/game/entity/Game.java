@@ -96,4 +96,8 @@ public class Game {
     public String getSeasonName() {
         return season.getName();
     }
+
+    public String getRegion() {
+        return homeTeam.getStadium().getRegion();
+    }
 }
