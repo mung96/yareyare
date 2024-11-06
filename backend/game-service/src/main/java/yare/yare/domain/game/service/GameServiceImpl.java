@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.game.dto.*;
 import yare.yare.domain.game.entity.Game;
+import yare.yare.domain.game.entity.GameSeat;
 import yare.yare.domain.game.repository.GameRepository;
 import yare.yare.global.exception.CustomException;
 
@@ -68,5 +69,17 @@ public class GameServiceImpl implements GameService {
         availableSeatListRes.setGrades(grades);
 
         return availableSeatListRes;
+    }
+
+    @Override
+    public SeatListRes findSeats(Long gameId, Integer gradeId) {
+
+        List<GameSeat> gameSeats = gameRepository.findGameSeatsByGradeId(gameId, gradeId);
+
+        if (gameSeats.isEmpty()) {
+            throw new CustomException(NOT_FOUND);
+        }
+
+        return SeatListRes.toDto(gameSeats);
     }
 }

@@ -256,7 +256,7 @@ public class GameControllerTest {
     @Test
     public void 구역_내_잔여_좌석_조회_성공() throws Exception {
         //given
-        Long gameId = 1L;
+        Long gameId = 693L;
         Integer gradeId = 1;
 
         //when

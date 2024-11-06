@@ -63,42 +63,7 @@ public class GameController {
             @PathVariable Long gameId,
             @RequestParam Integer gradeId) {
 
-        SeatListRes result = new SeatListRes();
-
-        List<SectionDto> sections = new ArrayList<>();
-
-        int seatId = 9241;
-
-        for (int sectionName = 101; sectionName <= 106; sectionName++) {
-            List<RowDto> rows = new ArrayList<>();
-
-            for (int i = 0; i < 11; i++) {
-                List<SeatDto> seats = new ArrayList<>();
-
-                for (int j = 0; j < 20; j++) {
-                    seats.add(SeatDto.builder()
-                            .seatId((long) seatId++)
-                            .seatNumber(j + 1)
-                            .isAvailable((i + j) % 5 != 0)
-                            .build()
-                    );
-                }
-
-                String rowName = Character.toString((char) ('A' + i));
-
-                rows.add(RowDto.builder()
-                        .rowName(rowName)
-                        .seats(seats)
-                        .build());
-            }
-
-            sections.add(SectionDto.builder()
-                    .sectionName(String.valueOf(sectionName))
-                    .rows(rows)
-                    .build());
-        }
-
-        result.setSections(sections);
+        SeatListRes result = gameService.findSeats(gameId, gradeId);
 
         return ResponseDto.success(OK, result);
     }

@@ -32,4 +32,24 @@ public class GameSeat {
     @NotNull
     @Enumerated(EnumType.STRING)
     private SeatStatus seatStatus;
+
+    public String getSectionName() {
+        return seat.getSection().getName();
+    }
+
+    public String getRowName() {
+        return seat.getRowName();
+    }
+
+    public Long getSeatId() {
+        return seat.getId();
+    }
+
+    public Integer getSeatNumber() {
+        return seat.getSeatNumber();
+    }
+
+    public Boolean isAvailable() {
+        return seatStatus == SeatStatus.AVAILABLE;
+    }
 }
