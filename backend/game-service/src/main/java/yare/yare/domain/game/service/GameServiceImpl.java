@@ -90,4 +90,15 @@ public class GameServiceImpl implements GameService {
 
         return LastGameListRes.toDto(lastGames);
     }
+
+    @Override
+    public ScheduleListRes findScheduleList(Integer teamId, Integer year, Integer month) {
+
+        LocalDate findOptionStartDate = LocalDate.of(year, month, 1);
+        LocalDate findOptionEndDate = LocalDate.of(year, month, 1).plusMonths(1);
+
+        List<Game> games = gameRepository.findScheduleListWithYearAndMonth(teamId, findOptionStartDate, findOptionEndDate);
+
+        return ScheduleListRes.of(games, teamId);
+    }
 }

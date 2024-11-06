@@ -71,4 +71,14 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "from Game g " +
             "where g.gameDate < CURRENT_DATE)")
     List<Game> findLastGames();
+
+    @Query("select g " +
+            "from Game g " +
+            "join fetch g.homeTeam ht " +
+            "join fetch g.awayTeam at " +
+            "join fetch g.homeTeam.stadium st " +
+            "where (ht.id = :teamId or at.id = :teamId) " +
+            "and g.gameDate >= :findOptionStartDate " +
+            "and g.gameDate < :findOptionEndDate")
+    List<Game> findScheduleListWithYearAndMonth(Integer teamId, LocalDate findOptionStartDate, LocalDate findOptionEndDate);
 }

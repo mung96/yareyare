@@ -4,14 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.game.dto.*;
-import yare.yare.domain.game.enums.GameStatus;
 import yare.yare.domain.game.service.GameService;
 import yare.yare.global.dto.ResponseDto;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static yare.yare.global.statuscode.SuccessCode.CREATED;
 import static yare.yare.global.statuscode.SuccessCode.OK;
@@ -85,55 +81,13 @@ public class GameController {
             @RequestParam Integer year,
             @RequestParam Integer month) {
 
-        ScheduleListRes result = new ScheduleListRes();
-
-        List<ScheduleDto> schedules = new ArrayList<>();
-
-        for (int date = 1; date <= 3; date++) {
-            schedules.add(ScheduleDto.builder()
-                    .gameDate(LocalDate.of(year, month, date))
-                    .startTime(LocalTime.of(18, 30))
-                    .opponentTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kt.svg")
-                    .gameStatus(GameStatus.LOSE)
-                    .region("수원")
-                    .isHome(false)
-                    .build());
+        if (year == null) {
+            year = LocalDate.now().getYear();
         }
-
-        for (int date = 5; date <= 7; date++) {
-            schedules.add(ScheduleDto.builder()
-                    .gameDate(LocalDate.of(year, month, date))
-                    .startTime(LocalTime.of(18, 30))
-                    .opponentTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/samsung.svg")
-                    .gameStatus(GameStatus.WIN)
-                    .region("광주")
-                    .isHome(true)
-                    .build());
+        if (month == null) {
+            month = LocalDate.now().getMonthValue();
         }
-
-        for (int date = 8; date <= 10; date++) {
-            schedules.add(ScheduleDto.builder()
-                    .gameDate(LocalDate.of(year, month, date))
-                    .startTime(LocalTime.of(18, 30))
-                    .opponentTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/lg.svg")
-                    .gameStatus(GameStatus.SCHEDULED)
-                    .region("광주")
-                    .isHome(true)
-                    .build());
-        }
-
-        for (int date = 12; date <= 14; date++) {
-            schedules.add(ScheduleDto.builder()
-                    .gameDate(LocalDate.of(year, month, date))
-                    .startTime(LocalTime.of(18, 30))
-                    .opponentTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/hanhwa.svg")
-                    .gameStatus(GameStatus.SCHEDULED)
-                    .region("대전")
-                    .isHome(false)
-                    .build());
-        }
-
-        result.setSchedules(schedules);
+        ScheduleListRes result = gameService.findScheduleList(teamId, year, month);
 
         return ResponseDto.success(OK, result);
     }
