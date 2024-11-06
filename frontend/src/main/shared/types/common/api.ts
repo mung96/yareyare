@@ -1,8 +1,4 @@
-import {AxiosResponse} from 'axios';
-
-type ResponseDto<T> = {
+export type Response<T> = {
   header: {message: string};
   body: T;
 };
-
-export type Response<T> = AxiosResponse<ResponseDto<T>>;
