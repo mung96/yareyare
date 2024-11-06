@@ -43,8 +43,11 @@ public class Member {
 
     private LocalDate birth;
 
+    @Column(columnDefinition = "INT UNSIGNED")
+    private Long myTeamId;
+
     @Column(length = 50)
-    private String myTeam;
+    private String myTeamName;
 
     @NotNull
     @Column(length = 15)

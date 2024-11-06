@@ -21,7 +21,9 @@ public class MemberDetailsRes {
 
     private String email;
 
-    private String myTeam;
+    private Long myTeamId;
+
+    private String myTeamName;
 
     private Boolean isCertificated;
 
@@ -33,7 +35,8 @@ public class MemberDetailsRes {
                 .birth(member.getBirth())
                 .tel(member.getTel())
                 .email(member.getEmail())
-                .myTeam(member.getMyTeam())
+                .myTeamId(member.getMyTeamId())
+                .myTeamName(member.getMyTeamName())
                 .isCertificated(member.getIsCertificated())
                 .uuid(member.getUuid())
                 .build();

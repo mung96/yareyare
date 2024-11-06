@@ -3,7 +3,6 @@ package yare.yare.domain.member.controller;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.epages.restdocs.apispec.Schema;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -84,7 +83,8 @@ class MemberControllerTest {
                 .birth(LocalDate.parse("1999-02-01"))
                 .tel("01074544231")
                 .email("srpark13@naver.com")
-                .myTeam("기아 타이거즈")
+                .myTeamId(1L)
+                .myTeamName("기아 타이거즈")
                 .isCertificated(TRUE)
                 .uuid("박동환의 UUID")
                 .build();
@@ -126,8 +126,10 @@ class MemberControllerTest {
                                                         .description("전화번호"),
                                                 fieldWithPath("body.email").type(STRING).optional()
                                                         .description("이메일"),
-                                                fieldWithPath("body.myTeam").type(STRING).optional()
-                                                        .description("마이 팀"),
+                                                fieldWithPath("body.myTeamId").type(NUMBER).optional()
+                                                        .description("마이 팀 아이디"),
+                                                fieldWithPath("body.myTeamName").type(STRING).optional()
+                                                        .description("마이 팀 이름"),
                                                 fieldWithPath("body.isCertificated").type(BOOLEAN).optional()
                                                         .description("본인인증 여부"),
                                                 fieldWithPath("body.uuid").type(STRING).optional()
