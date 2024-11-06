@@ -53,41 +53,7 @@ public class GameController {
     public ResponseDto<AvailableSeatListRes> availableSeatList(
             @PathVariable Long gameId) {
 
-        AvailableSeatListRes result = new AvailableSeatListRes();
-
-        List<GradeDto> grades = new ArrayList<>();
-
-        grades.add(GradeDto.builder()
-                .gradeId(36)
-                .gradeName("1루 내야")
-                .availableSeats(1)
-                .build());
-
-        grades.add(GradeDto.builder()
-                .gradeId(37)
-                .gradeName("1루 외야")
-                .availableSeats(237)
-                .build());
-
-        grades.add(GradeDto.builder()
-                .gradeId(38)
-                .gradeName("중앙테이블석")
-                .availableSeats(30)
-                .build());
-
-        grades.add(GradeDto.builder()
-                .gradeId(39)
-                .gradeName("3루 내야")
-                .availableSeats(147)
-                .build());
-
-        grades.add(GradeDto.builder()
-                .gradeId(40)
-                .gradeName("3루 외야")
-                .availableSeats(234)
-                .build());
-
-        result.setGrades(grades);
+        AvailableSeatListRes result = gameService.findAvailableSeatListByGame(gameId);
 
         return ResponseDto.success(OK, result);
     }
@@ -96,14 +62,14 @@ public class GameController {
     public ResponseDto<SeatListRes> seatList(
             @PathVariable Long gameId,
             @RequestParam Integer gradeId) {
-        
+
         SeatListRes result = new SeatListRes();
-        
+
         List<SectionDto> sections = new ArrayList<>();
 
         int seatId = 9241;
 
-        for (int sectionName = 101; sectionName <= 106 ; sectionName++) {
+        for (int sectionName = 101; sectionName <= 106; sectionName++) {
             List<RowDto> rows = new ArrayList<>();
 
             for (int i = 0; i < 11; i++) {
@@ -131,9 +97,9 @@ public class GameController {
                     .rows(rows)
                     .build());
         }
-        
+
         result.setSections(sections);
-        
+
         return ResponseDto.success(OK, result);
     }
 
