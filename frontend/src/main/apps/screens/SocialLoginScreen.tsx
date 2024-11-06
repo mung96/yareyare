@@ -1,49 +1,33 @@
-import React from 'react';
-import {Dimensions, Platform, SafeAreaView, StyleSheet} from 'react-native';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
+import {SERVER_BASE_URL, SOCIAL_LOGIN_REDIRECT_URI} from '@env';
 
-const REDIRECT_URI = `${
-  Platform.OS === 'ios' ? 'http://localhost:3000/' : 'http://10.0.2.2:3030/'
-}auth/oauth/kakao`;
+const REDIRECT_URI = SOCIAL_LOGIN_REDIRECT_URI;
+
+//
+// type A = {name: string; age: number};
+// type B = {name: string; tall: number};
+//
+// const a: A = {name: 'a'};
+// const a: A = {name: 'a', age: 11, tall: 11};
 
 function KakaoLoginScreen() {
   const handleOnMessage = (event: WebViewMessageEvent) => {
-    console.log('handleOnMessage 시작');
-
-    console.log(event.nativeEvent.url);
-
-    if (event.nativeEvent.url.includes(`${REDIRECT_URI}?code=`)) {
-      const code = event.nativeEvent.url.replace(`${REDIRECT_URI}?code=`, '');
-
-      console.log('handleOnMessage 끝');
-
-      console.log(code);
+    if (event.nativeEvent.url.includes(`${REDIRECT_URI}?token=`)) {
+      const token = event.nativeEvent.url.replace(`${REDIRECT_URI}?token=`, '');
+      console.log(token);
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <WebView
-        source={{
-          uri: 'http://yareyare.co.kr:8080/members/signin/social/kakao',
-        }}
-        onMessage={handleOnMessage}
-        injectedJavaScript={"window.ReactNativeWebView.postMessage('')"}
-      />
-    </SafeAreaView>
+    <WebView
+      source={{
+        uri: `${SERVER_BASE_URL}members/signin/social/kakao`,
+      }}
+      onMessage={handleOnMessage}
+      injectedJavaScript={"window.ReactNativeWebView.postMessage('')"}
+      onError={error => console.error(error)}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  LoadingContainer: {
-    height: Dimensions.get('window').height,
-    paddingBottom: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default KakaoLoginScreen;
