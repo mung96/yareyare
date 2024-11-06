@@ -63,4 +63,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where gs.game.id = :gameId " +
             "and sec.grade.id = :gradeId ")
     List<GameSeat> findGameSeatsByGradeId(@Param("gameId") Long gameId, @Param("gradeId") Integer gradeId);
+
+    @Query("select g " +
+            "from Game g " +
+            "where g.gameDate = " +
+            "(select max(g.gameDate) " +
+            "from Game g " +
+            "where g.gameDate < CURRENT_DATE)")
+    List<Game> findLastGames();
 }

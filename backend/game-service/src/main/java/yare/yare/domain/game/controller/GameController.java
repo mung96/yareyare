@@ -141,50 +141,7 @@ public class GameController {
     @GetMapping("/results")
     public ResponseDto<LastGameListRes> lastGameList() {
 
-        List<ResultDto> results = new ArrayList<>();
-
-        results.add(ResultDto.builder()
-                .homeTeamScore(2)
-                .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kiwoom.svg")
-                .awayTeamScore(1)
-                .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kia.svg")
-                .gameStatus(GameStatus.WIN)
-                .build());
-
-        results.add(ResultDto.builder()
-                .homeTeamScore(2)
-                .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/doosan.svg")
-                .awayTeamScore(12)
-                .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/lotte.svg")
-                .gameStatus(GameStatus.LOSE)
-                .build());
-
-        results.add(ResultDto.builder()
-                .homeTeamScore(3)
-                .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/samsung.svg")
-                .awayTeamScore(1)
-                .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kt.svg")
-                .gameStatus(GameStatus.WIN)
-                .build());
-
-        results.add(ResultDto.builder()
-                .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kiwoom.svg")
-                .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kia.svg")
-                .gameStatus(GameStatus.OFF)
-                .build());
-
-        results.add(ResultDto.builder()
-                .homeTeamScore(5)
-                .homeTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kiwoom.svg")
-                .awayTeamScore(9)
-                .awayTeamLogo("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/kia.svg")
-                .gameStatus(GameStatus.WIN)
-                .build());
-
-        LastGameListRes result = LastGameListRes.builder()
-                .gameDate(LocalDate.now().minusDays(1))
-                .results(results)
-                .build();
+        LastGameListRes result = gameService.findLastGames();
 
         return ResponseDto.success(OK, result);
     }
