@@ -82,4 +82,12 @@ public class GameServiceImpl implements GameService {
 
         return SeatListRes.toDto(gameSeats);
     }
+
+    @Override
+    public LastGameListRes findLastGames() {
+
+        List<Game> lastGames = gameRepository.findLastGames();
+
+        return LastGameListRes.toDto(lastGames);
+    }
 }
