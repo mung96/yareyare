@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Member} from '@/main/types/member.ts';
+import {createSlice} from '@reduxjs/toolkit';
+import {Member} from '@/main/shared/types/member.ts';
 
 type State = {
   isLogin: boolean;
@@ -15,12 +15,10 @@ const memberSlice = createSlice({
   name: 'member',
   initialState,
   reducers: {
-    login(state, action: PayloadAction<Member>) {
-      state.member = action.payload;
+    login(state) {
       state.isLogin = true;
     },
     logout(state) {
-      state.member = null;
       state.isLogin = false;
     },
   },

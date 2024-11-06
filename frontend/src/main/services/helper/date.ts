@@ -1,5 +1,5 @@
 //날짜를 추가해주는 기능
-import {DateString} from 'src/main/types';
+import {DateString} from '@/main/shared/types';
 
 export function changeSelectedDate(dateString: DateString): {
   [key: DateString]: {selected: boolean};

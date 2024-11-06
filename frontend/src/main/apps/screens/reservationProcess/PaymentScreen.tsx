@@ -2,9 +2,9 @@ import {StyleSheet, View} from 'react-native';
 import PaymentMethodList from '@/main/ui/components/reservation/PaymentMethodList';
 import ExpectedPayment from '@/main/ui/components/reservation/ExpectedPayment.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import {Controller, useForm} from 'react-hook-form';
-import {PaymentContext} from 'src/main/types';
+import {PaymentContext} from '@/main/shared/types';
 
 type Props = {
   onPrev: () => void;

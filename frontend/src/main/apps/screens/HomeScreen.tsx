@@ -1,8 +1,8 @@
 import {View} from 'react-native';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import GameScheduleCardList from '@/main/ui/components/game/GameScheduleCardList';
 import GameResultCard from '@/main/ui/components/game/GameResultCard.tsx';
-import {getEncryptStorage} from '@/main/utils/encryptStorage.ts';
+import {getEncryptStorage} from '@/main/shared/utils/encryptStorage.ts';
 
 function HomeScreen() {
   console.log(getEncryptStorage('token'));

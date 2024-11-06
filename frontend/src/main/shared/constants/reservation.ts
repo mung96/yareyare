@@ -1,5 +1,5 @@
-import {COLORS} from '@/main/styles';
-import {Grade, GradeKey} from '@/main/types';
+import {COLORS} from '@/main/shared/styles';
+import {Grade, GradeKey} from '@/main/shared/types';
 
 export const GRADE_IMG = {
   DEFAULT: require('@/main/assets/defaultStadium.png'),

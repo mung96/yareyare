@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, View} from 'react-native';
-import {COLORS} from 'src/main/styles';
-import {Section} from 'src/main/types';
+import {COLORS} from '@/main/shared/styles';
+import {Section} from '@/main/shared/types';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {

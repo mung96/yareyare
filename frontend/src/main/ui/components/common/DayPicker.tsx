@@ -1,10 +1,10 @@
 import {Calendar} from 'react-native-calendars';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import {useState} from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
-import {convertDateToDateString} from 'src/main/utils';
-import {DateString} from 'src/main/types';
+import {convertDateToDateString} from '@/main/shared/utils';
+import {DateString} from '@/main/shared/types';
 import {changeSelectedDate} from '@/main/services/helper';
 import '@/main/services/helper/LocalConfig.ts';
 

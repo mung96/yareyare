@@ -8,8 +8,8 @@ import {
   View,
 } from 'react-native';
 
-import {COLORS} from 'src/main/styles';
-import {mergeRefs} from '@/main/utils/common.ts';
+import {COLORS} from '@/main/shared/styles';
+import {mergeRefs} from '@/main/shared/utils/common.ts';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 interface Props extends TextInputProps {

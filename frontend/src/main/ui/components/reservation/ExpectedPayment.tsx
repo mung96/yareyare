@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 // import Icon from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/FontAwesome5';

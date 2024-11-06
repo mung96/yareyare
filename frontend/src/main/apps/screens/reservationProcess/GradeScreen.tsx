@@ -1,9 +1,9 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
 import {Controller, useForm} from 'react-hook-form';
-import {GradeContext} from 'src/main/types';
+import {GradeContext} from '@/main/shared/types';
 
 type Props = {
   onNext: (grade: GradeContext) => void;

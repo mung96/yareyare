@@ -1,10 +1,10 @@
 import {StyleSheet, View} from 'react-native';
 import InputField from '@/main/ui/components/common/InputField.tsx';
 import React from 'react';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {Control, Controller} from 'react-hook-form';
-import {UserContext} from 'src/main/types';
+import {UserContext} from '@/main/shared/types';
 
 type Props = {
   totalPrice: string;

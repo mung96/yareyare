@@ -1,7 +1,7 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import React from 'react';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';
 
 type Props = {

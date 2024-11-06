@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pressable, PressableProps, StyleSheet, View} from 'react-native';
 
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';

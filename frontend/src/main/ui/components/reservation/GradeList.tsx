@@ -1,8 +1,8 @@
 import SectionItem from '@/main/ui/components/reservation/SectionItem.tsx';
 import {Image, StyleSheet, View} from 'react-native';
-import {COLORS} from 'src/main/styles';
-import {Grade, GradeKey} from 'src/main/types';
-import {GRADE_IMG, GRADE_LIST} from 'src/main/constants';
+import {COLORS} from '@/main/shared/styles';
+import {Grade, GradeKey} from '@/main/shared/types';
+import {GRADE_IMG, GRADE_LIST} from '@/main/shared/constants';
 
 type Props = {
   value: Grade | undefined;

@@ -1,12 +1,12 @@
 import React from 'react';
 import HomeScreen from '@/main/apps/screens/HomeScreen.tsx';
-import {PATH} from 'src/main/constants';
+import {PATH} from '@/main/shared/constants';
 import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
 import MyTicketScreen from '@/main/apps/screens/MyTicketScreen.tsx';
 import MapScreen from '@/main/apps/screens/MapScreen.tsx';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export type BottomParamList = {

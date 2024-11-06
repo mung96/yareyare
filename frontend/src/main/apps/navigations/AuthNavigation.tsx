@@ -1,8 +1,8 @@
 import React from 'react';
-import {PATH} from 'src/main/constants';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '@/main/apps/screens/LoginScreen.tsx';
 import SocialLoginScreen from '@/main/apps/screens/SocialLoginScreen.tsx';
+import {PATH} from '@/main/shared/constants';
 
 export type AuthParamList = {
   [PATH.LOGIN]: undefined;

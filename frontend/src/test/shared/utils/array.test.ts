@@ -1,4 +1,4 @@
-import {includeObjectWithKeyAndValue} from '@/main/utils/array.ts';
+import {includeObjectWithKeyAndValue} from '@/main/shared/utils/array.ts';
 
 describe('배열에 만족하는 객체가 있는지 검사하는 함수', () => {
   it('key 배열, value 배열을 입력하면 만족하는 객체가 있는지 검사', () => {

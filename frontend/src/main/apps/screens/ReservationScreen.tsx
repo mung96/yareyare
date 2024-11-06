@@ -8,17 +8,17 @@ import {
   SeatStep,
   UserContext,
   UserStep,
-} from 'src/main/types';
+} from '@/main/shared/types';
 import GradeScreen from '@/main/apps/screens/reservationProcess/GradeScreen.tsx';
 import SeatScreen from '@/main/apps/screens/reservationProcess/SeatScreen.tsx';
 import UserScreen from '@/main/apps/screens/reservationProcess/UserScreen.tsx';
 import PaymentScreen from '@/main/apps/screens/reservationProcess/PaymentScreen.tsx';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {PATH} from 'src/main/constants';
+import {PATH} from '@/main/shared/constants';
 import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
 function ReservationScreen() {
   const {step: reservationStep, history} = useFunnel<{

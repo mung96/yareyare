@@ -1,11 +1,11 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {COLORS} from 'src/main/styles';
+import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import {includeSeatWithRowAndCol} from '@/main/services/helper/reservation/seat.ts';
 import {seats} from '@/main/dummy.ts';
-import {Seat} from 'src/main/types';
+import {Seat} from '@/main/shared/types';
 
 type Props = {
   value: Seat[];
