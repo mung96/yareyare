@@ -13,8 +13,6 @@ function HomeScreen() {
         width: '100%',
         backgroundColor: COLORS.WHITE,
       }}>
-      {/*<DayPicker />*/}
-
       <GameScheduleCardList />
       <GameResultCard />
     </View>

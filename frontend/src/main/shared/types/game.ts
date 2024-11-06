@@ -1,4 +1,4 @@
-import {TeamKey} from '@/main/shared/types/Team.ts';
+import {TeamKey} from '@/main/shared/types/team.ts';
 
 export type Game = {
   homeTeam: TeamKey;
