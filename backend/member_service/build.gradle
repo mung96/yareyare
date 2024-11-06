@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
 	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+	id 'com.epages.restdocs-api-spec' version '0.19.4'
 }
 
 group = 'yare'
@@ -51,8 +52,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.19.4'
 }
 
 dependencyManagement {
@@ -61,12 +64,19 @@ dependencyManagement {
 	}
 }
 
-tasks.named('test') {
-	outputs.dir snippetsDir
-	useJUnitPlatform()
+openapi3 {
+	server = 'https://www.yareyare.co.kr'
+	outputFileNamePrefix = 'yare-member'
+	title = 'Yareyare Member API Docs'
+	description = 'Member API description'
+	version = '0.1.0'
+	format = 'json'
 }
 
-tasks.named('asciidoctor') {
-	inputs.dir snippetsDir
-	dependsOn test
+tasks.named('jar').configure {
+	dependsOn("openapi3")
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
 }
