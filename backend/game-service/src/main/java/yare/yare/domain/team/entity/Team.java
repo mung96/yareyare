@@ -20,7 +20,7 @@ public class Team {
     @Column(name = "team_id", columnDefinition = "TINYINT")
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "stadium_id", columnDefinition = "SMALLINT")
     private Stadium stadium;
 

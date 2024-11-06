@@ -19,9 +19,13 @@ public class Seat {
     @Column(name = "seat_id", columnDefinition = "INT UNSIGNED")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "row_id")
-    private Row row;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "section_id", nullable = false)
+    private Section section;
+
+    @NotNull
+    @Column(length = 20)
+    private String rowName;
 
     @NotNull
     @Column(columnDefinition = "SMALLINT")

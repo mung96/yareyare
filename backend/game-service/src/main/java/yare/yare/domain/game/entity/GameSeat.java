@@ -19,14 +19,14 @@ public class GameSeat {
     @EmbeddedId
     private GameSeatPK gameSeatPK;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId("gameId")
-    @JoinColumn(name = "game_id", columnDefinition = "INT UNSIGNED")
+    @JoinColumn(columnDefinition = "INT UNSIGNED", nullable = false)
     private Game game;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId("seatId")
-    @JoinColumn(name = "seat_id", columnDefinition = "INT UNSIGNED")
+    @JoinColumn(columnDefinition = "INT UNSIGNED", nullable = false)
     private Seat seat;
 
     @NotNull
