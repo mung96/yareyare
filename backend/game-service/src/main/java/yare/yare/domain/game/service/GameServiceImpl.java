@@ -3,10 +3,9 @@ package yare.yare.domain.game.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import yare.yare.domain.game.dto.GameDetailsRes;
-import yare.yare.domain.game.dto.GameDto;
-import yare.yare.domain.game.dto.GameListRes;
+import yare.yare.domain.game.dto.*;
 import yare.yare.domain.game.entity.Game;
+import yare.yare.domain.game.entity.GameSeat;
 import yare.yare.domain.game.repository.GameRepository;
 import yare.yare.global.exception.CustomException;
 
@@ -55,5 +54,17 @@ public class GameServiceImpl implements GameService {
                 .orElseThrow(() -> new CustomException(NOT_FOUND));
 
         return GameDetailsRes.toDto(game);
+    }
+
+    @Override
+    public SeatListRes findSeats(Long gameId, Integer gradeId) {
+
+        List<GameSeat> gameSeats = gameRepository.findGameSeatsByGradeId(gameId, gradeId);
+
+        if (gameSeats.isEmpty()) {
+            throw new CustomException(NOT_FOUND);
+        }
+
+        return SeatListRes.toDto(gameSeats);
     }
 }

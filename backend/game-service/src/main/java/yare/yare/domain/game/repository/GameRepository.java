@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import yare.yare.domain.game.entity.Game;
+import yare.yare.domain.game.entity.GameSeat;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -41,4 +42,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join fetch ht.stadium s " +
             "where g.id = :gameId")
     Optional<Game> findGameByGameId(@Param("gameId") Long gameId);
+
+    @Query("select gs " +
+            "from GameSeat gs " +
+            "join fetch gs.seat s " +
+            "join fetch s.section sec " +
+            "where gs.game.id = :gameId " +
+            "and sec.grade.id = :gradeId ")
+    List<GameSeat> findGameSeatsByGradeId(@Param("gameId") Long gameId, @Param("gradeId") Integer gradeId);
 }
