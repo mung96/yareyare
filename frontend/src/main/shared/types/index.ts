@@ -1,4 +1,3 @@
-export * from './date.ts';
-export * from './team.ts';
+export * from './common/date.ts';
+export * from './game/domain.ts';
 export * from './reservation.ts';
-export * from './game.ts';
