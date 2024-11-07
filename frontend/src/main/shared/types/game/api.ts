@@ -1,15 +1,26 @@
-export type GameScheduleResponse = {
-  schedules: {
-    gameDate: string;
-    gameStatus: string;
-    isHome: boolean;
-    startTime: string;
-    region: string;
-    opponentTeamLogo: string;
-  }[];
+import * as querystring from 'node:querystring';
+import {getRestSeatListWithSection} from '@/main/apis/game.ts';
+
+type ScheduleResponse = {
+  gameDate: string;
+  gameStatus: string;
+  isHome: boolean;
+  startTime: string;
+  region: string;
+  opponentTeamLogo: string;
 };
 
-export type RestSeatListResponse = {
+export type GameScheduleResponse<T extends 'schedules' | 'games'> = {
+  T: ScheduleResponse[];
+};
+export type RestSeatListWithGradeResponse = {
+  grades: {
+    gradeId: number;
+    gradeName: string;
+    availableSeat: number;
+  }[];
+};
+export type RestSeatListWithSectionResponse = {
   sections: {
     sectionName: string;
     rows: {
