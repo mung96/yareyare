@@ -1,4 +1,4 @@
-package yare.yare.domain.portone.feigin_client;
+package yare.yare.domain.portone.feign_client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import yare.yare.domain.portone.dto.request.PortOneTokenReq;
 import yare.yare.domain.portone.dto.response.PortOneCiRes;
 import yare.yare.domain.portone.dto.response.PortOneTokenRes;
-import yare.yare.domain.portone.feigin_client.PortOneFeignClientCustom;
+import yare.yare.domain.portone.feign_client.PortOneFeignClientCustom;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtils;
 

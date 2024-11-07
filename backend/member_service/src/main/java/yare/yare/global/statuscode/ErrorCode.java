@@ -16,6 +16,7 @@ public enum ErrorCode {
 
     // 멤버
     MEMBER_NOT_FOUND(400, "사용자를 찾을 수 없습니다."),
+    TEAM_NOT_FOUND(400, "팀을 찾을 수 없습니다."),
     ;
 
     private final int httpStatusCode;
