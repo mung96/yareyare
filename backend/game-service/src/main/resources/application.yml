@@ -1,12 +1,22 @@
-spring:
-  application:
-    name: game-service
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yare-games
-    username: ssafy
-    password: ssafy
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://43.202.255.139:8761/eureka
+
+server:
+  servlet:
+    session:
+      timeout: 0
+      tracking-modes: cookie
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
   h2:
     console:
       enabled: true
@@ -23,8 +33,10 @@ spring:
         format_sql: true
         show_sql: true
 
-server:
-  servlet:
-    session:
-      timeout: 0
-      tracking-modes: cookie
+  application:
+    name: game-service
+  profiles:
+    active: ${PROFILE}
+
+
+
