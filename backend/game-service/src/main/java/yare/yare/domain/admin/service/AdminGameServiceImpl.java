@@ -62,14 +62,10 @@ public class AdminGameServiceImpl implements AdminGameService {
 
                 String homeTeamName = record.get("home_team");
                 String awayTeamName = record.get("away_team");
-                log.info(homeTeamName);
-                log.info(awayTeamName);
 
-                log.info("여기임11111");
                 Team homeTeam = teamRepository.findByName(homeTeamName)
                         .orElseThrow(() -> new CustomException(NOT_FOUND));
-                log.info("여기임22222");
-                Team awayTeam = teamRepository.findTeamByName(awayTeamName)
+                Team awayTeam = teamRepository.findByName(awayTeamName)
                         .orElseThrow(() -> new CustomException(NOT_FOUND));
 
                 Season season = seasonRepository.findByYear(year)
