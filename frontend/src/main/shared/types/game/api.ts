@@ -1,17 +1,12 @@
-import * as querystring from 'node:querystring';
-import {getRestSeatListWithSection} from '@/main/apis/game.ts';
-
-type ScheduleResponse = {
-  gameDate: string;
-  gameStatus: string;
-  isHome: boolean;
-  startTime: string;
-  region: string;
-  opponentTeamLogo: string;
-};
-
-export type GameScheduleResponse<T extends 'schedules' | 'games'> = {
-  T: ScheduleResponse[];
+export type GameScheduleResponse = {
+  schedules: {
+    gameDate: string;
+    gameStatus: string;
+    isHome: boolean;
+    startTime: string;
+    region: string;
+    opponentTeamLogo: string;
+  }[];
 };
 export type RestSeatListWithGradeResponse = {
   grades: {

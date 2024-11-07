@@ -1,4 +1,5 @@
 import {
+  GamePlanResponse,
   GameResponse,
   GameScheduleResponse,
   RecentGameResultResponse,
@@ -10,21 +11,19 @@ import {Response} from '@/main/shared/types/common/api.ts';
 import {apiRequester} from '@/main/apis/requester.ts';
 import {END_POINT} from '@/main/shared/constants/api.ts';
 //경기 일정 조회 API (팀선택 X)
-export async function getGamePlan(): Promise<
-  GameScheduleResponse<'schedules'>
-> {
-  const {data} = await apiRequester.get<
-    Response<GameScheduleResponse<'schedules'>>
-  >(END_POINT.GAME);
+export async function getGamePlan(): Promise<GamePlanResponse> {
+  const {data} = await apiRequester.get<Response<GamePlanResponse>>(
+    END_POINT.GAME,
+  );
   return data.body;
 }
 //경기 일정 조회 API (팀선택 O)
-export async function getGameScheduleWithTeam(
+export async function getGamePlaneWithTeam(
   teamId: string,
-): Promise<GameScheduleResponse<'games'>> {
-  const {data} = await apiRequester.get<
-    Response<GameScheduleResponse<'games'>>
-  >(END_POINT.GAME_PLAN(teamId));
+): Promise<GamePlanResponse> {
+  const {data} = await apiRequester.get<Response<GamePlanResponse>>(
+    END_POINT.GAME_PLAN(teamId),
+  );
   return data.body;
 }
 //최근 경기 결과 조회
@@ -78,8 +77,8 @@ export async function getGameSchedule(
   teamId: string,
   year: string,
   month: string,
-): Promise<SeatPriceResponse> {
-  const {data} = await apiRequester.get<Response<SeatPriceResponse>>(
+): Promise<GameScheduleResponse> {
+  const {data} = await apiRequester.get<Response<GameScheduleResponse>>(
     END_POINT.GAME_SCHEDULE(teamId),
     {params: {year, month}},
   );
