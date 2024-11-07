@@ -3,6 +3,7 @@ package yare.yare.domain.member.controller;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.epages.restdocs.apispec.Schema;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,8 +20,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
+import yare.yare.domain.member.dto.request.MyTeamModifyReq;
 import yare.yare.domain.member.dto.response.MemberDetailsRes;
+import yare.yare.domain.member.dto.response.MyTeamModifyRes;
 import yare.yare.domain.member.service.MemberService;
+import yare.yare.global.exception.CustomException;
 import yare.yare.global.jwt.service.JwtService;
 
 import java.time.LocalDate;
@@ -30,15 +34,18 @@ import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.docume
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static java.lang.Boolean.TRUE;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static yare.yare.global.ResponseFieldUtils.getCommonResponseFields;
+import static yare.yare.global.statuscode.ErrorCode.TEAM_NOT_FOUND;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @SpringBootTest
@@ -52,6 +59,9 @@ class MemberControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean
     private JwtService jwtService;
@@ -138,6 +148,110 @@ class MemberControllerTest {
                                 )
                                 .requestSchema(Schema.schema("내 정보 조회 Request"))
                                 .responseSchema(Schema.schema("내 정보 조회 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    @WithMockUser
+    public void 마이_팀_변경_성공() throws Exception {
+        // given
+        MyTeamModifyReq request = new MyTeamModifyReq(1);
+        String content = objectMapper.writeValueAsString(request);
+
+        MyTeamModifyRes result = new MyTeamModifyRes(1);
+        when(memberService.modifyMyTeam(anyLong(), any(MyTeamModifyReq.class)))
+                .thenReturn(result);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                patch("/members/my-team")
+                        .header("Authorization", jwtToken)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+                        .characterEncoding("UTF-8")
+        );
+
+        // then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "마이 팀 변경 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Member API")
+                                .summary("마이 팀 변경 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .requestFields(
+                                        fieldWithPath("teamId").type(NUMBER).description("변경할 팀 아이디")
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.myTeamId").type(NUMBER).optional()
+                                                        .description("변경된 팀 아이디")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("마이 팀 변경 Request"))
+                                .responseSchema(Schema.schema("마이 팀 변경 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    @WithMockUser
+    public void 마이_팀_변경_실패_존재하지_않는_팀_아이디() throws Exception {
+        // given
+        MyTeamModifyReq request = new MyTeamModifyReq(1);
+        String content = objectMapper.writeValueAsString(request);
+
+        MyTeamModifyRes result = new MyTeamModifyRes(1);
+        when(memberService.modifyMyTeam(anyLong(), any(MyTeamModifyReq.class)))
+                .thenThrow(new CustomException(TEAM_NOT_FOUND));
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                patch("/members/my-team")
+                        .header("Authorization", jwtToken)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+                        .characterEncoding("UTF-8")
+        );
+
+        // then
+        actions
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.header.message").value(TEAM_NOT_FOUND.getMessage()))
+                .andDo(document(
+                        "마이 팀 변경 실패 - 존재하지 않는 팀 아이디",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Member API")
+                                .summary("마이 팀 변경 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .requestFields(
+                                        fieldWithPath("teamId").type(NUMBER).description("변경할 팀 아이디")
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body").type(OBJECT).optional()
+                                                        .description("에러 메세지")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("마이 팀 변경 Request"))
+                                .responseSchema(Schema.schema("마이 팀 변경 Response"))
                                 .build()
                         ))
                 );
