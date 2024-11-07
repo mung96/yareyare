@@ -365,7 +365,7 @@ public class GameControllerTest {
         //given
         Integer teamId = 1;
         Integer year = 2024;
-        Integer month = 5;
+        Integer month = 6;
 
         //when
         ResultActions actions = mockMvc.perform(
@@ -398,6 +398,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body.schedules").type(ARRAY)
+                                                        .description("경기 목록"),
                                                 fieldWithPath("body.schedules[].gameDate").type(STRING)
                                                         .description("경기 날짜"),
                                                 fieldWithPath("body.schedules[].startTime").type(STRING)
