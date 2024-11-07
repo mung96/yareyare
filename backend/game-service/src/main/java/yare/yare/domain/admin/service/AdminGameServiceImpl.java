@@ -112,6 +112,6 @@ public class AdminGameServiceImpl implements AdminGameService {
 
     private boolean isWeekEnd(LocalDate date) {
 
-        return date.getDayOfWeek() == SATURDAY || date.getDayOfWeek() == SUNDAY;
+        return date.getDayOfWeek().equals(SATURDAY) || date.getDayOfWeek().equals(SUNDAY);
     }
 }
