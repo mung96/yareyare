@@ -13,7 +13,7 @@ import static yare.yare.global.statuscode.ErrorCode.BAD_REQUEST;
 import static yare.yare.global.statuscode.SuccessCode.CREATED;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
 

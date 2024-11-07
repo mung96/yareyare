@@ -13,7 +13,7 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/games")
+@RequestMapping("/api/games")
 public class StadiumController {
 
     private final StadiumService stadiumService;
