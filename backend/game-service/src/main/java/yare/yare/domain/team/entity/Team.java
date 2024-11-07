@@ -25,7 +25,7 @@ public class Team {
     private Stadium stadium;
 
     @NotNull
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String name;
 
     @NotNull
