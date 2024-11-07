@@ -6,7 +6,7 @@ import axios, {
 import {SERVER_BASE_URL} from '@env';
 import {getAccessToken} from '@/main/services/helper/member/member.ts';
 
-const apiRequest: AxiosInstance = axios.create({
+export const apiRequester: AxiosInstance = axios.create({
   baseURL: SERVER_BASE_URL,
   timeout: 5000,
 });
@@ -22,4 +22,4 @@ const setRequestDefaultHeader = (requestConfig: AxiosRequestConfig) => {
   return config as InternalAxiosRequestConfig;
 };
 
-apiRequest.interceptors.request.use(setRequestDefaultHeader);
+apiRequester.interceptors.request.use(setRequestDefaultHeader);
