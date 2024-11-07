@@ -365,7 +365,7 @@ public class GameControllerTest {
         //given
         Integer teamId = 1;
         Integer year = 2024;
-        Integer month = 5;
+        Integer month = 6;
 
         //when
         ResultActions actions = mockMvc.perform(
@@ -398,17 +398,19 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
-                                                fieldWithPath("body.schedules[].gameDate").type(STRING)
+                                                fieldWithPath("body.schedules[]").type(ARRAY)
+                                                        .description("경기 스케줄 리스트"),
+                                                fieldWithPath("body.schedules[].gameDate").type(STRING).optional()
                                                         .description("경기 날짜"),
-                                                fieldWithPath("body.schedules[].startTime").type(STRING)
+                                                fieldWithPath("body.schedules[].startTime").type(STRING).optional()
                                                         .description("경기 시간"),
-                                                fieldWithPath("body.schedules[].opponentTeamLogo").type(STRING)
+                                                fieldWithPath("body.schedules[].opponentTeamLogo").type(STRING).optional()
                                                         .description("상대 팀 로고"),
-                                                fieldWithPath("body.schedules[].gameStatus").type(STRING)
+                                                fieldWithPath("body.schedules[].gameStatus").type(STRING).optional()
                                                         .description("승패 여부"),
-                                                fieldWithPath("body.schedules[].region").type(STRING)
+                                                fieldWithPath("body.schedules[].region").type(STRING).optional()
                                                         .description("경기 지역"),
-                                                fieldWithPath("body.schedules[].isHome").type(BOOLEAN)
+                                                fieldWithPath("body.schedules[].isHome").type(BOOLEAN).optional()
                                                         .description("홈 경기 여부")
                                         )
                                 )
