@@ -3,12 +3,14 @@ import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {TEAM_LIST} from '@/main/shared/constants/team.ts';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
+import {useGetGamePlanQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
 
 function GameScheduleCardList() {
   //TODO: 경기일정 하나씩 불러오면됨
   //TODO: Slider 구현
   const dispatch = useDispatch();
-
+  const a = useGetGamePlanQuery();
+  console.log(a);
   return (
     <View style={styles.container}>
       <GameScheduleCard

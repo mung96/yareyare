@@ -4,6 +4,7 @@ import rootReducer from '@/main/stores/clients/rootReducer.ts';
 import RootNavigation from '@/main/apps/navigations/RootNavigation.tsx';
 import {QueryClientProvider} from '@tanstack/react-query';
 import queryClient from '@/main/apis/queryClient.ts';
+import Reactotron from 'reactotron-react-native';
 
 const store = createStore(rootReducer);
 
