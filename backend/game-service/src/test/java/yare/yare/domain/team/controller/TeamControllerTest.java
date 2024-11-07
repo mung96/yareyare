@@ -16,11 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.STRING;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,7 +41,7 @@ public class TeamControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/teams")
+                get("/api/games/teams")
                         .accept(APPLICATION_JSON)
                         .characterEncoding("UTF-8")
         );
