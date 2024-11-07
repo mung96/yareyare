@@ -63,17 +63,14 @@ public class AdminGameServiceImpl implements AdminGameService {
                 String homeTeamName = record.get("home_team");
                 String awayTeamName = record.get("away_team");
 
-                Team homeTeam = teamRepository.findByName(homeTeamName)
-                        .orElseThrow(() -> new CustomException(NOT_FOUND));
-                Team awayTeam = teamRepository.findByName(awayTeamName)
-                        .orElseThrow(() -> new CustomException(NOT_FOUND));
+                Team homeTeam = getTeamByName(homeTeamName);
+                Team awayTeam = getTeamByName(awayTeamName);
 
-                Season season = seasonRepository.findByYear(year)
-                        .orElseThrow(() -> new CustomException(BAD_REQUEST));
+                Season season = getSeasonByYear(year);
 
                 Category category = isWeekEnd(gameDate) ?
-                        categoryRepository.findById(2).orElseThrow(() -> new CustomException(INTERNAL_SERVER_ERROR))
-                        : categoryRepository.findById(1).orElseThrow(() -> new CustomException(INTERNAL_SERVER_ERROR));
+                        getCategoryById(2) : getCategoryById(1);
+
 
                 Game game = Game.builder()
                         .homeTeam(homeTeam)
@@ -100,6 +97,59 @@ public class AdminGameServiceImpl implements AdminGameService {
     @Override
     @Transactional
     public void setupPostSeasonGamePlan(MultipartFile file, Integer year, String type) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
+             CSVParser csvParser = CSVFormat.EXCEL.builder()
+                     .setHeader()
+                     .build()
+                     .parse(reader)
+        ) {
+            for (CSVRecord record : csvParser) {
+
+                String date = record.get("date");
+                String time = record.get("time");
+
+                LocalDate gameDate = parseDate(year, date);
+                LocalTime startTime = LocalTime.parse(time);
+
+                String homeTeamName = record.get("home_team");
+                String awayTeamName = record.get("away_team");
+
+                Team homeTeam = getTeamByName(homeTeamName);
+                Team awayTeam = getTeamByName(awayTeamName);
+
+                Season season = getSeasonByYear(year);
+
+                Category category = switch (type) {
+                    case "wild-card" -> getCategoryById(3);
+                    case "semi-playoff" -> getCategoryById(4);
+                    case "playoff" -> getCategoryById(5);
+                    case "k-series" -> getCategoryById(6);
+                    case "all-stars" -> getCategoryById(7);
+                    default -> throw new CustomException(BAD_REQUEST);
+                };
+
+                Game game = Game.builder()
+                        .homeTeam(homeTeam)
+                        .awayTeam(awayTeam)
+                        .season(season)
+                        .category(category)
+                        .gameDate(gameDate)
+                        .startTime(startTime)
+                        .createdAt(currentDateTime)
+                        .updatedAt(currentDateTime)
+                        .isFinished(!gameDate.isAfter(currentDateTime.toLocalDate()))
+                        .homeScore(0)
+                        .awayScore(0)
+                        .build();
+
+                gameRepository.save(game);
+            }
+
+        } catch (IOException e) {
+            throw new CustomException(INTERNAL_SERVER_ERROR);
+        }
 
     }
 
@@ -114,4 +164,17 @@ public class AdminGameServiceImpl implements AdminGameService {
 
         return date.getDayOfWeek().equals(SATURDAY) || date.getDayOfWeek().equals(SUNDAY);
     }
+
+    private Category getCategoryById(Integer id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new CustomException(NOT_FOUND));
+    }
+
+    private Team getTeamByName(String name) {
+        return teamRepository.findByName(name).orElseThrow(() -> new CustomException(NOT_FOUND));
+    }
+
+    private Season getSeasonByYear(Integer year) {
+        return seasonRepository.findByYear(year).orElseThrow(() -> new CustomException(NOT_FOUND));
+    }
+
 }

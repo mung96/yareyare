@@ -19,7 +19,7 @@ public class AdminController {
 
     private final AdminGameService adminGameService;
 
-    private final String[] PostSeasonGameTypes = {"wild-card", "playoff", "semi-playoff", "k-series", "all-stars"};
+    private final String[] PostSeasonGameTypes = {"wild-card", "semi-playoff", "playoff", "k-series", "all-stars"};
 
     @PostMapping("/games/pennant-race")
     public ResponseDto<?> setupPennantRaceGamePlan(@RequestPart(value = "file") MultipartFile file, @RequestParam Integer year) {
