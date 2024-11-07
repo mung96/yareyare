@@ -1,4 +1,4 @@
-package yare.yare.domain.stadium;
+package yare.yare.domain.stadium.contoller;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.epages.restdocs.apispec.Schema;
@@ -16,12 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
+import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.ARRAY;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.STRING;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -49,7 +48,7 @@ public class StadiumControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/stadiums")
+                get("/api/games/stadiums")
                         .param("gradeId", gradeId)
                         .accept(APPLICATION_JSON)
                         .characterEncoding("UTF-8")

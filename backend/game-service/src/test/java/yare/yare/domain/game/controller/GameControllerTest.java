@@ -52,7 +52,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games")
+                get("/api/games")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -106,7 +106,7 @@ public class GameControllerTest {
         Integer teamId = 1;
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/teams/{teamId}", teamId)
+                get("/api/games/teams/{teamId}", teamId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -164,7 +164,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/{gameId}/details", gameId)
+                get("/api/games/{gameId}/details", gameId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -215,7 +215,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/{gameId}/grades", gameId)
+                get("/api/games/{gameId}/grades", gameId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -261,7 +261,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/{gameId}/seats", gameId)
+                get("/api/games/{gameId}/seats", gameId)
                         .param("gradeId", gradeId.toString())
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -321,7 +321,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                post("/games/{gameId}/seats", gameId)
+                post("/api/games/{gameId}/seats", gameId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -369,7 +369,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/teams/{teamId}/schedule", teamId)
+                get("/api/games/teams/{teamId}/schedule", teamId)
                         .param("year", year.toString())
                         .param("month", month.toString())
                         .accept(MediaType.APPLICATION_JSON)
@@ -427,7 +427,7 @@ public class GameControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/games/results")
+                get("/api/games/results")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")

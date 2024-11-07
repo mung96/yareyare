@@ -11,7 +11,7 @@ import yare.yare.global.dto.ResponseDto;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
-@RequestMapping("/games")
+@RequestMapping("/api/games")
 @RequiredArgsConstructor
 public class TeamController {
 
