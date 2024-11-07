@@ -83,7 +83,7 @@ class MemberControllerTest {
                 .birth(LocalDate.parse("1999-02-01"))
                 .tel("01074544231")
                 .email("srpark13@naver.com")
-                .myTeamId(1L)
+                .myTeamId(1)
                 .myTeamName("기아 타이거즈")
                 .isCertificated(TRUE)
                 .uuid("박동환의 UUID")

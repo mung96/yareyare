@@ -21,7 +21,7 @@ public class MemberDetailsRes {
 
     private String email;
 
-    private Long myTeamId;
+    private Integer myTeamId;
 
     private String myTeamName;
 

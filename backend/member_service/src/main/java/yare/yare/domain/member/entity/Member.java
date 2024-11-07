@@ -44,13 +44,13 @@ public class Member {
     private LocalDate birth;
 
     @Column(columnDefinition = "INT UNSIGNED")
-    private Long myTeamId;
+    private Integer myTeamId;
 
     @Column(length = 50)
     private String myTeamName;
 
     @NotNull
-    @Column(length = 15)
+    @Column(name = "ipv4_address", length = 15)
     private String ipv4Address;
 
     @NotNull
@@ -88,5 +88,13 @@ public class Member {
 
     public void updateIsCertificated(Boolean isCertificated) {
         this.isCertificated = isCertificated;
+    }
+
+    public void updateMyTeamId(Integer myTeamId) {
+        this.myTeamId = myTeamId;
+    }
+
+    public void updateMyTeamName(String myTeamName) {
+        this.myTeamName = myTeamName;
     }
 }
