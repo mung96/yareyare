@@ -1,4 +1,4 @@
-package yare.yare.domain.ticket.entity;
+package yare.yare.domain.payment.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import yare.yare.domain.payment.entity.PurchasedSeat;
 
 @Entity
 @Getter
