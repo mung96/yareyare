@@ -10,6 +10,7 @@ import {
 import {Response} from '@/main/shared/types/common/api.ts';
 import {apiRequester} from '@/main/apis/requester.ts';
 import {END_POINT} from '@/main/shared/constants/api.ts';
+
 //경기 일정 조회 API (팀선택 X)
 export async function getGamePlan(): Promise<GamePlanResponse> {
   const {data} = await apiRequester.get<Response<GamePlanResponse>>(
@@ -17,6 +18,7 @@ export async function getGamePlan(): Promise<GamePlanResponse> {
   );
   return data.body;
 }
+
 //경기 일정 조회 API (팀선택 O)
 export async function getGamePlaneWithTeam(
   teamId: string,
@@ -26,13 +28,15 @@ export async function getGamePlaneWithTeam(
   );
   return data.body;
 }
+
 //최근 경기 결과 조회
-export async function getRecentGameSchedule(): Promise<RecentGameResultResponse> {
+export async function getRecentGameResult(): Promise<RecentGameResultResponse> {
   const {data} = await apiRequester.get<Response<RecentGameResultResponse>>(
     END_POINT.GAME_RESULT,
   );
   return data.body;
 }
+
 //경기 상세 정보 조회
 export async function getGameDetail(gameId: string): Promise<GameResponse> {
   const {data} = await apiRequester.get<Response<GameResponse>>(
@@ -61,6 +65,7 @@ export async function getRestSeatListWithSection(
   >(END_POINT.GAME_SEAT(gameId), {params: {gradeId}});
   return data.body;
 }
+
 //좌석선택
 export async function postSelectSeat(
   gameId: string,
@@ -72,6 +77,7 @@ export async function postSelectSeat(
   );
   return data.body;
 }
+
 //경기 스케줄 조회 (달력에서 사용하는거)
 export async function getGameSchedule(
   teamId: string,

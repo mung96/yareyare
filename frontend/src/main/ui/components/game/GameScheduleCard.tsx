@@ -22,8 +22,6 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
       <View style={styles.body}>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
-            {/*TODO: resizeMode 조정해야함*/}
-
             <SvgUri uri={homeTeam.logo} width={48} height={48} />
           </View>
           <CustomText style={styles.teamName}>{homeTeam.name}</CustomText>

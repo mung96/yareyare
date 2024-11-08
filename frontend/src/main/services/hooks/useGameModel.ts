@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 import {useGetGamePlanQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
 
-function useGameModel() {
+function useGameResultModel() {
   const {data: gamePlanListData} = useGetGamePlanQuery();
   const gameList = useMemo(() => {
     if (!gamePlanListData) {
@@ -29,4 +29,4 @@ function useGameModel() {
   return {gameList};
 }
 
-export default useGameModel;
+export default useGameResultModel;
