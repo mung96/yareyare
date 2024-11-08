@@ -53,7 +53,7 @@ dependencies {
 }
 
 openapi3 {
-    server = 'https://www.yareyare.co.kr'
+    server = 'https://yareyare.co.kr'
     outputFileNamePrefix = 'yare-game'
     title = 'Yareyare Game API Docs'
     description = 'Game API description'
