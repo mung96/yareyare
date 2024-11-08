@@ -21,6 +21,7 @@ import java.util.List;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static yare.yare.global.ResponseFieldUtils.getCommonResponseFields;
 import static yare.yare.global.statuscode.SuccessCode.CREATED;
+import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @SpringBootTest
 @Transactional
@@ -87,6 +89,118 @@ public class PurchaseTest {
                                 )
                                 .requestSchema(Schema.schema("결제 등록 Request"))
                                 .responseSchema(Schema.schema("결제 등록 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 나의_티켓_예매_내역_조회_성공() throws Exception {
+        //given
+
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                 get("/api/payments/tickets/purchases")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "나의 티켓 예매 내역 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Payment API")
+                                .summary("나의 티켓 예매 내역 조회 API")
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.tickets[].purchaseId").type(NUMBER)
+                                                        .description("구매 내역 ID"),
+                                                fieldWithPath("body.tickets[].seasonName").type(STRING)
+                                                        .description("시즌 이름"),
+                                                fieldWithPath("body.tickets[].awayTeamName").type(STRING)
+                                                        .description("원정 팀 이름"),
+                                                fieldWithPath("body.tickets[].homeTeamName").type(STRING)
+                                                        .description("홈 팀 이름"),
+                                                fieldWithPath("body.tickets[].reservationId").type(STRING)
+                                                        .description("예매 내역 아이디(마지막 티켓 예매내역 아이디)"),
+                                                fieldWithPath("body.tickets[].reservationDate").type(STRING)
+                                                        .description("예매일"),
+                                                fieldWithPath("body.tickets[].stadiumName").type(STRING)
+                                                        .description("홈구장 이름"),
+                                                fieldWithPath("body.tickets[].gameDateTime").type(STRING)
+                                                        .description("경기 시작일"),
+                                                fieldWithPath("body.tickets[].cancelDeadline").type(STRING)
+                                                        .description("취소 가능 기한"),
+                                                fieldWithPath("body.tickets[].purchaseStatus").type(STRING)
+                                                        .description("예매 상태")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("나의 티켓 예매 내역 조회 Request"))
+                                .responseSchema(Schema.schema("나의 티켓 예매 내역 조회 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 나의_티켓_취소_내역_조회_성공() throws Exception {
+        //given
+
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                get("/api/payments/tickets/cancellations")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "나의 티켓 취소 내역 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Payment API")
+                                .summary("나의 티켓 취소 내역 조회 API")
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.tickets[].purchaseId").type(NUMBER)
+                                                        .description("구매 내역 ID"),
+                                                fieldWithPath("body.tickets[].seasonName").type(STRING)
+                                                        .description("시즌 이름"),
+                                                fieldWithPath("body.tickets[].awayTeamName").type(STRING)
+                                                        .description("원정 팀 이름"),
+                                                fieldWithPath("body.tickets[].homeTeamName").type(STRING)
+                                                        .description("홈 팀 이름"),
+                                                fieldWithPath("body.tickets[].reservationId").type(STRING)
+                                                        .description("예매 내역 아이디(마지막 티켓 예매내역 아이디)"),
+                                                fieldWithPath("body.tickets[].reservationDate").type(STRING)
+                                                        .description("예매일"),
+                                                fieldWithPath("body.tickets[].stadiumName").type(STRING)
+                                                        .description("홈구장 이름"),
+                                                fieldWithPath("body.tickets[].gameDateTime").type(STRING)
+                                                        .description("경기 시작일"),
+                                                fieldWithPath("body.tickets[].cancelDeadline").type(STRING)
+                                                        .description("취소 가능 기한"),
+                                                fieldWithPath("body.tickets[].purchaseStatus").type(STRING)
+                                                        .description("예매 상태")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("나의 티켓 취소 내역 조회 Request"))
+                                .responseSchema(Schema.schema("나의 티켓 취소 내역 조회 Response"))
                                 .build()
                         ))
                 );
