@@ -22,7 +22,7 @@ function GameResultCard() {
               homeTeam: {name: '', logo: result.homeTeamLogo, stadium: ''},
               awayTeam: {name: '', logo: result.awayTeamLogo, stadium: ''},
               result: {
-                homeScore: result.homeTeamScore,
+                homeScore: result.homeTeamScore, //TODO: null일떄 처리
                 awayScore: result.awayTeamScore,
               },
               status: result.gameStatus,

@@ -15,21 +15,30 @@ function GameResultItem({game}: Props) {
       <View style={styles.imageBox}>
         <SvgUri uri={game.homeTeam.logo} width={48} height={48} />
       </View>
-      <CustomText
-        style={[
-          styles.score,
-          game.result.homeScore > game.result.awayScore && styles.winScore,
-        ]}>
-        {game.result.homeScore}
-      </CustomText>
-      <CustomText style={styles.text}>vs</CustomText>
-      <CustomText
-        style={[
-          styles.score,
-          game.result.homeScore < game.result.awayScore && styles.winScore,
-        ]}>
-        {game.result.awayScore}
-      </CustomText>
+      {game.status === 'OFF' ? (
+        //TODO:union type으로 status지정해야함.
+        //TODO: css 안맞음
+        <CustomText>경기취소</CustomText>
+      ) : (
+        <>
+          <CustomText
+            style={[
+              styles.score,
+              game.result.homeScore > game.result.awayScore && styles.winScore,
+            ]}>
+            {game.result.homeScore}
+          </CustomText>
+          <CustomText style={styles.text}>vs</CustomText>
+          <CustomText
+            style={[
+              styles.score,
+              game.result.homeScore < game.result.awayScore && styles.winScore,
+            ]}>
+            {game.result.awayScore}
+          </CustomText>
+        </>
+      )}
+
       <View style={styles.imageBox}>
         <SvgUri uri={game.awayTeam.logo} width={48} height={48} />
       </View>
