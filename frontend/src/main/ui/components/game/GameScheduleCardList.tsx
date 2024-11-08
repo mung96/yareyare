@@ -4,6 +4,7 @@ import {TEAM_LIST} from '@/main/shared/constants/team.ts';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
 import {useGetGamePlanQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
+import React from 'react';
 
 function GameScheduleCardList() {
   //TODO: 경기일정 하나씩 불러오면됨
@@ -33,7 +34,9 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
+    paddingRight: 20,
     gap: 12,
+    overflow: 'scroll',
   },
 });
 
