@@ -32,10 +32,6 @@ public class Purchase {
     private String memberUuid;
 
     @NotNull
-    @Column(name = "game_id", columnDefinition = "INT UNSIGNED")
-    private Long gameId;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Vendor vendor;
 
@@ -56,6 +52,17 @@ public class Purchase {
 
     @NotNull
     private Boolean canceled;
+
+    @NotNull
+    @Column(length = 36)
+    private String reservationId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private Game game;
+
+    @NotNull
+    private String gradeName;
 
     @NotNull
     private Boolean isDeleted;
