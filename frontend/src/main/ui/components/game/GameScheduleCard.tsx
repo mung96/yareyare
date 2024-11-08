@@ -12,6 +12,7 @@ type Props = {
 };
 
 function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
+  console.log(homeTeam.logo);
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -24,7 +25,7 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
             {/*TODO: resizeMode 조정해야함*/}
             <Image
               style={styles.image}
-              source={homeTeam.logo}
+              source={{uri: homeTeam.logo}}
               resizeMode={'contain'}
             />
           </View>
@@ -35,7 +36,7 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
           <View style={styles.imageBox}>
             <Image
               style={styles.image}
-              source={awayTeam.logo}
+              source={{uri: awayTeam.logo}}
               resizeMode={'contain'}
             />
           </View>

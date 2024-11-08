@@ -1,5 +1,3 @@
-import {ImageSourcePropType} from 'react-native';
-
 export type TeamKey =
   | 'DOOSAN'
   | 'KIWOOM'
@@ -25,6 +23,6 @@ export type GameResult = {
 
 export type Team = {
   name: string;
-  logo: ImageSourcePropType;
+  logo: string;
   stadium: string;
 };

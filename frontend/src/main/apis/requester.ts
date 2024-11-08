@@ -3,8 +3,8 @@ import axios, {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from 'axios';
-import {SERVER_BASE_URL} from '@env';
 import {getAccessToken} from '@/main/services/helper/member/member.ts';
+import {SERVER_BASE_URL} from '@env';
 
 export const apiRequester: AxiosInstance = axios.create({
   baseURL: SERVER_BASE_URL,
