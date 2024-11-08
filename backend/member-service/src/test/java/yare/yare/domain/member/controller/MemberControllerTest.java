@@ -53,6 +53,7 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(RestDocumentationExtension.class)
+@WithMockUser
 class MemberControllerTest {
     private final static String UUID = "1604b772-adc0-4212-8a90-81186c57f598";
     private final static Boolean isCertificated = false;
@@ -85,7 +86,6 @@ class MemberControllerTest {
     }
 
     @Test
-    @WithMockUser
     public void 내_정보_조회_성공() throws Exception {
         // given
         MemberDetailsRes result = MemberDetailsRes.builder()
@@ -103,7 +103,7 @@ class MemberControllerTest {
 
         // when
         ResultActions actions = mockMvc.perform(
-                get("/members")
+                get("/api/members")
                         .header("Authorization", jwtToken)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -154,7 +154,6 @@ class MemberControllerTest {
     }
 
     @Test
-    @WithMockUser
     public void 마이_팀_변경_성공() throws Exception {
         // given
         MyTeamModifyReq request = new MyTeamModifyReq(1);
@@ -166,7 +165,7 @@ class MemberControllerTest {
 
         // when
         ResultActions actions = mockMvc.perform(
-                patch("/members/my-team")
+                patch("/api/members/my-team")
                         .header("Authorization", jwtToken)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -206,7 +205,6 @@ class MemberControllerTest {
     }
 
     @Test
-    @WithMockUser
     public void 마이_팀_변경_실패_존재하지_않는_팀_아이디() throws Exception {
         // given
         MyTeamModifyReq request = new MyTeamModifyReq(1);
@@ -218,7 +216,7 @@ class MemberControllerTest {
 
         // when
         ResultActions actions = mockMvc.perform(
-                patch("/members/my-team")
+                patch("/api/members/my-team")
                         .header("Authorization", jwtToken)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
