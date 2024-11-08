@@ -5917,6 +5917,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@emotion/native": ^11.11.0
     "@emotion/react": ^11.13.3
+    "@portone/browser-sdk": ^0.0.10
     "@portone/react-native-sdk": ^0.1.4
     "@react-native/babel-preset": 0.75.4
     "@react-native/eslint-config": 0.75.4

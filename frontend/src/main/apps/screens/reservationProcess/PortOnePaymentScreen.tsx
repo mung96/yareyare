@@ -1,21 +1,33 @@
-import {Payment} from '@portone/react-native-sdk';
-import {PORTONE_CHANNEL_KEY, PORTONE_STORE_ID} from '@env';
+import WebView, {WebViewMessageEvent} from 'react-native-webview';
+import {WEB_VIEW_SERVER} from '@env';
 
 function PortOnePaymentScreen() {
+  const message = {
+    type: 'payement',
+    email: 'ss@naver.com',
+    phoneNumber: '010-0000-0000',
+    fullName: 'aaaa',
+    orderName: 'ticket',
+    totalAmount: '4000',
+    paymentId: '1113124567',
+  };
+
+  const handleOnMessage = async (event: WebViewMessageEvent) => {
+    console.log('message event 발생');
+    console.log(event.nativeEvent);
+  };
+
+  console.log('결제진입');
   return (
-    <Payment
-      request={{
-        storeId: PORTONE_STORE_ID,
-        channelKey: PORTONE_CHANNEL_KEY,
-        customer: {fullName: 'aaa'},
-        paymentId: `payment-${1211}`,
-        orderName: '나이키 와플 트레이너 2 SD',
-        totalAmount: 1000,
-        currency: 'CURRENCY_KRW',
-        payMethod: 'CARD',
+    <WebView
+      source={{
+        uri: `${WEB_VIEW_SERVER}/payment`,
       }}
-      onError={error => console.log(error)}
-      onComplete={response => console.log(response)}
+      onMessage={handleOnMessage}
+      javaScriptEnabled={true}
+      mixedContentMode="always"
+      domStorageEnabled={true}
+      // postMessage={JSON.stringify(message)}
     />
   );
 }
