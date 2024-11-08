@@ -33,7 +33,6 @@ public class PurchaseHistory {
     @Column(name = "grade_id", columnDefinition = "INT UNSIGNED")
     private Long gradeId;
 
-    @NotNull
     private Integer totalPrice;
 
     @NotNull
