@@ -2,7 +2,6 @@ package yare.yare.domain.member.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
@@ -16,13 +15,13 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 public class MemberController {
     private final JwtService jwtService;
     private final MemberService memberService;
 
     @GetMapping
-    public ResponseEntity<?> memberDetails() {
+    public ResponseDto<?> memberDetails() {
         Long memberId = jwtService.getUserId(SecurityContextHolder.getContext());
 
         MemberDetailsRes result = memberService.getMemberDetails(memberId);
@@ -31,7 +30,7 @@ public class MemberController {
     }
 
     @PatchMapping("/my-team")
-    public ResponseEntity<?> myTeamModify(@RequestBody @Valid MyTeamModifyReq myTeamModifyReq) {
+    public ResponseDto<?> myTeamModify(@RequestBody @Valid MyTeamModifyReq myTeamModifyReq) {
         Long memberId = jwtService.getUserId(SecurityContextHolder.getContext());
 
         MyTeamModifyRes result = memberService.modifyMyTeam(memberId, myTeamModifyReq);

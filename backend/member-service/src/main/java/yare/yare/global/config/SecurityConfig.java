@@ -63,16 +63,16 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                         .requestMatchers(
-                                "/members/signup/**", "/members/login/oauth2/**", "/members/oauth2/code/**",
+                                "/api/members/signup/**", "/api/members/login/oauth2/**", "/api/members/oauth2/code/**",
                                 "/docs/**", "/h2-console/**",
                                 "/wss/**", "/ws/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2Configurer -> oauth2Configurer
                         .authorizationEndpoint(authEndPoint -> authEndPoint
-                                .baseUri("/members/signin/social"))
+                                .baseUri("/api/members/signin/social"))
                         .redirectionEndpoint(redirection -> redirection
-                                .baseUri("/members/oauth2/code/*"))
+                                .baseUri("/api/members/oauth2/code/*"))
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserService))
                         .successHandler(oauth2SuccessHandler)
