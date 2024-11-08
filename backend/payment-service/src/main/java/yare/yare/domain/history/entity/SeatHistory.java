@@ -1,12 +1,16 @@
 package yare.yare.domain.history.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
+import org.springframework.data.annotation.CreatedDate;
 import yare.yare.domain.payment.entity.Purchase;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,8 +28,14 @@ public class SeatHistory {
     @JoinColumn(name = "purchase_hisotry_id")
     private PurchaseHistory purchaseHistory;
 
+    @NotNull
     private Integer unitPrice;
 
+    @NotNull
     @Column(columnDefinition = "INT UNSIGNED")
     private Long seatId;
+
+    @NotNull
+    @CreatedDate
+    private LocalDateTime createdAt;
 }

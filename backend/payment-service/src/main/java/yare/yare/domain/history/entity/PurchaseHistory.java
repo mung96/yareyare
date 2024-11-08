@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,21 +26,17 @@ public class PurchaseHistory {
     private Long id;
 
     @NotNull
-    @Column(length = 50)
-    private String name;
+    @Column(name = "member_uuid", columnDefinition = "CHAR(36)", unique = true)
+    private String memberUuid;
 
     @NotNull
-    @Column(columnDefinition = "CHAR(6)")
-    private String birthday;
-
-    @NotNull
-    @Column(columnDefinition = "CHAR(11)")
-    private String phoneNumber;
-
-    @NotNull
-    @Column(length = 320)
-    private String email;
+    @Column(name = "grade_id", columnDefinition = "INT UNSIGNED")
+    private Long gradeId;
 
     @NotNull
     private Integer totalPrice;
+
+    @NotNull
+    @CreatedDate
+    private LocalDateTime createdAt;
 }

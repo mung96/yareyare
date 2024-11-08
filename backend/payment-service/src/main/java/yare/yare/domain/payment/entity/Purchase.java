@@ -62,10 +62,6 @@ public class Purchase {
     private Game game;
 
     @NotNull
-    @Column(name = "grade_id", columnDefinition = "INT UNSIGNED")
-    private Long gradeId;
-
-    @NotNull
     private String gradeName;
 
     @NotNull
