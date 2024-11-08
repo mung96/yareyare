@@ -11,14 +11,15 @@ spring:
         - id: game-service
           uri: lb://GAME-SERVICE
           predicates:
-            - Path=/api/admin/games
-            - Path=/api/games
+            - Path=/api/admin/games/**, /api/games/**
 
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/api/admin/members
-            - Path=/api/members
+            - Path=/api/admin/members/**, /api/members/**
+
+      default-filters:
+        - name: GlobalFilter
 
     config:
       uri: http://43.202.255.139:8888
