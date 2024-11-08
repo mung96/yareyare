@@ -1,7 +1,7 @@
-package yare.yare.domain.history.dto.response;
+package yare.yare.domain.payment.dto.response;
 
 import lombok.Data;
-import yare.yare.domain.history.dto.TicketDto;
+import yare.yare.domain.payment.dto.TicketDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package yare.yare.domain.history.dto;
+package yare.yare.domain.payment.dto;
 
 public class TicketDto {
     private Long purchaseId;

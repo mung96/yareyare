@@ -1,4 +1,4 @@
-package yare.yare.domain.history.dto.request;
+package yare.yare.domain.payment.dto.request;
 
 import lombok.Data;
 
