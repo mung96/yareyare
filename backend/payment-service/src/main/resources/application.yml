@@ -1,6 +1,11 @@
 spring:
   application:
     name: payment-service
+  config:
+    import: optional:file:.env[.properties]
+
+  profiles:
+    active: ${PROFILE}
 
   datasource:
     driver-class-name: org.h2.Driver
