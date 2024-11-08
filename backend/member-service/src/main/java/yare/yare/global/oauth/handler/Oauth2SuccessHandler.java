@@ -36,7 +36,7 @@ public class Oauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        log.info("성공성공!!");
+        String code = request.getParameter("code");
 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
@@ -62,10 +62,10 @@ public class Oauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                     .build();
             memberRepository.save(member);
 
-            sendAccessToken(response, member);
+            sendAccessToken(response, member, code);
         } else {
             if(Objects.equals(((PrincipalDetails) authentication.getPrincipal()).getMember().getProviderType(), member.getProviderType()) && !member.getIsDeleted()){
-                sendAccessToken(response, member);
+                sendAccessToken(response, member, code);
             } else{
                 response.sendRedirect(frontUrl + "signup/error?providerType=" + member.getProviderType());
             }
@@ -73,7 +73,7 @@ public class Oauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     // 기존 회원 정보가 있는 경우 UUID 기반 accessToken 반환
-    public void sendAccessToken(HttpServletResponse response, Member member) throws IOException {
+    public void sendAccessToken(HttpServletResponse response, Member member, String code) throws IOException {
         if (!response.isCommitted()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -89,7 +89,9 @@ public class Oauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
             String accessToken = jwtService.createAccessToken(uuid, member.getIsCertificated());
 
-            response.sendRedirect(frontUrl + "exist?token=" + accessToken);
+            redisUtils.setDataWithExpiration(code, accessToken, 150L);
+
+            response.sendRedirect(frontUrl + "exist?code=" + code);
         }
     }
 }
