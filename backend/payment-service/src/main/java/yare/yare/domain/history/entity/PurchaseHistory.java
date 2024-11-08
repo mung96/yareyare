@@ -30,8 +30,8 @@ public class PurchaseHistory {
     private String memberUuid;
 
     @NotNull
-    @Column(name = "grade_id", columnDefinition = "INT UNSIGNED")
-    private Long gradeId;
+    @Column(name = "game_id", columnDefinition = "INT UNSIGNED")
+    private Long gameId;
 
     private Integer totalPrice;
 
