@@ -54,13 +54,15 @@ export type RecentGameResultResponse = {
 };
 
 export type GamePlanResponse = {
-  gameId: number;
-  gameDate: string;
-
-  awayTeamName: string;
-  stadiumName: string;
-  startTime: string;
-  awayTeamLogo: string;
-  homeTeamLogo: string;
-  homeTeamName: string;
+  games: {
+    gameId: number;
+    gameDate: string;
+    ticketOpenTime: string;
+    awayTeamName: string;
+    stadiumName: string;
+    startTime: string;
+    awayTeamLogo: string;
+    homeTeamLogo: string;
+    homeTeamName: string;
+  }[];
 };

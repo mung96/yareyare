@@ -1,8 +1,8 @@
-import {Image, StyleSheet, View} from 'react-native';
-import {TEAM_LIST} from '@/main/shared/constants/team.ts';
+import {StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {Game} from '@/main/shared/types';
+import {SvgUri} from 'react-native-svg';
 
 type Props = {
   game: Game;
@@ -13,33 +13,34 @@ function GameResultItem({game}: Props) {
   return (
     <View style={styles.resultItem}>
       <View style={styles.imageBox}>
-        <Image
-          style={styles.image}
-          source={TEAM_LIST[game.homeTeam].logo}
-          resizeMode={'contain'}
-        />
+        <SvgUri uri={game.homeTeam.logo} width={48} height={48} />
       </View>
-      <CustomText
-        style={[
-          styles.score,
-          game.result.homeScore > game.result.awayScore && styles.winScore,
-        ]}>
-        {game.result.homeScore}
-      </CustomText>
-      <CustomText style={styles.text}>vs</CustomText>
-      <CustomText
-        style={[
-          styles.score,
-          game.result.homeScore < game.result.awayScore && styles.winScore,
-        ]}>
-        {game.result.awayScore}
-      </CustomText>
+      {game.status === 'OFF' ? (
+        //TODO:union type으로 status지정해야함.
+        //TODO: css 안맞음
+        <CustomText>경기취소</CustomText>
+      ) : (
+        <>
+          <CustomText
+            style={[
+              styles.score,
+              game.result.homeScore > game.result.awayScore && styles.winScore,
+            ]}>
+            {game.result.homeScore}
+          </CustomText>
+          <CustomText style={styles.text}>vs</CustomText>
+          <CustomText
+            style={[
+              styles.score,
+              game.result.homeScore < game.result.awayScore && styles.winScore,
+            ]}>
+            {game.result.awayScore}
+          </CustomText>
+        </>
+      )}
+
       <View style={styles.imageBox}>
-        <Image
-          style={styles.image}
-          source={TEAM_LIST[game.awayTeam].logo}
-          resizeMode={'contain'}
-        />
+        <SvgUri uri={game.awayTeam.logo} width={48} height={48} />
       </View>
     </View>
   );

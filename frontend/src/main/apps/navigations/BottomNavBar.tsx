@@ -53,6 +53,7 @@ function BottomNavBar() {
     <Tab.Navigator
       screenOptions={({route}) => ({
         headerShown: false,
+
         tabBarStyle: {
           backgroundColor: COLORS.GRAY_100,
           paddingTop: 4,

@@ -1,5 +1,3 @@
-import {ImageSourcePropType} from 'react-native';
-
 export type TeamKey =
   | 'DOOSAN'
   | 'KIWOOM'
@@ -13,9 +11,10 @@ export type TeamKey =
   | 'SSG';
 
 export type Game = {
-  homeTeam: TeamKey;
-  awayTeam: TeamKey;
+  homeTeam: Team;
+  awayTeam: Team;
   result: GameResult;
+  status: string; //TODO: 백엔드랑 어떤거 있는지 협의해야함.
 };
 
 export type GameResult = {
@@ -25,6 +24,6 @@ export type GameResult = {
 
 export type Team = {
   name: string;
-  logo: ImageSourcePropType;
+  logo: string;
   stadium: string;
 };

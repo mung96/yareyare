@@ -1,8 +1,9 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Team} from '@/main/shared/types';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import {SvgUri} from 'react-native-svg';
 
 type Props = {
   dateTime: string;
@@ -21,22 +22,18 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
       <View style={styles.body}>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
-            {/*TODO: resizeMode 조정해야함*/}
-            <Image
-              style={styles.image}
-              source={homeTeam.logo}
-              resizeMode={'contain'}
-            />
+            <SvgUri uri={homeTeam.logo} width={48} height={48} />
           </View>
           <CustomText style={styles.teamName}>{homeTeam.name}</CustomText>
         </View>
         <CustomText>VS</CustomText>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
-            <Image
+            <SvgUri
+              uri={awayTeam.logo}
               style={styles.image}
-              source={awayTeam.logo}
-              resizeMode={'contain'}
+              width={48}
+              height={48}
             />
           </View>
           <CustomText style={styles.teamName}>{awayTeam.name}</CustomText>
