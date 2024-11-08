@@ -67,7 +67,7 @@ dependencyManagement {
 }
 
 openapi3 {
-	server = 'https://www.yareyare.co.kr'
+	server = 'https://yareyare.co.kr'
 	outputFileNamePrefix = 'yare-member'
 	title = 'Yareyare Member API Docs'
 	description = 'Member API description'
