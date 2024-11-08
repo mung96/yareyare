@@ -5,7 +5,7 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.management.openmbean.SimpleType.STRING;
+import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
 public class ResponseFieldUtils {
