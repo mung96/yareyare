@@ -46,6 +46,10 @@ eureka:
       defaultZone: http://43.202.255.139:8761/eureka
 
 management:
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_ENDPOINT}
+
   endpoints:
     web:
       exposure:
