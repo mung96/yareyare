@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import yare.yare.domain.price_option.entity.Price;
 import yare.yare.domain.stadium.entity.Seat;
 import yare.yare.domain.stadium.enums.SeatStatus;
 
@@ -21,13 +22,17 @@ public class GameSeat {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId("gameId")
-    @JoinColumn(columnDefinition = "INT UNSIGNED", nullable = false)
+    @JoinColumn(name = "game_id", columnDefinition = "INT UNSIGNED", nullable = false)
     private Game game;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @MapsId("seatId")
-    @JoinColumn(columnDefinition = "INT UNSIGNED", nullable = false)
+    @JoinColumn(name = "seat_id", columnDefinition = "INT UNSIGNED", nullable = false)
     private Seat seat;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "price_id", columnDefinition = "SMALLINT", nullable = false)
+    private Price price;
 
     @NotNull
     @Enumerated(EnumType.STRING)

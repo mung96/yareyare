@@ -15,22 +15,21 @@ import yare.yare.domain.stadium.entity.Grade;
 @Builder
 public class Price {
 
-    @EmbeddedId
-    private PricePK pricePK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "price_id", columnDefinition = "SMALLINT")
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("gradeId")
-    @JoinColumn(name = "grade_id", columnDefinition = "SMALLINT")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "grade_id", columnDefinition = "SMALLINT", nullable = false)
     private Grade grade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("seasonId")
-    @JoinColumn(name = "season_id", columnDefinition = "TINYINT")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "season_id", columnDefinition = "TINYINT", nullable = false)
     private Season season;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("categoryId")
-    @JoinColumn(name = "category_id", columnDefinition = "TINYINT")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", columnDefinition = "TINYINT", nullable = false)
     private Category category;
 
     @NotNull
