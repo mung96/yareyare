@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
+import yare.yare.domain.member.dto.response.MemberAccessTokenRes;
 import yare.yare.domain.member.dto.response.MemberDetailsRes;
 import yare.yare.domain.member.dto.response.MyTeamModifyRes;
 import yare.yare.domain.member.service.MemberService;
@@ -34,14 +35,14 @@ import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.docume
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static java.lang.Boolean.TRUE;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static yare.yare.global.ResponseFieldUtils.getCommonResponseFields;
@@ -83,6 +84,58 @@ class MemberControllerTest {
 
         SecurityContextHolder.getContext()
                 .setAuthentication(new UsernamePasswordAuthenticationToken(123L, null, List.of()));
+    }
+
+    @Test
+    public void access_toekn_조회_성공() throws Exception {
+        // given
+        String code = "oauth code";
+        MemberAccessTokenRes result = new MemberAccessTokenRes("access token");
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/api/members/token/{code}", code)
+                        .header("Authorization", jwtToken)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+        when(memberService.getAccessToken(anyString()))
+                .thenReturn(result);
+
+        // then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "access token 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Member API")
+                                .summary("access token 조회 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .pathParameters(
+                                        parameterWithName("code")
+                                                .description("Oauth code")
+                                )
+                                .requestFields()
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body").optional()
+                                                        .description("내용이 없을 때는 null"),
+                                                fieldWithPath("body.accessToken").type(STRING)
+                                                        .description("access token")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("access token 조회 Request"))
+                                .responseSchema(Schema.schema("access token 조회 Response"))
+                                .build()
+                        ))
+                );
     }
 
     @Test
@@ -134,15 +187,15 @@ class MemberControllerTest {
                                                         .description("생일"),
                                                 fieldWithPath("body.tel").type(STRING).optional()
                                                         .description("전화번호"),
-                                                fieldWithPath("body.email").type(STRING).optional()
+                                                fieldWithPath("body.email").type(STRING)
                                                         .description("이메일"),
                                                 fieldWithPath("body.myTeamId").type(NUMBER).optional()
                                                         .description("마이 팀 아이디"),
                                                 fieldWithPath("body.myTeamName").type(STRING).optional()
                                                         .description("마이 팀 이름"),
-                                                fieldWithPath("body.isCertificated").type(BOOLEAN).optional()
+                                                fieldWithPath("body.isCertificated").type(BOOLEAN)
                                                         .description("본인인증 여부"),
-                                                fieldWithPath("body.uuid").type(STRING).optional()
+                                                fieldWithPath("body.uuid").type(STRING)
                                                         .description("UUID")
                                         )
                                 )
@@ -189,11 +242,12 @@ class MemberControllerTest {
                                                 .description("JWT 토큰")
                                 )
                                 .requestFields(
-                                        fieldWithPath("teamId").type(NUMBER).description("변경할 팀 아이디")
+                                        fieldWithPath("teamId").type(NUMBER)
+                                                .description("변경할 팀 아이디")
                                 )
                                 .responseFields(
                                         getCommonResponseFields(
-                                                fieldWithPath("body.myTeamId").type(NUMBER).optional()
+                                                fieldWithPath("body.myTeamId").type(NUMBER)
                                                         .description("변경된 팀 아이디")
                                         )
                                 )

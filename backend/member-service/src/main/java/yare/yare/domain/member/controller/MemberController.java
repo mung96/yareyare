@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
+import yare.yare.domain.member.dto.response.MemberAccessTokenRes;
 import yare.yare.domain.member.dto.response.MemberDetailsRes;
 import yare.yare.domain.member.dto.response.MyTeamModifyRes;
 import yare.yare.domain.member.service.MemberService;
@@ -19,6 +20,13 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 public class MemberController {
     private final JwtService jwtService;
     private final MemberService memberService;
+
+    @GetMapping("/token/{code}")
+    public ResponseDto<?> accessToken(@PathVariable String code) {
+        MemberAccessTokenRes result = memberService.getAccessToken(code);
+
+        return ResponseDto.success(OK, result);
+    }
 
     @GetMapping
     public ResponseDto<?> memberDetails() {
