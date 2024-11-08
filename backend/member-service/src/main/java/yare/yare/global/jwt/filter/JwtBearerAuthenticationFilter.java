@@ -9,10 +9,12 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 import yare.yare.global.dto.ResponseDto;
 import yare.yare.global.jwt.entity.JwtRedis;
 import yare.yare.global.jwt.service.JwtService;
@@ -25,16 +27,17 @@ import static yare.yare.global.statuscode.ErrorCode.EXPIRED_TOKEN;
 import static yare.yare.global.statuscode.ErrorCode.NOT_VALID_TOKEN;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
-public class JwtBearerAuthenticationFilter extends GenericFilterBean {
+public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final RedisUtils redisUtils;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.info("JWT 토큰 필터 시작!");
+
         String token = extractBearerToken(request);
 
         if (token == null) {
@@ -44,12 +47,10 @@ public class JwtBearerAuthenticationFilter extends GenericFilterBean {
 
         String token_type = jwtService.getTypeFromToken(token);
 
-        if(token_type == null) {
+        if (token_type == null) {
             sendError(response, NOT_VALID_TOKEN);
             return;
-        }
-
-        else if (token_type.equals("access_token")) {
+        } else if (token_type.equals("access_token")) {
             if (jwtService.isTokenValid(token)) {
                 Authentication auth = jwtService.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -76,10 +77,11 @@ public class JwtBearerAuthenticationFilter extends GenericFilterBean {
                 return;
             }
         }
+
         filterChain.doFilter(request, response);
     }
 
-    public void sendAccessToken(HttpServletResponse response, String uuid, Boolean isCertificated) throws IOException {
+    private void sendAccessToken(HttpServletResponse response, String uuid, Boolean isCertificated) throws IOException {
         if (!response.isCommitted()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -90,11 +92,10 @@ public class JwtBearerAuthenticationFilter extends GenericFilterBean {
             ResponseDto<?> res = ResponseDto.success(OK, token);
             ObjectMapper mapper = new ObjectMapper();
             response.getWriter().write(mapper.writeValueAsString(res));
-
         }
     }
 
-    public void sendError(HttpServletResponse response, ErrorCode errorCode) throws IOException {
+    private void sendError(HttpServletResponse response, ErrorCode errorCode) throws IOException {
         if (!response.isCommitted()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -106,7 +107,7 @@ public class JwtBearerAuthenticationFilter extends GenericFilterBean {
         }
     }
 
-    public String extractBearerToken(HttpServletRequest request) {
+    private String extractBearerToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
