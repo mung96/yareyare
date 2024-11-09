@@ -1,8 +1,8 @@
 import {Alert, Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {COLORS} from '@/main/shared/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthParamList} from '@/main/apps/navigations/AuthNavigation.tsx';
 import {PATH} from '@/main/shared/constants';
+import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
 
 function LoginScreen() {
   const navigation = useNavigation<NavigationProp<AuthParamList>>();
@@ -17,15 +17,7 @@ function LoginScreen() {
     ]);
   };
   return (
-    <View
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 12,
-        width: '100%',
-        backgroundColor: COLORS.WHITE,
-      }}>
+    <CommonLayout>
       <Image
         source={require('@/main/assets/yareLogo.png')}
         resizeMode={'contain'}
@@ -65,7 +57,7 @@ function LoginScreen() {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </CommonLayout>
   );
 }
 
