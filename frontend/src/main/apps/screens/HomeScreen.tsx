@@ -1,12 +1,14 @@
-import GameScheduleCardList from '@/main/ui/components/game/GameScheduleCardList';
 import GameResultCard from '@/main/ui/components/game/GameResultCard.tsx';
 import React from 'react';
 import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
+import GamePlanCardList from '@/main/ui/components/game/GamePlanCardList.tsx';
+import DropdownComponent from '@/main/ui/components/game/DropDown.tsx';
 
 function HomeScreen() {
   return (
     <CommonLayout>
-      <GameScheduleCardList />
+      <DropdownComponent />
+      <GamePlanCardList />
       <GameResultCard />
     </CommonLayout>
   );

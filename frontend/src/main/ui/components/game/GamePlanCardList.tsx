@@ -5,8 +5,7 @@ import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
 import React from 'react';
 import useGameModel from '@/main/services/hooks/useGameModel.ts';
 
-function GameScheduleCardList() {
-  //TODO: 경기일정 하나씩 불러오면됨
+function GamePlanCardList() {
   //TODO: Slider 구현
   const dispatch = useDispatch();
   const {gameList} = useGameModel();
@@ -35,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GameScheduleCardList;
+export default GamePlanCardList;
