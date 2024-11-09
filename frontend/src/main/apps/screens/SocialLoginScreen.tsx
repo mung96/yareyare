@@ -10,8 +10,11 @@ function SocialLoginScreen({route}: any) {
   const dispatch = useDispatch();
   const {social} = route.params;
   const handleOnMessage = async (event: WebViewMessageEvent) => {
+    console.log(event);
     if (event.nativeEvent.url.includes(`${REDIRECT_URI}?token=`)) {
-      const token = event.nativeEvent.url.replace(`${REDIRECT_URI}?code=`, '');
+      const token = event.nativeEvent.url.replace(`${REDIRECT_URI}?token=`, '');
+      console.log('토큰');
+      console.log(token);
       //TODO: 백엔드 API 요청 추가해야함
       setEncryptStorage('token', token);
       dispatch(login());
