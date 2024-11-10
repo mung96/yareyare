@@ -11,11 +11,13 @@ type DataType = {
 type Props<T extends DataType> = {
   data: T[];
   placeholder: string;
-  icon: ReactNode;
+  icon:
+    | ((visible?: boolean | undefined) => JSX.Element | null | undefined)
+    | undefined;
   renderItem: (item: T, selected?: boolean) => JSX.Element | null | undefined;
 };
 
-const DropDownComponent = <T,>({
+const DropDownComponent = <T extends DataType>({
   data,
   placeholder,
   icon,

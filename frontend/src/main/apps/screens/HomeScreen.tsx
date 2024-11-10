@@ -23,7 +23,7 @@ function HomeScreen() {
       <DropdownComponent
         data={data}
         placeholder={'팀 선택'}
-        icon={<Icon name="people" size={22} style={styles.icon} />}
+        icon={() => <Icon name="people" size={22} style={styles.icon} />}
         renderItem={item => <Text>{item.label}</Text>}
       />
       <GamePlanCardList />
