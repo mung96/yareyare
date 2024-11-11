@@ -28,13 +28,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public MemberAccessTokenRes getAccessToken(String code) {
-        String accessToken = redisUtils.getData(code).toString();
-
-        if(accessToken == null) {
+        Object token = redisUtils.getData(code);
+        if(token == null) {
             throw new CustomException(NOT_VALID_CODE);
         }
 
-        return new MemberAccessTokenRes(accessToken);
+        return new MemberAccessTokenRes((String) token);
     }
 
     @Override
