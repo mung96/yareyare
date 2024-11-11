@@ -9,7 +9,7 @@ export const END_POINT = {
   GAME_GRADE: (gameId: string) => `games/${gameId}/grades`,
   GAME_SEAT: (gameId: string) => `games/${gameId}/seats`,
 
-  //team
+  //teamrr
   TEAM: 'games/teams',
 
   //stadium

@@ -10,9 +10,7 @@ type Props = {
   onSelect: (section: Grade) => void;
 };
 function GradeList({value, onSelect}: Props) {
-  console.log(value);
   const {gradeList} = useGradeModel();
-  console.log(gradeList);
   return (
     <>
       <View style={styles.imgContainer}>

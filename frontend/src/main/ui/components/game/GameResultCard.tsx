@@ -6,7 +6,6 @@ import {useGetGameResultQuery} from '@/main/services/hooks/queries/useGameQuery.
 
 function GameResultCard() {
   const {data: gameResultList} = useGetGameResultQuery();
-  console.log(gameResultList);
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
