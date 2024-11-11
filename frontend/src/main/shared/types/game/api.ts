@@ -10,7 +10,7 @@ export type GameScheduleResponse = {
 };
 export type RestSeatListWithGradeResponse = {
   grades: {
-    gradeId: number;
+    gradeId: string;
     gradeName: string;
     availableSeats: number;
   }[];
@@ -26,7 +26,7 @@ export type RestSeatListWithSectionResponse = {
         seatNumber: number;
       }[];
     }[];
-  };
+  }[];
 };
 
 export type GameResponse = {

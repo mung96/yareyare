@@ -12,13 +12,17 @@ export const apiRequester: AxiosInstance = axios.create({
 });
 
 //기본 설정 넣고, header만 설정하는 로직이네
-const setRequestDefaultHeader = (requestConfig: AxiosRequestConfig) => {
+const setRequestDefaultHeader = async (requestConfig: AxiosRequestConfig) => {
   const config = requestConfig;
   config.headers = {
     ...config.headers,
     'Content-Type': 'application/json;charset=utf-8',
-    Authorization: `Bearer ${getAccessToken()}`,
+    Authorization: `Bearer ${await getAccessToken()}`,
   };
+  console.log('Request URL:', config.url);
+  console.log(getAccessToken());
+  console.log('Request Headers:', config.headers.Authorization);
+  console.log('Request Payload:', config.data);
   return config as InternalAxiosRequestConfig;
 };
 

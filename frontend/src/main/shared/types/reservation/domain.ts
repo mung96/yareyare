@@ -12,13 +12,11 @@ export type Grade = {
   gradeName: GradeKey;
   color: (typeof COLORS)[keyof typeof COLORS];
   img: ImageSourcePropType;
-  gradeId?: number;
+  gradeId?: string;
   availableSeats?: number;
 };
 export type Seat = {
-  section: number;
-  row: string;
-  col: number;
+  seatId: string;
 };
 export type ReservationProcess =
   | 'GradeStep'

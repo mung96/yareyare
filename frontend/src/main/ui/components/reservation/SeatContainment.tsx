@@ -3,17 +3,21 @@ import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx'
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Entypo';
-import {includeSeatWithRowAndCol} from '@/main/services/helper/reservation/seat.ts';
-import {seats} from '@/main/dummy.ts';
 import {Seat} from '@/main/shared/types';
+import {includeSeat} from '@/main/services/helper/reservation/seat.ts';
 
 type Props = {
+  name: string;
   value: Seat[];
+  list: {
+    rowName: string;
+    seats: {isAvailable: boolean; seatId: string; seatNumber: number}[];
+  }[];
   onAdd: (seat: Seat) => void;
   onRemove: (seat: Seat) => void;
 };
 
-type SeatList = {
+export type SeatList = {
   [key: number]: {
     [key: string]: {
       [key: string]: boolean;
@@ -21,8 +25,8 @@ type SeatList = {
   };
 };
 
-function SeatContainment({value, onAdd, onRemove}: Props) {
-  const seatList: SeatList = seats;
+function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
+  console.log(list);
   return (
     <ReservationBox>
       <View>
@@ -32,76 +36,56 @@ function SeatContainment({value, onAdd, onRemove}: Props) {
           <Icon name={'arrow-up'} size={50} color={COLORS.GRAY_400} />
         </View>
         <View style={styles.seatContainer}>
-          <CustomText style={styles.seatNumber}>101</CustomText>
-          <View style={styles.row}>
-            {Object.keys(seatList).map(section => {
-              const sectionNum = Number(section);
-              return Object.keys(seatList[sectionNum]).map(row => {
-                return (
-                  <View style={styles.column}>
-                    {Object.keys(seatList[sectionNum][row]).map(col => {
-                      const colIdx = Number(col);
-                      const disabled = !seatList[sectionNum][row][col];
-                      return (
-                        <Pressable
-                          disabled={disabled}
-                          style={[
-                            styles.seatBox,
-                            colIdx % 4 === 1 && {
-                              paddingLeft: 5,
-                              width: 17,
-                            },
-                            colIdx % 4 === 0 && {
-                              paddingRight: 5,
-                              width: 17,
-                            },
-                          ]}
-                          onPress={() => {
-                            includeSeatWithRowAndCol(
-                              value,
-                              sectionNum,
-                              row,
-                              colIdx,
-                            )
-                              ? onRemove({
-                                  section: sectionNum,
-                                  row: row,
-                                  col: colIdx,
-                                })
-                              : onAdd({
-                                  section: sectionNum,
-                                  row: row,
-                                  col: colIdx,
-                                });
-                          }}>
-                          <View
-                            style={[
-                              styles.seat,
-                              disabled && styles.disabledSeat,
-                              includeSeatWithRowAndCol(
-                                value,
-                                sectionNum,
-                                row,
-                                colIdx,
-                              ) && styles.selectedSeat,
-                            ]}
-                          />
-                        </Pressable>
-                      );
-                    })}
-                    <View style={styles.colBox}>
-                      <CustomText
-                        style={{
-                          fontSize: 10,
-                          lineHeight: 10,
-                          fontWeight: '900',
+          <CustomText style={styles.seatNumber}>{name}</CustomText>
+          <View style={styles.column}>
+            {list.map(row => {
+              return (
+                <View style={styles.row} key={row.rowName + ' ' + name}>
+                  {row.seats.map(seat => {
+                    const disabled = !seat.isAvailable;
+                    return (
+                      <Pressable
+                        disabled={disabled}
+                        key={seat.seatId}
+                        style={[
+                          styles.seatBox,
+                          seat.seatNumber % 4 === 1 && {
+                            paddingLeft: 5,
+                            width: 17,
+                          },
+                          seat.seatNumber % 4 === 0 && {
+                            paddingRight: 5,
+                            width: 17,
+                          },
+                        ]}
+                        onPress={() => {
+                          includeSeat(value, seat.seatId)
+                            ? onRemove({seatId: String(seat.seatId)})
+                            : onAdd({seatId: String(seat.seatId)});
                         }}>
-                        {row}
-                      </CustomText>
-                    </View>
+                        <View
+                          style={[
+                            styles.seat,
+                            disabled && styles.disabledSeat,
+                            includeSeat(value, seat.seatId) &&
+                              styles.selectedSeat,
+                          ]}
+                        />
+                      </Pressable>
+                    );
+                  })}
+                  <View style={styles.colBox}>
+                    <CustomText
+                      style={{
+                        fontSize: 10,
+                        lineHeight: 10,
+                        fontWeight: '900',
+                      }}>
+                      {row.rowName}
+                    </CustomText>
                   </View>
-                );
-              });
+                </View>
+              );
             })}
           </View>
         </View>
@@ -167,23 +151,23 @@ const styles = StyleSheet.create({
   },
   column: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
   row: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   colBox: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     width: 10,
   },
 });
 
-export default SeatContainment;
+export default SeatContainer;

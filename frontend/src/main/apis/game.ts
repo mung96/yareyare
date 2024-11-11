@@ -13,10 +13,11 @@ import {END_POINT} from '@/main/shared/constants/api.ts';
 
 //경기 일정 조회 API (팀선택 X)
 export async function getGamePlan(): Promise<GamePlanResponse> {
-  const {data} = await apiRequester.get<Response<GamePlanResponse>>(
+  const response = await apiRequester.get<Response<GamePlanResponse>>(
     END_POINT.GAME,
   );
-  return data.body;
+
+  return response.data.body;
 }
 
 //경기 일정 조회 API (팀선택 O)
@@ -63,6 +64,10 @@ export async function getRestSeatListWithSection(
   const {data} = await apiRequester.get<
     Response<RestSeatListWithSectionResponse>
   >(END_POINT.GAME_SEAT(gameId), {params: {gradeId}});
+
+  console.log('data');
+  console.log(data);
+  console.log('data');
   return data.body;
 }
 
