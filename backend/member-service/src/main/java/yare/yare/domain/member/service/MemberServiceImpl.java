@@ -1,6 +1,7 @@
 package yare.yare.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
@@ -60,5 +61,14 @@ public class MemberServiceImpl implements MemberService {
         member.updateMyTeamName(myTeamName);
 
         return MyTeamModifyRes.toDto(member);
+    }
+
+    @Override
+    public void logout(Authentication authentication) {
+        if (authentication != null && authentication.getCredentials() instanceof String) {
+            String accessToken = (String) authentication.getCredentials();
+
+            redisUtils.addListData("logout_token", accessToken);
+        }
     }
 }

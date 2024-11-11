@@ -2,6 +2,7 @@ package yare.yare.domain.member.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
@@ -44,5 +45,14 @@ public class MemberController {
         MyTeamModifyRes result = memberService.modifyMyTeam(memberId, myTeamModifyReq);
 
         return ResponseDto.success(OK, result);
+    }
+
+    @PostMapping("/logout")
+    public ResponseDto<Void> logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        memberService.logout(authentication);
+
+        return ResponseDto.success(OK);
     }
 }
