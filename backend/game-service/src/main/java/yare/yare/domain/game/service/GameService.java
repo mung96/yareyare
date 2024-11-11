@@ -24,4 +24,6 @@ public interface GameService {
     SeatListRes findSeats(Long gameId, Integer gradeId);
 
     LastGameListRes findLastGames();
+
+    GetPriceRes getPrice(Long gameId, Long seatId);
 }
