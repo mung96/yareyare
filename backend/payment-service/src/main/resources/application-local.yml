@@ -24,14 +24,3 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-
-  rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
-
-management:
-  zipkin:
-    tracing:
-      endpoint: ${ZIPKIN_ENDPOINT}
