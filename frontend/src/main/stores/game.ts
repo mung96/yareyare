@@ -9,7 +9,7 @@ const initialState: State = {
 };
 
 const reservationSlice = createSlice({
-  name: 'reservation',
+  name: 'game',
   initialState,
   reducers: {
     setGameId(state, action: PayloadAction<string>) {

@@ -4,6 +4,11 @@ import {COLORS} from '@/main/shared/styles';
 import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
 import {Controller, useForm} from 'react-hook-form';
 import {GradeContext} from '@/main/shared/types';
+import {useGetGameDetailQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@/main/stores/rootReducer.ts';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
 
 type Props = {
   onNext: (grade: GradeContext) => void;
@@ -13,16 +18,16 @@ function GradeScreen({onNext}: Props) {
   const {control, handleSubmit} = useForm<GradeContext>({
     defaultValues: undefined,
   });
+  const {gameDetail} = useGameDetailModel();
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>
-            2024 신한SOL뱅크 KBO 리그 롯데 vs 두산
-          </Text>
-          <Text style={styles.date}>
-            2024.08.15(목) 17:00 기아 챔피언스 필드
-          </Text>
+          <CustomText style={styles.title}>{gameDetail.name}</CustomText>
+          <CustomText style={styles.date}>
+            {gameDetail.date}
+            {' ' + gameDetail.place}
+          </CustomText>
         </View>
         <Controller
           control={control}
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
   },
   date: {
     color: COLORS.BLACK,
-    fontSize: 12,
+    fontSize: 14,
   },
 });
 export default GradeScreen;

@@ -1,30 +1,21 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '@/main/stores/rootReducer.ts';
+import {useDispatch} from 'react-redux';
 import {COLORS} from '@/main/shared/styles';
 import TimerBar from '@/main/ui/components/game/TimerBar.tsx';
-import {useGetGameDetailQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
+import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
 
-//TODO: 경기 상제조회부터
 function WaitingScreen() {
   const dispatch = useDispatch();
-  const gameId = useSelector((state: RootState) => state.reservation.gameId);
-  const {data: gameDetailData} = useGetGameDetailQuery(gameId);
+  const {gameDetail} = useGameDetailModel();
   return (
     <View style={styles.container}>
       <View style={styles.titleBox}>
         <CustomText style={{fontSize: 20, fontWeight: '900'}}>
           접속 인원이 많아 대기중입니다.
         </CustomText>
-        <CustomText style={{fontSize: 14}}>
-          {gameDetailData?.seasonName +
-            ' ' +
-            gameDetailData?.homeTeamName +
-            ' vs ' +
-            gameDetailData?.awayTeamName}
-        </CustomText>
+        <CustomText style={{fontSize: 14}}>{gameDetail.name}</CustomText>
       </View>
       <View style={styles.waitBox}>
         <CustomText style={styles.title}>나의 대기순서</CustomText>

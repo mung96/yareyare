@@ -3,7 +3,7 @@ import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import React from 'react';
-import {setGameId} from '@/main/stores/reservation.ts';
+import {setGameId} from '@/main/stores/game.ts';
 
 type Props = {
   list: {
