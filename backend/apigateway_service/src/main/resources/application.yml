@@ -18,6 +18,11 @@ spring:
           predicates:
             - Path=/api/admin/members/**, /api/members/**
 
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/admin/payments/**, /api/payments/**
+
       default-filters:
         - name: GlobalFilter
         - name: CircuitBreaker
@@ -26,7 +31,7 @@ spring:
 
 
     config:
-      uri: http://43.202.255.139:8888
+      uri: ${CONFIG_ENDPOINT}
       name: config-service
 
   rabbitmq:
@@ -43,7 +48,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://43.202.255.139:8761/eureka
+      defaultZone: ${EUREKA_ENDPOINT}
 
 management:
   zipkin:
