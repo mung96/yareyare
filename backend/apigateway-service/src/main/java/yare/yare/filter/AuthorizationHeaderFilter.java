@@ -3,6 +3,7 @@ package yare.yare.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.env.Environment;
@@ -21,12 +22,13 @@ import static yare.yare.statuscode.ErrorCode.*;
 @Slf4j
 @Component
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
-    private final Environment env;
     private final RedisUtils redisUtils;
 
-    public AuthorizationHeaderFilter(Environment env, RedisUtils redisUtils) {
+    @Value("${JWT_SECRET_KEY}")
+    private String SECRET_KEY;
+
+    public AuthorizationHeaderFilter(RedisUtils redisUtils) {
         super(Config.class);
-        this.env = env;
         this.redisUtils = redisUtils;
     }
 
@@ -57,9 +59,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
     private boolean isJwtValid(String jwt) {
-        String secretKey = env.getProperty("JWT_SECRET_KEY");
-
-        SecretKey signingKey = new SecretKeySpec(Base64.getDecoder().decode(secretKey), "HmacSHA512");
+        SecretKey signingKey = new SecretKeySpec(SECRET_KEY.getBytes(), "HmacSHA512");
+        log.info("isJwtValid %{}", signingKey);
 
         try {
             String subject = Jwts.parserBuilder()
