@@ -1,6 +1,6 @@
 export type TeamListResponse = {
   teams: {
-    teamId: number;
+    teamId: string;
     teamName: string;
     teamLogo: string;
   }[];

@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {COLORS} from '@/main/shared/styles';
@@ -23,12 +23,11 @@ const DropDownComponent = <T extends DataType>({
   icon,
   renderItem,
 }: Props<T>) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>('');
   const [isFocus, setIsFocus] = useState(false);
 
   return (
     <View style={styles.container}>
-      {/*{renderLabel()}*/}
       <Dropdown
         style={[
           styles.dropdown,
@@ -90,6 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Pretendard-Regular',
     fontWeight: '700',
+    color: COLORS.BLACK,
   },
   iconStyle: {
     width: 20,

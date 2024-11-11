@@ -3,29 +3,22 @@ import React from 'react';
 import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
 import GamePlanCardList from '@/main/ui/components/game/GamePlanCardList.tsx';
 import DropdownComponent from '@/main/ui/components/game/DropDownComponent.tsx';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-const data = [
-  {label: 'Item 1', value: '1'},
-  {label: 'Item 2', value: '2'},
-  {label: 'Item 3', value: '3'},
-  {label: 'Item 4', value: '4'},
-  {label: 'Item 5', value: '5'},
-  {label: 'Item 6', value: '6'},
-  {label: 'Item 7', value: '7'},
-  {label: 'Item 8', value: '8'},
-];
+import TeamItem from '@/main/ui/components/game/TeamItem.tsx';
+import useTeamModel from '@/main/services/hooks/useTeamModel.ts';
 
 function HomeScreen() {
+  const {teamList} = useTeamModel();
   return (
     <CommonLayout>
       <DropdownComponent
-        data={data}
+        data={teamList}
         placeholder={'팀 선택'}
         icon={() => <Icon name="people" size={22} style={styles.icon} />}
-        renderItem={item => <Text>{item.label}</Text>}
+        renderItem={item => <TeamItem team={item} />}
       />
+
       <GamePlanCardList />
       <GameResultCard />
     </CommonLayout>
