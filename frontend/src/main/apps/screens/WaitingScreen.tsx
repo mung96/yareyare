@@ -1,18 +1,17 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import {useDispatch, useSelector} from 'react-redux';
-import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import {COLORS} from '@/main/shared/styles';
 import TimerBar from '@/main/ui/components/game/TimerBar.tsx';
+import {useGetGameDetailQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
+import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 
+//TODO: 경기 상제조회부터
 function WaitingScreen() {
   const dispatch = useDispatch();
-  //react-query요청
-
   const gameId = useSelector((state: RootState) => state.reservation.gameId);
-
+  const {data: gameDetailData} = useGetGameDetailQuery(gameId);
   return (
     <View style={styles.container}>
       <View style={styles.titleBox}>
@@ -20,7 +19,11 @@ function WaitingScreen() {
           접속 인원이 많아 대기중입니다.
         </CustomText>
         <CustomText style={{fontSize: 14}}>
-          2024 신한SOL뱅크KBO리그KIA vs 두산
+          {gameDetailData?.seasonName +
+            ' ' +
+            gameDetailData?.homeTeamName +
+            ' vs ' +
+            gameDetailData?.awayTeamName}
         </CustomText>
       </View>
       <View style={styles.waitBox}>
@@ -42,10 +45,9 @@ function WaitingScreen() {
           되어 대기시간이 더 길어집니다.
         </CustomText>
       </View>
-      {/*<Pressable onPress={() => dispatch(moveNavigation('reservation'))}>*/}
-      {/*  <CustomText>{gameId}</CustomText>*/}
-      {/*  <CustomText>예매하러가기</CustomText>*/}
-      {/*</Pressable>*/}
+      <Pressable onPress={() => dispatch(moveNavigation('reservation'))}>
+        <CustomText>예매하러가기</CustomText>
+      </Pressable>
     </View>
   );
 }
