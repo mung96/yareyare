@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import {COLORS} from '@/main/shared/styles';
+import TimerBar from '@/main/ui/components/game/TimerBar.tsx';
 
 function WaitingScreen() {
   const dispatch = useDispatch();
@@ -26,10 +27,10 @@ function WaitingScreen() {
         <CustomText style={styles.title}>나의 대기순서</CustomText>
         <CustomText style={styles.peopleText}>1240</CustomText>
         <CustomText style={styles.text}>
-          뒤에 <CustomText style={styles.pointText}>324</CustomText>명/ 1시간
+          뒤에 <CustomText style={styles.pointText}>324</CustomText>명 / 1시간
           3분 43초 소요 예상
         </CustomText>
-        <CustomText>애니메이션</CustomText>
+        <TimerBar />
       </View>
       <View style={styles.descriptionBox}>
         <CustomText style={styles.description}>
@@ -99,8 +100,8 @@ const styles = StyleSheet.create({
 
   description: {fontSize: 13, fontWeight: '500'},
   peopleText: {
-    fontSize: 96,
-    lineHeight: 96,
+    fontSize: 60,
+    lineHeight: 60,
     fontWeight: '900',
   },
 });
