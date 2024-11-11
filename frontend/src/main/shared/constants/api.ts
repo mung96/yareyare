@@ -8,4 +8,10 @@ export const END_POINT = {
   GAME_DETAIL: (gameId: string) => `games/${gameId}/details`,
   GAME_GRADE: (gameId: string) => `games/${gameId}/grades`,
   GAME_SEAT: (gameId: string) => `games/${gameId}/seats`,
+
+  //team
+  TEAM: 'games/teams',
+
+  //stadium
+  STADIUM: 'games/stadiums',
 };
