@@ -1,32 +1,20 @@
 import {useMemo} from 'react';
 import {useGetGamePlanQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
+import {convertGamePlanListDataToView} from '@/main/services/helper/game/convert.ts';
 
-function useGameResultModel() {
+function useGameModel() {
   const {data: gamePlanListData} = useGetGamePlanQuery();
-  const gameList = useMemo(() => {
+  const gamePlanList = useMemo(() => {
     if (!gamePlanListData) {
       return [];
     }
 
     return gamePlanListData.games.map(gamePlanData => {
-      return {
-        gameId: gamePlanData.gameId,
-        dateTime: gamePlanData.gameDate,
-        homeTeam: {
-          name: gamePlanData.homeTeamName,
-          logo: gamePlanData.homeTeamLogo,
-          stadium: gamePlanData.stadiumName,
-        },
-        awayTeam: {
-          name: gamePlanData.awayTeamName,
-          logo: gamePlanData.awayTeamLogo,
-          stadium: gamePlanData.stadiumName,
-        },
-      };
+      return convertGamePlanListDataToView(gamePlanData);
     });
   }, [gamePlanListData]);
 
-  return {gameList};
+  return {gamePlanList};
 }
 
-export default useGameResultModel;
+export default useGameModel;
