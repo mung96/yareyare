@@ -36,9 +36,7 @@ function SeatScreen({context, onPrev, onNext}: Props) {
     seat: Seat,
     onChange: (value: Seat[]) => void,
   ) {
-    const newSeatList = arr.filter(
-      item => !(item.row === seat.row && item.col === seat.col),
-    );
+    const newSeatList = arr.filter(item => !(item.seatId === seat.seatId));
     onChange(newSeatList);
   }
 

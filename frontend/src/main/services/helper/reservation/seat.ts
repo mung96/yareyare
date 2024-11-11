@@ -8,17 +8,8 @@ export function convertRowToIdx(row: string) {
   return convertCharToNumber(row) - 65;
 }
 
-export function includeSeatWithRowAndCol(
-  seatList: Seat[],
-  section: number,
-  row: string,
-  col: number,
-) {
-  return includeObjectWithKeyAndValue(
-    seatList,
-    ['section', 'row', 'col'],
-    [section, row, col],
-  );
+export function includeSeat(seatList: Seat[], seatId: string) {
+  return includeObjectWithKeyAndValue(seatList, ['seatId'], [seatId]);
 }
 
 export function convertSeatResponseToView(
