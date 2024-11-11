@@ -3,15 +3,22 @@ import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
 import React from 'react';
-import useGameModel from '@/main/services/hooks/useGameModel.ts';
 
-function GamePlanCardList() {
+type Props = {
+  list: {
+    gameId: number;
+    dateTime: string;
+    homeTeam: {name: string; logo: string; stadium: string};
+    awayTeam: {name: string; logo: string; stadium: string};
+  }[];
+};
+function GamePlanCardList({list}: Props) {
   //TODO: Slider 구현
   const dispatch = useDispatch();
-  const {gameList} = useGameModel();
+
   return (
     <View style={styles.container}>
-      {gameList?.map(gamePlan => (
+      {list?.map(gamePlan => (
         <GameScheduleCard
           key={gamePlan.gameId}
           dateTime={gamePlan.dateTime}

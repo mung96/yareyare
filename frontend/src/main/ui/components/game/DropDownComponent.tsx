@@ -15,6 +15,7 @@ type Props<T extends DataType> = {
     | ((visible?: boolean | undefined) => JSX.Element | null | undefined)
     | undefined;
   renderItem: (item: T, selected?: boolean) => JSX.Element | null | undefined;
+  onChange: (item: T) => void;
 };
 
 const DropDownComponent = <T extends DataType>({
@@ -22,6 +23,7 @@ const DropDownComponent = <T extends DataType>({
   placeholder,
   icon,
   renderItem,
+  onChange,
 }: Props<T>) => {
   const [value, setValue] = useState<string>('');
   const [isFocus, setIsFocus] = useState(false);
@@ -47,6 +49,7 @@ const DropDownComponent = <T extends DataType>({
         onChange={item => {
           setValue(item.value);
           setIsFocus(false);
+          onChange(item);
         }}
         activeColor={COLORS.GRAY_400}
         renderLeftIcon={icon}
