@@ -15,9 +15,7 @@ function HomeScreen() {
   const {teamList} = useTeamModel();
   const [teamId, setTeamId] = useState<string | null>(null);
   const {gamePlanList} = useGameModel();
-  const {data: gamePlanListWithTeanData, refetch} =
-    useGetGamePlanWithTeamQuery(teamId);
-  console.log(gamePlanListWithTeanData);
+  const {data: gamePlanListWithTeanData} = useGetGamePlanWithTeamQuery(teamId);
 
   return (
     <CommonLayout>
