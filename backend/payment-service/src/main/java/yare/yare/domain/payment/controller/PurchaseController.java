@@ -8,6 +8,7 @@ import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
+import yare.yare.global.auth.JwtTokenService;
 import yare.yare.global.dto.ResponseDto;
 
 import static yare.yare.global.statuscode.SuccessCode.CREATED;
@@ -18,6 +19,7 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 @RequiredArgsConstructor
 public class PurchaseController {
     private final PurchaseService purchaseService;
+    private final JwtTokenService jwtTokenService;
 
     @PostMapping
     public ResponseDto<Void> purchaseAdd(@RequestBody PurchaseAddReq purchaseAddReq) {
@@ -26,21 +28,23 @@ public class PurchaseController {
     }
 
     @GetMapping("/tickets/purchases")
-    public ResponseDto<ReservationListRes> reservationList(@RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
-                                          @PageableDefault(size = 10) Pageable pageable) {
-        Long memberId = 1L;
+    public ResponseDto<ReservationListRes> reservationList(@RequestHeader("Authorization") String token,
+                                                           @RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
+                                                           @PageableDefault(size = 10) Pageable pageable) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
 
-        ReservationListRes result = purchaseService.reservationList(memberId, lastPurchaseId, pageable);
+        ReservationListRes result = purchaseService.reservationList(memberUuid, lastPurchaseId, pageable);
 
         return ResponseDto.success(OK, result);
     }
 
     @GetMapping("/tickets/cancellations")
-    public ResponseDto<CancelReservationListRes> cancelReservationList(@RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
-                                                @PageableDefault(size = 10) Pageable pageable) {
-        Long memberId = 1L;
+    public ResponseDto<CancelReservationListRes> cancelReservationList(@RequestHeader("Authorization") String token,
+                                                                       @RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
+                                                                       @PageableDefault(size = 10) Pageable pageable) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
 
-        CancelReservationListRes result = purchaseService.cancelReservationList(memberId, lastPurchaseId, pageable);
+        CancelReservationListRes result = purchaseService.cancelReservationList(memberUuid, lastPurchaseId, pageable);
 
         return ResponseDto.success(OK, result);
     }

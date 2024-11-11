@@ -24,6 +24,7 @@ import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
+import yare.yare.global.auth.JwtTokenService;
 import yare.yare.global.dto.SliceDto;
 
 import java.util.ArrayList;
@@ -32,7 +33,9 @@ import java.util.List;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -57,6 +60,11 @@ public class PurchaseTest {
 
     @MockBean
     private PurchaseService purchaseService;
+
+    @MockBean
+    private JwtTokenService jwtTokenService;
+
+    private static final String JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc0NlcnRpZmljYXRlZCI6ZmFsc2UsInN1YiI6ImQwYTkyNDM0LTdjMDItNDZmZC04MmU4LTY2Y2U0OTMxYjhhZiIsImlzcyI6Ind3dy5zYW1zdW5nLmNvbSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJleHAiOjE3MzE0MTQ4Njd9.gHTHN0mufDhfasY7xB5dyO6kmt0dNghKBvCevwGYQJ2RsBenCvJpkhtrQ3qZfVHo7jUf5_4ApSn8sF9fTO-JTg";
 
     @Test
     public void 결제_등록_성공() throws Exception {
@@ -137,12 +145,13 @@ public class PurchaseTest {
         Slice<TicketDto> slice = new SliceImpl<>(tickets, pageable, true);
         result.setTickets(new SliceDto<>(slice));
 
-        when(purchaseService.reservationList(1L, null, pageable))
+        when(purchaseService.reservationList(any(), isNull(), eq(pageable)))
                 .thenReturn(result);
 
         //when
         ResultActions actions = mockMvc.perform(
                  get("/api/payments/tickets/purchases")
+                        .header("Authorization", "Bearer " + JWT_TOKEN)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -160,6 +169,10 @@ public class PurchaseTest {
                         resource(ResourceSnippetParameters.builder()
                                 .tag("Payment API")
                                 .summary("나의 티켓 예매 내역 조회 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
                                 .responseFields(
                                         getCommonResponseFields(
                                                 fieldWithPath("body.tickets.content[].purchaseId").type(NUMBER)
@@ -225,12 +238,13 @@ public class PurchaseTest {
         Slice<TicketDto> slice = new SliceImpl<>(tickets, pageable, true);
         result.setTickets(new SliceDto<>(slice));
 
-        when(purchaseService.cancelReservationList(1L, null, pageable))
+        when(purchaseService.cancelReservationList(any(), isNull(), eq(pageable)))
                 .thenReturn(result);
 
         //when
         ResultActions actions = mockMvc.perform(
                 get("/api/payments/tickets/cancellations")
+                        .header("Authorization", "Bearer " + JWT_TOKEN)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -248,6 +262,10 @@ public class PurchaseTest {
                         resource(ResourceSnippetParameters.builder()
                                 .tag("Payment API")
                                 .summary("나의 티켓 취소 내역 조회 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
                                 .responseFields(
                                         getCommonResponseFields(
                                                 fieldWithPath("body.tickets.content[].purchaseId").type(NUMBER)

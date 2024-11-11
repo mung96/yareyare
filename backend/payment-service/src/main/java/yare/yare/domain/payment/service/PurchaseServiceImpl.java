@@ -18,26 +18,26 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final PurchaseRepository purchaseRepository;
 
     @Override
-    public ReservationListRes reservationList(Long memberId, Long lastPurchaseId, Pageable pageable) {
+    public ReservationListRes reservationList(String memberUuid, Long lastPurchaseId, Pageable pageable) {
         Slice<TicketDto> tickets;
 
         if (lastPurchaseId == null) {
-            tickets =  purchaseRepository.findDefaultReservationList(memberId, pageable);
+            tickets =  purchaseRepository.findDefaultReservationList(memberUuid, pageable);
         } else {
-            tickets =  purchaseRepository.findReservationList(memberId, lastPurchaseId, pageable);
+            tickets =  purchaseRepository.findReservationList(memberUuid, lastPurchaseId, pageable);
         }
 
         return ReservationListRes.toDto(new SliceDto<>(tickets));
     }
 
     @Override
-    public CancelReservationListRes cancelReservationList(Long memberId, Long lastPurchaseId, Pageable pageable) {
+    public CancelReservationListRes cancelReservationList(String memberUuid, Long lastPurchaseId, Pageable pageable) {
         Slice<TicketDto> tickets;
 
         if(lastPurchaseId == null) {
-            tickets = purchaseRepository.findDefaultCancelReservationList(memberId, pageable);
+            tickets = purchaseRepository.findDefaultCancelReservationList(memberUuid, pageable);
         } else {
-            tickets = purchaseRepository.findCancelReservationList(memberId, lastPurchaseId, pageable);
+            tickets = purchaseRepository.findCancelReservationList(memberUuid, lastPurchaseId, pageable);
         }
 
         return CancelReservationListRes.toDto(new SliceDto<>(tickets));

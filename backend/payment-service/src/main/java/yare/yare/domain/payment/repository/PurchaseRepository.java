@@ -15,10 +15,10 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
             "FROM Purchase p " +
             "LEFT JOIN Game g ON p.game.id = g.id " +
             "WHERE p.id < :lastPurchaseId " +
-            "AND p.memberId = :memberId " +
+            "AND p.memberUuid = :memberUuid " +
             "AND p.canceled = false " +
             "ORDER BY p.id DESC")
-    Slice<TicketDto> findReservationList(@Param("memberId") Long memberId,
+    Slice<TicketDto> findReservationList(@Param("memberUuid") String memberUuid,
                                         @Param("lastPurchaseId") Long lastPurchaseId,
                                         Pageable pageable);
 
@@ -27,10 +27,10 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
             "p.createdAt, g.stadiumName, g.gameDatetime, p.canceled) " +
             "FROM Purchase p " +
             "LEFT JOIN Game g ON p.game.id = g.id " +
-            "WHERE p.memberId = :memberId " +
+            "WHERE p.memberUuid = :memberUuid " +
             "AND p.canceled = false " +
             "ORDER BY p.id DESC")
-    Slice<TicketDto> findDefaultReservationList(@Param("memberId") Long memberId,
+    Slice<TicketDto> findDefaultReservationList(@Param("memberUuid") String memberUuid,
                                                Pageable pageable);
 
     @Query("SELECT new yare.yare.domain.payment.dto.TicketDto(" +
@@ -39,10 +39,10 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
             "FROM Purchase p " +
             "LEFT JOIN Game g ON p.game.id = g.id " +
             "WHERE p.id < :lastPurchaseId " +
-            "AND p.memberId = :memberId " +
+            "AND p.memberUuid = :memberUuid " +
             "AND p.canceled = true " +
             "ORDER BY p.id DESC")
-    Slice<TicketDto> findCancelReservationList(@Param("memberId") Long memberId,
+    Slice<TicketDto> findCancelReservationList(@Param("memberUuid") String memberUuid,
                                         @Param("lastPurchaseId") Long lastPurchaseId,
                                         Pageable pageable);
 
@@ -51,9 +51,9 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
             "p.createdAt, g.stadiumName, g.gameDatetime, p.canceled) " +
             "FROM Purchase p " +
             "LEFT JOIN Game g ON p.game.id = g.id " +
-            "WHERE p.memberId = :memberId " +
+            "WHERE p.memberUuid = :memberUuid " +
             "AND p.canceled = true " +
             "ORDER BY p.id DESC")
-    Slice<TicketDto> findDefaultCancelReservationList(@Param("memberId") Long memberId,
+    Slice<TicketDto> findDefaultCancelReservationList(@Param("memberUuid") String memberUuid,
                                                       Pageable pageable);
 }
