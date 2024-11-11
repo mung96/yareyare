@@ -1,18 +1,16 @@
 import {Image, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
-import {Grade, GradeKey} from '@/main/shared/types';
-import {GRADE_IMG, GRADE_LIST} from '@/main/shared/constants';
-import GradeItem from '@/main/ui/components/reservation/GradeItem.tsx';
+import {Grade} from '@/main/shared/types';
+import {GRADE_IMG} from '@/main/shared/constants';
 import useGradeModel from '@/main/services/hooks/useGradeModel.ts';
+import GradeItem from '@/main/ui/components/reservation/GradeItem.tsx';
 
 type Props = {
   value: Grade | undefined;
   onSelect: (section: Grade) => void;
 };
 function GradeList({value, onSelect}: Props) {
-  console.log(value);
   const {gradeList} = useGradeModel();
-  console.log(gradeList);
   return (
     <>
       <View style={styles.imgContainer}>

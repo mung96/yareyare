@@ -13,11 +13,9 @@ function PortOnePaymentScreen() {
   };
 
   const handleOnMessage = async (event: WebViewMessageEvent) => {
-    console.log('message event 발생');
     console.log(event.nativeEvent);
   };
 
-  console.log('결제진입');
   return (
     <WebView
       source={{
