@@ -8,6 +8,7 @@ import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import PortOnePaymentScreen from '@/main/apps/screens/reservationProcess/PortOnePaymentScreen';
 import WaitingScreen from '@/main/apps/screens/WaitingScreen.tsx';
+import {COLORS} from '@/main/shared/styles';
 
 export type WaitingParamList = {
   [PATH.WAITING]: undefined;
@@ -20,6 +21,9 @@ function WaitingNavigation() {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerTitle: '',
+
+        headerShadowVisible: false,
         headerRight: () => (
           <Pressable onPress={() => dispatch(moveNavigation('navbar'))}>
             <Icon name={'x'} size={22} />

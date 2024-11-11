@@ -3,7 +3,7 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import SelectedSeatItem from '@/main/ui/components/reservation/SelectedSeatItem.tsx';
-import {Seat} from '@/main/apps/screens/reservationProcess';
+import {Seat} from '@/main/shared/types';
 
 type Props = {
   seatList: Seat[];
