@@ -4,12 +4,10 @@ import {COLORS} from '@/main/shared/styles';
 import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
 import {Controller, useForm} from 'react-hook-form';
 import {GradeContext} from '@/main/shared/types';
-import {useGetGameDetailQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '@/main/stores/rootReducer.ts';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
 import ReservationLayout from '@/main/apps/layout/ReservationLayout.tsx';
+import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
+import useGradeModel from '@/main/services/hooks/useGradeModel.ts';
 
 type Props = {
   onNext: (grade: GradeContext) => void;
@@ -20,6 +18,7 @@ function GradeScreen({onNext}: Props) {
     defaultValues: undefined,
   });
   const {gameDetail} = useGameDetailModel();
+
   return (
     <>
       <ReservationLayout>
@@ -30,6 +29,7 @@ function GradeScreen({onNext}: Props) {
             {' ' + gameDetail.place}
           </CustomText>
         </View>
+
         <Controller
           control={control}
           render={({field: {onChange, value}}) => (
@@ -38,6 +38,7 @@ function GradeScreen({onNext}: Props) {
           name="grade"
         />
       </ReservationLayout>
+
       <View style={styles.buttonContainer}>
         <MainButton
           label={'다음'}

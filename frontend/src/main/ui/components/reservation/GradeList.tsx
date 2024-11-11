@@ -3,6 +3,7 @@ import {COLORS} from '@/main/shared/styles';
 import {Grade, GradeKey} from '@/main/shared/types';
 import {GRADE_IMG, GRADE_LIST} from '@/main/shared/constants';
 import GradeItem from '@/main/ui/components/reservation/GradeItem.tsx';
+import useGradeModel from '@/main/services/hooks/useGradeModel.ts';
 
 type Props = {
   value: Grade | undefined;
@@ -10,18 +11,15 @@ type Props = {
 };
 function GradeList({value, onSelect}: Props) {
   console.log(value);
+  const {gradeList} = useGradeModel();
   return (
     <>
       <View style={styles.imgContainer}>
         <Image source={value ? value.img : GRADE_IMG.DEFAULT} />
       </View>
       <View style={styles.sectionContainer}>
-        {Object.keys(GRADE_LIST).map(gradeKey => (
-          <GradeItem
-            key={gradeKey}
-            section={GRADE_LIST[gradeKey as GradeKey]}
-            onSelect={onSelect}
-          />
+        {gradeList.map(grade => (
+          <GradeItem key={grade.gradeName} grade={grade} onSelect={onSelect} />
         ))}
       </View>
     </>
