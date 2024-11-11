@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {COLORS} from '@/main/shared/styles';
 import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
@@ -7,7 +7,6 @@ import {GradeContext} from '@/main/shared/types';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import ReservationLayout from '@/main/apps/layout/ReservationLayout.tsx';
 import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
-import useGradeModel from '@/main/services/hooks/useGradeModel.ts';
 
 type Props = {
   onNext: (grade: GradeContext) => void;
