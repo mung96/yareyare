@@ -1,17 +1,21 @@
 import {StyleSheet, View} from 'react-native';
-import SeatContainment from '@/main/ui/components/reservation/SeatContainment.tsx';
 import {COLORS} from '@/main/shared/styles';
 import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {Seat, SeatContext} from '@/main/shared/types';
+import {Seat, SeatContext, SeatStep} from '@/main/shared/types';
 import {Controller, useForm} from 'react-hook-form';
+import {useSeatQuery} from '@/main/services/hooks/queries/useSeatQuery.ts';
+import {useSelector} from 'react-redux';
+import {RootState} from '@/main/stores/rootReducer.ts';
+import SeatContainer from '@/main/ui/components/reservation/SeatContainment.tsx';
 
 type Props = {
   onPrev: () => void;
   onNext: (context: SeatContext) => void;
+  context: SeatStep;
 };
 
-function SeatScreen({onPrev, onNext}: Props) {
+function SeatScreen({context, onPrev, onNext}: Props) {
   const {control, handleSubmit} = useForm<SeatContext>({
     defaultValues: {seatList: []},
   });
@@ -20,6 +24,14 @@ function SeatScreen({onPrev, onNext}: Props) {
     const newSeatList = [...arr, seat];
     onChange(newSeatList);
   }
+  const gameId = useSelector((state: RootState) => state.game.gameId);
+  console.log('gameId: ' + gameId);
+  console.log('gradeId: ' + context.grade.gradeId);
+  const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
+
+  console.log('좌석조회');
+  console.dir(seatListData);
+  console.log('좌석조회');
 
   function removeSeat(
     arr: Seat[],
@@ -37,7 +49,7 @@ function SeatScreen({onPrev, onNext}: Props) {
       <Controller
         control={control}
         render={({field: {onChange, value}}) => (
-          <SeatContainment
+          <SeatContainer
             value={value}
             onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
             onRemove={(seat: Seat) => removeSeat(value, seat, onChange)}

@@ -21,7 +21,11 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {PATH} from '@/main/shared/constants';
 import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
 function ReservationScreen() {
-  const {step: reservationStep, history} = useFunnel<{
+  const {
+    step: reservationStep,
+    history,
+    context,
+  } = useFunnel<{
     GradeStep: GradeStep;
     SeatStep: SeatStep;
     UserStep: UserStep;
@@ -52,6 +56,7 @@ function ReservationScreen() {
       {reservationStep === 'SeatStep' && (
         <SeatScreen
           onPrev={() => history.back()}
+          context={context}
           onNext={(seatContext: SeatContext) =>
             history.push('UserStep', seatContext)
           }

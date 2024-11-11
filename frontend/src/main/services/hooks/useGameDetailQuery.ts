@@ -11,7 +11,6 @@ dayjs.locale('ko');
 function useGameDetailModel() {
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: gameDetailData} = useGetGameDetailQuery(gameId);
-
   const gameDetail = useMemo(() => {
     if (!gameDetailData) {
       return {

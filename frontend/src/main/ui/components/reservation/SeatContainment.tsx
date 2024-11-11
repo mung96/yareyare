@@ -21,7 +21,7 @@ type SeatList = {
   };
 };
 
-function SeatContainment({value, onAdd, onRemove}: Props) {
+function SeatContainer({value, onAdd, onRemove}: Props) {
   const seatList: SeatList = seats;
   return (
     <ReservationBox>
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeatContainment;
+export default SeatContainer;
