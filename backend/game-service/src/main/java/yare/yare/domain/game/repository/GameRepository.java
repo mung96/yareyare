@@ -1,12 +1,14 @@
 package yare.yare.domain.game.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import yare.yare.domain.game.dto.GradeDto;
 import yare.yare.domain.game.entity.Game;
 import yare.yare.domain.game.entity.GameSeat;
+import yare.yare.domain.stadium.enums.SeatStatus;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -71,6 +73,20 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "from Game g " +
             "where g.gameDate < CURRENT_DATE)")
     List<Game> findLastGames();
+
+    @Modifying
+    @Query("update GameSeat gs " +
+            "set gs.seatStatus = :status " +
+            "where gs.game.id = :gameId " +
+            "and gs.seat.id in :seats")
+    void updateSeatStatus(@Param("status") SeatStatus status, @Param("gameId") Long gameId, @Param("seats") List<Long> seats);
+
+    @Query("select gs " +
+            "from GameSeat gs " +
+            "join fetch gs.price p " +
+            "where gs.game.id = :gameId " +
+            "and gs.seat.id in :seats")
+    List<GameSeat> findSelectedSeats(@Param("gameId") Long gameId, @Param("seats") List<Long> seats);
 
     @Query("select g " +
             "from Game g " +

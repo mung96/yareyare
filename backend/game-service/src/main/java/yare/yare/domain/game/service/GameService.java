@@ -17,6 +17,8 @@ public interface GameService {
 
     GameDetailsRes findGame(Long gameId);
 
+    ReserveSeatRes reserveSeat(Long gameId, ReserveSeatReq reserveSeatReq);
+
     ScheduleListRes findScheduleList(Integer teamId, Integer year, Integer month);
 
     SeatListRes findSeats(Long gameId, Integer gradeId);
