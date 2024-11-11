@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
+import ReservationLayout from '@/main/apps/layout/ReservationLayout.tsx';
 
 type Props = {
   onNext: (grade: GradeContext) => void;
@@ -20,8 +21,8 @@ function GradeScreen({onNext}: Props) {
   });
   const {gameDetail} = useGameDetailModel();
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <>
+      <ReservationLayout>
         <View style={styles.headerContainer}>
           <CustomText style={styles.title}>{gameDetail.name}</CustomText>
           <CustomText style={styles.date}>
@@ -36,29 +37,26 @@ function GradeScreen({onNext}: Props) {
           )}
           name="grade"
         />
-      </ScrollView>
-      <MainButton
-        label={'다음'}
-        onPress={handleSubmit(onNext)}
-        size={'large'}
-      />
-    </View>
+      </ReservationLayout>
+      <View style={styles.buttonContainer}>
+        <MainButton
+          label={'다음'}
+          onPress={handleSubmit(onNext)}
+          size={'large'}
+        />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.WHITE,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 8,
-  },
   headerContainer: {
+    width: '100%',
     backgroundColor: COLORS.GRAY_400,
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'column',
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingHorizontal: 12,
   },
   title: {
@@ -69,6 +67,18 @@ const styles = StyleSheet.create({
   date: {
     color: COLORS.BLACK,
     fontSize: 14,
+  },
+  buttonContainer: {
+    backgroundColor: COLORS.WHITE,
+    width: '100%',
+    height: 56,
+    position: 'absolute',
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
   },
 });
 export default GradeScreen;

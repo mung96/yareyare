@@ -1,13 +1,14 @@
-import {SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native';
 import {ReactNode} from 'react';
 import {COLORS} from '@/main/shared/styles';
 
-const CommonLayout = ({children}: {children: ReactNode}) => {
+const ReservationLayout = ({children}: {children: ReactNode}) => {
   return (
-    <SafeAreaView
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         paddingHorizontal: 12,
         paddingTop: 12,
+        paddingBottom: 64,
         alignItems: 'center',
         justifyContent: 'center',
         gap: 12,
@@ -15,8 +16,8 @@ const CommonLayout = ({children}: {children: ReactNode}) => {
         backgroundColor: COLORS.WHITE,
       }}>
       {children}
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
-export default CommonLayout;
+export default ReservationLayout;
