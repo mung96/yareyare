@@ -9,7 +9,6 @@ import yare.yare.global.dto.ResponseDto;
 
 import java.time.LocalDate;
 
-import static yare.yare.global.statuscode.SuccessCode.CREATED;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
@@ -64,15 +63,14 @@ public class GameController {
         return ResponseDto.success(OK, result);
     }
 
-    @PostMapping("/{gameId}/seats")
+    @PatchMapping("/{gameId}/seats")
     public ResponseDto<ReserveSeatRes> reserveSeat(
             @PathVariable Long gameId,
             @RequestBody @Valid ReserveSeatReq reserveSeatReq) {
 
-        ReserveSeatRes result = new ReserveSeatRes();
-        result.setPrice(15000);
+        ReserveSeatRes result = gameService.reserveSeat(gameId, reserveSeatReq);
 
-        return ResponseDto.success(CREATED, result);
+        return ResponseDto.success(OK, result);
     }
 
     @GetMapping("/teams/{teamId}/schedule")

@@ -54,6 +54,10 @@ public class GameSeat {
         return seat.getSeatNumber();
     }
 
+    public Integer getPrice() {
+        return price.getPrice();
+    }
+
     public Boolean isAvailable() {
         return seatStatus == SeatStatus.AVAILABLE;
     }
