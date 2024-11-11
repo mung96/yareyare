@@ -13,10 +13,11 @@ import {END_POINT} from '@/main/shared/constants/api.ts';
 
 //경기 일정 조회 API (팀선택 X)
 export async function getGamePlan(): Promise<GamePlanResponse> {
-  const {data} = await apiRequester.get<Response<GamePlanResponse>>(
+  const response = await apiRequester.get<Response<GamePlanResponse>>(
     END_POINT.GAME,
   );
-  return data.body;
+
+  return response.data.body;
 }
 
 //경기 일정 조회 API (팀선택 O)
