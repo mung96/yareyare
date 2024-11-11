@@ -65,7 +65,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .requestMatchers(
                                 "/api/members/signup/**", "/api/members/login/oauth2/**", "/api/members/oauth2/code/**",
                                 "/docs/**", "/h2-console/**",
-                                "/wss/**", "/ws/**").permitAll()
+                                "/wss/**", "/ws/**", "/api/members/token/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2Configurer -> oauth2Configurer

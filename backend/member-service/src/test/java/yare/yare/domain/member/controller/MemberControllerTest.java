@@ -95,7 +95,6 @@ class MemberControllerTest {
         // when
         ResultActions actions = mockMvc.perform(
                 get("/api/members/token/{code}", code)
-                        .header("Authorization", jwtToken)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -114,10 +113,6 @@ class MemberControllerTest {
                         resource(ResourceSnippetParameters.builder()
                                 .tag("Member API")
                                 .summary("access token 조회 API")
-                                .requestHeaders(
-                                        headerWithName("Authorization")
-                                                .description("JWT 토큰")
-                                )
                                 .pathParameters(
                                         parameterWithName("code")
                                                 .description("Oauth code")
