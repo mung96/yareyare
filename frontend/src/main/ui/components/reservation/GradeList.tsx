@@ -12,6 +12,7 @@ type Props = {
 function GradeList({value, onSelect}: Props) {
   console.log(value);
   const {gradeList} = useGradeModel();
+  console.log(gradeList);
   return (
     <>
       <View style={styles.imgContainer}>
@@ -19,7 +20,12 @@ function GradeList({value, onSelect}: Props) {
       </View>
       <View style={styles.sectionContainer}>
         {gradeList.map(grade => (
-          <GradeItem key={grade.gradeName} grade={grade} onSelect={onSelect} />
+          <GradeItem
+            isSelect={value?.gradeName === grade.gradeName}
+            key={grade.gradeName}
+            grade={grade}
+            onSelect={onSelect}
+          />
         ))}
       </View>
     </>
@@ -42,8 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'column',
-    paddingLeft: 30,
-    paddingRight: 20,
+
     paddingVertical: 8,
   },
 });

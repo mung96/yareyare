@@ -15,7 +15,7 @@ function useGradeModel() {
       return GRADE_LIST;
     }
 
-    return gradeListData.grades.length < 5
+    return gradeListData.grades.length === 5
       ? GRADE_LIST.map(grade => {
           return {
             ...gradeListData.grades.find(

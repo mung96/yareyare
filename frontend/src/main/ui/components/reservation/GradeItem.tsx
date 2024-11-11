@@ -6,12 +6,17 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 type Props = {
   grade: Grade;
   onSelect: (section: Grade) => void;
+  isSelect: boolean;
 };
 
-function GradeItem({grade, onSelect}: Props) {
+function GradeItem({grade, onSelect, isSelect}: Props) {
   return (
     <Pressable
-      style={styles.container}
+      style={({pressed}) => [
+        styles.container,
+        pressed && styles.pressed,
+        isSelect && styles.selected,
+      ]}
       onPress={() => {
         onSelect(grade);
       }}>
@@ -34,11 +39,13 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.GRAY_400,
     borderRadius: 5,
     display: 'flex',
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 8,
-
+    paddingLeft: 30,
+    paddingRight: 20,
     borderBottomColor: COLORS.GRAY_200,
     borderBottomWidth: 0.4,
   },
@@ -61,6 +68,12 @@ const styles = StyleSheet.create({
   restText: {
     color: COLORS.PURPLE_100,
     fontWeight: '900',
+  },
+  pressed: {
+    backgroundColor: COLORS.GRAY_200,
+  },
+  selected: {
+    backgroundColor: COLORS.GRAY_200,
   },
 });
 export default GradeItem;
