@@ -12,23 +12,34 @@ spring:
           uri: lb://GAME-SERVICE
           predicates:
             - Path=/api/admin/games/**, /api/games/**
+          filters:
+            - AuthorizationHeaderFilter
+
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/members/signin/social/**
+            - Method=POST
 
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
             - Path=/api/admin/members/**, /api/members/**
+          filters:
+            - AuthorizationHeaderFilter
 
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
           predicates:
             - Path=/api/admin/payments/**, /api/payments/**
+          filters:
+            - AuthorizationHeaderFilter
 
       default-filters:
         - name: GlobalFilter
         - name: CircuitBreaker
           args:
             name: globalCircuitBreaker
-
 
     config:
       uri: ${CONFIG_ENDPOINT}
