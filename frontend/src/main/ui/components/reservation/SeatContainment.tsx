@@ -8,12 +8,17 @@ import {seats} from '@/main/dummy.ts';
 import {Seat} from '@/main/shared/types';
 
 type Props = {
+  name: string;
   value: Seat[];
+  list: {
+    rowName: string;
+    seats: {isAvailable: boolean; seatId: number; seatNumber: number}[];
+  }[];
   onAdd: (seat: Seat) => void;
   onRemove: (seat: Seat) => void;
 };
 
-type SeatList = {
+export type SeatList = {
   [key: number]: {
     [key: string]: {
       [key: string]: boolean;
@@ -21,7 +26,7 @@ type SeatList = {
   };
 };
 
-function SeatContainer({value, onAdd, onRemove}: Props) {
+function SeatContainer({name, value, onAdd, onRemove}: Props) {
   const seatList: SeatList = seats;
   return (
     <ReservationBox>
@@ -32,7 +37,7 @@ function SeatContainer({value, onAdd, onRemove}: Props) {
           <Icon name={'arrow-up'} size={50} color={COLORS.GRAY_400} />
         </View>
         <View style={styles.seatContainer}>
-          <CustomText style={styles.seatNumber}>101</CustomText>
+          <CustomText style={styles.seatNumber}>{name}</CustomText>
           <View style={styles.row}>
             {Object.keys(seatList).map(section => {
               const sectionNum = Number(section);

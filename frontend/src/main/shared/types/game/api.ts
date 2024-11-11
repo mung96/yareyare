@@ -26,7 +26,7 @@ export type RestSeatListWithSectionResponse = {
         seatNumber: number;
       }[];
     }[];
-  };
+  }[];
 };
 
 export type GameResponse = {

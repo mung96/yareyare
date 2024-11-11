@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
@@ -25,12 +25,10 @@ function SeatScreen({context, onPrev, onNext}: Props) {
     onChange(newSeatList);
   }
   const gameId = useSelector((state: RootState) => state.game.gameId);
-  console.log('gameId: ' + gameId);
-  console.log('gradeId: ' + context.grade.gradeId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
 
   console.log('좌석조회');
-  console.dir(seatListData);
+  console.log(seatListData?.sections);
   console.log('좌석조회');
 
   function removeSeat(
@@ -46,17 +44,25 @@ function SeatScreen({context, onPrev, onNext}: Props) {
 
   return (
     <View style={styles.container}>
-      <Controller
-        control={control}
-        render={({field: {onChange, value}}) => (
-          <SeatContainer
-            value={value}
-            onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
-            onRemove={(seat: Seat) => removeSeat(value, seat, onChange)}
-          />
-        )}
-        name="seatList"
-      />
+      <ScrollView horizontal={true}>
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <>
+              {seatListData?.sections.map(section => (
+                <SeatContainer
+                  value={value}
+                  list={section.rows}
+                  name={section.sectionName}
+                  onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
+                  onRemove={(seat: Seat) => removeSeat(value, seat, onChange)}
+                />
+              ))}
+            </>
+          )}
+          name="seatList"
+        />
+      </ScrollView>
 
       <Controller
         control={control}
