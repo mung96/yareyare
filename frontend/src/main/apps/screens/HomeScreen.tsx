@@ -15,7 +15,7 @@ function HomeScreen() {
   const {teamList} = useTeamModel();
   const [teamId, setTeamId] = useState<string | null>(null);
   const {gamePlanList} = useGameModel();
-  const {data: gamePlanListWithTeanData} = useGetGamePlanWithTeamQuery(teamId);
+  const {data: gamePlanListWithTeamData} = useGetGamePlanWithTeamQuery(teamId);
 
   return (
     <CommonLayout>
@@ -29,8 +29,8 @@ function HomeScreen() {
 
       <GamePlanCardList
         list={
-          teamId && gamePlanListWithTeanData
-            ? gamePlanListWithTeanData.games.map(plan =>
+          teamId && gamePlanListWithTeamData
+            ? gamePlanListWithTeamData.games.map(plan =>
                 convertGamePlanListDataToView(plan),
               )
             : gamePlanList

@@ -1,8 +1,9 @@
 import {StyleSheet, View} from 'react-native';
 import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {useDispatch} from 'react-redux';
-import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
+import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import React from 'react';
+import {setGameId} from '@/main/stores/game.ts';
 
 type Props = {
   list: {
@@ -24,7 +25,10 @@ function GamePlanCardList({list}: Props) {
           dateTime={gamePlan.dateTime}
           homeTeam={gamePlan.homeTeam}
           awayTeam={gamePlan.awayTeam}
-          onPress={() => dispatch(moveNavigation('reservation'))}
+          onPress={() => {
+            dispatch(moveNavigation('waiting'));
+            dispatch(setGameId(String(gamePlan.gameId)));
+          }}
         />
       ))}
     </View>

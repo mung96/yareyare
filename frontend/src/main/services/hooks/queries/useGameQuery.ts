@@ -1,5 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
 import {
+  getGameDetail,
   getGamePlan,
   getGamePlanWithTeam,
   getRecentGameResult,
@@ -24,5 +25,13 @@ export function useGetGameResultQuery() {
   return useQuery({
     queryFn: () => getRecentGameResult(),
     queryKey: ['gameResult'],
+  });
+}
+
+export function useGetGameDetailQuery(gameId: string | null) {
+  return useQuery({
+    queryFn: () => getGameDetail(String(gameId)),
+    queryKey: ['gameDetail', gameId],
+    enabled: Boolean(gameId),
   });
 }

@@ -1,8 +1,8 @@
-import SectionItem from '@/main/ui/components/reservation/SectionItem.tsx';
 import {Image, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import {Grade, GradeKey} from '@/main/shared/types';
 import {GRADE_IMG, GRADE_LIST} from '@/main/shared/constants';
+import GradeItem from '@/main/ui/components/reservation/GradeItem.tsx';
 
 type Props = {
   value: Grade | undefined;
@@ -17,7 +17,7 @@ function GradeList({value, onSelect}: Props) {
       </View>
       <View style={styles.sectionContainer}>
         {Object.keys(GRADE_LIST).map(gradeKey => (
-          <SectionItem
+          <GradeItem
             key={gradeKey}
             section={GRADE_LIST[gradeKey as GradeKey]}
             onSelect={onSelect}
@@ -30,6 +30,7 @@ function GradeList({value, onSelect}: Props) {
 
 const styles = StyleSheet.create({
   imgContainer: {
+    width: '100%',
     backgroundColor: COLORS.GRAY_400,
     borderRadius: 5,
     display: 'flex',
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   sectionContainer: {
+    width: '100%',
     backgroundColor: COLORS.GRAY_400,
     borderRadius: 5,
     display: 'flex',

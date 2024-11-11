@@ -4,6 +4,12 @@ import {COLORS} from '@/main/shared/styles';
 import GradeList from '@/main/ui/components/reservation/GradeList.tsx';
 import {Controller, useForm} from 'react-hook-form';
 import {GradeContext} from '@/main/shared/types';
+import {useGetGameDetailQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '@/main/stores/rootReducer.ts';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import useGameDetailModel from '@/main/services/hooks/useGameDetailQuery.ts';
+import ReservationLayout from '@/main/apps/layout/ReservationLayout.tsx';
 
 type Props = {
   onNext: (grade: GradeContext) => void;
@@ -13,16 +19,16 @@ function GradeScreen({onNext}: Props) {
   const {control, handleSubmit} = useForm<GradeContext>({
     defaultValues: undefined,
   });
+  const {gameDetail} = useGameDetailModel();
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <>
+      <ReservationLayout>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>
-            2024 신한SOL뱅크 KBO 리그 롯데 vs 두산
-          </Text>
-          <Text style={styles.date}>
-            2024.08.15(목) 17:00 기아 챔피언스 필드
-          </Text>
+          <CustomText style={styles.title}>{gameDetail.name}</CustomText>
+          <CustomText style={styles.date}>
+            {gameDetail.date}
+            {' ' + gameDetail.place}
+          </CustomText>
         </View>
         <Controller
           control={control}
@@ -31,29 +37,26 @@ function GradeScreen({onNext}: Props) {
           )}
           name="grade"
         />
-      </ScrollView>
-      <MainButton
-        label={'다음'}
-        onPress={handleSubmit(onNext)}
-        size={'large'}
-      />
-    </View>
+      </ReservationLayout>
+      <View style={styles.buttonContainer}>
+        <MainButton
+          label={'다음'}
+          onPress={handleSubmit(onNext)}
+          size={'large'}
+        />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.WHITE,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 8,
-  },
   headerContainer: {
+    width: '100%',
     backgroundColor: COLORS.GRAY_400,
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'column',
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingHorizontal: 12,
   },
   title: {
@@ -63,7 +66,19 @@ const styles = StyleSheet.create({
   },
   date: {
     color: COLORS.BLACK,
-    fontSize: 12,
+    fontSize: 14,
+  },
+  buttonContainer: {
+    backgroundColor: COLORS.WHITE,
+    width: '100%',
+    height: 56,
+    position: 'absolute',
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
   },
 });
 export default GradeScreen;

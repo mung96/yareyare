@@ -4,6 +4,7 @@ import {convertGamePlanListDataToView} from '@/main/services/helper/game/convert
 
 function useGameModel() {
   const {data: gamePlanListData} = useGetGamePlanQuery();
+
   const gamePlanList = useMemo(() => {
     if (!gamePlanListData) {
       return [];
