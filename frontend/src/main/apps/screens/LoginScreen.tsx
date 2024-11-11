@@ -2,7 +2,7 @@ import {Alert, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthParamList} from '@/main/apps/navigations/AuthNavigation.tsx';
 import {PATH} from '@/main/shared/constants';
-import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
+import CommonLayout from '@/main/apps/layout/CommonLayout';
 
 function LoginScreen() {
   const navigation = useNavigation<NavigationProp<AuthParamList>>();

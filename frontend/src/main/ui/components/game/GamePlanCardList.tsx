@@ -3,16 +3,22 @@ import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
 import React from 'react';
-import useGameModel from '@/main/services/hooks/useGameModel.ts';
 
-function GameScheduleCardList() {
-  //TODO: 경기일정 하나씩 불러오면됨
+type Props = {
+  list: {
+    gameId: number;
+    dateTime: string;
+    homeTeam: {name: string; logo: string; stadium: string};
+    awayTeam: {name: string; logo: string; stadium: string};
+  }[];
+};
+function GamePlanCardList({list}: Props) {
   //TODO: Slider 구현
   const dispatch = useDispatch();
-  const {gameList} = useGameModel();
+
   return (
     <View style={styles.container}>
-      {gameList?.map(gamePlan => (
+      {list?.map(gamePlan => (
         <GameScheduleCard
           key={gamePlan.gameId}
           dateTime={gamePlan.dateTime}
@@ -35,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GameScheduleCardList;
+export default GamePlanCardList;

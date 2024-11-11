@@ -20,7 +20,7 @@ export async function getGamePlan(): Promise<GamePlanResponse> {
 }
 
 //경기 일정 조회 API (팀선택 O)
-export async function getGamePlaneWithTeam(
+export async function getGamePlanWithTeam(
   teamId: string,
 ): Promise<GamePlanResponse> {
   const {data} = await apiRequester.get<Response<GamePlanResponse>>(
