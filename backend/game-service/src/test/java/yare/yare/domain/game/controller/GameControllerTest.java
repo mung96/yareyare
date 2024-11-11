@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.game.dto.ReserveSeatReq;
+import yare.yare.domain.game.repository.GameRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +23,14 @@ import java.util.List;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static yare.yare.domain.stadium.enums.SeatStatus.AVAILABLE;
 import static yare.yare.global.ResponseFieldUtils.getCommonResponseFields;
-import static yare.yare.global.statuscode.SuccessCode.CREATED;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @Transactional
@@ -45,6 +45,9 @@ public class GameControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     @Test
     public void 경기_일정_조회_팀_선택X_성공() throws Exception {
@@ -311,7 +314,7 @@ public class GameControllerTest {
     @Test
     public void 좌석_선택_성공() throws Exception {
         //given
-        Long gameId = 1L;
+        Long gameId = 693L;
         ReserveSeatReq req = new ReserveSeatReq();
         List<Long> seats = new ArrayList<>();
         seats.add(1L);
@@ -319,9 +322,11 @@ public class GameControllerTest {
         req.setSeats(seats);
         String content = objectMapper.writeValueAsString(req);
 
+        gameRepository.updateSeatStatus(AVAILABLE, gameId, List.of(new Long[]{1L, 2L}));
+
         //when
         ResultActions actions = mockMvc.perform(
-                post("/api/games/{gameId}/seats", gameId)
+                patch("/api/games/{gameId}/seats", gameId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -330,8 +335,8 @@ public class GameControllerTest {
 
         //then
         actions
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.header.message").value(CREATED.getMessage()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
                 .andDo(document(
                         "좌석 선택 성공",
                         preprocessRequest(prettyPrint()),
