@@ -2,6 +2,8 @@ import {useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/clients/rootReducer.ts';
 import BottomNavBar from '@/main/apps/navigations/BottomNavBar.tsx';
 import {NavigationContainer} from '@react-navigation/native';
+import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';
+import WaitingNavigation from '@/main/apps/navigations/WaitingNavigation.tsx';
 
 function RootNavigation() {
   const curNavigation = useSelector(
@@ -12,7 +14,9 @@ function RootNavigation() {
   //TODO: 앱을 켰어 => 스토리지에 토큰이 있어 => isLogin = true, 회원정보 조회/ 없으면 로그인 페이지 가야함.
   return (
     <NavigationContainer>
-      <BottomNavBar />
+      {curNavigation === 'navbar' && <BottomNavBar />}
+      {curNavigation === 'waiting' && <WaitingNavigation />}
+      {curNavigation === 'reservation' && <ReservationNavigation />}
 
       {/*{isLogin ? (*/}
       {/*  curNavigation === 'navbar' ? (*/}

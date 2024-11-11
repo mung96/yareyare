@@ -24,7 +24,7 @@ function GamePlanCardList({list}: Props) {
           dateTime={gamePlan.dateTime}
           homeTeam={gamePlan.homeTeam}
           awayTeam={gamePlan.awayTeam}
-          onPress={() => dispatch(moveNavigation('reservation'))}
+          onPress={() => dispatch(moveNavigation('waiting'))}
         />
       ))}
     </View>

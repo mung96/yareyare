@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-type NavigationCategory = 'reservation' | 'navbar';
+type NavigationCategory = 'reservation' | 'navbar' | 'waiting';
 
 type State = {
   navigationCategory: NavigationCategory;

@@ -10,6 +10,7 @@ export const PATH = {
 
   MY_TICKET: 'MyTicket',
 
+  WAITING: 'Waiting',
   RESERVATION: 'Reservation',
   PORTONE_PAYMENT: 'PortOnePayment',
 } as const;
