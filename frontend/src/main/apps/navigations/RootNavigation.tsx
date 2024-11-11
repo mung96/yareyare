@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {RootState} from '@/main/stores/clients/rootReducer.ts';
+import {RootState} from '@/main/stores/rootReducer.ts';
 import BottomNavBar from '@/main/apps/navigations/BottomNavBar.tsx';
 import {NavigationContainer} from '@react-navigation/native';
 import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';

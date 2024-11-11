@@ -2,7 +2,7 @@ import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {SERVER_BASE_URL, SOCIAL_LOGIN_REDIRECT_URI} from '@env';
 import {setEncryptStorage} from '@/main/shared/utils/encryptStorage.ts';
 import {useDispatch} from 'react-redux';
-import {login} from '@/main/stores/clients/member.ts';
+import {login} from '@/main/stores/member.ts';
 
 const REDIRECT_URI = SOCIAL_LOGIN_REDIRECT_URI;
 

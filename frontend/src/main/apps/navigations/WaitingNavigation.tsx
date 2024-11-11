@@ -5,7 +5,7 @@ import ReservationScreen from '@/main/apps/screens/ReservationScreen.tsx';
 import Icon from 'react-native-vector-icons/Feather';
 import {Pressable} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {moveNavigation} from '@/main/stores/clients/navigationCategory.ts';
+import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import PortOnePaymentScreen from '@/main/apps/screens/reservationProcess/PortOnePaymentScreen';
 import WaitingScreen from '@/main/apps/screens/WaitingScreen.tsx';
 
