@@ -26,7 +26,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/tickets/purchases")
-    public ResponseDto<?> reservationList(@RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
+    public ResponseDto<ReservationListRes> reservationList(@RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
                                           @PageableDefault(size = 10) Pageable pageable) {
         Long memberId = 1L;
 
@@ -36,7 +36,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/tickets/cancellations")
-    public ResponseDto<?> cancelReservationList(@RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
+    public ResponseDto<CancelReservationListRes> cancelReservationList(@RequestParam(value = "lastPurchaseId", required = false) Long lastPurchaseId,
                                                 @PageableDefault(size = 10) Pageable pageable) {
         Long memberId = 1L;
 
