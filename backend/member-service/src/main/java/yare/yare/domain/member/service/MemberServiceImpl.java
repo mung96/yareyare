@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
         if (authentication != null && authentication.getCredentials() instanceof String) {
             String accessToken = (String) authentication.getCredentials();
 
-            redisUtils.addListData("logout_token", accessToken);
+            redisUtils.setData("token_" + accessToken, accessToken);
         }
     }
 }
