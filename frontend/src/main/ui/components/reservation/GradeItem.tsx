@@ -1,26 +1,33 @@
 import {Pressable, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
-import {Section} from '@/main/shared/types';
+import {Grade} from '@/main/shared/types';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 
 type Props = {
-  section: Section;
-  onSelect: (section: Section) => void;
+  grade: Grade;
+  onSelect: (section: Grade) => void;
+  isSelect: boolean;
 };
 
-function SectionItem({section, onSelect}: Props) {
+function GradeItem({grade, onSelect, isSelect}: Props) {
   return (
     <Pressable
-      style={styles.container}
+      style={({pressed}) => [
+        styles.container,
+        pressed && styles.pressed,
+        isSelect && styles.selected,
+      ]}
       onPress={() => {
-        onSelect(section);
+        onSelect(grade);
       }}>
       <View style={styles.textContainer}>
-        <View style={[styles.sectionColor, {backgroundColor: section.color}]} />
-        <CustomText style={styles.text}>{section.label}</CustomText>
+        <View style={[styles.sectionColor, {backgroundColor: grade.color}]} />
+        <CustomText style={styles.text}>{grade.gradeName}</CustomText>
       </View>
       <View style={styles.textContainer}>
-        <CustomText style={[styles.text, styles.restText]}>1</CustomText>
+        <CustomText style={[styles.text, styles.restText]}>
+          {grade.availableSeats}
+        </CustomText>
         <CustomText style={[styles.text]}>석</CustomText>
       </View>
     </Pressable>
@@ -32,33 +39,41 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.GRAY_400,
     borderRadius: 5,
     display: 'flex',
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 4,
-
+    paddingVertical: 8,
+    paddingLeft: 30,
+    paddingRight: 20,
     borderBottomColor: COLORS.GRAY_200,
     borderBottomWidth: 0.4,
   },
   sectionColor: {
     backgroundColor: COLORS.BLACK,
-    width: 12,
-    height: 12,
+    width: 14,
+    height: 14,
     marginTop: 6,
   },
   textContainer: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 2,
+    gap: 8,
   },
   text: {
     color: COLORS.BLACK,
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: '700',
   },
   restText: {
     color: COLORS.PURPLE_100,
     fontWeight: '900',
   },
+  pressed: {
+    backgroundColor: COLORS.GRAY_200,
+  },
+  selected: {
+    backgroundColor: COLORS.GRAY_200,
+  },
 });
-export default SectionItem;
+export default GradeItem;

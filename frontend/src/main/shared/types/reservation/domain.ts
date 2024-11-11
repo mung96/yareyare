@@ -9,9 +9,11 @@ export type GradeKey =
   | 'THIRD_OUTFIELD';
 
 export type Grade = {
-  label: string;
+  gradeName: GradeKey;
   color: (typeof COLORS)[keyof typeof COLORS];
   img: ImageSourcePropType;
+  gradeId?: number;
+  availableSeats?: number;
 };
 export type Seat = {
   section: number;

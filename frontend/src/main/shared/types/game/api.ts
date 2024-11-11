@@ -12,7 +12,7 @@ export type RestSeatListWithGradeResponse = {
   grades: {
     gradeId: number;
     gradeName: string;
-    availableSeat: number;
+    availableSeats: number;
   }[];
 };
 export type RestSeatListWithSectionResponse = {
