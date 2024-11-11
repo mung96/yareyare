@@ -18,7 +18,7 @@ spring:
         - id: member-service
           uri: lb://MEMBER-SERVICE
           predicates:
-            - Path=/api/members/signin/social/**, /api/members/token/**
+            - Path=/api/members/signin/social/**, /api/members/token/**, /api/members/oauth2/code/**
             - Method=POST,GET
 
         - id: member-service
