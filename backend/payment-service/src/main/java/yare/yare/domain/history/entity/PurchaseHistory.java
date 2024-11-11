@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -17,8 +15,6 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = " UPDATE PurchaseHistory SET is_deleted = true WHERE purchase_history_id = ? ")
-@SQLRestriction("is_deleted = false")
 public class PurchaseHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +22,8 @@ public class PurchaseHistory {
     private Long id;
 
     @NotNull
-    @Column(name = "member_uuid", columnDefinition = "CHAR(36)", unique = true)
-    private String memberUuid;
+    @Column(name = "member_id", columnDefinition = "INT UNSIGNED")
+    private Long memberId;
 
     @NotNull
     @Column(name = "game_id", columnDefinition = "INT UNSIGNED")

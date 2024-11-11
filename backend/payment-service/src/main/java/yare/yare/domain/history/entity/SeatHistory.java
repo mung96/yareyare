@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
-import yare.yare.domain.payment.entity.Purchase;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +15,6 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = " UPDATE SeatHistory SET is_deleted = true WHERE seat_history = ? ")
 public class SeatHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
