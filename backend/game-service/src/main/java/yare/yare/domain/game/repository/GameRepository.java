@@ -25,7 +25,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where g.gameDate = " +
             "(select min(g.gameDate) " +
             "from Game g " +
-            "where g.gameDate > CURRENT_DATE)")
+            "where g.gameDate >= CURRENT_DATE)")
     List<Game> findNextGames();
 
     @Query("select g " +
@@ -33,7 +33,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join fetch g.homeTeam ht " +
             "join fetch g.awayTeam at " +
             "join fetch ht.stadium s " +
-            "where g.gameDate > CURRENT_DATE " +
+            "where g.gameDate >= CURRENT_DATE " +
             "and g.gameDate <= :lastDate " +
             "and (ht.id = :teamId or at.id = :teamId)")
     List<Game> findNextGamesByTeam(@Param("teamId") Integer teamId, @Param("lastDate") LocalDate lastDate);
@@ -47,7 +47,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     Optional<Game> findGameByGameId(@Param("gameId") Long gameId);
 
     @Query("select new yare.yare.domain.game.dto.GradeDto( " +
-            "gr.id, gr.name, count(gs)) " +
+            "gr.id, gr.name, ifnull(count(gs), 0L)) " +
             "from GameSeat gs " +
             "join gs.seat s " +
             "join s.section sec " +
@@ -55,7 +55,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where gs.game.id = :gameId " +
             "and gs.seatStatus = 'AVAILABLE' " +
             "group by gr.id " +
-            "order by gr.id")
+            "order by gr.id ")
     List<GradeDto> findAvailableSeatListByGameId(@Param("gameId") Long gameId);
 
     @Query("select gs " +
@@ -98,9 +98,18 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "and g.gameDate < :findOptionEndDate")
     List<Game> findScheduleListWithYearAndMonth(Integer teamId, LocalDate findOptionStartDate, LocalDate findOptionEndDate);
 
+
+    @Query("""
+            select g 
+            from Game g 
+            where g.gameDate = :dateOption 
+            """)
+    List<Game> findAllGamesAfter8Days(LocalDate dateOption);
+
     @Query("select gs.price.price " +
             "from GameSeat gs " +
             "where gs.game.id = :gameId " +
             "and gs.seat.id = :seatId")
     Optional<Integer> getPrice(@Param("gameId") Long gameId, @Param("seatId") Long seatId);
+
 }
