@@ -58,6 +58,14 @@ public class GameSeat {
         return price.getPrice();
     }
 
+    public Long getGameId() {
+        return game.getId();
+    }
+
+    public Integer getPriceId() {
+        return price.getId();
+    }
+
     public Boolean isAvailable() {
         return seatStatus == SeatStatus.AVAILABLE;
     }

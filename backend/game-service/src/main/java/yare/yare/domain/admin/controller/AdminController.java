@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yare.yare.domain.admin.service.AdminGameService;
+import yare.yare.domain.game.service.GameSeatService;
 import yare.yare.global.dto.ResponseDto;
 import yare.yare.global.exception.CustomException;
 
@@ -18,6 +19,7 @@ import static yare.yare.global.statuscode.SuccessCode.CREATED;
 public class AdminController {
 
     private final AdminGameService adminGameService;
+    private final GameSeatService gameSeatService;
 
     private final String[] PostSeasonGameTypes = {"wild-card", "semi-playoff", "playoff", "k-series", "all-stars"};
 
@@ -35,4 +37,11 @@ public class AdminController {
         adminGameService.setupPostSeasonGamePlan(file, year, type);
         return ResponseDto.success(CREATED);
     }
+
+    @PostMapping("/games/{gameId}/seats/setup")
+    public ResponseDto<Void> setupSeatGamePlan(@PathVariable Long gameId) {
+        gameSeatService.setupGameSeatByGameId(gameId);
+        return ResponseDto.success(CREATED);
+    }
+
 }
