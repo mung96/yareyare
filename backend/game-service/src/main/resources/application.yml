@@ -38,6 +38,6 @@ spring:
     name: game-service
   profiles:
     active: ${PROFILE}
-
+kafka-endpoint: ${KAFKA_SERVER_ENDPOINT}
 
 
