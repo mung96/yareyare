@@ -4,10 +4,16 @@ import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Seat, SeatContext, SeatStep} from '@/main/shared/types';
 import {Controller, useForm} from 'react-hook-form';
-import {useSeatQuery} from '@/main/services/hooks/queries/useSeatQuery.ts';
+import {
+  useSeatQuery,
+  useSelectSeatMutation,
+} from '@/main/services/hooks/queries/useSeatQuery.ts';
 import {useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import SeatContainer from '@/main/ui/components/reservation/SeatContainment.tsx';
+import {addSeat, removeSeat} from '@/main/services/helper/reservation/seat.ts';
+import ReservationLayout from '../../layout/ReservationLayout';
+import {useState} from 'react';
 
 type Props = {
   onPrev: () => void;
@@ -15,65 +21,69 @@ type Props = {
   context: SeatStep;
 };
 
+//TODO:이전으로 넘어갈떄 로직
 function SeatScreen({context, onPrev, onNext}: Props) {
   const {control, handleSubmit} = useForm<SeatContext>({
     defaultValues: {seatList: []},
   });
-
-  function addSeat(arr: Seat[], seat: Seat, onChange: (value: Seat[]) => void) {
-    const newSeatList = [...arr, seat];
-    onChange(newSeatList);
-  }
+  const [seatList, setSeatList] = useState<Seat[]>([]);
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
-
-  console.log('좌석조회');
-  console.log(seatListData?.sections);
-  console.log('좌석조회');
-
-  function removeSeat(
-    arr: Seat[],
-    seat: Seat,
-    onChange: (value: Seat[]) => void,
-  ) {
-    const newSeatList = arr.filter(item => !(item.seatId === seat.seatId));
-    onChange(newSeatList);
-  }
-
+  const {mutate: selectSeat} = useSelectSeatMutation({
+    onSuccess: data => {
+      onNext({
+        seatList: seatList,
+        price: data.price,
+      });
+    },
+  });
+  const onSubmit = () => {
+    const seatIdList = control._formValues.seatList.map(seat => seat.seatId);
+    setSeatList(control._formValues.seatList);
+    selectSeat({
+      gameId: String(gameId),
+      seats: seatIdList,
+    });
+  };
   return (
-    <View style={styles.container}>
-      <ScrollView horizontal={true}>
+    <>
+      <ReservationLayout>
+        <ScrollView horizontal={true}>
+          <Controller
+            control={control}
+            render={({field: {onChange, value}}) => (
+              <>
+                {seatListData?.sections.map(section => (
+                  <SeatContainer
+                    value={value}
+                    list={section.rows}
+                    name={section.sectionName}
+                    onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
+                    onRemove={(seatId: string) =>
+                      removeSeat(value, seatId, onChange)
+                    }
+                  />
+                ))}
+              </>
+            )}
+            name="seatList"
+          />
+        </ScrollView>
+
         <Controller
           control={control}
-          render={({field: {onChange, value}}) => (
-            <>
-              {seatListData?.sections.map(section => (
-                <SeatContainer
-                  value={value}
-                  list={section.rows}
-                  name={section.sectionName}
-                  onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
-                  onRemove={(seat: Seat) => removeSeat(value, seat, onChange)}
-                />
-              ))}
-            </>
-          )}
+          render={({field: {value}}) => <SelectedSeatList seatList={value} />}
           name="seatList"
         />
-      </ScrollView>
-
-      <Controller
-        control={control}
-        render={({field: {value}}) => <SelectedSeatList seatList={value} />}
-        name="seatList"
-      />
-
-      <MainButton
-        label={'다음'}
-        onPress={handleSubmit(onNext)}
-        size={'large'}
-      />
-    </View>
+      </ReservationLayout>
+      <View style={styles.buttonContainer}>
+        <MainButton
+          label={'다음'}
+          onPress={handleSubmit(onSubmit)}
+          size={'large'}
+        />
+      </View>
+    </>
   );
 }
 
@@ -83,6 +93,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
+  },
+  buttonContainer: {
+    backgroundColor: COLORS.WHITE,
+    width: '100%',
+    height: 56,
+    position: 'absolute',
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
   },
 });
 

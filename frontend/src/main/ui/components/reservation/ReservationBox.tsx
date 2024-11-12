@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
+    width: '100%',
+    maxWidth: 360,
   },
   title: {
     fontSize: 14,

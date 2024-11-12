@@ -29,7 +29,6 @@ function CertificateScreen({navigation, route}: CertificateStartScreenProps) {
   const data = route.params.data;
 
   async function callback(response: CertificationResponse) {
-    console.log(response);
     const isSuccessed = getIsSuccessed(response);
     if (isSuccessed) {
       try {

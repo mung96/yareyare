@@ -65,18 +65,15 @@ export async function getRestSeatListWithSection(
     Response<RestSeatListWithSectionResponse>
   >(END_POINT.GAME_SEAT(gameId), {params: {gradeId}});
 
-  console.log('data');
-  console.log(data);
-  console.log('data');
   return data.body;
 }
 
 //좌석선택
-export async function postSelectSeat(
+export async function patchSelectSeat(
   gameId: string,
   seats: number[],
 ): Promise<SeatPriceResponse> {
-  const {data} = await apiRequester.post<Response<SeatPriceResponse>>(
+  const {data} = await apiRequester.patch<Response<SeatPriceResponse>>(
     END_POINT.GAME_SEAT(gameId),
     {seats},
   );
