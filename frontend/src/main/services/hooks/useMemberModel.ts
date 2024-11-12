@@ -9,6 +9,7 @@ function useMemberModel() {
 
   const member = useMemo(() => {
     if (myInfoData) {
+      console.log(myInfoData);
       dispatch(setMember(myInfoData));
       return myInfoData;
     }

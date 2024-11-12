@@ -4,6 +4,7 @@ import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {UserContext, UserStep} from '@/main/shared/types';
 import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import {Controller, useForm} from 'react-hook-form';
+import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 
 type Props = {
   onPrev: () => void;
@@ -12,21 +13,20 @@ type Props = {
 };
 
 function UserScreen({onPrev, context, onNext}: Props) {
+  const {member} = useMemberModel();
+  console.log(member);
   const {control, handleSubmit} = useForm<UserContext>({
     defaultValues: {
-      name: '정지연',
-      birthday: '000315',
-      phoneNumber: '',
-      email: '',
+      name: member?.name!,
+      birthday: member?.birth!,
+      phoneNumber: member?.tel!,
+      email: member?.email!,
       receiveMethod: '모바일 티켓',
     },
   });
-  console.log('유저');
-  console.log(context);
-
   return (
     <ScrollView style={styles.container}>
-      <UserInput totalPrice={'15,000'} control={control} />
+      <UserInput totalPrice={String(context.price)} control={control} />
 
       <Controller
         control={control}
