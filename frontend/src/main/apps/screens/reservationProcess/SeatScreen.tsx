@@ -29,13 +29,14 @@ function SeatScreen({context, onPrev, onNext}: Props) {
 
   function removeSeat(
     arr: Seat[],
-    seat: Seat,
+    seatId: string,
     onChange: (value: Seat[]) => void,
   ) {
-    console.log(seat);
-    const newSeatList = arr.filter(
-      item => !(item.seatId === String(seat.seatId)),
-    );
+    console.log(seatId);
+    console.log(arr.length);
+    console.log(arr);
+    const newSeatList = arr.filter(item => !(String(item.seatId) === seatId));
+    console.log(newSeatList.length);
     onChange(newSeatList);
   }
 
@@ -52,7 +53,9 @@ function SeatScreen({context, onPrev, onNext}: Props) {
                   list={section.rows}
                   name={section.sectionName}
                   onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
-                  onRemove={(seat: Seat) => removeSeat(value, seat, onChange)}
+                  onRemove={(seatId: string) =>
+                    removeSeat(value, seatId, onChange)
+                  }
                 />
               ))}
             </>

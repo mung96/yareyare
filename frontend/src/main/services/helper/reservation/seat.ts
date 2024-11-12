@@ -9,7 +9,8 @@ export function convertRowToIdx(row: string) {
 }
 
 export function includeSeat(seatList: Seat[], seatId: string) {
-  return includeObjectWithKeyAndValue(seatList, ['seatId'], [seatId]);
+  // return includeObjectWithKeyAndValue(seatList, ['seatId'], [seatId]);
+  return seatList.some(seat => seat.seatId === seatId);
 }
 
 export function convertSeatResponseToView(

@@ -14,7 +14,7 @@ type Props = {
     seats: {isAvailable: boolean; seatId: string; seatNumber: number}[];
   }[];
   onAdd: (seat: Seat) => void;
-  onRemove: (seat: Seat) => void;
+  onRemove: (seatId: string) => void;
 };
 
 export type SeatList = {
@@ -59,8 +59,13 @@ function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
                         ]}
                         onPress={() => {
                           includeSeat(value, seat.seatId)
-                            ? onRemove({seatId: String(seat.seatId)})
-                            : onAdd({seatId: String(seat.seatId)});
+                            ? onRemove(String(seat.seatId))
+                            : onAdd({
+                                seatId: seat.seatId,
+                                section: name,
+                                row: row.rowName,
+                                col: String(seat.seatNumber),
+                              });
                         }}>
                         <View
                           style={[
