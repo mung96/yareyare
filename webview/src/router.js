@@ -1,12 +1,17 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import PaymentRedirectPage from "./PaymentRedirectPage";
-import PaymentPage from "./PaymentPage";
+import PaymentRedirectPage from "./payment/PaymentRedirectPage";
+import PaymentPage from "./payment/PaymentPage";
+import CertificateRedirectPage from "./certificate/CertificateRedirectPage";
+import CertificatePage from "./certificate/CertificatePage";
 
 const Router = () => {
   const routes = [
 
-    {path: '/paymentRedirect', element: <PaymentRedirectPage/>},
     {path: '/payment', element: <PaymentPage/>},
+    {path: '/paymentRedirect', element: <PaymentRedirectPage/>},
+
+    {path: '/certificate', element: <CertificatePage/>},
+    {path: '/certificateRedirect', element: <CertificateRedirectPage/>},
 
   ]
 
