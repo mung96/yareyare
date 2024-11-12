@@ -4,12 +4,16 @@ import SelectedSeatList from '@/main/ui/components/reservation/SelectedSeatList.
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Seat, SeatContext, SeatStep} from '@/main/shared/types';
 import {Controller, useForm} from 'react-hook-form';
-import {useSeatQuery} from '@/main/services/hooks/queries/useSeatQuery.ts';
+import {
+  useSeatQuery,
+  useSelectSeatMutation,
+} from '@/main/services/hooks/queries/useSeatQuery.ts';
 import {useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import SeatContainer from '@/main/ui/components/reservation/SeatContainment.tsx';
 import {addSeat, removeSeat} from '@/main/services/helper/reservation/seat.ts';
 import ReservationLayout from '../../layout/ReservationLayout';
+import {useMutation} from '@tanstack/react-query';
 
 type Props = {
   onPrev: () => void;
@@ -23,7 +27,19 @@ function SeatScreen({context, onPrev, onNext}: Props) {
   });
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
+  const {mutate: selectSeat} = useSelectSeatMutation();
+  const onSubmit = () => {
+    console.log(control._formValues);
+    const seatIdList: number[] = [];
+    control._formValues.seatList.map(seat => seatIdList.push(seat.seatId));
+    console.log(seatIdList);
+    selectSeat({
+      gameId: String(gameId),
+      seats: seatIdList,
+    });
 
+    // onNext();
+  };
   return (
     <>
       <ReservationLayout>
@@ -58,7 +74,7 @@ function SeatScreen({context, onPrev, onNext}: Props) {
       <View style={styles.buttonContainer}>
         <MainButton
           label={'다음'}
-          onPress={handleSubmit(onNext)}
+          onPress={handleSubmit(onSubmit)}
           size={'large'}
         />
       </View>

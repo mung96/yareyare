@@ -65,6 +65,7 @@ function ReservationScreen() {
       {reservationStep === 'UserStep' && (
         <UserScreen
           onPrev={() => history.back()}
+          context={context}
           onNext={(userContext: UserContext) =>
             history.push('PaymentStep', userContext)
           }

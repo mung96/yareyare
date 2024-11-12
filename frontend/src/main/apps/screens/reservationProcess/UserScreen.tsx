@@ -1,13 +1,14 @@
 import {ScrollView, StyleSheet} from 'react-native';
 import MethodSelector from '@/main/ui/components/reservation/MethodSelector.tsx';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
-import {UserContext} from '@/main/shared/types';
+import {UserContext, UserStep} from '@/main/shared/types';
 import UserInput from '@/main/ui/components/reservation/UserInput.tsx';
 import {Controller, useForm} from 'react-hook-form';
 
 type Props = {
   onPrev: () => void;
   onNext: (userInput: UserContext) => void;
+  context: UserStep;
 };
 
 function UserScreen({onPrev, onNext}: Props) {

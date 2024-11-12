@@ -41,6 +41,7 @@ export type ReceiveMethod = '모바일 티켓' | '현장 수령';
 export type PaymentMethod = '계좌이체' | '카드결제' | '토스페이' | '카카오페이';
 export type SeatContext = {
   seatList: Seat[];
+  price: number;
 };
 
 export type UserContext = {
