@@ -13,7 +13,7 @@ export const END_POINT = {
   CERTIFICATION: 'members/authentication',
   MEMBER: 'members',
   LOGOUT: 'members/logout',
-  MY_TEAM: 'members/myteam',
+  MY_TEAM: 'members/my-team',
 
   //teamrr
   TEAM: 'games/teams',
