@@ -26,7 +26,6 @@ export type SeatList = {
 };
 
 function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
-  console.log(list);
   return (
     <ReservationBox>
       <View>

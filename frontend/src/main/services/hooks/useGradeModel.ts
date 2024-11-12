@@ -14,7 +14,6 @@ function useGradeModel() {
     if (!gradeListData) {
       return GRADE_LIST;
     }
-    console.log(gradeListData);
 
     return gradeListData.grades.length === 5
       ? GRADE_LIST.map(grade => {

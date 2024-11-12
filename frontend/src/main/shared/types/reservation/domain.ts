@@ -16,6 +16,9 @@ export type Grade = {
   availableSeats?: number;
 };
 export type Seat = {
+  section: string;
+  row: string;
+  col: string;
   seatId: string;
 };
 export type ReservationProcess =

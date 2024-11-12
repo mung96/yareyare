@@ -23,7 +23,6 @@ function Calendar() {
     String(currentMonth + 1),
   );
 
-  console.log(gameSchedule);
   return (
     <SafeAreaView
       style={{

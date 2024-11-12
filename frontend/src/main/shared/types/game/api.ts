@@ -22,7 +22,7 @@ export type RestSeatListWithSectionResponse = {
       rowName: string;
       seats: {
         isAvailable: boolean;
-        seatId: number;
+        seatId: string;
         seatNumber: number;
       }[];
     }[];

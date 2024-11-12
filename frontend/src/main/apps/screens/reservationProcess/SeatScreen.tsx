@@ -27,16 +27,15 @@ function SeatScreen({context, onPrev, onNext}: Props) {
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
 
-  console.log('좌석조회');
-  console.log(seatListData?.sections);
-  console.log('좌석조회');
-
   function removeSeat(
     arr: Seat[],
     seat: Seat,
     onChange: (value: Seat[]) => void,
   ) {
-    const newSeatList = arr.filter(item => !(item.seatId === seat.seatId));
+    console.log(seat);
+    const newSeatList = arr.filter(
+      item => !(item.seatId === String(seat.seatId)),
+    );
     onChange(newSeatList);
   }
 

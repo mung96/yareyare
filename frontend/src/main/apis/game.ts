@@ -65,9 +65,6 @@ export async function getRestSeatListWithSection(
     Response<RestSeatListWithSectionResponse>
   >(END_POINT.GAME_SEAT(gameId), {params: {gradeId}});
 
-  console.log('data');
-  console.log(data);
-  console.log('data');
   return data.body;
 }
 
