@@ -8,10 +8,19 @@ import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import CertificateStartScreen from '@/main/apps/screens/certificate/CertificateStartScreen.tsx';
 import CertificateScreen from '@/main/apps/screens/certificate/CertificateScreen.tsx';
 import CertificateRedirectScreen from '@/main/apps/screens/certificate/CertificateRedirectScreen.tsx';
-
+type CertificationData = {
+  data: {
+    carrier: string;
+    company: string;
+    merchant_uid: string;
+    name: string;
+    phone: string;
+  };
+  userCode: string;
+};
 export type CertificateParamList = {
   [PATH.CERTIFICATE_START]: undefined;
-  [PATH.CERTIFICATE]: undefined;
+  [PATH.CERTIFICATE]: CertificationData;
   [PATH.CERTIFICATE_REDIRECT]: undefined;
 };
 

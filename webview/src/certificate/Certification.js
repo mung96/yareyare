@@ -8,7 +8,7 @@ function Certification() {
     const data = {
       merchant_uid: `mid_${new Date().getTime()}`,  // 주문번호
       company: '아임포트',                           // 회사명 또는 URL
-      carrier: 'SKT',                              // 통신사
+      carrier: 'SKT1',                              // 통신사
       name: '홍길동',                                // 이름
       phone: '01012341234',                        // 전화번호
     };
