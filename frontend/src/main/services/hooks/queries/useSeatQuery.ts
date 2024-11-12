@@ -1,4 +1,4 @@
-import {useMutation, useQuery} from '@tanstack/react-query';
+import {useMutation, UseMutationOptions, useQuery} from '@tanstack/react-query';
 import {
   getRestSeatListWithGrade,
   getRestSeatListWithSection,
@@ -20,16 +20,29 @@ export function useSeatQuery(gameId: string | null, gradeId: string | null) {
   });
 }
 
-export function useSelectSeatMutation() {
+type MutationOptionsWithoutFn = Omit<
+  UseMutationOptions<
+    SeatPriceResponse,
+    unknown,
+    {
+      gameId: string;
+      seats: number[];
+    }
+  >,
+  'mutationFn'
+>;
+
+export function useSelectSeatMutation(
+  mutationOption?: MutationOptionsWithoutFn,
+) {
   return useMutation<
     SeatPriceResponse,
     unknown,
     {gameId: string; seats: number[]}
   >({
-    mutationFn: async variables =>
-      await patchSelectSeat(variables.gameId, variables.seats),
-    onSuccess: data => {
-      console.log(data);
+    mutationFn: async variables => {
+      return await patchSelectSeat(variables.gameId, variables.seats);
     },
+    ...mutationOption,
   });
 }

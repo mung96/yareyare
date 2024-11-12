@@ -11,7 +11,7 @@ type Props = {
   context: UserStep;
 };
 
-function UserScreen({onPrev, onNext}: Props) {
+function UserScreen({onPrev, context, onNext}: Props) {
   const {control, handleSubmit} = useForm<UserContext>({
     defaultValues: {
       name: '정지연',
@@ -21,6 +21,8 @@ function UserScreen({onPrev, onNext}: Props) {
       receiveMethod: '모바일 티켓',
     },
   });
+  console.log('유저');
+  console.log(context);
 
   return (
     <ScrollView style={styles.container}>

@@ -13,7 +13,7 @@ import {RootState} from '@/main/stores/rootReducer.ts';
 import SeatContainer from '@/main/ui/components/reservation/SeatContainment.tsx';
 import {addSeat, removeSeat} from '@/main/services/helper/reservation/seat.ts';
 import ReservationLayout from '../../layout/ReservationLayout';
-import {useMutation} from '@tanstack/react-query';
+import {useState} from 'react';
 
 type Props = {
   onPrev: () => void;
@@ -21,24 +21,29 @@ type Props = {
   context: SeatStep;
 };
 
+//TODO:이전으로 넘어갈떄 로직
 function SeatScreen({context, onPrev, onNext}: Props) {
   const {control, handleSubmit} = useForm<SeatContext>({
     defaultValues: {seatList: []},
   });
+  const [seatList, setSeatList] = useState<Seat[]>([]);
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
-  const {mutate: selectSeat} = useSelectSeatMutation();
+  const {mutate: selectSeat} = useSelectSeatMutation({
+    onSuccess: data => {
+      onNext({
+        seatList: seatList,
+        price: data.price,
+      });
+    },
+  });
   const onSubmit = () => {
-    console.log(control._formValues);
-    const seatIdList: number[] = [];
-    control._formValues.seatList.map(seat => seatIdList.push(seat.seatId));
-    console.log(seatIdList);
+    const seatIdList = control._formValues.seatList.map(seat => seat.seatId);
+    setSeatList(control._formValues.seatList);
     selectSeat({
       gameId: String(gameId),
       seats: seatIdList,
     });
-
-    // onNext();
   };
   return (
     <>

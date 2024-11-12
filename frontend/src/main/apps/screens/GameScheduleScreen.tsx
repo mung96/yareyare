@@ -3,9 +3,9 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import useCalendar from '@/main/services/hooks/useCalendar.ts';
-import {useGameScheduleQuery} from '@/main/services/hooks/queries/useGameScheduleQuery.ts';
 import useGameScheduleModel from '@/main/services/hooks/useGameScheduleModel.ts';
 import {SvgUri} from 'react-native-svg';
+
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 function Calendar() {
@@ -105,7 +105,7 @@ function Calendar() {
                         gameSchedule[day].description === 'WIN' &&
                           styles.descriptionWin,
                       ]}>
-                      {gameSchedule[day].description}
+                      {gameSchedule[day].description}`1 qA
                     </CustomText>
                     <View
                       style={[
