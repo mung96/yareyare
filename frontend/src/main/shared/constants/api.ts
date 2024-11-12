@@ -9,6 +9,12 @@ export const END_POINT = {
   GAME_GRADE: (gameId: string) => `games/${gameId}/grades`,
   GAME_SEAT: (gameId: string) => `games/${gameId}/seats`,
 
+  //member
+  CERTIFICATION: 'members/authentication',
+  MEMBER: 'members',
+  LOGOUT: 'members/logout',
+  MY_TEAM: 'members/myteam',
+
   //teamrr
   TEAM: 'games/teams',
 
