@@ -17,14 +17,6 @@ type Props = {
   onRemove: (seatId: string) => void;
 };
 
-export type SeatList = {
-  [key: number]: {
-    [key: string]: {
-      [key: string]: boolean;
-    };
-  };
-};
-
 function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
   return (
     <ReservationBox>

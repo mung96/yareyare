@@ -21,6 +21,13 @@ export type Seat = {
   col: string;
   seatId: string;
 };
+export type SeatList = {
+  [key: number]: {
+    [key: string]: {
+      [key: string]: boolean;
+    };
+  };
+};
 export type ReservationProcess =
   | 'GradeStep'
   | 'SeatStep'
