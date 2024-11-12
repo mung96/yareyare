@@ -9,6 +9,9 @@ export const PATH = {
   MAP: 'Map',
 
   MY_PAGE: 'MyPage',
+  TICKET_RECORD: 'TicketRecord',
+  CANCEL_TICKET: 'CancelTicket',
+  UPDATE_MYTEAM: 'UpdateMyTeam',
 
   WAITING: 'Waiting',
   RESERVATION: 'Reservation',

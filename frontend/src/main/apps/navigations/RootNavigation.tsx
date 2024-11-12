@@ -6,6 +6,7 @@ import WaitingNavigation from '@/main/apps/navigations/WaitingNavigation.tsx';
 import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';
 import AuthNavigation from '@/main/apps/navigations/AuthNavigation.tsx';
 import CertificateNavigation from '@/main/apps/navigations/CertificateNavigation.tsx';
+import MyPageNavigation from '@/main/apps/navigations/MypageNavigation.tsx';
 
 function RootNavigation() {
   const curNavigation = useSelector(
@@ -19,7 +20,7 @@ function RootNavigation() {
       {isLogin ? (
         <>
           {curNavigation === 'navbar' && <BottomNavBar />}
-
+          {curNavigation === 'mypage' && <MyPageNavigation />}
           {curNavigation === 'waiting' && <WaitingNavigation />}
           {curNavigation === 'certificate' && <CertificateNavigation />}
           {curNavigation === 'reservation' && <ReservationNavigation />}
