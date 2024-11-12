@@ -87,7 +87,7 @@ public class Oauth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                     .build();
             redisUtils.setData(uuid, jwtRedis);
 
-            String accessToken = jwtService.createAccessToken(uuid, member.getIsCertificated());
+            String accessToken = jwtService.createAccessToken(uuid, member.getIsCertificated(), member.getRole());
 
             redisUtils.setDataWithExpiration(code, accessToken, 150L);
 

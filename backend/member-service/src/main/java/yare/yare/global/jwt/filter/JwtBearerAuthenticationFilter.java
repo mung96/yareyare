@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
+import yare.yare.domain.member.entity.Role;
 import yare.yare.global.dto.ResponseDto;
 import yare.yare.global.jwt.entity.JwtRedis;
 import yare.yare.global.jwt.service.JwtService;
@@ -66,7 +67,8 @@ public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
                     } else {
                         String memberId = JWT.decode(token).getSubject();
                         Boolean isCertificated = jwtService.getIsCertificatedFromToken(token);
-                        sendAccessToken(response, memberId, isCertificated);
+                        Role role = jwtService.getRoleFromToken(token);
+                        sendAccessToken(response, memberId, isCertificated, role);
                         return;
                     }
                 }
@@ -81,13 +83,13 @@ public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void sendAccessToken(HttpServletResponse response, String uuid, Boolean isCertificated) throws IOException {
+    private void sendAccessToken(HttpServletResponse response, String uuid, Boolean isCertificated, Role role) throws IOException {
         if (!response.isCommitted()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-            String token = jwtService.createAccessToken(uuid, isCertificated);
+            String token = jwtService.createAccessToken(uuid, isCertificated, role);
 
             ResponseDto<?> res = ResponseDto.success(OK, token);
             ObjectMapper mapper = new ObjectMapper();

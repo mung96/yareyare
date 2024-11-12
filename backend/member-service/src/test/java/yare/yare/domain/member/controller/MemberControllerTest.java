@@ -24,6 +24,7 @@ import yare.yare.domain.member.dto.request.MyTeamModifyReq;
 import yare.yare.domain.member.dto.response.MemberAccessTokenRes;
 import yare.yare.domain.member.dto.response.MemberDetailsRes;
 import yare.yare.domain.member.dto.response.MyTeamModifyRes;
+import yare.yare.domain.member.entity.Role;
 import yare.yare.domain.member.service.MemberService;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.jwt.service.JwtService;
@@ -77,7 +78,7 @@ class MemberControllerTest {
     public void setup() throws JsonProcessingException {
         jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjA0Yjc3Mi1hZGMwLZ";
 
-        when(jwtService.createAccessToken(UUID, isCertificated))
+        when(jwtService.createAccessToken(UUID, isCertificated, Role.ROLE_USER))
                 .thenReturn(jwtToken);
         when(jwtService.getAuthentication(jwtToken))
                 .thenReturn(new UsernamePasswordAuthenticationToken(123L, null, List.of()));

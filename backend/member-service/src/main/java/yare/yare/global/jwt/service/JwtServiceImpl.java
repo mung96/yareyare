@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
+import yare.yare.domain.member.entity.Role;
 import yare.yare.global.jwt.entity.JwtRedis;
 import yare.yare.global.utils.RedisUtils;
 
@@ -39,11 +40,12 @@ public class JwtServiceImpl implements JwtService {
     private static final String REFRESH_TOKEN_CLAIM_NAME = "refresh_token";
 
     @Override
-    public String createAccessToken(String uuid, Boolean isCertificated) {
+    public String createAccessToken(String uuid, Boolean isCertificated, Role role) {
         return JWT.create()
                 .withSubject(uuid)
                 .withClaim("isCertificated", isCertificated)
                 .withClaim("type", ACCESS_TOKEN_CLAIM_NAME)
+                .withClaim("role", role.getAuthority())
                 .withIssuer(ISSUER)
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenValidityInSeconds * 1000))
                 .sign(Algorithm.HMAC512(secret));
@@ -52,7 +54,7 @@ public class JwtServiceImpl implements JwtService {
     @PostConstruct
     public void init() {
         String UUID = "1604b772-adc0-4212-8a90-81186c57f598";
-        String accessToken = createAccessToken(UUID, false);
+        String accessToken = createAccessToken(UUID, false, ROLE_USER);
         String refreshToken = createRefreshToken(UUID);
         System.out.println("accessToken = " + accessToken);
         System.out.println("refreshToken = " + refreshToken);
@@ -141,5 +143,10 @@ public class JwtServiceImpl implements JwtService {
     public Boolean getIsCertificatedFromToken(String token) {
         DecodedJWT decodedJWT = JWT.decode(token);
         return decodedJWT.getClaim("isCertificated").asBoolean();
+    }
+
+    public Role getRoleFromToken(String token) {
+        DecodedJWT decodedJWT = JWT.decode(token);
+        return decodedJWT.getClaim("role").as(Role.class);
     }
 }

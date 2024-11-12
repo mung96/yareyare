@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.ci.dto.request.CiAddReq;
 import yare.yare.domain.ci.service.CiService;
+import yare.yare.domain.member.entity.Role;
 import yare.yare.global.jwt.service.JwtService;
 
 import java.util.List;
@@ -71,7 +72,7 @@ class CiControllerTest {
     public void setup() throws JsonProcessingException {
         jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxNjA0Yjc3Mi1hZGMwLZ";
 
-        when(jwtService.createAccessToken(UUID, isCertificated))
+        when(jwtService.createAccessToken(UUID, isCertificated, Role.ROLE_USER))
                 .thenReturn(jwtToken);
         when(jwtService.getAuthentication(jwtToken))
                 .thenReturn(new UsernamePasswordAuthenticationToken(123L, null, List.of()));
