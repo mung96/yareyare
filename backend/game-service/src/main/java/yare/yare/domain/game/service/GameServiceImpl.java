@@ -137,4 +137,16 @@ public class GameServiceImpl implements GameService {
 
         return ScheduleListRes.of(games, teamId);
     }
+
+    @Override
+    public GetPriceRes getPrice(Long gameId, Long seatId) {
+
+        Integer price = gameRepository.getPrice(gameId, seatId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND));
+
+        GetPriceRes getPriceRes = new GetPriceRes();
+        getPriceRes.setPrice(price);
+
+        return getPriceRes;
+    }
 }
