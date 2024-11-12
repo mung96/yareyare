@@ -12,6 +12,7 @@ const CommonLayout = ({children}: {children: ReactNode}) => {
         justifyContent: 'center',
         gap: 12,
         width: '100%',
+        height: '100%',
         backgroundColor: COLORS.WHITE,
       }}>
       {children}

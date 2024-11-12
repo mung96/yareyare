@@ -3,7 +3,7 @@ import {LOGIN_REDIRECT_URI, SERVER_BASE_URL} from '@env';
 import {setEncryptStorage} from '@/main/shared/utils/encryptStorage.ts';
 import {useDispatch} from 'react-redux';
 import {login} from '@/main/stores/member.ts';
-import axios from 'axios';
+import {apiRequester} from '@/main/apis/requester.ts';
 
 const REDIRECT_URI = LOGIN_REDIRECT_URI;
 
@@ -15,9 +15,7 @@ function SocialLoginScreen({route}: any) {
     if (event.nativeEvent.url.includes(`${REDIRECT_URI}?code=`)) {
       const token = event.nativeEvent.url.replace(`${REDIRECT_URI}?code=`, '');
 
-      const response = await axios.get(
-        SERVER_BASE_URL + `members/token/${token}`,
-      );
+      const response = await apiRequester.get(`members/token/${token}`);
       setEncryptStorage('token', response.data.body.accessToken);
       dispatch(login());
     }

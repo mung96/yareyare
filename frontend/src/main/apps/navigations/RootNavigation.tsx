@@ -1,9 +1,10 @@
 import {useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/rootReducer.ts';
-import BottomNavBar from '@/main/apps/navigations/BottomNavBar.tsx';
 import {NavigationContainer} from '@react-navigation/native';
-import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';
+import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
+import BottomNavBar from '@/main/apps/navigations/BottomNavBar.tsx';
 import WaitingNavigation from '@/main/apps/navigations/WaitingNavigation.tsx';
+import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';
 import AuthNavigation from '@/main/apps/navigations/AuthNavigation.tsx';
 
 function RootNavigation() {
@@ -15,6 +16,7 @@ function RootNavigation() {
   //TODO: 앱을 켰어 => 스토리지에 토큰이 있어 => isLogin = true, 회원정보 조회/ 없으면 로그인 페이지 가야함.
   return (
     <NavigationContainer>
+      {/*<GameScheduleScreen />*/}
       {isLogin ? (
         <>
           {curNavigation === 'navbar' && <BottomNavBar />}
