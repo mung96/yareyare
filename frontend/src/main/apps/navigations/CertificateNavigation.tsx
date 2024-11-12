@@ -18,6 +18,7 @@ type CertificationData = {
   };
   userCode: string;
 };
+
 export type CertificateParamList = {
   [PATH.CERTIFICATE_START]: undefined;
   [PATH.CERTIFICATE]: CertificationData;

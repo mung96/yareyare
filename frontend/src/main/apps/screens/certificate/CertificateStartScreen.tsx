@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import WebView from 'react-native-webview';
 import {WEB_VIEW_SERVER} from '@env';
 import {PATH} from '@/main/shared/constants';
 import {WebViewMessageEvent} from 'react-native-webview/lib/WebViewTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CertificateParamList} from '@/main/apps/navigations/CertificateNavigation.tsx';
+import * as queryString from 'node:querystring';
 
 type CertificateStartScreenProps = NativeStackScreenProps<
   CertificateParamList,
@@ -16,9 +17,10 @@ function CertificateStartScreen({navigation}: CertificateStartScreenProps) {
     try {
       const {userCode, data} = JSON.parse(e.nativeEvent.data);
       const params = {userCode, data};
-      console.log(JSON.parse(e.nativeEvent.data));
       navigation.navigate(PATH.CERTIFICATE, params);
-    } catch (e) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

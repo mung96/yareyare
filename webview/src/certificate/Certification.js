@@ -1,8 +1,8 @@
 import React from 'react';
-
+const IMP = process.env.REACT_APP_IMP
 function Certification() {
   function onClickCertification() {
-    const userCode = 'imp00000000';
+    const userCode = IMP;
 
     /* 2. 본인인증 데이터 정의하기 */
     const data = {
