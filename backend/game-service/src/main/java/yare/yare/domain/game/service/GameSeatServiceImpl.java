@@ -19,6 +19,7 @@ import yare.yare.domain.stadium.repository.GradeRepository;
 import yare.yare.domain.stadium.repository.StadiumRepository;
 import yare.yare.global.event.UnlockEvent;
 import yare.yare.global.exception.CustomException;
+import yare.yare.global.kafka.producer.KafkaGameProducer;
 import yare.yare.global.utils.RedisUtil;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class GameSeatServiceImpl implements GameSeatService {
     private final GameSeatCustomJdbcRepository gameSeatBatchRepository;;
     private final ApplicationEventPublisher eventPub;
     private final RedisUtil redisUtil;
+    private final KafkaGameProducer kafkaGameProducer;
 
 
     @Override
@@ -66,6 +68,7 @@ public class GameSeatServiceImpl implements GameSeatService {
             }).toList();
             gameSeatBatchRepository.saveAll(gameSeatList);
         });
+        kafkaGameProducer.sendGame(game);
         eventPub.publishEvent(new UnlockEvent(this, "game:" + game.getId()));
     }
 
