@@ -20,7 +20,7 @@ function ReservationBox({title, children}: Props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.GRAY_400,
-    paddingHorizontal: 14,
+    paddingHorizontal: 20,
     paddingVertical: 14,
     display: 'flex',
     flexDirection: 'column',
