@@ -6203,6 +6203,7 @@ __metadata:
     eslint: ^8.19.0
     eslint-import-resolver-typescript: ^3.6.3
     eslint-plugin-import: ^2.31.0
+    iamport-react-native: ^2.0.12
     jest: ^29.6.3
     prettier: 2.8.8
     react: 18.3.1
@@ -6734,6 +6735,18 @@ __metadata:
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
   checksum: b87fd89fce72391625271454e70f67fe405277415b48bcc0117ca73d31fa23a4241787afdc8d67f5a116cf37258c052f59ea82daffa72364d61351423848e3b8
+  languageName: node
+  linkType: hard
+
+"iamport-react-native@npm:^2.0.12":
+  version: 2.0.12
+  resolution: "iamport-react-native@npm:2.0.12"
+  peerDependencies:
+    query-string: 8.x
+    react: "*"
+    react-native: "*"
+    react-native-webview: ">=11.x"
+  checksum: b913173f7b122be8e829a105cfaec7f4a9ea54bdcb3571e5eb3f3ad847377cdfd0073b8bece9b0bd291a573046d2c27f0abc6c677609273f48b3133c8e21e461
   languageName: node
   linkType: hard
 
