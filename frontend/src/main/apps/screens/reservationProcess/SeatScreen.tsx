@@ -8,6 +8,7 @@ import {useSeatQuery} from '@/main/services/hooks/queries/useSeatQuery.ts';
 import {useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import SeatContainer from '@/main/ui/components/reservation/SeatContainment.tsx';
+import {addSeat, removeSeat} from '@/main/services/helper/reservation/seat.ts';
 
 type Props = {
   onPrev: () => void;
@@ -19,26 +20,8 @@ function SeatScreen({context, onPrev, onNext}: Props) {
   const {control, handleSubmit} = useForm<SeatContext>({
     defaultValues: {seatList: []},
   });
-
-  function addSeat(arr: Seat[], seat: Seat, onChange: (value: Seat[]) => void) {
-    const newSeatList = [...arr, seat];
-    onChange(newSeatList);
-  }
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
-
-  function removeSeat(
-    arr: Seat[],
-    seatId: string,
-    onChange: (value: Seat[]) => void,
-  ) {
-    console.log(seatId);
-    console.log(arr.length);
-    console.log(arr);
-    const newSeatList = arr.filter(item => !(String(item.seatId) === seatId));
-    console.log(newSeatList.length);
-    onChange(newSeatList);
-  }
 
   return (
     <View style={styles.container}>

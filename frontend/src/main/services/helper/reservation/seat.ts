@@ -20,3 +20,20 @@ export function convertSeatResponseToView(
 
   return seatList;
 }
+export function addSeat(
+  arr: Seat[],
+  seat: Seat,
+  onChange: (value: Seat[]) => void,
+) {
+  const newSeatList = [...arr, seat];
+  onChange(newSeatList);
+}
+
+export function removeSeat(
+  arr: Seat[],
+  seatId: string,
+  onChange: (value: Seat[]) => void,
+) {
+  const newSeatList = arr.filter(item => !(String(item.seatId) === seatId));
+  onChange(newSeatList);
+}
