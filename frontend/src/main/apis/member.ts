@@ -18,8 +18,12 @@ export async function getMyInfo(): Promise<MemberResponse> {
   return data.body;
 }
 //본인 인증
-export async function postCertificate() {
-  await apiRequester.post<Response<null>>(END_POINT.CERTIFICATION);
+export async function postCertificate(impUid: string) {
+  const response = await apiRequester.post<Response<null>>(
+    END_POINT.CERTIFICATION,
+    {impUid},
+  );
+  return response;
 }
 
 //로그아웃
