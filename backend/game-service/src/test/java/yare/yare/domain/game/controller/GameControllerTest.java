@@ -474,4 +474,47 @@ public class GameControllerTest {
 
     }
 
+    @Test
+    public void 좌석_가격_조회_성공() throws Exception {
+
+        //given
+        Long gameId = 693L;
+        Long seatId = 1L;
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                get("/api/games/{gameId}/seats/{seatId}/price", gameId, seatId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "좌석 가격 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Game API")
+                                .summary("좌석 가격 조회 API")
+                                .pathParameters(
+                                        parameterWithName("gameId").description("조회할 경기 아이디"),
+                                        parameterWithName("seatId").description("조회할 좌석 아이디")
+                                )
+                                .requestFields()
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.price").type(NUMBER)
+                                                        .description("좌석 가격")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("좌석 가격 조회 Request"))
+                                .responseSchema(Schema.schema("좌석 가격 조회 Response"))
+                                .build()
+                        ))
+                );
+
+    }
 }

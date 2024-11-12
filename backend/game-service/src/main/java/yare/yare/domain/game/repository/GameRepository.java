@@ -98,10 +98,18 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "and g.gameDate < :findOptionEndDate")
     List<Game> findScheduleListWithYearAndMonth(Integer teamId, LocalDate findOptionStartDate, LocalDate findOptionEndDate);
 
+
     @Query("""
             select g 
             from Game g 
             where g.gameDate = :dateOption 
             """)
     List<Game> findAllGamesAfter8Days(LocalDate dateOption);
+
+    @Query("select gs.price.price " +
+            "from GameSeat gs " +
+            "where gs.game.id = :gameId " +
+            "and gs.seat.id = :seatId")
+    Optional<Integer> getPrice(@Param("gameId") Long gameId, @Param("seatId") Long seatId);
+
 }

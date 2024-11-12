@@ -97,4 +97,14 @@ public class GameController {
 
         return ResponseDto.success(OK, result);
     }
+
+    @GetMapping("/{gameId}/seats/{seatId}/price")
+    public ResponseDto<GetPriceRes> getPrice(
+            @PathVariable Long gameId,
+            @PathVariable Long seatId) {
+
+        GetPriceRes result = gameService.getPrice(gameId, seatId);
+
+        return ResponseDto.success(OK, result);
+    }
 }
