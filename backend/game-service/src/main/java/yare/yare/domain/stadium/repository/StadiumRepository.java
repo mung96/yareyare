@@ -16,5 +16,18 @@ public interface StadiumRepository extends JpaRepository<Stadium, Integer> {
             "from Seat s " +
             "join fetch s.section sec " +
             "where sec.grade.id = :gradeId")
+    public List<Seat> findSeatsWithSectionByGradeId(@Param("gradeId") Integer gradeId);
+
+    @Query("select s " +
+            "from Seat s " +
+            "join s.section sec " +
+            "where sec.grade.id = :gradeId")
     public List<Seat> findSeatsByGradeId(@Param("gradeId") Integer gradeId);
+
+
+
+    @Query("select s " +
+            "from Seat s ")
+    public List<Seat> findSeatsByStadiumId(@Param("stadiumId")Integer stadiumId);
+
 }
