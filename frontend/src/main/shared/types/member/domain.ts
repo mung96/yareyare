@@ -1,7 +1,10 @@
 export type Member = {
-  id: string;
   name: string;
+  birth: string;
+  tel: string;
   email: string;
-  phoneNumber: string;
-  birthday: string;
+  myTeamId: string;
+  myTeamName: string;
+  isCertificated: boolean;
+  uuid: string;
 };

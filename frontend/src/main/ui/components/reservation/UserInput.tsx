@@ -43,7 +43,8 @@ function UserInput({totalPrice, control}: Props) {
               label={'전화번호'}
               placeholder={'000-0000-0000'}
               value={value}
-              onChangeText={onChange}
+              disabled={true}
+              // onChangeText={onChange}
               // onChange
             />
           )}
@@ -55,7 +56,8 @@ function UserInput({totalPrice, control}: Props) {
             <InputField
               label={'이메일주소'}
               placeholder={'example@naver.com'}
-              onChangeText={onChange}
+              // onChangeText={onChange}
+              disabled={true}
               value={value}
             />
           )}

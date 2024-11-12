@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Member} from '@/main/shared/types/member/domain.ts';
 
 type State = {
@@ -20,9 +20,13 @@ const memberSlice = createSlice({
     },
     logout(state) {
       state.isLogin = false;
+      state.member = null;
+    },
+    setMember(state, action: PayloadAction<Member>) {
+      state.member = action.payload;
     },
   },
 });
 
 export default memberSlice.reducer;
-export const {login, logout} = memberSlice.actions;
+export const {login, logout, setMember} = memberSlice.actions;
