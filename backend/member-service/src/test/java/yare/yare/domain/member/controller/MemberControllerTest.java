@@ -20,6 +20,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
+import yare.yare.domain.ci.dto.request.CiAddReq;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
 import yare.yare.domain.member.dto.response.MemberAccessTokenRes;
 import yare.yare.domain.member.dto.response.MemberDetailsRes;
@@ -37,10 +38,10 @@ import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static java.lang.Boolean.TRUE;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -96,7 +97,6 @@ class MemberControllerTest {
         // when
         ResultActions actions = mockMvc.perform(
                 get("/api/members/token/{code}", code)
-                        .header("Authorization", jwtToken)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -115,10 +115,6 @@ class MemberControllerTest {
                         resource(ResourceSnippetParameters.builder()
                                 .tag("Member API")
                                 .summary("access token 조회 API")
-                                .requestHeaders(
-                                        headerWithName("Authorization")
-                                                .description("JWT 토큰")
-                                )
                                 .pathParameters(
                                         parameterWithName("code")
                                                 .description("Oauth code")
@@ -305,6 +301,48 @@ class MemberControllerTest {
                                 )
                                 .requestSchema(Schema.schema("마이 팀 변경 Request"))
                                 .responseSchema(Schema.schema("마이 팀 변경 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 로그아웃_성공() throws Exception {
+        // given
+        doNothing().when(memberService).logout(any());
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                post("/api/members/logout")
+                        .header("Authorization", jwtToken)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+
+        // then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "로그아웃 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Member API")
+                                .summary("로그아웃 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body").type(NULL)
+                                                        .description("내용 없음")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("로그아웃 Request"))
+                                .responseSchema(Schema.schema("로그아웃 Response"))
                                 .build()
                         ))
                 );

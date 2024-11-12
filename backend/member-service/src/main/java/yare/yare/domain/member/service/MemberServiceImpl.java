@@ -1,6 +1,7 @@
 package yare.yare.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.member.dto.request.MyTeamModifyReq;
@@ -27,13 +28,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public MemberAccessTokenRes getAccessToken(String code) {
-        String accessToken = redisUtils.getData(code).toString();
-
-        if(accessToken == null) {
+        Object token = redisUtils.getData(code);
+        if(token == null) {
             throw new CustomException(NOT_VALID_CODE);
         }
 
-        return new MemberAccessTokenRes(accessToken);
+        return new MemberAccessTokenRes((String) token);
     }
 
     @Override
@@ -60,5 +60,14 @@ public class MemberServiceImpl implements MemberService {
         member.updateMyTeamName(myTeamName);
 
         return MyTeamModifyRes.toDto(member);
+    }
+
+    @Override
+    public void logout(Authentication authentication) {
+        if (authentication != null && authentication.getCredentials() instanceof String) {
+            String accessToken = (String) authentication.getCredentials();
+
+            redisUtils.setData("token_" + accessToken, accessToken);
+        }
     }
 }
