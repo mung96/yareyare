@@ -1,93 +1,70 @@
-import React, {useState} from 'react';
-import {Button, StyleSheet, View} from 'react-native';
-import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
+import {Pressable, SafeAreaView, StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import dayjs from 'dayjs';
 import {COLORS} from '@/main/shared/styles';
 import {getGameSchedule} from '@/main/apis/game.ts';
-
+import Icon from 'react-native-vector-icons/AntDesign';
+import useCalendar from '@/main/services/hooks/useCalendar.ts';
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 function Calendar() {
-  const today = dayjs().toDate();
-  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
-  const [currentYear, setCurrentYear] = useState(today.getFullYear());
+  const {
+    currentMonth,
+    currentYear,
+    handlePrevMonth,
+    handleNextMonth,
+    calendarDays,
+  } = useCalendar();
 
-  const handlePrevMonth = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
-    }
-  };
-
-  const handleNextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
-  };
-
-  const generateCalendarDays = () => {
-    const firstDayOfMonth = dayjs()
-      .year(currentYear)
-      .month(currentMonth)
-      .date(1)
-      .day(); //요일을 숫자로 반환
-    const endDayOfMonth = dayjs()
-      .year(currentYear)
-      .month(currentMonth)
-      .date(1)
-      .endOf('month')
-      .day();
-
-    const daysInMonth = dayjs()
-      .year(currentYear)
-      .month(currentMonth)
-      .daysInMonth();
-
-    const daysArray = [];
-
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      daysArray.push('');
-    }
-
-    for (let i = 1; i <= daysInMonth; i++) {
-      daysArray.push(i.toString());
-    }
-    for (let i = endDayOfMonth + 1; i <= 6; i++) {
-      daysArray.push('');
-    }
-
-    return daysArray;
-  };
-
-  const calendarDays = generateCalendarDays();
-
-  const fetch = async () => {
-    try {
-      const response = await getGameSchedule(
-        '1',
-        String(currentYear),
-        String(currentMonth + 1),
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  fetch();
+  // const fetch = async () => {
+  //   try {
+  //     const response = await getGameSchedule(
+  //       '1',
+  //       String(currentYear),
+  //       String(currentMonth + 1),
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // fetch();
 
   return (
-    <CommonLayout>
+    <SafeAreaView
+      style={{
+        paddingHorizontal: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
+        backgroundColor: COLORS.WHITE,
+      }}>
       <View style={styles.header}>
-        <Button title="이전달" onPress={handlePrevMonth} />
-        {/*<Icon />*/}
-        <CustomText>{`${currentYear}년 ${currentMonth + 1}월`}</CustomText>
-        <Button title="다음달" onPress={handleNextMonth} />
+        <Pressable style={styles.btnBox} onPress={handlePrevMonth}>
+          <Icon name={'caretleft'} size={16} />
+        </Pressable>
+        <CustomText>
+          <CustomText
+            style={[
+              styles.text,
+              {fontWeight: 'bold', color: COLORS.PURPLE_100},
+            ]}>
+            {currentYear}
+          </CustomText>
+          <CustomText style={[styles.text]}>년 </CustomText>
+
+          <CustomText
+            style={[
+              styles.text,
+              {fontWeight: 'bold', color: COLORS.PURPLE_100},
+            ]}>
+            {currentMonth + 1}
+          </CustomText>
+          <CustomText style={[styles.text]}>월</CustomText>
+        </CustomText>
+        <Pressable style={styles.btnBox} onPress={handleNextMonth}>
+          <Icon name={'caretright'} size={16} />
+        </Pressable>
         <View style={styles.schedule}>
           <CustomText>경기 일정</CustomText>
           <CustomText>나의 팀 로고</CustomText>
@@ -115,21 +92,30 @@ function Calendar() {
           ))}
         </View>
       </View>
-    </CommonLayout>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
     padding: 10,
   },
+  text: {
+    fontSize: 16,
+    lineHeight: 22,
+  },
+  btnBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 4,
+  },
   daysOfWeek: {
     flexDirection: 'row',
-
     width: '100%',
   },
   day: {
