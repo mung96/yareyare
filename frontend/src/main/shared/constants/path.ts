@@ -8,7 +8,7 @@ export const PATH = {
 
   MAP: 'Map',
 
-  MY_TICKET: 'MyTicket',
+  MY_PAGE: 'MyPage',
 
   WAITING: 'Waiting',
   RESERVATION: 'Reservation',

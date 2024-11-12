@@ -3,7 +3,7 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 
-function MyTicketPage() {
+function MyPageScreen() {
   const dispatch = useDispatch();
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -15,4 +15,4 @@ function MyTicketPage() {
   );
 }
 
-export default MyTicketPage;
+export default MyPageScreen;

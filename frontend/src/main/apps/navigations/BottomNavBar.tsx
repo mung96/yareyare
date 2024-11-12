@@ -2,7 +2,7 @@ import React from 'react';
 import HomeScreen from '@/main/apps/screens/HomeScreen.tsx';
 import {PATH} from '@/main/shared/constants';
 import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
-import MyTicketScreen from '@/main/apps/screens/MyTicketScreen.tsx';
+import MyPageScreen from '@/main/apps/screens/MyPageScreen.tsx';
 import MapScreen from '@/main/apps/screens/MapScreen.tsx';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
@@ -13,7 +13,7 @@ export type BottomParamList = {
   [PATH.HOME]: undefined;
   [PATH.GAME_SCHEDULE]: undefined;
   [PATH.MAP]: undefined;
-  [PATH.MY_TICKET]: undefined;
+  [PATH.MY_PAGE]: undefined;
 };
 
 function TabBarIcons(route: RouteProp<BottomParamList>, focused: boolean) {
@@ -31,8 +31,8 @@ function TabBarIcons(route: RouteProp<BottomParamList>, focused: boolean) {
       iconName = focused ? 'map' : 'map-outline';
       break;
     }
-    case PATH.MY_TICKET: {
-      iconName = focused ? 'ticket' : 'ticket-outline';
+    case PATH.MY_PAGE: {
+      iconName = focused ? 'person' : 'person-outline';
       break;
     }
   }
@@ -83,9 +83,9 @@ function BottomNavBar() {
         options={{title: '길찾기'}}
       />
       <Tab.Screen
-        name={PATH.MY_TICKET}
-        component={MyTicketScreen}
-        options={{title: '나의티켓'}}
+        name={PATH.MY_PAGE}
+        component={MyPageScreen}
+        options={{title: '마이페이지'}}
       />
     </Tab.Navigator>
   );
