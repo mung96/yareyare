@@ -24,22 +24,18 @@ type CertificationResponse = {
   success: string;
 };
 function CertificateScreen({navigation, route}: CertificateStartScreenProps) {
-  /* 가맹점 식별코드, 본인인증 데이터 추출 */
   const dispatch = useDispatch();
-
   const userCode = route.params.userCode;
   const data = route.params.data;
 
-  /* 본인인증 후 실행될 콜백 함수 입력 */
   async function callback(response: CertificationResponse) {
     console.log(response);
     const isSuccessed = getIsSuccessed(response);
     if (isSuccessed) {
-      /* 본인인증 성공한 경우, 리디렉션 위해 홈으로 이동한다 */
       try {
         const {status} = await postCertificate(response.imp_uid);
         if (status === 201) {
-          // dispatch(moveNavigation('navbar'))}
+          dispatch(moveNavigation('navbar'));
         }
       } catch (error) {
         console.log(error);

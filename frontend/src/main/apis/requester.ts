@@ -34,7 +34,7 @@ apiRequester.interceptors.response.use(
   },
   error => {
     if (isAxiosError(error)) {
-      console.log(error);
+      console.log(error.response?.data);
     }
     return Promise.reject(error);
   },
