@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.game.dto.ReserveSeatReq;
 import yare.yare.domain.game.repository.GameRepository;
+import yare.yare.global.utils.RedisUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static yare.yare.domain.stadium.enums.SeatStatus.AVAILABLE;
 import static yare.yare.global.ResponseFieldUtils.getCommonResponseFields;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
@@ -48,6 +48,12 @@ public class GameControllerTest {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    private final String idempotentKey = "idempotentKey";
+
 
     @Test
     public void 경기_일정_조회_팀_선택X_성공() throws Exception {
@@ -317,12 +323,11 @@ public class GameControllerTest {
         Long gameId = 693L;
         ReserveSeatReq req = new ReserveSeatReq();
         List<Long> seats = new ArrayList<>();
-        seats.add(1L);
-        seats.add(2L);
+        seats.add(200L);
+        seats.add(201L);
         req.setSeats(seats);
+        req.setIdempotentKey(idempotentKey);
         String content = objectMapper.writeValueAsString(req);
-
-        gameRepository.updateSeatStatus(AVAILABLE, gameId, List.of(new Long[]{1L, 2L}));
 
         //when
         ResultActions actions = mockMvc.perform(
@@ -348,9 +353,9 @@ public class GameControllerTest {
                                         parameterWithName("gameId").description("조회할 경기 아이디")
                                 )
                                 .requestFields(
-                                        List.of(
-                                                fieldWithPath("seats").type(ARRAY).description("예약할 좌석 아이디 리스트")
-                                        )
+                                        fieldWithPath("seats").type(ARRAY).description("예약할 좌석 아이디 리스트"),
+                                        fieldWithPath("idempotentKey").type(STRING).description("멱등키")
+
                                 )
                                 .responseFields(
                                         getCommonResponseFields(
