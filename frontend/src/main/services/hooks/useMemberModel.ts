@@ -11,7 +11,6 @@ function useMemberModel() {
 
   const member = useMemo(() => {
     if (myInfoData && teamListData) {
-      console.log(myInfoData);
       const teamLogo = teamListData.teams.find(
         team => String(team.teamId) === String(myInfoData.myTeamId),
       )?.teamLogo;

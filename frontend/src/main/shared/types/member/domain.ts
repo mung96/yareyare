@@ -3,7 +3,7 @@ export type Member = {
   birth: string;
   tel: string;
   email: string;
-  myTeamId: string;
+  myTeamId: number;
   myTeamLogo?: string;
   myTeamName: string;
   isCertificated: boolean;
