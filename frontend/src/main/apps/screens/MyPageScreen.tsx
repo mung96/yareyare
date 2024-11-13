@@ -1,12 +1,14 @@
 import React from 'react';
 import MyPageList from '@/main/ui/components/member/MyPageList.tsx';
-import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
+import {Dimensions, Image, ScrollView, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import CouponBox from '@/main/ui/components/member/CouponBox.tsx';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 import {SvgUri} from 'react-native-svg';
+
 const {width} = Dimensions.get('window');
+
 function MyPageScreen() {
   const {member} = useMemberModel();
   return (
@@ -26,8 +28,18 @@ function MyPageScreen() {
           <CustomText style={styles.text}>안녕하세요~</CustomText>
         </View>
         <View style={styles.logoBox}>
-          {member?.myTeamLogo && (
-            <SvgUri uri={String(member?.myTeamLogo)} width={48} height={48} />
+          {member?.myTeamLogo ? (
+            <SvgUri
+              uri={String(member?.myTeamLogo)}
+              width={'100%'}
+              height={'100%'}
+            />
+          ) : (
+            <Image
+              source={require('@/main/assets/yareLogo.png')}
+              resizeMode={'contain'}
+              style={{width: '100%', height: '100%', borderRadius: 50}}
+            />
           )}
         </View>
       </View>
@@ -36,6 +48,7 @@ function MyPageScreen() {
     </ScrollView>
   );
 }
+
 const styles = StyleSheet.create({
   textBox: {
     display: 'flex',
