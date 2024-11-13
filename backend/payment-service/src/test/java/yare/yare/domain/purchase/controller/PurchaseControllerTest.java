@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static com.epages.restdocs.apispec.ResourceDocumentation.parameterWithName;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -51,7 +52,7 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ExtendWith(RestDocumentationExtension.class)
-public class PurchaseTest {
+public class PurchaseControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -150,7 +151,7 @@ public class PurchaseTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                 get("/api/payments/tickets/purchases")
+                 get("/api/payments/tickets/purchases?lastPurchaseId=",8L)
                         .header("Authorization", "Bearer " + JWT_TOKEN)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -172,6 +173,10 @@ public class PurchaseTest {
                                 .requestHeaders(
                                         headerWithName("Authorization")
                                                 .description("JWT 토큰")
+                                )
+                                .queryParameters(
+                                        parameterWithName("lastPurchaseId").optional()
+                                                .description("마지막 조회된 구매 ID (페이징을 위한 ID)")
                                 )
                                 .responseFields(
                                         getCommonResponseFields(
@@ -243,7 +248,7 @@ public class PurchaseTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/api/payments/tickets/cancellations")
+                get("/api/payments/tickets/cancellations?lastPurchaseId", 8L)
                         .header("Authorization", "Bearer " + JWT_TOKEN)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -265,6 +270,10 @@ public class PurchaseTest {
                                 .requestHeaders(
                                         headerWithName("Authorization")
                                                 .description("JWT 토큰")
+                                )
+                                .queryParameters(
+                                        parameterWithName("lastPurchaseId").optional()
+                                                .description("마지막 조회된 구매 ID (페이징을 위한 ID)")
                                 )
                                 .responseFields(
                                         getCommonResponseFields(
