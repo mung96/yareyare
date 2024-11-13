@@ -2,10 +2,7 @@ package yare.yare.global.jwt.filter;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 import yare.yare.domain.member.entity.Role;
@@ -35,6 +33,13 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final RedisUtils redisUtils;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String requestURI = request.getRequestURI();
+
+        return isPermitAllPath(requestURI);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -116,5 +121,11 @@ public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    private boolean isPermitAllPath(String requestURI) {
+        return requestURI.startsWith("/api/members/signin/social") ||
+                requestURI.startsWith("/api/members/oauth2/code") ||
+                requestURI.startsWith("/api/members/token");
     }
 }
