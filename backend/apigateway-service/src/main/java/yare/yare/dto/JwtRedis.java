@@ -2,6 +2,7 @@ package yare.yare.dto;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @Setter
