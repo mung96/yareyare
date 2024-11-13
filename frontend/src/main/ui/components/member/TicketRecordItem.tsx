@@ -1,12 +1,18 @@
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
+import {TicketResponse} from '@/main/shared/types/payment/api.ts';
 
-function TicketRecordItem() {
+type Props = {
+  ticket: TicketResponse;
+};
+
+function TicketRecordItem({ticket}: Props) {
+  console.log(ticket);
   return (
     <View style={styles.container}>
       <CustomText style={styles.title}>
-        2024 신한SOL뱅크 KBO리그 롯데vs두산
+        {ticket.seasonName} {ticket.homeTeamName} vs {ticket.awayTeamName}
       </CustomText>
       <View style={styles.content}>
         <View style={styles.ticketImageBox} />
@@ -16,7 +22,7 @@ function TicketRecordItem() {
               예매번호
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
-              T3271381
+              {ticket.reservationId}
             </CustomText>
           </View>
           <View style={styles.textBox}>
@@ -24,7 +30,7 @@ function TicketRecordItem() {
               예매일
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
-              2024.06.08
+              {ticket.reservationDate}
             </CustomText>
           </View>
           <View style={styles.textBox}>
@@ -32,7 +38,7 @@ function TicketRecordItem() {
               장소
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
-              잠실야구장
+              {ticket.stadiumName}
             </CustomText>
           </View>
           <View style={styles.textBox}>
@@ -40,7 +46,7 @@ function TicketRecordItem() {
               경기일시
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
-              2024.06.13(목) 18:30
+              {ticket.gameDateTime}
             </CustomText>
           </View>
 
@@ -49,7 +55,7 @@ function TicketRecordItem() {
               취소가능일시
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
-              2024.06.12(수) 23:59
+              {ticket.cancelDeadline}
             </CustomText>
           </View>
           <View style={styles.textBox}>
@@ -57,7 +63,7 @@ function TicketRecordItem() {
               상태
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
-              예매완료
+              {ticket.purchaseStatus}
             </CustomText>
           </View>
         </View>
