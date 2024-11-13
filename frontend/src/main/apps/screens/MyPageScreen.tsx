@@ -41,6 +41,11 @@ function MyPageScreen({navigation}: NativeStackScreenProps<MypageParamList>) {
         title={'본인 인증'}
         onPress={() => dispatch(moveNavigation('certificate'))}
       />
+      <MypageItem
+        icon={<MIcon name={'logout'} size={22} />}
+        title={'로그아웃'}
+        onPress={() => console.log('로그아웃')}
+      />
     </View>
   );
 }
