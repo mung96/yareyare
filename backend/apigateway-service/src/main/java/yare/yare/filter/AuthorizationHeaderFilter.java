@@ -1,5 +1,6 @@
 package yare.yare.filter;
 
+import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import yare.yare.dto.JwtRedis;
 import yare.yare.exception.CustomException;
 import yare.yare.utils.RedisUtils;
 
@@ -50,7 +52,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
                 throw new CustomException(INVALID_TOKEN);
             }
 
-            if(isExpiredToken(jwt)) {
+            if(isExpiredToken(jwt) || isExpiredRefreshToken(jwt)) {
                 throw new CustomException(EXPIRED_TOKEN);
             }
 
@@ -80,5 +82,16 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     private boolean isExpiredToken(String jwt) {
         return redisUtils.getData("token_" + jwt) != null;
+    }
+
+    private boolean isExpiredRefreshToken(String jwt) {
+        String uuid = JWT.decode(jwt).getSubject();
+        JwtRedis jwtRedis = (JwtRedis)redisUtils.getData(uuid);
+
+        if(jwtRedis != null) {
+            return redisUtils.getData("refresh_token_" + jwtRedis.getRefreshToken()) != null;
+        }
+
+        return true;
     }
 }
