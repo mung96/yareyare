@@ -13,6 +13,8 @@ import yare.yare.domain.member.repository.MemberRepository;
 import yare.yare.domain.team.dto.TeamDto;
 import yare.yare.domain.team.feign_client.TeamFeignClientCustom;
 import yare.yare.global.exception.CustomException;
+import yare.yare.global.jwt.entity.JwtRedis;
+import yare.yare.global.jwt.service.JwtService;
 import yare.yare.global.utils.RedisUtils;
 
 import static yare.yare.global.statuscode.ErrorCode.*;
@@ -22,6 +24,7 @@ import static yare.yare.global.statuscode.ErrorCode.*;
 @Transactional
 public class MemberServiceImpl implements MemberService {
     private final RedisUtils redisUtils;
+    private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final TeamFeignClientCustom teamFeignClientCustom;
 
@@ -66,8 +69,13 @@ public class MemberServiceImpl implements MemberService {
     public void logout(Authentication authentication) {
         if (authentication != null && authentication.getCredentials() instanceof String) {
             String accessToken = (String) authentication.getCredentials();
+            String uuid = jwtService.getUuid(accessToken);
 
-            redisUtils.setData("token_" + accessToken, accessToken);
+            JwtRedis jwtRedis = (JwtRedis) redisUtils.getData(uuid);
+            String refreshToken = jwtRedis.getRefreshToken();
+
+            redisUtils.setDataWithExpiration("token_" + accessToken, accessToken, 10800L);
+            redisUtils.setDataWithExpiration("refresh_token_" + refreshToken, refreshToken, 259200L);
         }
     }
 }

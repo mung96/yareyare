@@ -17,6 +17,7 @@ import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 import yare.yare.domain.member.entity.Role;
 import yare.yare.global.dto.ResponseDto;
+import yare.yare.global.exception.CustomException;
 import yare.yare.global.jwt.entity.JwtRedis;
 import yare.yare.global.jwt.service.JwtService;
 import yare.yare.global.statuscode.ErrorCode;
@@ -53,6 +54,18 @@ public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
             return;
         } else if (token_type.equals("access_token")) {
             if (jwtService.isTokenValid(token)) {
+                if(redisUtils.getData("token_" + token) != null) {
+                    throw new CustomException(EXPIRED_TOKEN);
+                }
+
+                String uuid = jwtService.getUuid(token);
+                JwtRedis jwtRedis = (JwtRedis) redisUtils.getData(uuid);
+                String refreshToken = jwtRedis.getRefreshToken();
+
+                if(redisUtils.getData("refresh_token_"+refreshToken) != null) {
+                    throw new CustomException(EXPIRED_TOKEN);
+                }
+
                 Authentication auth = jwtService.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } else if (jwtService.isTokenExpired(token)) {

@@ -111,13 +111,13 @@ public class JwtServiceImpl implements JwtService {
 
             if(type.equals(REFRESH_TOKEN_CLAIM_NAME)){
                 Long expires = decoded.getExpiresAt().getTime() - new Date().getTime();
-                long diffInDays = TimeUnit.MILLISECONDS.toDays(expires);
-                if (diffInDays < 3 && expires > 0) { // redis에 있는 refreshToken 재발급
+                long diffInHours = TimeUnit.MILLISECONDS.toHours(expires);
+                if (diffInHours < 3 && expires > 0) { // redis에 있는 refreshToken 재발급
                     JwtRedis jwtRedis = (JwtRedis) redisUtils.getData(uuid);
                     jwtRedis.setRefreshToken(createRefreshToken(uuid));
                     redisUtils.setData(uuid, jwtRedis);
                     return false;
-                } else return diffInDays < 3;
+                } else return diffInHours < 3;
             }
             return JWT.decode(token).getExpiresAt().before(new Date());
         } catch(Exception e){
