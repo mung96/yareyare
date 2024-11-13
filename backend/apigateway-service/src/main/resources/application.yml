@@ -17,7 +17,7 @@ spring:
         - id: game-service
         - uri: lb://GAME-SERVICE
         - predicates:
-          - Path=/api/games/**/seats/**/price
+          - Path=/api/games/**/seats/**/price, /api/games/teams
           - Method=GET
 
         - id: game-service
