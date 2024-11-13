@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
-import {ScrollView} from 'react-native';
+import {ActivityIndicator, FlatList, ScrollView, View} from 'react-native';
 import TicketRecordItem from '@/main/ui/components/member/TicketRecordItem.tsx';
 import {COLORS} from '@/main/shared/styles';
 import {useState} from 'react';
@@ -13,26 +13,35 @@ function TicketRecordScreen({
   const recordType = route.params.type;
   const [purchaseId, setLastPurchaseId] = useState<number>(0);
 
-  const {data: ticketRecordList, isSuccess} = useGetTicketRecordQuery(
-    recordType,
-    purchaseId,
-  );
+  const {
+    data: ticketRecordList,
+    isSuccess,
+    isLoading,
+    refetch,
+  } = useGetTicketRecordQuery(recordType, purchaseId);
   console.log(ticketRecordList);
 
   return (
-    <ScrollView
-      contentContainerStyle={{
+    <View
+      style={{
         paddingHorizontal: 12,
         alignItems: 'center',
         gap: 12,
         width: '100%',
         backgroundColor: COLORS.WHITE,
       }}>
-      {isSuccess &&
-        ticketRecordList?.tickets.content.map(ticket => (
-          <TicketRecordItem ticket={ticket} />
-        ))}
-    </ScrollView>
+      {isSuccess && (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={ticketRecordList.tickets.content}
+          renderItem={ticket => <TicketRecordItem ticket={ticket.item} />}
+          keyExtractor={ticket => String(ticket.purchaseId)}
+          onEndReached={() => console.log(1)}
+          onEndReachedThreshold={0.8}
+          ListFooterComponent={<ActivityIndicator />}
+        />
+      )}
+    </View>
   );
 }
 

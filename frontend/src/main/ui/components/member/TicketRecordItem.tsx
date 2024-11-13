@@ -8,7 +8,6 @@ type Props = {
 };
 
 function TicketRecordItem({ticket}: Props) {
-  console.log(ticket);
   return (
     <View style={styles.container}>
       <CustomText style={styles.title}>
