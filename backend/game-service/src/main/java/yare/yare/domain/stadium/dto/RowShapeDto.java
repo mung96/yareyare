@@ -10,10 +10,10 @@ public class RowShapeDto {
 
     private String rowName;
 
-    private List<Integer> columns;
+    private List<SeatShapeDto> seats;
 
     public RowShapeDto(String rowName, List<Seat> seats) {
         this.rowName = rowName;
-        this.columns = seats.stream().map(Seat::getSeatNumber).toList();
+        this.seats = seats.stream().map(Seat::getSeatNumber).map(SeatShapeDto::new).toList();
     }
 }
