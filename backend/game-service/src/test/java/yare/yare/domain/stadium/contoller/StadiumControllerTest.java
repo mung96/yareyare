@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.ARRAY;
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.STRING;
+import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -79,8 +78,10 @@ public class StadiumControllerTest {
                                                         .description("행 목록"),
                                                 fieldWithPath("body.sections[].rows[].rowName").type(STRING)
                                                         .description("행 이름"),
-                                                fieldWithPath("body.sections[].rows[].columns").type(ARRAY)
-                                                        .description("열 목록")
+                                                fieldWithPath("body.sections[].rows[].seats").type(ARRAY)
+                                                        .description("좌석 목록"),
+                                                fieldWithPath("body.sections[].rows[].seats[].seatNumber").type(NUMBER)
+                                                        .description("좌석 번호")
                                         )
                                 )
                                 .requestSchema(Schema.schema("구장 모양 조회 API(등급 별)"))
