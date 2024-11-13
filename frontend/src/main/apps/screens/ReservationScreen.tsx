@@ -74,7 +74,7 @@ function ReservationScreen() {
       {reservationStep === 'PaymentStep' && (
         <PaymentScreen
           onPrev={() => history.back()}
-          onSubmit={() => navigation.navigate(PATH.PORTONE_PAYMENT)}
+          onSubmit={() => navigation.navigate(PATH.PORTONE_PAYMENT, context)}
         />
       )}
     </SafeAreaView>

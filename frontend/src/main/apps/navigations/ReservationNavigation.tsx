@@ -7,10 +7,11 @@ import {Pressable} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import PortOnePaymentScreen from '@/main/apps/screens/reservationProcess/PortOnePaymentScreen';
+import {PaymentStep} from '@/main/shared/types';
 
 export type ReservationParamList = {
   [PATH.RESERVATION]: undefined;
-  [PATH.PORTONE_PAYMENT]: undefined;
+  [PATH.PORTONE_PAYMENT]: PaymentStep;
 };
 
 const Stack = createNativeStackNavigator<ReservationParamList>();

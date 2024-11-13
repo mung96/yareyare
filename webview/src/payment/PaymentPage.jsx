@@ -3,11 +3,11 @@ import {useEffect, useState} from "react";
 
 
 function PaymentPage() {
-  const [price,setPrice] = useState(0)
+  const [data,setData] = useState()
   const onMessageHandler =(e) =>{
     window.ReactNativeWebView.postMessage("페이지 진입")
     window.ReactNativeWebView.postMessage(e.data)
-    setPrice(JSON.parse(e.data).price)
+    setData(JSON.parse(e.data))
   }
   useEffect(() => {
 
@@ -17,7 +17,7 @@ function PaymentPage() {
       document.removeEventListener("message", onMessageHandler);
     };
   }, []);
-  fetchPortOne(price)
+  fetchPortOne(data)
   return (
       <div>
       </div>
