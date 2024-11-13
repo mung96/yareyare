@@ -8,8 +8,10 @@ import yare.yare.domain.game.entity.Game;
 import yare.yare.domain.game.entity.GameSeat;
 import yare.yare.domain.game.repository.GameRepository;
 import yare.yare.global.exception.CustomException;
+import yare.yare.global.utils.RedisUtil;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static yare.yare.domain.stadium.enums.SeatStatus.AVAILABLE;
@@ -23,6 +25,7 @@ import static yare.yare.global.statuscode.ErrorCode.NOT_FOUND;
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
+    private final RedisUtil redisUtil;
 
     @Override
     public GameListRes findGames() {
@@ -98,6 +101,8 @@ public class GameServiceImpl implements GameService {
     @Transactional
     public ReserveSeatRes reserveSeat(Long gameId, ReserveSeatReq reserveSeatReq) {
 
+        pendInRedis(gameId, reserveSeatReq);
+
         List<GameSeat> selectedSeats = gameRepository.findSelectedSeats(gameId, reserveSeatReq.getSeats());
 
         checkAvailableSeats(reserveSeatReq, selectedSeats);
@@ -108,6 +113,26 @@ public class GameServiceImpl implements GameService {
         reserveSeatRes.setPrice(getPrice(selectedSeats));
 
         return reserveSeatRes;
+    }
+
+    private void pendInRedis(Long gameId, ReserveSeatReq reserveSeatReq) {
+
+        List<String> keys = new ArrayList<>();
+
+        for (Long seatId : reserveSeatReq.getSeats()) {
+            String key = String.format("seat:%d:%d", gameId, seatId);
+            boolean lock = redisUtil.lock(key, reserveSeatReq.getIdempotentKey(), 600L);
+
+            if (lock) {
+                keys.add(key);
+            } else {
+                for (String k : keys) {
+                    redisUtil.deleteData("lock:" + k);
+                }
+
+                throw new CustomException(ALREADY_RESERVED);
+            }
+        }
     }
 
     private static void checkAvailableSeats(ReserveSeatReq reserveSeatReq, List<GameSeat> selectedSeats) {
