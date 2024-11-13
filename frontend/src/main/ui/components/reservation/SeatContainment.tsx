@@ -37,7 +37,7 @@ function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
                     return (
                       <Pressable
                         disabled={disabled}
-                        key={seat.seatId}
+                        key={seat.seatId + ' ' + name}
                         style={[
                           styles.seatBox,
                           seat.seatNumber % 4 === 1 && {
