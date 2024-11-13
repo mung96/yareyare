@@ -31,7 +31,10 @@ public class PurchaseHistory {
 
     private Integer totalPrice;
 
-    @NotNull
     @CreatedDate
     private LocalDateTime createdAt;
+
+    public void updateTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

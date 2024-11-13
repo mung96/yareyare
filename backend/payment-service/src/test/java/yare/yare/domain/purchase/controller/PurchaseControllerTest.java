@@ -62,9 +62,6 @@ public class PurchaseControllerTest {
     @MockBean
     private PurchaseService purchaseService;
 
-    @MockBean
-    private JwtTokenService jwtTokenService;
-
     private static final String JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc0NlcnRpZmljYXRlZCI6ZmFsc2UsInN1YiI6ImQwYTkyNDM0LTdjMDItNDZmZC04MmU4LTY2Y2U0OTMxYjhhZiIsImlzcyI6Ind3dy5zYW1zdW5nLmNvbSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJleHAiOjE3MzE0MTQ4Njd9.gHTHN0mufDhfasY7xB5dyO6kmt0dNghKBvCevwGYQJ2RsBenCvJpkhtrQ3qZfVHo7jUf5_4ApSn8sF9fTO-JTg";
 
     @Test

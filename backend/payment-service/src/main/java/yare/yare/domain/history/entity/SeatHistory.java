@@ -32,7 +32,6 @@ public class SeatHistory {
     @Column(columnDefinition = "INT UNSIGNED")
     private Long seatId;
 
-    @NotNull
     @CreatedDate
     private LocalDateTime createdAt;
 }
