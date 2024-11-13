@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtTokenService {
     public String getMemberUuid(String token) {
+        token = token.replace("Bearer ", "");
         DecodedJWT decoded = JWT.decode(token);
 
         return decoded.getSubject();
     }
+
+
 }
