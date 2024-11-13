@@ -1,5 +1,3 @@
-import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
-import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
 import {ScrollView, View} from 'react-native';
@@ -10,6 +8,9 @@ function TicketRecordScreen({
   route,
 }: NativeStackScreenProps<MypageParamList, 'TicketRecord'>) {
   const {type: recordType} = route.params;
+
+  //query요청
+
   return (
     <ScrollView
       contentContainerStyle={{

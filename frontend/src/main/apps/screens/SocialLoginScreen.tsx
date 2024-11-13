@@ -13,7 +13,6 @@ function SocialLoginScreen({route}: any) {
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     if (event.nativeEvent.url.includes(`${REDIRECT_URI}?code=`)) {
       const token = event.nativeEvent.url.replace(`${REDIRECT_URI}?code=`, '');
-
       const response = await apiRequester.get(`members/token/${token}`);
       setEncryptStorage('token', response.data.body.accessToken);
       dispatch(login());
