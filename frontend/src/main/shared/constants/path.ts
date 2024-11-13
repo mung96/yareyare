@@ -8,7 +8,11 @@ export const PATH = {
 
   MAP: 'Map',
 
-  MY_TICKET: 'MyTicket',
+  MY_PAGE_INTRO: 'MyPageIntro',
+  MY_PAGE: 'MyPage',
+  TICKET_RECORD: 'TicketRecord',
+  CANCEL_TICKET: 'CancelTicket',
+  UPDATE_MYTEAM: 'UpdateMyTeam',
 
   WAITING: 'Waiting',
   RESERVATION: 'Reservation',

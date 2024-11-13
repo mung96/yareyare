@@ -5,6 +5,6 @@ export function useTeamQuery() {
   return useQuery({
     queryFn: getTeamList,
     queryKey: ['team'],
-    // staleTime: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000,
   });
 }

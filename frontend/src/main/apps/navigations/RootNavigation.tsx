@@ -1,7 +1,6 @@
 import {useSelector} from 'react-redux';
 import {RootState} from '@/main/stores/rootReducer.ts';
 import {NavigationContainer} from '@react-navigation/native';
-import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
 import BottomNavBar from '@/main/apps/navigations/BottomNavBar.tsx';
 import WaitingNavigation from '@/main/apps/navigations/WaitingNavigation.tsx';
 import ReservationNavigation from '@/main/apps/navigations/ReservationNavigation.tsx';
