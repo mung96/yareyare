@@ -8,6 +8,7 @@ export const PATH = {
 
   MAP: 'Map',
 
+  MY_PAGE_INTRO: 'MyPageIntro',
   MY_PAGE: 'MyPage',
   TICKET_RECORD: 'TicketRecord',
   CANCEL_TICKET: 'CancelTicket',
