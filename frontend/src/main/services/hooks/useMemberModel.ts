@@ -5,7 +5,7 @@ import {setMember} from '@/main/stores/member.ts';
 import {useTeamQuery} from '@/main/services/hooks/queries/useTeamQuery.ts';
 
 function useMemberModel() {
-  const {data: myInfoData} = useGetMyInfoQuery();
+  const {data: myInfoData, refetch: refetchMember} = useGetMyInfoQuery();
   const {data: teamListData} = useTeamQuery();
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ function useMemberModel() {
     }
   }, [myInfoData, dispatch, teamListData]);
 
-  return {member};
+  return {member, refetchMember};
 }
 
 export default useMemberModel;

@@ -15,13 +15,14 @@ function UpdateTeamScreen({
   navigation,
 }: NativeStackScreenProps<MypageParamList>) {
   const {data: teamListData} = useTeamQuery();
-  const {member} = useMemberModel();
+  const {member, refetchMember} = useMemberModel();
   const [teamId, setTeamId] = useState<number>(
     member?.myTeamId ? member.myTeamId : 0,
   );
   console.log(teamListData);
   const handleLogoPress = async (teamId: number) => {
     await patchMyTeam(teamId);
+    refetchMember();
     navigation.navigate(PATH.MY_PAGE);
   };
   return (
