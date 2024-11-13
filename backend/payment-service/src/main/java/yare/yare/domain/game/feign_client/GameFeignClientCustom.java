@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import yare.yare.domain.game.dto.PriceRes;
 
-@FeignClient(name = "gameFeignClientCustom", url = "https://yareyare.co.kr/api/games")
+@FeignClient(name = "game-service")
 public interface GameFeignClientCustom {
     @GetMapping("/{gameId}/seats/{seatId}/price")
     PriceRes getSeatPrice(@PathVariable("gameId") Long gameId,
