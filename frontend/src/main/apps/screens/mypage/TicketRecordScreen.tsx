@@ -3,29 +3,22 @@ import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
 import {ScrollView, View} from 'react-native';
 import TicketRecordItem from '@/main/ui/components/member/TicketRecordItem.tsx';
 import {COLORS} from '@/main/shared/styles';
-import {apiRequester} from '@/main/apis/requester.ts';
-import {isAxiosError} from 'axios';
 import {useState} from 'react';
+import {useGetTicketRecordQuery} from '@/main/services/hooks/queries/useTicketRecordQuery.ts';
 
 function TicketRecordScreen({
   route,
 }: NativeStackScreenProps<MypageParamList, 'TicketRecord'>) {
-  const {type: recordType} = route.params;
-  const lastId = useState(0);
-  async function fetch() {
-    //query요청
+  const recordType = route.params.type;
+  const [purchaseId, setLastPurchaseId] = useState<number>(0);
 
-    try {
-      const response = await apiRequester.get('payments/tickets/purchases');
-      console.log(response);
-      console.log(response.data.body.tickets);
-    } catch (error) {
-      if (isAxiosError(error)) {
-        console.log(error.response);
-      }
-    }
-  }
-  fetch();
+  const {data: ticketRecordList} = useGetTicketRecordQuery(
+    recordType,
+    purchaseId,
+  );
+  console.log(recordType);
+  console.log(ticketRecordList);
+
   return (
     <ScrollView
       contentContainerStyle={{

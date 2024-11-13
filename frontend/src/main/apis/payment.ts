@@ -13,9 +13,10 @@ export async function getTicketRecord(
   type: TicketType,
   lastPurchaseId?: number,
 ): Promise<TicketListResponse> {
-  const {data} = await apiRequester.get<Response<TicketListResponse>>(
+  const params = lastPurchaseId ? {lastPurchaseId} : {};
+  const {data, request} = await apiRequester.get<Response<TicketListResponse>>(
     END_POINT.TICKET_RECORD(type),
-    {params: {lastPurchaseId}},
+    {params: {...params}},
   );
   return data.body;
 }
