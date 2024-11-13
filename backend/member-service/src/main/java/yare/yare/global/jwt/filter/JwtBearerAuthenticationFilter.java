@@ -28,7 +28,6 @@ import static yare.yare.global.statuscode.ErrorCode.NOT_VALID_TOKEN;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
@@ -37,7 +36,6 @@ public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String requestURI = request.getRequestURI();
-
         return isPermitAllPath(requestURI);
     }
 

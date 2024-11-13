@@ -17,9 +17,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import yare.yare.global.jwt.filter.JwtBearerAuthenticationFilter;
+import yare.yare.global.jwt.service.JwtService;
 import yare.yare.global.oauth.PrincipalOauth2UserService;
 import yare.yare.global.oauth.handler.Oauth2FailureHandler;
 import yare.yare.global.oauth.handler.Oauth2SuccessHandler;
+import yare.yare.global.utils.RedisUtils;
 
 import java.security.Security;
 import java.util.Collections;
@@ -29,10 +31,11 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig implements WebMvcConfigurer {
-    private final JwtBearerAuthenticationFilter jwtBearerAuthenticationFilter;
     private final PrincipalOauth2UserService oAuth2UserService;
     private final Oauth2SuccessHandler oauth2SuccessHandler;
     private final Oauth2FailureHandler oauth2FailureHandler;
+    private final JwtService jwtService;
+    private final RedisUtils redisUtils;
 
     @PostConstruct
     public void init() {
@@ -79,7 +82,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .failureHandler(oauth2FailureHandler)
                 );
 
-        http.addFilterBefore(jwtBearerAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtBearerAuthenticationFilter(jwtService, redisUtils), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
