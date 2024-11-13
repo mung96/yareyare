@@ -4,17 +4,39 @@ import ExpectedPayment from '@/main/ui/components/reservation/ExpectedPayment.ts
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {COLORS} from '@/main/shared/styles';
 import {Controller, useForm} from 'react-hook-form';
-import {PaymentContext} from '@/main/shared/types';
+import {PaymentContext, PaymentStep} from '@/main/shared/types';
+import {useSelectSeatMutation} from '@/main/services/hooks/queries/useSeatQuery.ts';
+import {usePaymentHistoryMutation} from '@/main/services/hooks/queries/usePaymentQuery.ts';
+import {PATH} from '@/main/shared/constants';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
+import {useSelector} from 'react-redux';
+import {RootState} from '@/main/stores/rootReducer.ts';
 
 type Props = {
   onPrev: () => void;
-  onSubmit: () => void;
+  context: PaymentStep;
 };
 
-function PaymentScreen({onPrev, onSubmit}: Props) {
+function PaymentScreen({onPrev, context}: Props) {
+  const gameId = useSelector((state: RootState) => state.game.gameId);
   const {control, handleSubmit} = useForm<PaymentContext>({
     defaultValues: {
       paymentMethod: '카드결제',
+    },
+  });
+  const navigation = useNavigation<NavigationProp<ReservationParamList>>();
+  const {mutate: postPaymentHistory} = usePaymentHistoryMutation({
+    onSuccess: data => {
+      console.log(data);
+      navigation.navigate(PATH.PORTONE_PAYMENT, {
+        ...context,
+        totalPrice: data.totalPrice,
+        paymentMethod: control._formValues.paymentMethod,
+      });
+    },
+    onError: error => {
+      console.log(error);
     },
   });
   return (
@@ -30,7 +52,16 @@ function PaymentScreen({onPrev, onSubmit}: Props) {
 
       <MainButton
         label={'결제 및 완료'}
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit(() =>
+          postPaymentHistory({
+            gameId: Number(gameId),
+            seats: context.seatList.map(seat => {
+              return {
+                seatId: Number(seat.seatId),
+              };
+            }),
+          }),
+        )}
         size={'large'}
       />
     </View>

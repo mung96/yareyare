@@ -29,7 +29,7 @@ export async function postRegistPayment(request: PaymentDto) {
 }
 export async function postPaymentHistory(request: PaymentHistoryRequest) {
   const {data} = await apiRequester.post<Response<PaymentDto>>(
-    END_POINT.PAYMENT,
+    END_POINT.PAYMENT_HISTORY,
     {
       ...request,
     },
