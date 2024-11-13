@@ -14,7 +14,6 @@ type Props = {
 
 function UserScreen({onPrev, context, onNext}: Props) {
   const {member} = useMemberModel();
-  console.log(member);
   const {control, handleSubmit} = useForm<UserContext>({
     defaultValues: {
       name: member?.name!,

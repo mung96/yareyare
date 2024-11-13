@@ -42,7 +42,6 @@ apiRequester.interceptors.request.use(async request => {
 apiRequester.interceptors.response.use(
   response => {
     // 응답 데이터를 그대로 반환
-    // console.log('Response Data:', response.data);
     return response;
   },
   error => {
