@@ -1,3 +1,5 @@
+import {TicketType} from '@/main/shared/types/payment/domain.ts';
+
 export const END_POINT = {
   //game
   GAME: 'games',
@@ -17,6 +19,11 @@ export const END_POINT = {
 
   //teamrr
   TEAM: 'games/teams',
+
+  //payment
+  TICKET_RECORD: (type: TicketType) => `payments/tickets/${type}`,
+  PAYMENT_HISTORY: 'payments/history',
+  PAYMENT: 'payments',
 
   //stadium
   STADIUM: 'games/stadiums',

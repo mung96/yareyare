@@ -3,7 +3,7 @@ export type MemberResponse = {
   birth: string;
   tel: string;
   email: string;
-  myTeamId: string;
+  myTeamId: number;
   myTeamName: string;
   isCertificated: boolean;
   uuid: string;
