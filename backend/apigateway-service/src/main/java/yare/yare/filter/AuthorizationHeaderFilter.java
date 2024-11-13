@@ -1,23 +1,20 @@
 package yare.yare.filter;
 
 import com.auth0.jwt.JWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import yare.yare.dto.JwtRedis;
+import yare.yare.global.jwt.entity.JwtRedis;
 import yare.yare.exception.CustomException;
 import yare.yare.utils.RedisUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 
 import static yare.yare.statuscode.ErrorCode.*;
 
@@ -81,13 +78,17 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     }
 
     private boolean isExpiredToken(String jwt) {
+        log.info("isExpiredToken %s", jwt);
+        log.info(redisUtils.getData("token_")+jwt);
         return redisUtils.getData("token_" + jwt) != null;
     }
 
     private boolean isExpiredRefreshToken(String jwt) {
         String uuid = JWT.decode(jwt).getSubject();
         JwtRedis jwtRedis = (JwtRedis)redisUtils.getData(uuid);
-
+        log.info("isExpiredRefreshToken %s", jwt);
+        log.info(jwtRedis.toString());
+        log.info(redisUtils.getData("refresh_token_")+jwtRedis.getRefreshToken());
         if(jwtRedis != null) {
             return redisUtils.getData("refresh_token_" + jwtRedis.getRefreshToken()) != null;
         }

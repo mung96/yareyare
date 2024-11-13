@@ -1,4 +1,4 @@
-package yare.yare.dto;
+package yare.yare.global.jwt.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
