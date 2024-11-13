@@ -1,11 +1,14 @@
 import React from 'react';
 import MyPageList from '@/main/ui/components/member/MyPageList.tsx';
-import {Dimensions, ScrollView, View} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import CouponBox from '@/main/ui/components/member/CouponBox.tsx';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
+import {SvgUri} from 'react-native-svg';
 const {width} = Dimensions.get('window');
 function MyPageScreen() {
+  const {member} = useMemberModel();
   return (
     <ScrollView
       contentContainerStyle={{
@@ -19,20 +22,24 @@ function MyPageScreen() {
       }}>
       <View style={styles.container}>
         <View style={styles.textBox}>
-          <CustomText style={styles.text}>이윤지님,</CustomText>
+          <CustomText style={styles.text}>{member?.name}님,</CustomText>
           <CustomText style={styles.text}>안녕하세요~</CustomText>
         </View>
-        <View style={styles.logoBox} />
+        <View style={styles.logoBox}>
+          {member?.myTeamLogo && (
+            <SvgUri uri={String(member?.myTeamLogo)} width={48} height={48} />
+          )}
+        </View>
       </View>
       <CouponBox />
       <MyPageList />
     </ScrollView>
   );
 }
-const styles = {
+const styles = StyleSheet.create({
   textBox: {
     display: 'flex',
-    flexDirection: 'col',
+    flexDirection: 'column',
   },
   container: {
     backgroundColor: COLORS.PURPLE_300,
@@ -57,6 +64,6 @@ const styles = {
     backgroundColor: COLORS.WHITE,
     borderRadius: 50,
   },
-};
+});
 
 export default MyPageScreen;
