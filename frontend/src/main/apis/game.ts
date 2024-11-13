@@ -75,7 +75,7 @@ export async function patchSelectSeat(
 ): Promise<SeatPriceResponse> {
   const {data} = await apiRequester.patch<Response<SeatPriceResponse>>(
     END_POINT.GAME_SEAT(gameId),
-    {seats},
+    {seats, idempotentKey: 'idempotentKey'},
   );
   return data.body;
 }

@@ -18,7 +18,6 @@ import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {PATH} from '@/main/shared/constants';
 import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
 function ReservationScreen() {
   const {
@@ -34,11 +33,11 @@ function ReservationScreen() {
     id: 'reservation',
     initial: {
       step: 'GradeStep',
-      context: {},
+      context: {
+        idempotencyKey: 'a3df30a8-65e3-425a-a286-2b7877b8e61e',
+      },
     },
   });
-
-  const navigation = useNavigation<NavigationProp<ReservationParamList>>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,10 +71,7 @@ function ReservationScreen() {
         />
       )}
       {reservationStep === 'PaymentStep' && (
-        <PaymentScreen
-          onPrev={() => history.back()}
-          onSubmit={() => navigation.navigate(PATH.PORTONE_PAYMENT)}
-        />
+        <PaymentScreen onPrev={() => history.back()} context={context} />
       )}
     </SafeAreaView>
   );

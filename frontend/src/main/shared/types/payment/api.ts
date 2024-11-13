@@ -21,7 +21,7 @@ export type TicketListResponse = {
 };
 
 export type PaymentDto = {
-  idempotencyKey: string;
+  idempotencyKey?: string;
   totalPrice: number;
 };
 

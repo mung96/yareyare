@@ -5,6 +5,7 @@ import {
   patchSelectSeat,
 } from '@/main/apis/game.ts';
 import {SeatPriceResponse} from '@/main/shared/types/game/api.ts';
+import {MutationOptionsWithoutFn} from '@/main/shared/types/common/api.ts';
 
 export function useGradeQuery(gameId: string | null) {
   return useQuery({
@@ -20,20 +21,14 @@ export function useSeatQuery(gameId: string | null, gradeId: string | null) {
   });
 }
 
-type MutationOptionsWithoutFn = Omit<
-  UseMutationOptions<
-    SeatPriceResponse,
-    unknown,
+export function useSelectSeatMutation(
+  mutationOption?: MutationOptionsWithoutFn<
     {
       gameId: string;
       seats: number[];
-    }
+    },
+    SeatPriceResponse
   >,
-  'mutationFn'
->;
-
-export function useSelectSeatMutation(
-  mutationOption?: MutationOptionsWithoutFn,
 ) {
   return useMutation<
     SeatPriceResponse,

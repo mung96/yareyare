@@ -1,4 +1,4 @@
-function PaymentPage() {
+function PaymentRedirectPage() {
   return (
       <div>
         <p>aaa</p>
@@ -6,4 +6,4 @@ function PaymentPage() {
   );
 }
 
-export default PaymentPage;
+export default PaymentRedirectPage;

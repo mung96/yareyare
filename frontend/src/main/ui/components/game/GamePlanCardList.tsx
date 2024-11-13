@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
@@ -18,7 +18,7 @@ function GamePlanCardList({list}: Props) {
   const dispatch = useDispatch();
 
   return (
-    <View style={styles.container}>
+    <ScrollView horizontal={true} style={styles.container}>
       {list?.map(gamePlan => (
         <GameScheduleCard
           key={gamePlan.gameId}
@@ -31,7 +31,7 @@ function GamePlanCardList({list}: Props) {
           }}
         />
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
