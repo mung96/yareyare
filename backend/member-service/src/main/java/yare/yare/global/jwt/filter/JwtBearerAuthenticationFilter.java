@@ -54,18 +54,6 @@ public class JwtBearerAuthenticationFilter extends OncePerRequestFilter {
             return;
         } else if (token_type.equals("access_token")) {
             if (jwtService.isTokenValid(token)) {
-                if(redisUtils.getData("token_" + token) != null) {
-                    throw new CustomException(EXPIRED_TOKEN);
-                }
-
-                String uuid = jwtService.getUuid(token);
-                JwtRedis jwtRedis = (JwtRedis) redisUtils.getData(uuid);
-                String refreshToken = jwtRedis.getRefreshToken();
-
-                if(redisUtils.getData("refresh_token_"+refreshToken) != null) {
-                    throw new CustomException(EXPIRED_TOKEN);
-                }
-
                 Authentication auth = jwtService.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } else if (jwtService.isTokenExpired(token)) {
