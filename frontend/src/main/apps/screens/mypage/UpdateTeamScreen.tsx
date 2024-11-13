@@ -6,32 +6,45 @@ import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useState} from 'react';
 import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
+import {PATH} from '@/main/shared/constants';
+import {patchMyTeam} from '@/main/apis/member.ts';
 
-function UpdateTeamScreen() {
+function UpdateTeamScreen({
+  navigation,
+}: NativeStackScreenProps<MypageParamList>) {
   const {data: teamListData} = useTeamQuery();
   const {member} = useMemberModel();
   const [teamId, setTeamId] = useState<number>(
     member?.myTeamId ? member.myTeamId : 0,
   );
   console.log(teamListData);
+  const handleLogoPress = async (teamId: number) => {
+    await patchMyTeam(teamId);
+    navigation.navigate(PATH.MY_PAGE);
+  };
   return (
     <ScrollView contentContainerStyle={styles.layout}>
       {teamListData?.teams.map(team => (
         <View style={styles.logoContainer} key={team.teamId}>
           <Pressable
-            style={({pressed}) => [
-              styles.logoBox,
-              pressed && styles.activeLogo,
-            ]}>
+            onPress={() => {
+              setTeamId(team.teamId);
+              handleLogoPress(team.teamId);
+            }}
+            style={styles.logoBox}>
             <SvgUri uri={team.teamLogo} width={90} height={90} />
           </Pressable>
-          {teamId !== team.teamId && (
-            <Icon
-              name={'heart'}
-              size={30}
-              color={COLORS.WHITE}
-              style={[styles.icon]}
-            />
+          {teamId === team.teamId && (
+            <View style={[styles.activeLogo]}>
+              <Icon
+                name={'heart'}
+                size={30}
+                color={COLORS.WHITE}
+                style={[styles.icon]}
+              />
+            </View>
           )}
           <CustomText style={styles.nameText}>{team.teamName}</CustomText>
         </View>
@@ -72,14 +85,21 @@ const styles = StyleSheet.create({
     color: COLORS.BLACK,
   },
   activeLogo: {
+    position: 'absolute',
+    display: 'flex',
+    width: 90,
+    height: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
     backgroundColor: COLORS.PURPLE_300,
-    zIndex: 1,
-    opacity: 0.9,
+    zIndex: 2,
+    opacity: 0.8,
+    top: 0,
   },
   icon: {
     position: 'absolute',
-    zIndex: 2,
-    top: 30,
+    zIndex: 10,
   },
 });
 

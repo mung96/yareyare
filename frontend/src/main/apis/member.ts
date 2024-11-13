@@ -32,7 +32,7 @@ export async function postLogout() {
 }
 
 //마이 팀 변경
-export async function patchMyTeam(teamId: string): Promise<MyTeamResponse> {
+export async function patchMyTeam(teamId: number): Promise<MyTeamResponse> {
   const {data} = await apiRequester.patch<Response<MyTeamResponse>>(
     END_POINT.MY_TEAM,
     {
