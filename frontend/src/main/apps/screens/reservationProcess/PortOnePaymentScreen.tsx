@@ -1,5 +1,6 @@
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {WEB_VIEW_SERVER} from '@env';
+import {useRef} from 'react';
 
 function PortOnePaymentScreen() {
   const message = {
@@ -11,7 +12,12 @@ function PortOnePaymentScreen() {
     totalAmount: '4000',
     paymentId: '1113124567',
   };
-
+  const webViewRef = useRef<WebView>(null);
+  const onLoad = async () => {
+    if (webViewRef.current) {
+      webViewRef.current.postMessage(JSON.stringify({price: 1000}));
+    }
+  };
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     console.log(event.nativeEvent);
   };
@@ -25,7 +31,8 @@ function PortOnePaymentScreen() {
       javaScriptEnabled={true}
       mixedContentMode="always"
       domStorageEnabled={true}
-      // postMessage={JSON.stringify(message)}
+      ref={webViewRef}
+      onLoad={onLoad}
     />
   );
 }

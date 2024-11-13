@@ -4,9 +4,9 @@ const PORTONE_STORE_ID = process.env.REACT_APP_PORTONE_STORE_ID
 const PORTONE_CHANNEL_KEY = process.env.REACT_APP_PORTONE_CHANNEL_KEY
 const FRONT_SERVER = process.env.REACT_APP_FRONT_SERVER
 
-export async function fetchPortOne() {
-  window?.ReactNativeWebView?.postMessage("웹뷰 결제 진입")
-
+export async function fetchPortOne(price) {
+  window?.ReactNativeWebView?.postMessage("웹뷰 결제 진입11")
+  window?.ReactNativeWebView?.postMessage(price)
   await requestPayment({
     // Store ID 설정
     storeId: PORTONE_STORE_ID,
@@ -19,7 +19,7 @@ export async function fetchPortOne() {
     },
     paymentId: `payment-${219473812}`,
     orderName: 'ticket',
-    totalAmount: '4000',
+    totalAmount: price,
     currency: "CURRENCY_KRW",
     payMethod: "CARD",
     redirectUrl: `${FRONT_SERVER}/paymentRedirect`
