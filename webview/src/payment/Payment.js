@@ -7,7 +7,7 @@ const FRONT_SERVER = process.env.REACT_APP_FRONT_SERVER
 export async function fetchPortOne() {
   window?.ReactNativeWebView?.postMessage("웹뷰 결제 진입")
 
-  const response = await requestPayment({
+  await requestPayment({
     // Store ID 설정
     storeId: PORTONE_STORE_ID,
     // 채널 키 설정

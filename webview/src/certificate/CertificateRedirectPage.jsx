@@ -1,4 +1,3 @@
-import {fetchPortOne} from "../payment/Payment";
 
 function CertificateRedirectPage() {
   return (

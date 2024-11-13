@@ -1,7 +1,5 @@
-import React from 'react';
 const IMP = process.env.REACT_APP_IMP
 function Certification() {
-
     const userCode = IMP;
     const data = {
       merchant_uid: `mid_${new Date().getTime()}`,  // 주문번호

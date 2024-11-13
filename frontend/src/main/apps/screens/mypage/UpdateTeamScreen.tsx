@@ -1,19 +1,38 @@
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {useTeamQuery} from '@/main/services/hooks/queries/useTeamQuery.ts';
 import {SvgUri} from 'react-native-svg';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useState} from 'react';
+import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 
 function UpdateTeamScreen() {
   const {data: teamListData} = useTeamQuery();
+  const {member} = useMemberModel();
+  const [teamId, setTeamId] = useState<number>(
+    member?.myTeamId ? member.myTeamId : 0,
+  );
   console.log(teamListData);
   return (
     <ScrollView contentContainerStyle={styles.layout}>
       {teamListData?.teams.map(team => (
-        <View style={styles.logoContainer}>
-          <View style={styles.logoBox}>
+        <View style={styles.logoContainer} key={team.teamId}>
+          <Pressable
+            style={({pressed}) => [
+              styles.logoBox,
+              pressed && styles.activeLogo,
+            ]}>
             <SvgUri uri={team.teamLogo} width={90} height={90} />
-          </View>
+          </Pressable>
+          {teamId !== team.teamId && (
+            <Icon
+              name={'heart'}
+              size={30}
+              color={COLORS.WHITE}
+              style={[styles.icon]}
+            />
+          )}
           <CustomText style={styles.nameText}>{team.teamName}</CustomText>
         </View>
       ))}
@@ -51,6 +70,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: COLORS.BLACK,
+  },
+  activeLogo: {
+    backgroundColor: COLORS.PURPLE_300,
+    zIndex: 1,
+    opacity: 0.9,
+  },
+  icon: {
+    position: 'absolute',
+    zIndex: 2,
+    top: 30,
   },
 });
 
