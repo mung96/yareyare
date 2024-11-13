@@ -53,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND));
 
-        String myTeamName = teamFeignClientCustom.teamList().getTeams().stream()
+        String myTeamName = teamFeignClientCustom.teamList().getBody().getTeams().stream()
                 .filter(teamDto -> teamDto.getTeamId().equals(myTeamModifyReq.getTeamId()))
                 .map(TeamDto::getTeamName)
                 .findFirst()
