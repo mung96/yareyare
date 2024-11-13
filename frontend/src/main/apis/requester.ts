@@ -28,6 +28,7 @@ const setRequestAuthorizationHeader = async (
   config.headers = {
     ...config.headers,
     Authorization: `Bearer ${await getAccessToken()}`,
+    // Authorization: `Bearer ${'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc0NlcnRpZmljYXRlZCI6ZmFsc2UsInN1YiI6ImFiZGE2MDY1LTA3YWMtNDg1MC05MTQ0LWFhMjgwZmNjNmU4YSIsInJvbGUiOiJST0xFX1VTRVIiLCJpc3MiOiJ3d3cuc2Ftc3VuZy5jb20iLCJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNzMxNTUwMDcxfQ.r09u7TE9IQ0YkIkWAcQ0miMunXgGmsqTg58OhZP7owIbLGV67ev6OGG-9TiJRR8h0MZYI88C22tUafeiEyFznA'}`,
   };
   return config as InternalAxiosRequestConfig;
 };
@@ -46,6 +47,7 @@ apiRequester.interceptors.response.use(
   },
   error => {
     if (isAxiosError(error)) {
+      console.log('에러다');
       console.log(error.response?.data);
     }
     return Promise.reject(error);

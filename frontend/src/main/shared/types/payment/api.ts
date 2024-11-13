@@ -8,11 +8,26 @@ export type TicketResponse = {
   stadiumName: string;
   gameDateTime: string;
   cancelDeadline: string;
-  purchaseStatus: string;
+  purchaseStatus: '예매완료' | '취소완료';
 };
 
 export type TicketListResponse = {
   tickets: {
     content: TicketResponse[];
+    page: number;
+    size: number;
+    hasNext: boolean;
   };
+};
+
+export type PaymentDto = {
+  idempotencyKey: string;
+  totalPrice: number;
+};
+
+export type PaymentHistoryRequest = {
+  gameId: number;
+  seats: {
+    seatId: number;
+  }[];
 };

@@ -22,6 +22,8 @@ export const END_POINT = {
 
   //payment
   TICKET_RECORD: (type: TicketType) => `payments/tickets/${type}`,
+  PAYMENT_HISTORY: 'payments/history',
+  PAYMENT: 'payments',
 
   //stadium
   STADIUM: 'games/stadiums',
