@@ -17,12 +17,6 @@ spring:
         - id: game-service
           uri: lb://GAME-SERVICE
           predicates:
-            - Path=/api/games/{gameId}/seats/{seatId}/price, /api/games/teams
-            - Method=GET
-
-        - id: game-service
-          uri: lb://GAME-SERVICE
-          predicates:
             - Path=/api/admin/games/**, /api/games/**
           filters:
             - AuthorizationHeaderFilter
