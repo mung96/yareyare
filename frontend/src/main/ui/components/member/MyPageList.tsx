@@ -21,14 +21,14 @@ function MyPageList() {
         icon={<Icon name={'ticket'} size={22} />}
         title={'티켓 예매 내역'}
         onPress={() =>
-          navigation.navigate(PATH.TICKET_RECORD, {type: 'reserve'})
+          navigation.navigate(PATH.TICKET_RECORD, {type: 'purchases'})
         }
       />
       <MypageItem
         icon={<MIcon name={'ticket-confirmation'} size={22} />}
         title={'티켓 취소 내역'}
         onPress={() =>
-          navigation.navigate(PATH.TICKET_RECORD, {type: 'cancel'})
+          navigation.navigate(PATH.TICKET_RECORD, {type: 'cancellations'})
         }
       />
       <MypageItem
