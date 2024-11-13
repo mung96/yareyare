@@ -15,8 +15,8 @@ spring:
     gateway:
       routes:
         - id: game-service
-        - uri: lb://GAME-SERVICE
-        - predicates:
+          uri: lb://GAME-SERVICE
+          predicates:
           - Path=/api/games/**/seats/**/price, /api/games/teams
           - Method=GET
 
