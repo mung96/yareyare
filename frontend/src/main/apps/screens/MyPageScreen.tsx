@@ -7,26 +7,34 @@ import {StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import React from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
+import {PATH} from '@/main/shared/constants';
 
-function MyPageScreen() {
+function MyPageScreen({navigation}: NativeStackScreenProps<MypageParamList>) {
   const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <CustomText style={styles.title}>마이페이지</CustomText>
       <MypageItem
         icon={<Icon name={'ticket'} size={22} />}
         title={'티켓 예매 내역'}
-        onPress={() => console.log('티켓예매내역')}
+        onPress={() =>
+          navigation.navigate(PATH.TICKET_RECORD, {type: 'reserve'})
+        }
       />
       <MypageItem
         icon={<MIcon name={'ticket-confirmation'} size={22} />}
         title={'티켓 취소 내역'}
-        onPress={() => console.log('티켓예매내역')}
+        onPress={() =>
+          navigation.navigate(PATH.TICKET_RECORD, {type: 'cancel'})
+        }
       />
       <MypageItem
         icon={<MIcon name={'account-group'} size={22} />}
         title={'나의 팀 변경'}
-        onPress={() => console.log('티켓예매내역')}
+        onPress={() => navigation.navigate(PATH.UPDATE_MYTEAM)}
       />
       <MypageItem
         icon={<MIcon name={'file-certificate'} size={22} />}

@@ -1,15 +1,17 @@
 import React from 'react';
 import {PATH} from '@/main/shared/constants';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MyTicketScreen from '@/main/apps/screens/mypage/MyTicketScreen.tsx';
-import CancelTicketScreen from '@/main/apps/screens/mypage/CancelTicketScreen.tsx';
+import TicketRecordScreen from '@/main/apps/screens/mypage/TicketRecordScreen.tsx';
 import UpdateTeamScreen from '@/main/apps/screens/mypage/UpdateTeamScreen.tsx';
 import MyPageScreen from '@/main/apps/screens/MyPageScreen.tsx';
 
+type TicketType = {
+  type: 'cancel' | 'reserve';
+};
+
 export type MypageParamList = {
   [PATH.MY_PAGE]: undefined;
-  [PATH.TICKET_RECORD]: undefined;
-  [PATH.CANCEL_TICKET]: undefined;
+  [PATH.TICKET_RECORD]: TicketType;
   [PATH.UPDATE_MYTEAM]: undefined;
 };
 
@@ -22,8 +24,7 @@ function MyPageNavigation() {
         headerShown: false,
       }}>
       <Stack.Screen name={PATH.MY_PAGE} component={MyPageScreen} />
-      <Stack.Screen name={PATH.TICKET_RECORD} component={MyTicketScreen} />
-      <Stack.Screen name={PATH.CANCEL_TICKET} component={CancelTicketScreen} />
+      <Stack.Screen name={PATH.TICKET_RECORD} component={TicketRecordScreen} />
       <Stack.Screen name={PATH.UPDATE_MYTEAM} component={UpdateTeamScreen} />
     </Stack.Navigator>
   );
