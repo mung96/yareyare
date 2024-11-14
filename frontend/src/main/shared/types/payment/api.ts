@@ -20,8 +20,16 @@ export type TicketListResponse = {
   };
 };
 
-export type PaymentDto = {
+// export type PaymentDto = {
+//   idempotencyKey?: string;
+//   vendor: string;
+// };
+export type PaymentRegistRequest = {
   idempotencyKey?: string;
+  vendor: string;
+};
+
+export type PaymentHistoryResponse = {
   totalPrice: number;
 };
 

@@ -1,15 +1,19 @@
 import {useMutation} from '@tanstack/react-query';
 import {
-  PaymentDto,
   PaymentHistoryRequest,
+  PaymentHistoryResponse,
+  PaymentRegistRequest,
 } from '@/main/shared/types/payment/api.ts';
 import {MutationOptionsWithoutFn} from '@/main/shared/types/common/api.ts';
 import {postPaymentHistory, postRegistPayment} from '@/main/apis/payment.ts';
 
 export function usePaymentHistoryMutation(
-  mutationOption?: MutationOptionsWithoutFn<PaymentHistoryRequest, PaymentDto>,
+  mutationOption?: MutationOptionsWithoutFn<
+    PaymentHistoryRequest,
+    PaymentHistoryResponse
+  >,
 ) {
-  return useMutation<PaymentDto, unknown, PaymentHistoryRequest>({
+  return useMutation<PaymentHistoryResponse, unknown, PaymentHistoryRequest>({
     mutationFn: async variables => {
       return await postPaymentHistory(variables);
     },
@@ -18,9 +22,9 @@ export function usePaymentHistoryMutation(
 }
 
 export function usePaymentRegistMutation(
-  mutationOption?: MutationOptionsWithoutFn<PaymentDto, null>,
+  mutationOption?: MutationOptionsWithoutFn<PaymentRegistRequest, null>,
 ) {
-  return useMutation<null, unknown, PaymentDto>({
+  return useMutation<null, unknown, PaymentRegistRequest>({
     mutationFn: async variables => {
       return await postRegistPayment(variables);
     },

@@ -3,8 +3,9 @@ import {apiRequester} from '@/main/apis/requester.ts';
 import {END_POINT} from '@/main/shared/constants/api.ts';
 import {TicketType} from '@/main/shared/types/payment/domain.ts';
 import {
-  PaymentDto,
   PaymentHistoryRequest,
+  PaymentHistoryResponse,
+  PaymentRegistRequest,
   TicketListResponse,
 } from '@/main/shared/types/payment/api.ts';
 import {Response} from '@/main/shared/types/common/api.ts';
@@ -21,14 +22,15 @@ export async function getTicketRecord(
   return data.body;
 }
 
-export async function postRegistPayment(request: PaymentDto) {
+export async function postRegistPayment(request: PaymentRegistRequest) {
   const {data} = await apiRequester.post<Response<null>>(END_POINT.PAYMENT, {
     ...request,
   });
   return data.body;
 }
+
 export async function postPaymentHistory(request: PaymentHistoryRequest) {
-  const {data} = await apiRequester.post<Response<PaymentDto>>(
+  const {data} = await apiRequester.post<Response<PaymentHistoryResponse>>(
     END_POINT.PAYMENT_HISTORY,
     {
       ...request,
