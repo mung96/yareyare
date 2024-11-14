@@ -3,8 +3,10 @@ package yare.yare.domain.game.dto;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.List;
+
 @Data
-public class PriceRes {
+public class SeatInfoRes {
     private Header header;
 
     private Body body;
@@ -16,5 +18,9 @@ public class PriceRes {
     @Getter
     public static class Body {
         private Integer price;
+        private Long gradeId;
+        private String gradeName;
+
+        private List<SeatDto> seats;
     }
 }
