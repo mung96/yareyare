@@ -1,10 +1,8 @@
 package yare.yare.domain.game.service;
 
-import yare.yare.domain.game.dto.AvailableSeatListRes;
-import yare.yare.domain.game.dto.GameDetailsRes;
-import yare.yare.domain.game.dto.GameListRes;
-import yare.yare.domain.game.dto.ScheduleListRes;
 import yare.yare.domain.game.dto.*;
+
+import java.util.List;
 
 
 public interface GameService {
@@ -26,4 +24,6 @@ public interface GameService {
     LastGameListRes findLastGames();
 
     GetPriceRes getPrice(Long gameId, Long seatId);
+
+    GameSeatDetailListRes getGameSeatDetails(Long gameId, List<Long> seatIds);
 }

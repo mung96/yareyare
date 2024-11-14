@@ -8,6 +8,7 @@ import yare.yare.domain.game.service.GameService;
 import yare.yare.global.dto.ResponseDto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
@@ -104,6 +105,16 @@ public class GameController {
             @PathVariable Long seatId) {
 
         GetPriceRes result = gameService.getPrice(gameId, seatId);
+
+        return ResponseDto.success(OK, result);
+    }
+
+    @GetMapping("/{gameId}/seats/details")
+    public ResponseDto<GameSeatDetailListRes> getGameSeatDetails(
+            @PathVariable Long gameId,
+            @RequestParam List<Long> seatIds) {
+
+        GameSeatDetailListRes result = gameService.getGameSeatDetails(gameId, seatIds);
 
         return ResponseDto.success(OK, result);
     }

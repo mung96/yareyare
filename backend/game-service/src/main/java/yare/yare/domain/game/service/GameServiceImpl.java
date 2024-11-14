@@ -7,12 +7,14 @@ import yare.yare.domain.game.dto.*;
 import yare.yare.domain.game.entity.Game;
 import yare.yare.domain.game.entity.GameSeat;
 import yare.yare.domain.game.repository.GameRepository;
+import yare.yare.domain.game.repository.GameSeatRepository;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static yare.yare.domain.stadium.enums.SeatStatus.AVAILABLE;
 import static yare.yare.domain.stadium.enums.SeatStatus.PENDING;
@@ -26,6 +28,7 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private final RedisUtil redisUtil;
+    private final GameSeatRepository gameSeatRepository;
 
     @Override
     public GameListRes findGames() {
@@ -107,7 +110,7 @@ public class GameServiceImpl implements GameService {
 
         checkAvailableSeats(reserveSeatReq, selectedSeats);
 
-        gameRepository.updateSeatStatus(PENDING, gameId,reserveSeatReq.getSeats());
+        gameRepository.updateSeatStatus(PENDING, gameId, reserveSeatReq.getSeats());
 
         ReserveSeatRes reserveSeatRes = new ReserveSeatRes();
         reserveSeatRes.setPrice(getPrice(selectedSeats));
@@ -173,5 +176,28 @@ public class GameServiceImpl implements GameService {
         getPriceRes.setPrice(price);
 
         return getPriceRes;
+    }
+
+    @Override
+    public GameSeatDetailListRes getGameSeatDetails(final Long gameId, final List<Long> seatIds) {
+
+        GameSeatDetailListRes gameSeatDetailListRes = new GameSeatDetailListRes();
+
+        List<GameSeatDetailDto> gameSeatDetailDtos = seatIds.stream().map((seatId) -> {
+            GameSeat gameSeat = gameSeatRepository.findByGameIdAndSeatId(gameId, seatId)
+                    .orElseThrow(() -> new CustomException(NOT_FOUND));
+
+            AtomicInteger cnt = new AtomicInteger(0);
+
+            if(cnt.getAndIncrement() == 0){
+                gameSeatDetailListRes.setPrice(gameSeat.getPrice());
+                gameSeatDetailListRes.setGradeId(gameSeat.getGradeId());
+                gameSeatDetailListRes.setGradeName(gameSeat.getGradeName());
+            }
+            return GameSeatDetailDto.toDto(gameSeat);
+        }).toList();
+        gameSeatDetailListRes.setSeats(gameSeatDetailDtos);
+
+        return gameSeatDetailListRes;
     }
 }
