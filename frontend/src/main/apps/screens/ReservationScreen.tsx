@@ -32,7 +32,7 @@ function ReservationScreen() {
     initial: {
       step: 'GradeStep',
       context: {
-        idempotencyKey: 'a3df30a8-65e3-425a-a286-2b7877b8e61e',
+        idempotencyKey: String(Math.floor(Math.random() * 1000000)),
       },
     },
   });

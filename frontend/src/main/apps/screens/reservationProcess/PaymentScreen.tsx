@@ -20,7 +20,11 @@ type Props = {
 
 function PaymentScreen({onPrev, context}: Props) {
   const gameId = useSelector((state: RootState) => state.game.gameId);
-  const {control, handleSubmit} = useForm<PaymentContext>({
+  const {
+    control,
+    handleSubmit,
+    formState: {isValid: isFormValid, isSubmitting},
+  } = useForm<PaymentContext>({
     defaultValues: {
       paymentMethod: '카드결제',
     },
@@ -40,31 +44,32 @@ function PaymentScreen({onPrev, context}: Props) {
     },
   });
   return (
-    <View style={styles.container}>
-      <Controller
-        control={control}
-        render={({field: {value, onChange}}) => (
-          <PaymentMethodList select={value} onSelect={onChange} />
-        )}
-        name="paymentMethod"
-      />
-      <ExpectedPayment />
-
-      <MainButton
-        label={'결제 및 완료'}
-        onPress={handleSubmit(() =>
-          postPaymentHistory({
-            gameId: Number(gameId),
-            seats: context.seatList.map(seat => {
-              return {
-                seatId: Number(seat.seatId),
-              };
+    <>
+      <View style={styles.container}>
+        <Controller
+          control={control}
+          render={({field: {value, onChange}}) => (
+            <PaymentMethodList select={value} onSelect={onChange} />
+          )}
+          name="paymentMethod"
+        />
+        <ExpectedPayment />
+      </View>
+      <View style={styles.buttonContainer}>
+        <MainButton
+          label={'다음'}
+          onPress={handleSubmit(() =>
+            postPaymentHistory({
+              idempotencyKey: context.idempotencyKey,
+              gameId: Number(gameId),
+              seatIds: context.seatList.map(seat => Number(seat.seatId)),
             }),
-          }),
-        )}
-        size={'large'}
-      />
-    </View>
+          )}
+          size={'large'}
+          disabled={!isFormValid || isSubmitting}
+        />
+      </View>
+    </>
   );
 }
 
@@ -74,6 +79,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
+  },
+  buttonContainer: {
+    backgroundColor: COLORS.WHITE,
+    width: '100%',
+    height: 56,
+    position: 'absolute',
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    borderTopWidth: 0.3,
+    borderColor: COLORS.GRAY_200,
   },
 });
 export default PaymentScreen;

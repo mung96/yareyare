@@ -27,7 +27,6 @@ export type PaymentDto = {
 
 export type PaymentHistoryRequest = {
   gameId: number;
-  seats: {
-    seatId: number;
-  }[];
+  idempotencyKey: string;
+  seatIds: number[];
 };

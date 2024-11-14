@@ -36,6 +36,7 @@ function UserScreen({onPrev, context, onNext}: Props) {
 
         <Controller
           control={control}
+          rules={{required: true}}
           render={({field: {value, onChange}}) => (
             <MethodSelector value={value} onSelect={onChange} />
           )}
