@@ -27,6 +27,10 @@ function ReservationNavigation() {
           </Pressable>
         ),
         headerTitleAlign: 'center',
+        title: '예매하기',
+        headerTitleStyle: {
+          fontSize: 16,
+        },
       }}>
       <Stack.Screen name={PATH.RESERVATION} component={ReservationScreen} />
       <Stack.Screen

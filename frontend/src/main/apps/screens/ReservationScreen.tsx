@@ -17,8 +17,6 @@ import {COLORS} from '@/main/shared/styles';
 import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
 function ReservationScreen() {
   const {
     step: reservationStep,
