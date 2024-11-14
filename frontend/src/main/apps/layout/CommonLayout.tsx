@@ -7,7 +7,7 @@ const CommonLayout = ({children}: {children: ReactNode}) => {
     <SafeAreaView
       style={{
         paddingHorizontal: 12,
-        paddingTop: 12,
+        paddingTop: 64,
         alignItems: 'center',
         justifyContent: 'center',
         gap: 12,

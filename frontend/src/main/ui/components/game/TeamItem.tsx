@@ -4,11 +4,11 @@ import {SvgUri} from 'react-native-svg';
 
 type Props = {
   team: {
-    teamId: string;
+    teamId: number;
     teamLogo: string;
     teamName: string;
     label: string;
-    value: string;
+    value: number;
   };
 };
 
@@ -29,10 +29,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     borderBottomWidth: 0.3,
+    paddingVertical: 12,
+    paddingLeft: 16,
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 
