@@ -22,8 +22,12 @@ type Props = {
 };
 
 //TODO:이전으로 넘어갈떄 로직
-function SeatScreen({context, onPrev, onNext}: Props) {
-  const {control, handleSubmit} = useForm<SeatContext>({
+function SeatScreen({context, onNext}: Props) {
+  const {
+    control,
+    handleSubmit,
+    formState: {isValid: isFormValid, isSubmitting},
+  } = useForm<SeatContext>({
     defaultValues: {seatList: []},
   });
   const [seatList, setSeatList] = useState<Seat[]>([]);
@@ -38,7 +42,9 @@ function SeatScreen({context, onPrev, onNext}: Props) {
     },
   });
   const onSubmit = () => {
-    const seatIdList = control._formValues.seatList.map(seat => seat.seatId);
+    const seatIdList = (control._formValues.seatList as Seat[]).map(
+      seat => seat.seatId,
+    );
     setSeatList(control._formValues.seatList);
     selectSeat({
       gameId: String(gameId),
@@ -48,7 +54,7 @@ function SeatScreen({context, onPrev, onNext}: Props) {
   return (
     <>
       <ReservationLayout>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <Controller
             control={control}
             render={({field: {onChange, value}}) => (
@@ -72,6 +78,7 @@ function SeatScreen({context, onPrev, onNext}: Props) {
 
         <Controller
           control={control}
+          rules={{required: true}}
           render={({field: {value}}) => <SelectedSeatList seatList={value} />}
           name="seatList"
         />
@@ -81,6 +88,7 @@ function SeatScreen({context, onPrev, onNext}: Props) {
           label={'다음'}
           onPress={handleSubmit(onSubmit)}
           size={'large'}
+          disabled={!isFormValid || isSubmitting}
         />
       </View>
     </>
@@ -105,6 +113,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 12,
+    borderTopWidth: 0.3,
+    borderColor: COLORS.GRAY_200,
   },
 });
 

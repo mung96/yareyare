@@ -18,7 +18,8 @@ const categoryList = [
 
 const MethodSelector = ({value, onSelect}: Props) => {
   return (
-    <ReservationBox title={'티켓수령방법 선택'}>
+    <View style={styles.container}>
+      <CustomText style={styles.title}>티켓 수령 방법</CustomText>
       <View style={styles.selectContainer}>
         {categoryList.map(method => (
           <Pressable
@@ -44,7 +45,7 @@ const MethodSelector = ({value, onSelect}: Props) => {
           </Pressable>
         ))}
       </View>
-    </ReservationBox>
+    </View>
   );
 };
 
@@ -93,6 +94,21 @@ const styles = StyleSheet.create({
   pressedMarker: {
     borderWidth: 2,
     borderColor: COLORS.PINK,
+  },
+  container: {
+    backgroundColor: COLORS.GRAY_400,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+    width: '100%',
+    maxWidth: 360,
+  },
+  title: {
+    fontSize: 14,
+    color: COLORS.BLACK,
+    fontWeight: '900',
   },
 });
 

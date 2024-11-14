@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   pressed: {
-    backgroundColor: COLORS.GRAY_200,
+    backgroundColor: COLORS.GRAY_500,
   },
   selected: {
-    backgroundColor: COLORS.GRAY_200,
+    backgroundColor: COLORS.GRAY_500,
   },
 });
 export default GradeItem;

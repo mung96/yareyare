@@ -46,10 +46,11 @@ apiRequester.interceptors.response.use(
   },
   error => {
     if (isAxiosError(error)) {
-      console.group('에러다.');
+      console.group('에러다. ');
       console.log('요청url: ' + error.request._url);
-      console.log(error);
       console.log(error.response?.data);
+      // console.log('요청 header: ' + error.config?.headers);
+
       console.groupEnd();
     }
     return Promise.reject(error);

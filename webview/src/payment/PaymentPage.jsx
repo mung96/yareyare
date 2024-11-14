@@ -17,7 +17,9 @@ function PaymentPage() {
       document.removeEventListener("message", onMessageHandler);
     };
   }, []);
-  fetchPortOne(data)
+  useEffect(() => {
+    data &&   fetchPortOne(data)
+  }, [data]);
   return (
       <div>
       </div>

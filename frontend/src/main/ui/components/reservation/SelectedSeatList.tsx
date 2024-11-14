@@ -1,6 +1,6 @@
 import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import SelectedSeatItem from '@/main/ui/components/reservation/SelectedSeatItem.tsx';
 import {Seat} from '@/main/shared/types';

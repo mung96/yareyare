@@ -19,7 +19,7 @@ export type Seat = {
   section: string;
   row: string;
   col: string;
-  seatId: string;
+  seatId: number;
 };
 export type SeatList = {
   [key: number]: {

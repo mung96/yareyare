@@ -4,4 +4,5 @@ declare module '@env' {
   export const LOGIN_REDIRECT_URI: string;
   export const SERVER_BASE_URL: string;
   export const WEB_VIEW_SERVER: string;
+  export const PORTONE_REDIRECT_URI: string;
 }

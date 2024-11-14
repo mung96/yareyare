@@ -6,6 +6,7 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 type Props = {
   title?: string;
   children: ReactNode;
+  style?: any;
 };
 
 function ReservationBox({title, children}: Props) {
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     gap: 12,
     width: '100%',
     maxWidth: 360,
+    minHeight: 200,
   },
   title: {
     fontSize: 14,

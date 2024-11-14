@@ -32,12 +32,11 @@ function MainButton({
 }: Props) {
   return (
     <Pressable
-      disabled={false}
+      disabled={disabled}
       style={({pressed}) => [
         styles.container,
         pressed ? styles[`${variant}Pressed`] : styles[variant],
         disabled && styles.disabled,
-
         style,
       ]}
       {...props}>
@@ -58,7 +57,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   disabled: {
-    backgroundColor: COLORS.PURPLE_200,
+    backgroundColor: COLORS.PURPLE_100,
+    opacity: 0.5,
   },
 
   text: {

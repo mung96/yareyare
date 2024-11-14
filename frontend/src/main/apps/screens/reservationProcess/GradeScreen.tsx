@@ -13,7 +13,11 @@ type Props = {
 };
 
 function GradeScreen({onNext}: Props) {
-  const {control, handleSubmit} = useForm<GradeContext>({
+  const {
+    control,
+    handleSubmit,
+    formState: {isValid: isFormValid, isSubmitting},
+  } = useForm<GradeContext>({
     defaultValues: undefined,
   });
   const {gameDetail} = useGameDetailModel();
@@ -31,6 +35,7 @@ function GradeScreen({onNext}: Props) {
 
         <Controller
           control={control}
+          rules={{required: true}}
           render={({field: {onChange, value}}) => (
             <GradeList value={value} onSelect={onChange} />
           )}
@@ -43,6 +48,7 @@ function GradeScreen({onNext}: Props) {
           label={'다음'}
           onPress={handleSubmit(onNext)}
           size={'large'}
+          disabled={!isFormValid || isSubmitting}
         />
       </View>
     </>
