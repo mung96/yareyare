@@ -16,6 +16,7 @@ import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.entity.Purchase;
 import yare.yare.domain.payment.entity.PurchasedSeat;
 import yare.yare.domain.payment.repository.PurchaseRepository;
+import yare.yare.domain.payment.repository.PurchasedSeatRepository;
 import yare.yare.global.dto.SliceDto;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtils;
@@ -32,6 +33,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private static final String PREFIX_TICKET_UNIQUE = "T327";
     private final PurchaseRepository purchaseRepository;
     private final PurchaseHistoryRepository purchaseHistoryRepository;
+    private final PurchasedSeatRepository purchasedSeatRepository;
     private final SeatHistoryRepository seatHistoryRepository;
     private final RedisUtils redisUtils;
 
@@ -95,15 +97,15 @@ public class PurchaseServiceImpl implements PurchaseService {
                     purchasedSeat.getSeatId(), purchasedSeat.getId());
 
             purchasedSeat.updateTicketUuid(ticketUuid);
-            purchaseHistoryRepository.save(purchaseHistory);
 
-            // 마지막 요소일 때만 lastReservationId에 저장
+            purchasedSeatRepository.save(purchasedSeat);
+
             if (i == seatHistoryList.size() - 1) {
                 lastReservationId = ticketUuid;
             }
-
-            purchaseRepository.save(purchase);
         }
+
+        purchaseRepository.save(purchase);
 
         purchase.updateReservationId(lastReservationId);
 
