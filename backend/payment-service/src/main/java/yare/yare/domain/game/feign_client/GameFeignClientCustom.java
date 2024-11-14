@@ -10,7 +10,7 @@ import java.util.List;
 
 @FeignClient(name = "game-service")
 public interface GameFeignClientCustom {
-    @GetMapping("/{gameId}/seats/details")
+    @GetMapping("/api/games/{gameId}/seats/details")
     SeatInfoRes getSeatPrice(@PathVariable("gameId") Long gameId,
                              @RequestParam List<Long> seatIds);
 }
