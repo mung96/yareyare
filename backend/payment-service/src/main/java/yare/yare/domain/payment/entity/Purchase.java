@@ -36,14 +36,6 @@ public class Purchase {
     private Vendor vendor;
 
     @NotNull
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @NotNull
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-    @NotNull
     @Column(name = "idempotency_key", columnDefinition = "CHAR(36)", unique = true)
     private String idempotencyKey;
 
@@ -53,7 +45,6 @@ public class Purchase {
     @NotNull
     private Boolean canceled;
 
-    @NotNull
     @Column(length = 36)
     private String reservationId;
 
@@ -62,8 +53,18 @@ public class Purchase {
     private Game game;
 
     @NotNull
+    @Column(columnDefinition = "INT UNSIGNED")
+    private Long gradeId;
+
+    @NotNull
     private String gradeName;
 
     @NotNull
     private Boolean isDeleted;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 }

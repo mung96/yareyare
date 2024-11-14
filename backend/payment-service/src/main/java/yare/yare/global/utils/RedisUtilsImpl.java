@@ -56,9 +56,9 @@ public class RedisUtilsImpl implements RedisUtils {
 
     public Boolean lock(String key, String value, Long timeout) {
         try {
-            Boolean success = redisStringTemplate.opsForValue().setIfAbsent("lock_" + key, value, Duration.ofMillis(timeout));
+            Boolean success = redisStringTemplate.opsForValue().setIfAbsent("lock:" + key, value, Duration.ofMillis(timeout));
             if (success == null) {
-                log.warn("Redis setIfAbsent returned null. Key: " + key);
+                log.warn("Redis lock returned null. Key -> " + "lock:" + key);
                 return false; // null인 경우 false 반환
             }
             log.info("Lock info: " + success);
@@ -70,6 +70,6 @@ public class RedisUtilsImpl implements RedisUtils {
     }
 
     public void unlock(String key) {
-        redisStringTemplate.delete("lock_" + key);
+        redisStringTemplate.delete("lock:" + key);
     }
 }

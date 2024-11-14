@@ -32,11 +32,10 @@ public class PurchasedSeat {
 
     @NotNull
     @Column(length = 20)
-    private String sectionRowName;
+    private String rowName;
 
     @NotNull
-    @Column(name = "seat_no", columnDefinition = "INT UNSIGNED")
-    private Long seatNo;
+    private String seatNo;
 
     @NotNull
     @Column(name = "seat_id", columnDefinition = "INT UNSIGNED")
@@ -45,6 +44,13 @@ public class PurchasedSeat {
     @NotNull
     private Integer unitPrice;
 
+    @Column(unique = true, length = 36)
+    private String ticketUuid;
+
     @NotNull
     private Boolean isDeleted;
+
+    public void updateTicketUuid(String ticketUuid) {
+        this.ticketUuid = ticketUuid;
+    }
 }

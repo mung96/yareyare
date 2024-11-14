@@ -5,9 +5,11 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.entity.Purchase;
 
+@Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     @Query("SELECT new yare.yare.domain.payment.dto.TicketDto(" +
             "p.id, g.seasonName, g.awayTeamName, g.homeTeamName, p.reservationId," +
@@ -56,4 +58,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
             "ORDER BY p.id DESC")
     Slice<TicketDto> findDefaultCancelReservationList(@Param("memberUuid") String memberUuid,
                                                       Pageable pageable);
+
+
 }

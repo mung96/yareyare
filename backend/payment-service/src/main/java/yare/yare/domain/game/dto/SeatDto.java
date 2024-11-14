@@ -1,4 +1,4 @@
-package yare.yare.domain.history.dto;
+package yare.yare.domain.game.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +14,19 @@ import yare.yare.domain.history.entity.SeatHistory;
 public class SeatDto {
     private Long seatId;
 
-    public static SeatHistory toEntity(Long seatId, Integer unitPrice, PurchaseHistory purchaseHistory) {
+    private String sectionName;
+
+    private String rowName;
+
+    private String seatNo;
+
+    public SeatHistory toEntity(Integer unitPrice, PurchaseHistory purchaseHistory) {
         return SeatHistory.builder()
                 .seatId(seatId)
                 .unitPrice(unitPrice)
+                .sectionName(sectionName)
+                .rowName(rowName)
+                .seatNo(seatNo)
                 .purchaseHistory(purchaseHistory)
                 .build();
     }

@@ -29,7 +29,19 @@ public class SeatHistory {
     private Integer unitPrice;
 
     @NotNull
-    @Column(columnDefinition = "INT UNSIGNED")
+    @Column(length = 20)
+    private String sectionName;
+
+    @NotNull
+    @Column(length = 20)
+    private String rowName;
+
+    @NotNull
+    @Column(length = 20)
+    private String seatNo;
+
+    @NotNull
+    @Column(name = "seat_id", columnDefinition = "INT UNSIGNED")
     private Long seatId;
 
     @CreatedDate
