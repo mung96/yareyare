@@ -22,7 +22,11 @@ public class PurchaseController {
     private final JwtTokenService jwtTokenService;
 
     @PostMapping
-    public ResponseDto<Void> purchaseAdd(@RequestBody PurchaseAddReq purchaseAddReq) {
+    public ResponseDto<Void> purchaseAdd(@RequestHeader("Authorization") String token,
+                                         @RequestBody PurchaseAddReq purchaseAddReq) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
+
+        purchaseService.addPurchase(purchaseAddReq, memberUuid);
 
         return ResponseDto.success(CREATED, null);
     }

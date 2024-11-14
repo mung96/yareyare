@@ -5,6 +5,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import yare.yare.domain.history.entity.PurchaseHistory;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.entity.Purchase;
 
@@ -56,4 +57,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
             "ORDER BY p.id DESC")
     Slice<TicketDto> findDefaultCancelReservationList(@Param("memberUuid") String memberUuid,
                                                       Pageable pageable);
+
+
 }
