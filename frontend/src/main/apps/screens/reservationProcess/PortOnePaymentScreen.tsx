@@ -17,8 +17,8 @@ function PortOnePaymentScreen({
     phoneNumber: member?.tel,
     fullName: member?.name,
     orderName: '포트원 결제',
-    totalAmount: params.price * params.seatList.length,
-    paymentId: '1113124567',
+    totalAmount: params.totalPrice,
+    paymentId: params.idempotencyKey,
   };
   const webViewRef = useRef<WebView>(null);
   const onLoad = async () => {
