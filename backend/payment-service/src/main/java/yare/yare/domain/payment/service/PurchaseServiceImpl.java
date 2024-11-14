@@ -93,12 +93,12 @@ public class PurchaseServiceImpl implements PurchaseService {
             SeatHistory seatHistory = seatHistoryList.get(i);
             PurchasedSeat purchasedSeat = purchaseAddReq.toEntity(seatHistory);
 
+            purchasedSeatRepository.save(purchasedSeat);
+
             String ticketUuid = makeTicketUuid(purchase.getGame().getId(),
                     purchasedSeat.getSeatId(), purchasedSeat.getId());
 
             purchasedSeat.updateTicketUuid(ticketUuid);
-
-            purchasedSeatRepository.save(purchasedSeat);
 
             if (i == seatHistoryList.size() - 1) {
                 lastReservationId = ticketUuid;
