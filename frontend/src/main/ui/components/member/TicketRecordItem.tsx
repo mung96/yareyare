@@ -18,7 +18,7 @@ function TicketRecordItem({ticket}: Props) {
         <View style={styles.textContainer}>
           <View style={styles.textBox}>
             <CustomText style={[styles.ticketText, styles.label]}>
-              예매번호
+              예매번호 {ticket.purchaseId}
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
               {ticket.reservationId}
