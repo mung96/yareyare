@@ -30,6 +30,7 @@ public class PurchaseAddReq {
                 .game(purchaseHistory.getGame())
                 .gradeId(purchaseHistory.getId())
                 .gradeName(purchaseHistory.getGradeName())
+                .isDeleted(Boolean.FALSE)
                 .build();
     }
 
@@ -40,6 +41,7 @@ public class PurchaseAddReq {
                 .seatNo(seatHistory.getSeatNo())
                 .seatId(seatHistory.getSeatId())
                 .unitPrice(seatHistory.getUnitPrice())
+                .isDeleted(Boolean.FALSE)
                 .build();
     }
 }

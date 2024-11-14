@@ -44,6 +44,7 @@ public class PurchaseHistory {
     private String gradeName;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     public void updateTotalPrice(Integer totalPrice) {

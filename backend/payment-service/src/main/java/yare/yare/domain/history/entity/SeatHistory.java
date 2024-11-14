@@ -45,5 +45,6 @@ public class SeatHistory {
     private Long seatId;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 }

@@ -63,6 +63,7 @@ public class Purchase {
     private Boolean isDeleted;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
