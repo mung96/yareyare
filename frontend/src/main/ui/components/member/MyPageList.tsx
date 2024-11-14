@@ -10,10 +10,12 @@ import React from 'react';
 import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
 import {PATH} from '@/main/shared/constants';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useLogoutMutation} from '@/main/services/hooks/queries/useMemberQuery.ts';
 
 function MyPageList() {
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp<MypageParamList>>();
+  const {mutate: logout} = useLogoutMutation();
   return (
     <View style={styles.container}>
       <CustomText style={styles.title}>마이페이지</CustomText>
@@ -44,7 +46,7 @@ function MyPageList() {
       <MypageItem
         icon={<MIcon name={'logout'} size={22} />}
         title={'로그아웃'}
-        onPress={() => console.log('로그아웃')}
+        onPress={() => logout()}
       />
     </View>
   );
