@@ -56,7 +56,13 @@ function MyPageNavigation() {
         name={PATH.TICKET_RECORD}
         component={TicketRecordScreen}
       />
-      <Stack.Screen name={PATH.UPDATE_MYTEAM} component={UpdateTeamScreen} />
+      <Stack.Screen
+        options={{
+          headerTitle: '나의 팀 변경',
+        }}
+        name={PATH.UPDATE_MYTEAM}
+        component={UpdateTeamScreen}
+      />
     </Stack.Navigator>
   );
 }

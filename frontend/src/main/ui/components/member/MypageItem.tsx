@@ -12,7 +12,14 @@ type Props = {
 
 function MypageItem({icon, title, onPress}: Props) {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable
+      onPress={onPress}
+      style={({pressed}) => [
+        styles.container,
+        pressed && {
+          backgroundColor: COLORS.GRAY_500,
+        },
+      ]}>
       <View style={styles.leftContainer}>
         {icon}
         <CustomText style={styles.text}>{title}</CustomText>
