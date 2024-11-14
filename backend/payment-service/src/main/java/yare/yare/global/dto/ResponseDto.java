@@ -26,7 +26,7 @@ public class ResponseDto<T> extends ResponseEntity<ResponseData<T>> {
     }
 
     public static <T> ResponseDto<T> fail(ErrorCode e) {
-        return new ResponseDto<>(HttpStatus.valueOf(e.getHttpStatusCode()), e.getMessage());
+        return new ResponseDto<>(e.getHttpStatusCode(), e.getMessage());
     }
 
     public static <T> ResponseDto<T> fail(String errorMessage) {
