@@ -4,9 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum Vendor {
-    CARD,
-    TRANSFER,
-    KAKAOPAY,
-    TOSSPAY
+    PAYMENT
     ;
 }
