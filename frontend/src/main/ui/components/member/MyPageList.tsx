@@ -60,11 +60,15 @@ const styles = StyleSheet.create({
     gap: 12,
     width: '100%',
     maxWidth: 360,
+    borderRadius: 16,
   },
   title: {
     fontSize: 20,
     color: COLORS.BLACK,
     fontWeight: '900',
+    marginTop: 8,
+    marginLeft: 8,
+    marginBottom: 8,
   },
 });
 export default MyPageList;
