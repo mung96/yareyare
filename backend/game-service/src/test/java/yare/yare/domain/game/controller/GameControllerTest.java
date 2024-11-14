@@ -5,19 +5,21 @@ import com.epages.restdocs.apispec.Schema;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.game.dto.ReserveSeatReq;
+import yare.yare.domain.game.dto.RollbackSeatReq;
 import yare.yare.domain.game.repository.GameRepository;
+import yare.yare.domain.game.service.GameService;
 import yare.yare.global.utils.RedisUtil;
 
 import java.util.ArrayList;
@@ -27,8 +29,11 @@ import java.util.stream.Collectors;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
+import static java.lang.Boolean.TRUE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -54,6 +59,9 @@ public class GameControllerTest {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @SpyBean
+    private GameService gameService;
 
     @MockBean
     private RedisUtil redisUtil;
@@ -86,6 +94,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                                .description("body"),
                                                 fieldWithPath("body.games").type(ARRAY).optional()
                                                         .description("경기 목록"),
                                                 fieldWithPath("body.games[].gameId").type(NUMBER).optional()
@@ -143,6 +153,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.games").type(ARRAY).optional()
                                                         .description("경기 목록"),
                                                 fieldWithPath("body.games[].gameId").type(NUMBER).optional()
@@ -202,6 +214,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.seasonName").type(STRING)
                                                         .description("시즌 이름"),
                                                 fieldWithPath("body.homeTeamName").type(STRING)
@@ -253,6 +267,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.grades[].gradeId").type(NUMBER)
                                                         .description("좌석 등급 아이디"),
                                                 fieldWithPath("body.grades[].gradeName").type(STRING)
@@ -303,6 +319,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.sections[].sectionName").type(STRING)
                                                         .description("좌석 구역 이름"),
                                                 fieldWithPath("body.sections[].rows[].rowName").type(STRING)
@@ -336,7 +354,7 @@ public class GameControllerTest {
         String content = objectMapper.writeValueAsString(req);
 
         //when
-        Mockito.when(redisUtil.lock(any(),any(),anyLong())).thenReturn(true);
+        when(redisUtil.lock(any(), any(), anyLong())).thenReturn(true);
 
         ResultActions actions = mockMvc.perform(
                 patch("/api/games/{gameId}/seats", gameId)
@@ -367,12 +385,69 @@ public class GameControllerTest {
                                 )
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.price").type(NUMBER)
                                                         .description("결제 가격")
                                         )
                                 )
                                 .requestSchema(Schema.schema("좌석 선택 Request"))
                                 .responseSchema(Schema.schema("좌석 선택 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 좌석_선택_취소_성공() throws Exception {
+        //given
+        Long gameId = 693L;
+        RollbackSeatReq req = new RollbackSeatReq();
+        List<Long> seats = new ArrayList<>();
+        seats.add(200L);
+        seats.add(201L);
+        req.setSeats(seats);
+        req.setIdempotentKey(idempotentKey);
+        String content = objectMapper.writeValueAsString(req);
+
+        //when
+        doReturn(TRUE).when(gameService).rollBackSeat(anyLong(),any());
+
+        ResultActions actions = mockMvc.perform(
+                patch("/api/games/{gameId}/seats/rollback", gameId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+                        .characterEncoding("UTF-8")
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "좌석 선택 취소 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Game API")
+                                .summary("좌석 선택 취소 API")
+                                .pathParameters(
+                                        parameterWithName("gameId").description("조회할 경기 아이디")
+                                )
+                                .requestFields(
+                                        fieldWithPath("seats").type(ARRAY).description("예약할 좌석 아이디 리스트"),
+                                        fieldWithPath("idempotentKey").type(STRING).description("멱등키")
+
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body").type(BOOLEAN)
+                                                        .description("좌석 선택 취소 성공여부")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("좌석 선택 취소 Request"))
+                                .responseSchema(Schema.schema("좌석 선택 취소 Response"))
                                 .build()
                         ))
                 );
@@ -416,6 +491,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.schedules[]").type(ARRAY)
                                                         .description("경기 스케줄 리스트"),
                                                 fieldWithPath("body.schedules[].gameDate").type(STRING).optional()
@@ -465,6 +542,9 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+
+                                                fieldWithPath("body").type(ANY).optional()
+                                                                .description("body"),
                                                 fieldWithPath("body.gameDate").type(STRING)
                                                         .description("경기 결과 기준 날짜"),
                                                 fieldWithPath("body.results[].homeTeamScore").type(NUMBER).optional()
@@ -519,6 +599,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.price").type(NUMBER)
                                                         .description("좌석 가격")
                                         )
@@ -571,6 +653,8 @@ public class GameControllerTest {
                                 .requestFields()
                                 .responseFields(
                                         getCommonResponseFields(
+                                                fieldWithPath("body").type(ANY).optional()
+                                                        .description("body"),
                                                 fieldWithPath("body.price").type(NUMBER).optional()
                                                         .description("좌석 가격(단일)"),
                                                 fieldWithPath("body.gradeId").type(NUMBER).optional()
