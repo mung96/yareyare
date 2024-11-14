@@ -21,6 +21,7 @@ import yare.yare.domain.payment.entity.Purchase;
 import yare.yare.domain.payment.entity.PurchasedSeat;
 import yare.yare.domain.payment.repository.PurchaseRepository;
 import yare.yare.domain.payment.repository.PurchasedSeatRepository;
+import yare.yare.domain.portone.service.PortOneService;
 import yare.yare.global.dto.SliceDto;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtils;
@@ -38,6 +39,7 @@ import static yare.yare.global.statuscode.ErrorCode.*;
 public class PurchaseServiceImpl implements PurchaseService {
     private static final String PREFIX_TICKET_UNIQUE = "T327";
     private final GameService gameService;
+    private final PortOneService portOneService;
     private final PurchaseRepository purchaseRepository;
     private final PurchaseHistoryRepository purchaseHistoryRepository;
     private final PurchasedSeatRepository purchasedSeatRepository;
@@ -82,7 +84,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         PurchaseHistory purchaseHistory = purchaseHistoryRepository.findByIdempotencyKey(purchaseAddReq.getIdempotencyKey())
                 .orElseThrow(() -> new CustomException(NOT_FOUND_HISTORY));
 
-        if(!Objects.equals(purchaseHistory.getTotalPrice(), purchaseAddReq.getTotalPrice())) {
+        Integer totalPrice = portOneService.getPrice(purchaseAddReq.getIdempotencyKey());
+
+        if(!Objects.equals(purchaseHistory.getTotalPrice(), totalPrice)) {
             throw new CustomException(INVALID_TOTAL_PRICE);
         }
 
@@ -90,7 +94,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw new CustomException(PURCHASE_NOT_MINE);
         }
 
-        Purchase purchase = purchaseAddReq.toEntity(purchaseHistory);
+        Purchase purchase = purchaseAddReq.toEntity(purchaseHistory, totalPrice);
 
         List<SeatHistory> seatHistoryList = seatHistoryRepository.findByPurchaseHistory(purchaseHistory.getId());
 
