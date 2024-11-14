@@ -5,13 +5,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yare.yare.domain.game.dto.CheckSeatReq;
+import yare.yare.domain.game.service.GameService;
 import yare.yare.domain.history.entity.PurchaseHistory;
 import yare.yare.domain.history.entity.SeatHistory;
 import yare.yare.domain.history.repository.PurchaseHistoryRepository;
 import yare.yare.domain.history.repository.SeatHistoryRepository;
 import yare.yare.domain.payment.dto.TicketDto;
+import yare.yare.domain.payment.dto.request.CheckValidSeatsReq;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
+import yare.yare.domain.payment.dto.response.CheckValidSeatsRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.entity.Purchase;
 import yare.yare.domain.payment.entity.PurchasedSeat;
@@ -21,6 +25,8 @@ import yare.yare.global.dto.SliceDto;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +37,7 @@ import static yare.yare.global.statuscode.ErrorCode.*;
 @RequiredArgsConstructor
 public class PurchaseServiceImpl implements PurchaseService {
     private static final String PREFIX_TICKET_UNIQUE = "T327";
+    private final GameService gameService;
     private final PurchaseRepository purchaseRepository;
     private final PurchaseHistoryRepository purchaseHistoryRepository;
     private final PurchasedSeatRepository purchasedSeatRepository;
@@ -88,12 +95,15 @@ public class PurchaseServiceImpl implements PurchaseService {
         List<SeatHistory> seatHistoryList = seatHistoryRepository.findByPurchaseHistory(purchaseHistory.getId());
 
         String lastReservationId = null;
+        List<Long> seatIds = new ArrayList<>();
 
         for (int i = 0; i < seatHistoryList.size(); i++) {
             SeatHistory seatHistory = seatHistoryList.get(i);
             PurchasedSeat purchasedSeat = purchaseAddReq.toEntity(seatHistory, purchase);
 
             purchasedSeatRepository.save(purchasedSeat);
+
+            seatIds.add(purchasedSeat.getId());
 
             String ticketUuid = makeTicketUuid(purchase.getGame().getId(),
                     purchasedSeat.getSeatId(), purchasedSeat.getId());
@@ -109,7 +119,32 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         purchase.updateReservationId(lastReservationId);
 
+        CheckSeatReq checkSeatReq = CheckSeatReq.toDto(purchase.getIdempotencyKey(), seatIds);
+
+        gameService.checkValidSeats(purchase.getId(), checkSeatReq);
+
         redisUtils.unlock(lockKey);
+    }
+
+    @Override
+    public CheckValidSeatsRes checkValidSeats(CheckValidSeatsReq checkValidSeatsReq) {
+        Purchase purchase = purchaseRepository.findByIdempotencyKey(checkValidSeatsReq.getIdempotencyKey())
+                .orElse(null);
+
+        if(purchase == null) {
+            return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
+        }
+
+        List<Long> seatIds = purchasedSeatRepository.findIdsByPurchaseId(purchase.getId());
+
+        Collections.sort(checkValidSeatsReq.getSeatIds());
+        Collections.sort(seatIds);
+
+        if(!checkValidSeatsReq.getSeatIds().equals(seatIds)) {
+            return CheckValidSeatsRes.isValid(checkValidSeatsReq.getIdempotencyKey());
+        }
+
+        return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
     }
 
     private String makeTicketUuid(Long gameId, Long seatId, Long ticketId) {

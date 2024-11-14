@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import yare.yare.domain.payment.dto.request.CheckValidSeatsReq;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
+import yare.yare.domain.payment.dto.response.CheckValidSeatsRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
 import yare.yare.global.auth.JwtTokenService;
@@ -49,6 +51,13 @@ public class PurchaseController {
         String memberUuid = jwtTokenService.getMemberUuid(token);
 
         CancelReservationListRes result = purchaseService.cancelReservationList(memberUuid, lastPurchaseId, pageable);
+
+        return ResponseDto.success(OK, result);
+    }
+
+    @GetMapping("/check")
+    public ResponseDto<CheckValidSeatsRes> checkValidSeats(@ModelAttribute CheckValidSeatsReq checkValidSeatsReq) {
+        CheckValidSeatsRes result = purchaseService.checkValidSeats(checkValidSeatsReq);
 
         return ResponseDto.success(OK, result);
     }
