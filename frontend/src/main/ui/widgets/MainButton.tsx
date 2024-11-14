@@ -37,7 +37,6 @@ function MainButton({
         styles.container,
         pressed ? styles[`${variant}Pressed`] : styles[variant],
         disabled && styles.disabled,
-
         style,
       ]}
       {...props}>

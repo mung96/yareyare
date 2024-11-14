@@ -35,10 +35,10 @@ function GradeScreen({onNext}: Props) {
 
         <Controller
           control={control}
+          rules={{required: true}}
           render={({field: {onChange, value}}) => (
             <GradeList value={value} onSelect={onChange} />
           )}
-          rules={{required: true}}
           name="grade"
         />
       </ReservationLayout>

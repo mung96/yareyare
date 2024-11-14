@@ -22,7 +22,7 @@ type Props = {
 };
 
 //TODO:이전으로 넘어갈떄 로직
-function SeatScreen({context, onPrev, onNext}: Props) {
+function SeatScreen({context, onNext}: Props) {
   const {
     control,
     handleSubmit,
@@ -42,7 +42,9 @@ function SeatScreen({context, onPrev, onNext}: Props) {
     },
   });
   const onSubmit = () => {
-    const seatIdList = control._formValues.seatList.map(seat => seat.seatId);
+    const seatIdList = (control._formValues.seatList as Seat[]).map(
+      seat => seat.seatId,
+    );
     setSeatList(control._formValues.seatList);
     selectSeat({
       gameId: String(gameId),
@@ -76,6 +78,7 @@ function SeatScreen({context, onPrev, onNext}: Props) {
 
         <Controller
           control={control}
+          rules={{required: true}}
           render={({field: {value}}) => <SelectedSeatList seatList={value} />}
           name="seatList"
         />
