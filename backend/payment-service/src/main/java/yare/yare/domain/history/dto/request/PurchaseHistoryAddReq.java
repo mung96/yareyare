@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import yare.yare.domain.history.dto.SeatDto;
 import yare.yare.domain.history.entity.PurchaseHistory;
+import yare.yare.domain.payment.entity.Game;
 
 import java.util.List;
 
@@ -18,12 +18,15 @@ public class PurchaseHistoryAddReq {
 
     private String idempotencyKey;
 
-    private List<SeatDto> seats;
+    private List<Long> seatIds;
 
-    public PurchaseHistory toEntity(String memberUuid) {
+    public PurchaseHistory toEntity(String memberUuid, Long gradeId, String gradeName, Game game) {
         return PurchaseHistory.builder()
-                .gameId(gameId)
+                .game(game)
+                .gradeName(gradeName)
+                .gradeId(gradeId)
                 .memberUuid(memberUuid)
+                .idempotencyKey(idempotencyKey)
                 .build();
     }
 }
