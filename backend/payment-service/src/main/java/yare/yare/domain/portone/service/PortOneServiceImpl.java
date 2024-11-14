@@ -42,13 +42,13 @@ public class PortOneServiceImpl implements PortOneService {
                 redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
                 redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
 
-                return "Bearer " + newToken.getAccess_token();
+                return "PortOne " + newToken.getAccess_token();
             }
 
             return newAccessToken(refreshToken);
         }
 
-        return token;
+        return "PortOne " + token;
     }
 
     private String newAccessToken(String refreshToken) {
@@ -58,6 +58,6 @@ public class PortOneServiceImpl implements PortOneService {
         redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
         redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
 
-        return "Bearer " + newToken.getAccess_token();
+        return "PortOne " + newToken.getAccess_token();
     }
 }
