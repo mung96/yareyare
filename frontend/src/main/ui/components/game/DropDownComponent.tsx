@@ -5,10 +5,10 @@ import {COLORS} from '@/main/shared/styles';
 
 type DataType = {
   label: string;
-  value: string;
+  value: number;
 };
 
-type Props<T extends DataType> = {
+type Props<T> = {
   data: T[];
   placeholder: string;
   icon:
@@ -47,7 +47,7 @@ const DropDownComponent = <T extends DataType>({
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
-          setValue(item.value);
+          setValue(String(item.value));
           setIsFocus(false);
           onChange(item);
         }}

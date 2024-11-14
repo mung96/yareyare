@@ -4,11 +4,11 @@ import {SvgUri} from 'react-native-svg';
 
 type Props = {
   team: {
-    teamId: string;
+    teamId: number;
     teamLogo: string;
     teamName: string;
     label: string;
-    value: string;
+    value: number;
   };
 };
 

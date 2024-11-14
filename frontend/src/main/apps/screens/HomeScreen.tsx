@@ -24,7 +24,7 @@ function HomeScreen() {
         placeholder={'팀 선택'}
         icon={() => <Icon name="people" size={22} style={styles.icon} />}
         renderItem={item => <TeamItem team={item} />}
-        onChange={item => setTeamId(item.teamId)}
+        onChange={item => setTeamId(String(item.teamId))}
       />
 
       <GamePlanCardList
