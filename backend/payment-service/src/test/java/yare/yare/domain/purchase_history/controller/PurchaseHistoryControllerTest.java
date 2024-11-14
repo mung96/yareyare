@@ -10,28 +10,21 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import yare.yare.domain.game.feign_client.GameFeignClientCustom;
-import yare.yare.domain.game.service.GameService;
-import yare.yare.domain.history.controller.PurchaseHistoryController;
-import yare.yare.domain.history.dto.SeatDto;
 import yare.yare.domain.history.dto.request.PurchaseHistoryAddReq;
 import yare.yare.domain.history.dto.response.PurchaseHistoryAddRes;
 import yare.yare.domain.history.service.PurchaseHistoryService;
-import yare.yare.global.auth.JwtTokenService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.NUMBER;
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.STRING;
+import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -64,12 +57,12 @@ public class PurchaseHistoryControllerTest {
     public void 결제_히스토리_등록_성공() throws Exception {
         //given
         PurchaseHistoryAddReq req = new PurchaseHistoryAddReq();
-        List<SeatDto> seats = new ArrayList<>();
-        seats.add(new SeatDto(1L));
-        seats.add(new SeatDto(2L));
+        List<Long> seats = new ArrayList<>();
+        seats.add(1L);
+        seats.add(2L);
 
         req.setGameId(693L);
-        req.setSeats(seats);
+        req.setSeatIds(seats);
         req.setIdempotencyKey("uuid");
 
         PurchaseHistoryAddRes result = new PurchaseHistoryAddRes();
@@ -105,7 +98,7 @@ public class PurchaseHistoryControllerTest {
                                         List.of(
                                                 fieldWithPath("gameId").type(NUMBER)
                                                         .description("경기 아이디"),
-                                                fieldWithPath("seats[].seatId").type(NUMBER)
+                                                fieldWithPath("seatIds[]").type(ARRAY)
                                                         .description("예약할 좌석 아이디"),
                                                 fieldWithPath("idempotencyKey").type(STRING)
                                                         .description("멱등키")

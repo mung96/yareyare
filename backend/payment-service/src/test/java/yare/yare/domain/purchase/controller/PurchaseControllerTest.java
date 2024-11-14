@@ -24,7 +24,6 @@ import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
-import yare.yare.global.auth.JwtTokenService;
 import yare.yare.global.dto.SliceDto;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import static com.epages.restdocs.apispec.ResourceDocumentation.parameterWithNam
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -70,12 +70,16 @@ public class PurchaseControllerTest {
         PurchaseAddReq req = new PurchaseAddReq();
         req.setIdempotencyKey("a3df30a8-65e3-425a-a286-2b7877b8e61e");
         req.setTotalPrice(23000);
+        req.setVendor("PAYMENT");
 
         String content = objectMapper.writeValueAsString(req);
+
+        doNothing().when(purchaseService).addPurchase(any(PurchaseAddReq.class), anyString());
 
         //when
         ResultActions actions = mockMvc.perform(
                 post("/api/payments")
+                        .header("Authorization", "Bearer " + JWT_TOKEN)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -94,12 +98,18 @@ public class PurchaseControllerTest {
                         resource(ResourceSnippetParameters.builder()
                                 .tag("Payment API")
                                 .summary("결제 등록 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
                                 .requestFields(
                                         List.of(
                                                 fieldWithPath("idempotencyKey").type(STRING)
                                                         .description("멱등키"),
                                                 fieldWithPath("totalPrice").type(NUMBER)
-                                                        .description("가격")
+                                                        .description("가격"),
+                                                fieldWithPath("vendor").type(STRING)
+                                                        .description("결제 방법")
                                         )
                                 )
                                 .responseFields(
