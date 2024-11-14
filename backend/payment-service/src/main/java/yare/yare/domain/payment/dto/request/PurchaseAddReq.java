@@ -17,11 +17,9 @@ import yare.yare.domain.payment.enums.Vendor;
 public class PurchaseAddReq {
     private String idempotencyKey;
 
-    private Integer totalPrice;
-
     private String vendor;
 
-    public Purchase toEntity(PurchaseHistory purchaseHistory) {
+    public Purchase toEntity(PurchaseHistory purchaseHistory, Integer totalPrice) {
         return Purchase.builder()
                 .memberUuid(purchaseHistory.getMemberUuid())
                 .vendor(Vendor.valueOf(vendor.toUpperCase()))

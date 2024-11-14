@@ -69,7 +69,6 @@ public class PurchaseControllerTest {
         //given
         PurchaseAddReq req = new PurchaseAddReq();
         req.setIdempotencyKey("a3df30a8-65e3-425a-a286-2b7877b8e61e");
-        req.setTotalPrice(23000);
         req.setVendor("PAYMENT");
 
         String content = objectMapper.writeValueAsString(req);
@@ -106,8 +105,6 @@ public class PurchaseControllerTest {
                                         List.of(
                                                 fieldWithPath("idempotencyKey").type(STRING)
                                                         .description("멱등키"),
-                                                fieldWithPath("totalPrice").type(NUMBER)
-                                                        .description("가격"),
                                                 fieldWithPath("vendor").type(STRING)
                                                         .description("결제 방법")
                                         )
