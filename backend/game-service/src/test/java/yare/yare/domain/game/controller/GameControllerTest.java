@@ -5,10 +5,12 @@ import com.epages.restdocs.apispec.Schema;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -51,7 +55,7 @@ public class GameControllerTest {
     @Autowired
     private GameRepository gameRepository;
 
-    @Autowired
+    @MockBean
     private RedisUtil redisUtil;
 
     private final String idempotentKey = "idempotentKey";
@@ -330,12 +334,10 @@ public class GameControllerTest {
         req.setSeats(seats);
         req.setIdempotentKey(idempotentKey);
         String content = objectMapper.writeValueAsString(req);
-        String key1 = String.format("seat:%d:%d", gameId, 200L);
-        String key2 = String.format("seat:%d:%d", gameId, 201L);
-        redisUtil.unlock(key1);
-        redisUtil.unlock(key2);
 
         //when
+        Mockito.when(redisUtil.lock(any(),any(),anyLong())).thenReturn(true);
+
         ResultActions actions = mockMvc.perform(
                 patch("/api/games/{gameId}/seats", gameId)
                         .accept(MediaType.APPLICATION_JSON)
