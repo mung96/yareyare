@@ -13,6 +13,9 @@ import yare.yare.global.utils.RedisUtils;
 @Service
 @RequiredArgsConstructor
 public class PortOneServiceImpl implements PortOneService {
+    private static final String TOKEN_PREFIX = "PortOne ";
+    private static final String PAYMENT_PREFIX = "paymentId-";
+
     @Value("${PORT_ONE_SECRET}")
     private String apiSecret;
 
@@ -23,7 +26,7 @@ public class PortOneServiceImpl implements PortOneService {
     public Integer getPrice(String paymentId) {
         String token = createToken();
 
-        PortOnePriceRes result = portOneFeignClientCustom.getPrice(paymentId, token);
+        PortOnePriceRes result = portOneFeignClientCustom.getPrice(PAYMENT_PREFIX+paymentId, token);
 
         return result.getResponse().getAmount().getTotal();
     }
@@ -42,13 +45,13 @@ public class PortOneServiceImpl implements PortOneService {
                 redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
                 redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
 
-                return "PortOne " + newToken.getAccess_token();
+                return TOKEN_PREFIX + newToken.getAccess_token();
             }
 
             return newAccessToken(refreshToken);
         }
 
-        return "PortOne " + token;
+        return TOKEN_PREFIX + token;
     }
 
     private String newAccessToken(String refreshToken) {
@@ -58,6 +61,6 @@ public class PortOneServiceImpl implements PortOneService {
         redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
         redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
 
-        return "PortOne " + newToken.getAccess_token();
+        return TOKEN_PREFIX + newToken.getAccess_token();
     }
 }
