@@ -330,6 +330,10 @@ public class GameControllerTest {
         req.setSeats(seats);
         req.setIdempotentKey(idempotentKey);
         String content = objectMapper.writeValueAsString(req);
+        String key1 = String.format("seat:%d:%d", gameId, 200L);
+        String key2 = String.format("seat:%d:%d", gameId, 201L);
+        redisUtil.unlock(key1);
+        redisUtil.unlock(key2);
 
         //when
         ResultActions actions = mockMvc.perform(
