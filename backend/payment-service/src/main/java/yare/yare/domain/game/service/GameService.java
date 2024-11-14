@@ -1,7 +1,9 @@
 package yare.yare.domain.game.service;
 
-import yare.yare.domain.game.dto.PriceRes;
+import yare.yare.domain.game.dto.SeatInfoRes;
+
+import java.util.List;
 
 public interface GameService {
-    PriceRes getSeatPrice(Long gameId, Long seatId);
+    SeatInfoRes getSeatsInfo(Long gameId, List<Long> seatIds);
 }
