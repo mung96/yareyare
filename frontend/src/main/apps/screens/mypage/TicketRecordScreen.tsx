@@ -4,13 +4,21 @@ import {ActivityIndicator, FlatList, View} from 'react-native';
 import TicketRecordItem from '@/main/ui/components/member/TicketRecordItem.tsx';
 import {COLORS} from '@/main/shared/styles';
 import useTicketRecordModel from '@/main/services/hooks/useTicketRecordModel.ts';
+import {useEffect} from 'react';
 
 function TicketRecordScreen({
   route,
+  navigation,
 }: NativeStackScreenProps<MypageParamList, 'TicketRecord'>) {
-  const recordType = route.params.type;
+  const {type: recordType} = route.params;
   const {ticketRecordList, updateTicketRecordList, isFetching} =
     useTicketRecordModel(recordType);
+
+  useEffect(() => {
+    const title =
+      recordType === 'purchases' ? '티켓 예매 내역' : '티켓 취소 내역';
+    navigation.setOptions({headerTitle: title});
+  }, [recordType, navigation]);
 
   return (
     <View

@@ -8,7 +8,6 @@ import TicketRecordScreen from '@/main/apps/screens/mypage/TicketRecordScreen.ts
 import UpdateTeamScreen from '@/main/apps/screens/mypage/UpdateTeamScreen.tsx';
 import MyPageScreen from '@/main/apps/screens/MyPageScreen.tsx';
 import {TicketType} from '@/main/shared/types/payment/domain.ts';
-import Icon from 'react-native-vector-icons/Ionicons';
 import IconI from 'react-native-vector-icons/Ionicons';
 
 type TicketCategory = {
