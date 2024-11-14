@@ -20,11 +20,13 @@ import yare.yare.global.utils.RedisUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -513,6 +515,72 @@ public class GameControllerTest {
                                         getCommonResponseFields(
                                                 fieldWithPath("body.price").type(NUMBER)
                                                         .description("좌석 가격")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("좌석 가격 조회 Request"))
+                                .responseSchema(Schema.schema("좌석 가격 조회 Response"))
+                                .build()
+                        ))
+                );
+
+    }
+
+    @Test
+    public void 좌석_정보_조회_성공() throws Exception {
+
+        //given
+        Long gameId = 693L;
+        List<Long> seatIds = new ArrayList<>();
+        seatIds.add(1L);
+        seatIds.add(2L);
+
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                get("/api/games/{gameId}/seats/details", gameId)
+                        .param("seatIds", seatIds.stream()
+                                .map(String::valueOf)
+                                .collect(Collectors.joining(",")))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "좌석 정보 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Game API")
+                                .summary("좌석 정보 조회 API")
+                                .pathParameters(
+                                        parameterWithName("gameId").description("조회할 경기 아이디")
+                                )
+                                .queryParameters(
+                                        parameterWithName("seatIds").description("좌석 id 리스트")
+                                )
+                                .requestFields()
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.price").type(NUMBER).optional()
+                                                        .description("좌석 가격(단일)"),
+                                                fieldWithPath("body.gradeId").type(NUMBER).optional()
+                                                        .description("좌석 등급 아이디(동일)"),
+                                                fieldWithPath("body.gradeName").type(STRING).optional()
+                                                        .description("좌석 등급 아이디(동일)"),
+                                                fieldWithPath("body.seats").type(ARRAY).optional()
+                                                        .description("좌석 정보 리스트"),
+                                                fieldWithPath("body.seats[].seatId").type(NUMBER).optional()
+                                                        .description("좌석 아이디"),
+                                                fieldWithPath("body.seats[].sectionName").type(STRING).optional()
+                                                        .description("좌석 구역 이름"),
+                                                fieldWithPath("body.seats[].rowName").type(STRING).optional()
+                                                        .description("좌석 열 이름"),
+                                                fieldWithPath("body.seats[].seatNo").type(NUMBER).optional()
+                                                        .description("좌석 번호")
                                         )
                                 )
                                 .requestSchema(Schema.schema("좌석 가격 조회 Request"))

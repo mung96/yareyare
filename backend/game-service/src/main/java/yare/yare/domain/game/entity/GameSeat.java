@@ -66,6 +66,14 @@ public class GameSeat {
         return price.getId();
     }
 
+    public Integer getGradeId(){
+        return price.getGrade().getId();
+    }
+
+    public String getGradeName() {
+        return price.getGrade().getName();
+    }
+
     public Boolean isAvailable() {
         return seatStatus == SeatStatus.AVAILABLE;
     }
