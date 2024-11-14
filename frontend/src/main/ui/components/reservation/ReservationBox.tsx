@@ -6,6 +6,7 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 type Props = {
   title?: string;
   children: ReactNode;
+  style?: any;
 };
 
 function ReservationBox({title, children}: Props) {
