@@ -5,11 +5,27 @@ import lombok.Data;
 @Data
 public class PaymentValidationRes {
 
-    private String idempotencyKey;
+    private Header header;
 
-    private Boolean isValid;
+    private Body body;
+
+    public static class Header {
+
+    }
+
+    @Data
+    public static class Body {
+        private String idempotencyKey;
+        private Boolean isValid;
+
+        public Boolean inValid() {
+            return !isValid;
+        }
+    }
 
     public Boolean inValid() {
-        return !isValid;
+        return this.body.inValid();
     }
+
+
 }

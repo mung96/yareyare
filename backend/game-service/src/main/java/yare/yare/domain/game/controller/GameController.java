@@ -85,10 +85,10 @@ public class GameController {
             @RequestBody @Valid GameSeatStatusUpdateDto gameSeatStatusUpdateDto) {
 
         PaymentValidationRes paymentValidationRes = feignService.validatePaymentInfo(gameId, gameSeatStatusUpdateDto);
-        if(paymentValidationRes.inValid()){
+        if (paymentValidationRes.inValid()) {
             return ResponseDto.fail(BAD_REQUEST);
         }
-        gameService.updateSeatStatus(gameId,gameSeatStatusUpdateDto);
+        gameService.updateSeatStatus(gameId, gameSeatStatusUpdateDto);
         return ResponseDto.success(NO_CONTENT);
     }
 
