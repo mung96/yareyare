@@ -79,6 +79,15 @@ public class GameController {
         return ResponseDto.success(OK, result);
     }
 
+    @PatchMapping("/{gameId}/seats/rollback")
+    public ResponseDto<Boolean> rollbackSeat(
+            @PathVariable Long gameId,
+            @RequestBody @Valid RollbackSeatReq rollbackSeatReq) {
+
+        Boolean isDone = gameService.rollBackSeat(gameId, rollbackSeatReq);
+        return ResponseDto.success(OK, isDone);
+    }
+
     @PatchMapping("/{gameId}/seats/sold-out")
     public ResponseDto<Void> soldOutSeat(
             @PathVariable Long gameId,

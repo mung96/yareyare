@@ -74,5 +74,12 @@ public class RedisUtilImpl implements RedisUtil {
         redisStringTemplate.delete("lock:" + key);
     }
 
+    public String getStringData(String key){
+        try{
+            return redisStringTemplate.opsForValue().get(key);
+        }catch (Exception e){
+            return null;
+        }
+    }
 
 }

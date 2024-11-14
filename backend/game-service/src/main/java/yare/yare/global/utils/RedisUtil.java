@@ -24,4 +24,5 @@ public interface RedisUtil {
 
     void unlock(String key);
 
+    String getStringData(String key);
 }

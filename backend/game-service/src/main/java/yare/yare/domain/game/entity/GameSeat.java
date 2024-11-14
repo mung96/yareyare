@@ -78,6 +78,10 @@ public class GameSeat {
         return seatStatus == SeatStatus.AVAILABLE;
     }
 
+    public Boolean setAvailable() {
+        seatStatus = SeatStatus.AVAILABLE;
+        return true;
+    }
     public Boolean setSoldOut(){
         if(seatStatus == SeatStatus.SOLD_OUT){
             return Boolean.FALSE;

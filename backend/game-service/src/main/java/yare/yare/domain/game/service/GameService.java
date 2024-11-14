@@ -28,4 +28,6 @@ public interface GameService {
     GameSeatDetailListRes getGameSeatDetails(Long gameId, List<Long> seatIds);
 
     void updateSeatStatus(Long gameId, GameSeatStatusUpdateDto gameSeatStatusUpdateDto);
+
+    Boolean rollBackSeat(Long gameId, RollbackSeatReq rollbackSeatReq);
 }
