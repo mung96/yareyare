@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import yare.yare.domain.payment.entity.Game;
 
 import java.time.LocalDateTime;
 
@@ -25,11 +26,22 @@ public class PurchaseHistory {
     @Column(name = "member_uuid", columnDefinition = "CHAR(36)")
     private String memberUuid;
 
-    @NotNull
-    @Column(name = "game_id", columnDefinition = "INT UNSIGNED")
-    private Long gameId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private Game game;
 
     private Integer totalPrice;
+
+    @NotNull
+    @Column(name = "idempotency_key", columnDefinition = "CHAR(36)", unique = true)
+    private String idempotencyKey;
+
+    @NotNull
+    @Column(name = "grade_id", columnDefinition = "INT UNSIGNED")
+    private Long gradeId;
+
+    @NotNull
+    private String gradeName;
 
     @CreatedDate
     private LocalDateTime createdAt;
