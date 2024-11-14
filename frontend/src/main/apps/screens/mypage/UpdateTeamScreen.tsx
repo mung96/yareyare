@@ -19,7 +19,6 @@ function UpdateTeamScreen({
   const [teamId, setTeamId] = useState<number>(
     member?.myTeamId ? member.myTeamId : 0,
   );
-  console.log(teamListData);
   const handleLogoPress = async (teamId: number) => {
     await patchMyTeam(teamId);
     refetchMember();

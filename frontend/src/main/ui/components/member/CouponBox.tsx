@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
+    borderRadius: 16,
   },
   textContainer: {
     display: 'flex',

@@ -1,10 +1,14 @@
 import React from 'react';
 import {PATH} from '@/main/shared/constants';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import TicketRecordScreen from '@/main/apps/screens/mypage/TicketRecordScreen.tsx';
 import UpdateTeamScreen from '@/main/apps/screens/mypage/UpdateTeamScreen.tsx';
 import MyPageScreen from '@/main/apps/screens/MyPageScreen.tsx';
 import {TicketType} from '@/main/shared/types/payment/domain.ts';
+import IconI from 'react-native-vector-icons/Ionicons';
 
 type TicketCategory = {
   type: TicketType;
@@ -20,13 +24,27 @@ const Stack = createNativeStackNavigator<MypageParamList>();
 
 function MyPageNavigation() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={({
+        navigation,
+      }: NativeStackScreenProps<MypageParamList>) => ({
+        headerShadowVisible: false,
+        headerTitleAlign: 'center',
+        headerBackVisible: false,
+        headerTitleStyle: {
+          fontSize: 16,
+        },
+        headerLeft: () => (
+          <IconI
+            name={'chevron-back'}
+            size={22}
+            onPress={() => navigation.navigate(PATH.MY_PAGE)}
+          />
+        ),
+      })}>
       <Stack.Screen
         options={{
           headerShown: false,
-          headerStyle: {
-            // shadowColor: 'transparent',
-          },
         }}
         name={PATH.MY_PAGE}
         component={MyPageScreen}
@@ -38,7 +56,13 @@ function MyPageNavigation() {
         name={PATH.TICKET_RECORD}
         component={TicketRecordScreen}
       />
-      <Stack.Screen name={PATH.UPDATE_MYTEAM} component={UpdateTeamScreen} />
+      <Stack.Screen
+        options={{
+          headerTitle: '나의 팀 변경',
+        }}
+        name={PATH.UPDATE_MYTEAM}
+        component={UpdateTeamScreen}
+      />
     </Stack.Navigator>
   );
 }

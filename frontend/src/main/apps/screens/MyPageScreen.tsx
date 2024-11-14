@@ -15,7 +15,7 @@ function MyPageScreen() {
     <ScrollView
       contentContainerStyle={{
         paddingHorizontal: 12,
-        paddingBottom: 64,
+        paddingBottom: 16,
         alignItems: 'center',
         justifyContent: 'center',
         gap: 48,

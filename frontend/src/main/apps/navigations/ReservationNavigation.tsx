@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import PortOnePaymentScreen from '@/main/apps/screens/reservationProcess/PortOnePaymentScreen';
 import {PortOneStep} from '@/main/shared/types';
-
+import IconI from 'react-native-vector-icons/Ionicons';
 export type ReservationParamList = {
   [PATH.RESERVATION]: undefined;
   [PATH.PORTONE_PAYMENT]: PortOneStep;
@@ -26,6 +26,7 @@ function ReservationNavigation() {
             <Icon name={'x'} size={22} />
           </Pressable>
         ),
+        headerTitleAlign: 'center',
       }}>
       <Stack.Screen name={PATH.RESERVATION} component={ReservationScreen} />
       <Stack.Screen
