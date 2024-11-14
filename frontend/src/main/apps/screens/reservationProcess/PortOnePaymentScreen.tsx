@@ -18,6 +18,9 @@ function PortOnePaymentScreen({
     onSuccess: () => {
       navigation.navigate(PATH.PORTONE_REDIRECT);
     },
+    onError: error => {
+      console.log(error);
+    },
   });
   const message = {
     type: 'payement',
@@ -29,6 +32,7 @@ function PortOnePaymentScreen({
     paymentId: params.idempotencyKey,
   };
   const webViewRef = useRef<WebView>(null);
+
   const onLoad = async () => {
     if (webViewRef.current) {
       webViewRef.current.postMessage(JSON.stringify({...message}));
@@ -36,17 +40,15 @@ function PortOnePaymentScreen({
   };
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     console.log(event.nativeEvent);
+    console.log(event.nativeEvent.url.includes(`${PORTONE_REDIRECT_URI}?`));
+    console.log(`${PORTONE_REDIRECT_URI}?`);
     if (event.nativeEvent.url.includes(`${PORTONE_REDIRECT_URI}?`)) {
+      console.log(event.nativeEvent.url.split('?')[1].split('&'));
+
       const queryString = event.nativeEvent.url.split('?')[1].split('&');
-      const paymentInfo = {
-        transactionType: queryString[1].split('=')[1],
-        paymentId: queryString[3].split('=')[1],
-        txId: queryString[5].split('=')[1],
-      };
-      console.log(queryString);
-      console.log(paymentInfo);
+      console.log(queryString[0].split('=')[1].split('-')[1]);
       registPayment({
-        idempotencyKey: queryString[3].split('=')[1],
+        idempotencyKey: queryString[0].split('=')[1].split('-')[1],
         vendor: 'PAYMENT',
       });
     }
