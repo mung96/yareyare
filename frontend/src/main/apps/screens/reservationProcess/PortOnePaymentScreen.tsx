@@ -4,16 +4,16 @@ import {useRef} from 'react';
 import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
-import {apiRequester} from '@/main/apis/requester.ts';
-import {setEncryptStorage} from '@/main/shared/utils/encryptStorage.ts';
-import {login} from '@/main/stores/member.ts';
+import {usePaymentRegistMutation} from '@/main/services/hooks/queries/usePaymentQuery.ts';
 
 function PortOnePaymentScreen({
   route,
 }: NativeStackScreenProps<ReservationParamList, 'PortOnePayment'>) {
   const {member} = useMemberModel();
   const params = route.params;
-  console.log(params);
+  const {mutate: registPayment} = usePaymentRegistMutation({
+    onSuccess: () => {},
+  });
   const message = {
     type: 'payement',
     email: member?.email,
@@ -40,6 +40,10 @@ function PortOnePaymentScreen({
       };
       console.log(queryString);
       console.log(paymentInfo);
+      registPayment({
+        idempotencyKey: queryString[3].split('=')[1],
+        vendor: 'PAYMENT',
+      });
       // const response = await apiRequester.get(`members/token/${token}`);
     }
   };

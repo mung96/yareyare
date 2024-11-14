@@ -17,6 +17,7 @@ export const PATH = {
   WAITING: 'Waiting',
   RESERVATION: 'Reservation',
   PORTONE_PAYMENT: 'PortOnePayment',
+  PORTONE_REDIRECT: 'PortOneRedirect',
 
   CERTIFICATE_START: 'CertificateStart',
   CERTIFICATE: 'Certificate',
