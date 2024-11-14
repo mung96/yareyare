@@ -13,7 +13,7 @@ import yare.yare.global.utils.RedisUtils;
 @Service
 @RequiredArgsConstructor
 public class PortOneServiceImpl implements PortOneService {
-    private static final String TOKEN_PREFIX = "PortOne ";
+    private static final String TOKEN_PREFIX = "Bearer ";
     private static final String PAYMENT_PREFIX = "paymentId-";
 
     @Value("${PORT_ONE_SECRET}")
