@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     gap: 12,
     width: '100%',
     maxWidth: 360,
+    minHeight: 200,
   },
   title: {
     fontSize: 14,
