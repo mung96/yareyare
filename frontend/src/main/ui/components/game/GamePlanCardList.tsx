@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {FlatList, View, StyleSheet} from 'react-native';
 import GameScheduleCard from '@/main/ui/components/game/GameScheduleCard.tsx';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
@@ -13,25 +13,31 @@ type Props = {
     awayTeam: {name: string; logo: string; stadium: string};
   }[];
 };
+
 function GamePlanCardList({list}: Props) {
-  //TODO: Slider 구현
   const dispatch = useDispatch();
 
   return (
-    <ScrollView horizontal={true} style={styles.container}>
-      {list?.map(gamePlan => (
-        <GameScheduleCard
-          key={gamePlan.gameId}
-          dateTime={gamePlan.dateTime}
-          homeTeam={gamePlan.homeTeam}
-          awayTeam={gamePlan.awayTeam}
-          onPress={() => {
-            dispatch(moveNavigation('waiting'));
-            dispatch(setGameId(String(gamePlan.gameId)));
-          }}
-        />
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        data={list}
+        horizontal={true}
+        renderItem={({item: gamePlan}) => (
+          <GameScheduleCard
+            key={gamePlan.gameId}
+            dateTime={gamePlan.dateTime}
+            homeTeam={gamePlan.homeTeam}
+            awayTeam={gamePlan.awayTeam}
+            onPress={() => {
+              dispatch(moveNavigation('waiting'));
+              dispatch(setGameId(String(gamePlan.gameId)));
+            }}
+          />
+        )}
+        ItemSeparatorComponent={() => <View style={{width: 12}} />}
+      />
+    </View>
   );
 }
 
@@ -39,9 +45,6 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    paddingRight: 20,
-    gap: 12,
-    overflow: 'scroll',
   },
 });
 
