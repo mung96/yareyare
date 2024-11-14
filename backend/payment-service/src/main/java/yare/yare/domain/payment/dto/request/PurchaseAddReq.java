@@ -31,6 +31,7 @@ public class PurchaseAddReq {
                 .gradeId(purchaseHistory.getId())
                 .gradeName(purchaseHistory.getGradeName())
                 .isDeleted(Boolean.FALSE)
+                .canceled(Boolean.FALSE)
                 .build();
     }
 
