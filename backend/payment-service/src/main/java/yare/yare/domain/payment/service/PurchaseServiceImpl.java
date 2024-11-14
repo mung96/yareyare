@@ -85,18 +85,27 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         List<SeatHistory> seatHistoryList = seatHistoryRepository.findByPurchaseHistory(purchaseHistory.getId());
 
-        seatHistoryList.forEach(seatHistory -> {
+        String lastReservationId = null;
+
+        for (int i = 0; i < seatHistoryList.size(); i++) {
+            SeatHistory seatHistory = seatHistoryList.get(i);
             PurchasedSeat purchasedSeat = purchaseAddReq.toEntity(seatHistory);
 
             String ticketUuid = makeTicketUuid(purchase.getGame().getId(),
                     purchasedSeat.getSeatId(), purchasedSeat.getId());
 
             purchasedSeat.updateTicketUuid(ticketUuid);
-
             purchaseHistoryRepository.save(purchaseHistory);
-        });
 
-        purchaseRepository.save(purchase);
+            // 마지막 요소일 때만 lastReservationId에 저장
+            if (i == seatHistoryList.size() - 1) {
+                lastReservationId = ticketUuid;
+            }
+
+            purchaseRepository.save(purchase);
+        }
+
+        purchase.updateReservationId(lastReservationId);
 
         redisUtils.unlock(lockKey);
     }

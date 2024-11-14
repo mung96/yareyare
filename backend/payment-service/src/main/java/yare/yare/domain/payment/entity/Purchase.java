@@ -68,4 +68,8 @@ public class Purchase {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public void updateReservationId(String reservationId) {
+        this.reservationId = reservationId;
+    }
 }
