@@ -8,6 +8,7 @@ import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 import {PortOneStep} from '@/main/shared/types';
 import PortOneRedirectScreen from '@/main/apps/screens/reservationProcess/PortOneRedirectScreen.tsx';
+import PortOnePaymentScreen from '@/main/apps/screens/reservationProcess/PortOnePaymentScreen.tsx';
 
 export type ReservationParamList = {
   [PATH.RESERVATION]: undefined;
@@ -34,6 +35,10 @@ function ReservationNavigation() {
         },
       }}>
       <Stack.Screen name={PATH.RESERVATION} component={ReservationScreen} />
+      <Stack.Screen
+        name={PATH.PORTONE_PAYMENT}
+        component={PortOnePaymentScreen}
+      />
       <Stack.Screen
         name={PATH.PORTONE_REDIRECT}
         component={PortOneRedirectScreen}

@@ -5,16 +5,16 @@ const PORTONE_CHANNEL_KEY = process.env.REACT_APP_PORTONE_CHANNEL_KEY
 const FRONT_SERVER = process.env.REACT_APP_FRONT_SERVER
 
 export async function fetchPortOne(data) {
-  try{
-    const response = await requestPayment({
+  try {
+    await requestPayment({
       // Store ID 설정
       storeId: PORTONE_STORE_ID,
       // 채널 키 설정
       channelKey: PORTONE_CHANNEL_KEY,
       customer: {
         email: data?.email,
-        phoneNumber:  data?.phoneNumber,
-        fullName:data?.fullName ,
+        phoneNumber: data?.phoneNumber,
+        fullName: data?.fullName,
       },
       paymentId: `paymentId-${data.paymentId}`,
       orderName: data.orderName,
@@ -44,11 +44,11 @@ export async function fetchPortOne(data) {
     // console.log(response)
     //
     // window.ReactNativeWebView.postMessage(response)
-  }catch (error){
+  } catch (error) {
     alert(error)
     window.ReactNativeWebView.postMessage('결제실패')
     window.ReactNativeWebView.postMessage({...error.data})
-  }finally {
+  } finally {
     window.ReactNativeWebView.postMessage("결제종료")
   }
 }
