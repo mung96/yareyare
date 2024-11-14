@@ -26,4 +26,6 @@ public interface GameService {
     GetPriceRes getPrice(Long gameId, Long seatId);
 
     GameSeatDetailListRes getGameSeatDetails(Long gameId, List<Long> seatIds);
+
+    void updateSeatStatus(Long gameId, GameSeatStatusUpdateDto gameSeatStatusUpdateDto);
 }

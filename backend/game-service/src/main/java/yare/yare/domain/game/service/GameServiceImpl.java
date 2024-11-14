@@ -200,4 +200,13 @@ public class GameServiceImpl implements GameService {
 
         return gameSeatDetailListRes;
     }
+
+    @Override
+    @Transactional
+    public void updateSeatStatus(final Long gameId, final GameSeatStatusUpdateDto gameSeatStatusUpdateDto) {
+        List<GameSeat> gameSeats = gameSeatStatusUpdateDto.getSeatIds().stream().map((seatId)-> gameSeatRepository.findByGameIdAndSeatId(gameId,seatId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND))).toList();
+        gameSeats.forEach(GameSeat::setSoldOut);
+        gameSeatRepository.saveAll(gameSeats);
+    }
 }
