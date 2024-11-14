@@ -39,10 +39,10 @@ public class PortOneServiceImpl implements PortOneService {
 
                 PortOneTokenRes newToken = portOneFeignClientCustom.getToken(portOneTokenReq);
 
-                redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getResponse().getAccess_token(), 86300L);
-                redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getResponse().getRefresh_token(), 604000L);
+                redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
+                redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
 
-                return "Bearer " + newToken.getResponse().getAccess_token();
+                return "Bearer " + newToken.getAccess_token();
             }
 
             return newAccessToken(refreshToken);
@@ -55,9 +55,9 @@ public class PortOneServiceImpl implements PortOneService {
         PortOneRefreshTokenReq req = new PortOneRefreshTokenReq(refreshToken);
         PortOneTokenRes newToken = portOneFeignClientCustom.refreshToken(req);
 
-        redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getResponse().getAccess_token(), 86300L);
-        redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getResponse().getRefresh_token(), 604000L);
+        redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
+        redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
 
-        return "Bearer " + newToken.getResponse().getAccess_token();
+        return "Bearer " + newToken.getAccess_token();
     }
 }
