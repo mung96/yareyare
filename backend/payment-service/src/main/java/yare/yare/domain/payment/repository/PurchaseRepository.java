@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.entity.Purchase;
 
+import java.util.Optional;
+
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     @Query("SELECT new yare.yare.domain.payment.dto.TicketDto(" +
@@ -59,5 +61,5 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     Slice<TicketDto> findDefaultCancelReservationList(@Param("memberUuid") String memberUuid,
                                                       Pageable pageable);
 
-
+    Optional<Purchase> findByIdempotencyKey(String idempotencyKey);
 }
