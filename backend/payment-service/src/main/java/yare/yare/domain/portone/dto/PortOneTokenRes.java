@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PortOneTokenRes {
-    private String access_token;
+    private String accessToken;
 
-    private String refresh_token;
+    private String refreshToken;
 }

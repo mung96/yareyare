@@ -27,10 +27,9 @@ public class PortOneServiceImpl implements PortOneService {
     @Override
     public Integer getPrice(String paymentId) {
         String token = createToken();
-        log.info("token %{}", token);
         PortOnePriceRes result = portOneFeignClientCustom.getPrice(PAYMENT_PREFIX+paymentId, token);
-        log.info("result %{}", result.getResponse().getAmount().getTotal());
-        return result.getResponse().getAmount().getTotal();
+
+        return result.getAmount().getTotal();
     }
 
     private String createToken() {
@@ -44,13 +43,10 @@ public class PortOneServiceImpl implements PortOneService {
 
                 PortOneTokenRes newToken = portOneFeignClientCustom.getToken(portOneTokenReq);
 
-                log.info(newToken.getAccess_token());
-                log.info(newToken.getRefresh_token());
+                redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccessToken(), 86300L);
+                redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefreshToken(), 604000L);
 
-                redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
-                redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
-
-                return TOKEN_PREFIX + newToken.getAccess_token();
+                return TOKEN_PREFIX + newToken.getAccessToken();
             }
 
             return newAccessToken(refreshToken);
@@ -63,9 +59,9 @@ public class PortOneServiceImpl implements PortOneService {
         PortOneRefreshTokenReq req = new PortOneRefreshTokenReq(refreshToken);
         PortOneTokenRes newToken = portOneFeignClientCustom.refreshToken(req);
 
-        redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccess_token(), 86300L);
-        redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefresh_token(), 604000L);
+        redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccessToken(), 86300L);
+        redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefreshToken(), 604000L);
 
-        return TOKEN_PREFIX + newToken.getAccess_token();
+        return TOKEN_PREFIX + newToken.getAccessToken();
     }
 }
