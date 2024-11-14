@@ -6,10 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.game.dto.*;
 import yare.yare.domain.game.service.GameService;
 import yare.yare.global.dto.ResponseDto;
+import yare.yare.global.feign.dto.PaymentValidationRes;
+import yare.yare.global.feign.service.FeignService;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static yare.yare.global.statuscode.ErrorCode.BAD_REQUEST;
+import static yare.yare.global.statuscode.SuccessCode.NO_CONTENT;
 import static yare.yare.global.statuscode.SuccessCode.OK;
 
 @RestController
@@ -18,6 +22,7 @@ import static yare.yare.global.statuscode.SuccessCode.OK;
 public class GameController {
 
     private final GameService gameService;
+    private final FeignService feignService;
 
     @GetMapping
     public ResponseDto<GameListRes> gameList() {
@@ -72,6 +77,19 @@ public class GameController {
         ReserveSeatRes result = gameService.reserveSeat(gameId, reserveSeatReq);
 
         return ResponseDto.success(OK, result);
+    }
+
+    @PatchMapping("/{gameId}/seats/sold-out")
+    public ResponseDto<Void> soldOutSeat(
+            @PathVariable Long gameId,
+            @RequestBody @Valid GameSeatStatusUpdateDto gameSeatStatusUpdateDto) {
+
+        PaymentValidationRes paymentValidationRes = feignService.validatePaymentInfo(gameId, gameSeatStatusUpdateDto);
+        if(paymentValidationRes.inValid()){
+            return ResponseDto.fail(BAD_REQUEST);
+        }
+        gameService.updateSeatStatus(gameId,gameSeatStatusUpdateDto);
+        return ResponseDto.success(NO_CONTENT);
     }
 
     @GetMapping("/teams/{teamId}/schedule")
