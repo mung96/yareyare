@@ -6,17 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 import yare.yare.domain.payment.entity.Game;
-
-import java.time.LocalDateTime;
+import yare.yare.global.entity.BaseEntity;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseHistory {
+public class PurchaseHistory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchase_history_id", columnDefinition = "INT UNSIGNED")
@@ -42,10 +40,6 @@ public class PurchaseHistory {
 
     @NotNull
     private String gradeName;
-
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
 
     public void updateTotalPrice(Integer totalPrice) {
         this.totalPrice = totalPrice;

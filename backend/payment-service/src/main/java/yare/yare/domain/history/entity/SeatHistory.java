@@ -6,16 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
+import yare.yare.global.entity.BaseEntity;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SeatHistory {
+public class SeatHistory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seat_history", columnDefinition = "INT UNSIGNED")
@@ -43,8 +41,4 @@ public class SeatHistory {
     @NotNull
     @Column(name = "seat_id", columnDefinition = "INT UNSIGNED")
     private Long seatId;
-
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
 }

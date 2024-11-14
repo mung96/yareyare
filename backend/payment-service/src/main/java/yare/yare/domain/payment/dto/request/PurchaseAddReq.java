@@ -30,19 +30,18 @@ public class PurchaseAddReq {
                 .game(purchaseHistory.getGame())
                 .gradeId(purchaseHistory.getId())
                 .gradeName(purchaseHistory.getGradeName())
-                .isDeleted(Boolean.FALSE)
                 .canceled(Boolean.FALSE)
                 .build();
     }
 
-    public PurchasedSeat toEntity(SeatHistory seatHistory) {
+    public PurchasedSeat toEntity(SeatHistory seatHistory, Purchase purchase) {
         return PurchasedSeat.builder()
                 .sectionName(seatHistory.getSectionName())
                 .rowName(seatHistory.getRowName())
                 .seatNo(seatHistory.getSeatNo())
                 .seatId(seatHistory.getSeatId())
                 .unitPrice(seatHistory.getUnitPrice())
-                .isDeleted(Boolean.FALSE)
+                .purchase(purchase)
                 .build();
     }
 }

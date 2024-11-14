@@ -8,20 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import yare.yare.domain.payment.enums.Vendor;
-
-import java.time.LocalDateTime;
+import yare.yare.global.entity.BaseEntity;
 
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @SQLDelete(sql = "UPDATE Purchase SET is_deleted = true WHERE purchase_id = ?")
 @Where(clause = "is_deleted = false")
-public class Purchase {
+public class Purchase extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchase_id", columnDefinition = "INT UNSIGNED")
@@ -58,16 +57,6 @@ public class Purchase {
 
     @NotNull
     private String gradeName;
-
-    @NotNull
-    private Boolean isDeleted;
-
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     public void updateReservationId(String reservationId) {
         this.reservationId = reservationId;

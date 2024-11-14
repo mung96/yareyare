@@ -91,7 +91,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         for (int i = 0; i < seatHistoryList.size(); i++) {
             SeatHistory seatHistory = seatHistoryList.get(i);
-            PurchasedSeat purchasedSeat = purchaseAddReq.toEntity(seatHistory);
+            PurchasedSeat purchasedSeat = purchaseAddReq.toEntity(seatHistory, purchase);
 
             purchasedSeatRepository.save(purchasedSeat);
 

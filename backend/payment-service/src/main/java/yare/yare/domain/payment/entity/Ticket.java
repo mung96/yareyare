@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import yare.yare.global.entity.BaseEntity;
 
 @Entity
 @Getter
@@ -16,7 +17,7 @@ import org.hibernate.annotations.SQLRestriction;
 @AllArgsConstructor
 @SQLDelete(sql = " UPDATE Ticket SET is_deleted = true WHERE ticket_id = ? ")
 @SQLRestriction("is_deleted = false")
-public class Ticket {
+public class Ticket extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id", columnDefinition = "INT UNSIGNED")
@@ -33,7 +34,4 @@ public class Ticket {
     @NotNull
     @Column(length = 100)
     private String qrImg;
-
-    @NotNull
-    private Boolean isDeleted;
 }
