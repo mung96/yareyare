@@ -17,6 +17,6 @@ public interface PortOneFeignClientCustom {
     @PostMapping(value = "/token/refresh", consumes = MediaType.APPLICATION_JSON_VALUE)
     PortOneTokenRes refreshToken(@RequestBody PortOneRefreshTokenReq request);
 
-    @GetMapping(value = "/payments/{paymentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/payments/{paymentId}")
     PortOnePriceRes getPrice(@PathVariable("paymentId") String paymentId, @RequestHeader("Authorization") String authorization);
 }
