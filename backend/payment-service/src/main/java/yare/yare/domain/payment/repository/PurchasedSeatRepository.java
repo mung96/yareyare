@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PurchasedSeatRepository extends JpaRepository<PurchasedSeat, Long> {
-    @Query("SELECT ps.seatId FROM PurchasedSeat ps WHERE ps.purchase.id = :purchaseId" )
-    List<Long> findIdsByPurchaseId(@Param("purchaseId") Long purchaseId);
+    @Query("SELECT ps FROM PurchasedSeat ps WHERE ps.purchase.id = :purchaseId" )
+    List<PurchasedSeat> findPurchasedSeatByPurchaseId(@Param("purchaseId") Long purchaseId);
 }

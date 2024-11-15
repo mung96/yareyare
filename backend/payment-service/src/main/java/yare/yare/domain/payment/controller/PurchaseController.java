@@ -8,6 +8,7 @@ import yare.yare.domain.payment.dto.request.CheckValidSeatsReq;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
 import yare.yare.domain.payment.dto.response.CheckValidSeatsRes;
+import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
 import yare.yare.global.auth.JwtTokenService;
@@ -58,6 +59,16 @@ public class PurchaseController {
     @GetMapping("/check")
     public ResponseDto<CheckValidSeatsRes> checkValidSeats(@ModelAttribute CheckValidSeatsReq checkValidSeatsReq) {
         CheckValidSeatsRes result = purchaseService.checkValidSeats(checkValidSeatsReq);
+
+        return ResponseDto.success(OK, result);
+    }
+
+    @GetMapping("/tickets/{purchaseId}")
+    public ResponseDto<PurchaseDetailsRes> purchaseDetails(@RequestHeader("Authorization") String token,
+                                                           @PathVariable Long purchaseId) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
+
+        PurchaseDetailsRes result = purchaseService.purchaseDetails(memberUuid, purchaseId);
 
         return ResponseDto.success(OK, result);
     }
