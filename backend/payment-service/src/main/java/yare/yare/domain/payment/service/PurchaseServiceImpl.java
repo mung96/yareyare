@@ -28,10 +28,7 @@ import yare.yare.global.dto.SliceDto;
 import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static yare.yare.global.statuscode.ErrorCode.*;
 
@@ -148,7 +145,11 @@ public class PurchaseServiceImpl implements PurchaseService {
             return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
 
+        log.info("request Ids {}", Arrays.toString(checkValidSeatsReq.getSeatIds().toArray()));
+
         List<Long> seatIds = seatHistoryRepository.findIdsByPurchaseId(purchaseHistory.getId());
+
+        log.info("select Ids {}", Arrays.toString(seatIds.toArray()));
 
         Collections.sort(checkValidSeatsReq.getSeatIds());
         Collections.sort(seatIds);
