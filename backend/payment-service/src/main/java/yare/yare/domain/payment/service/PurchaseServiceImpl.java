@@ -145,10 +145,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         Collections.sort(seatIds);
 
         if(!checkValidSeatsReq.getSeatIds().equals(seatIds)) {
-            return CheckValidSeatsRes.isValid(checkValidSeatsReq.getIdempotencyKey());
+            return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
 
-        return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
+        return CheckValidSeatsRes.isValid(checkValidSeatsReq.getIdempotencyKey());
     }
 
     private String makeTicketUuid(Long gameId, Long seatId, Long ticketId) {
