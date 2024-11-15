@@ -120,7 +120,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 lastReservationId = ticketUuid;
             }
         }
-        purchaseHistoryRepository.flush();
+        purchasedSeatRepository.flush();
 
         purchaseRepository.save(purchase);
 
