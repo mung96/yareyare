@@ -6208,6 +6208,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.3.1
     react-devtools: ^6.0.1
+    react-error-boundary: ^4.1.2
     react-hook-form: ^7.53.1
     react-native: 0.75.4
     react-native-calendars: ^1.1307.0
@@ -9833,6 +9834,17 @@ __metadata:
   bin:
     react-devtools: bin.js
   checksum: eae93a51c7f6028a7da52e8403eae57903dddbe7fcc95510905629bcd6e4334b66e4c179a92760976dcf335d63ee87b3a900a3459d05bf09dd79908aa5ca8c6f
+  languageName: node
+  linkType: hard
+
+"react-error-boundary@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "react-error-boundary@npm:4.1.2"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+  peerDependencies:
+    react: ">=16.13.1"
+  checksum: afe692f1bbbfb5998b49e1001d7682a3cbfdc623dca1318b408e738606f3450d925c28fbbfa5dc84d2cf285d17c2e7f079d59386a27da354dea9c902a935149b
   languageName: node
   linkType: hard
 
