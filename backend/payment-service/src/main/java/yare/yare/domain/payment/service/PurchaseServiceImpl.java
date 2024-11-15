@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.game.dto.CheckSeatReq;
 import yare.yare.domain.game.service.GameService;
@@ -137,6 +138,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional
     public CheckValidSeatsRes checkValidSeats(CheckValidSeatsReq checkValidSeatsReq) {
         Purchase purchase = purchaseRepository.findByIdempotencyKey(checkValidSeatsReq.getIdempotencyKey())
                 .orElse(null);
