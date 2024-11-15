@@ -105,9 +105,9 @@ public class PurchaseServiceImpl implements PurchaseService {
             SeatHistory seatHistory = seatHistoryList.get(i);
             PurchasedSeat purchasedSeat = purchaseAddReq.toEntity(seatHistory, purchase);
 
-            purchasedSeatRepository.save(purchasedSeat);
+            seatIds.add(purchasedSeat.getSeatId());
 
-            seatIds.add(purchasedSeat.getId());
+            purchasedSeatRepository.save(purchasedSeat);
 
             String ticketUuid = makeTicketUuid(purchase.getGame().getId(),
                     purchasedSeat.getSeatId(), purchasedSeat.getId());
