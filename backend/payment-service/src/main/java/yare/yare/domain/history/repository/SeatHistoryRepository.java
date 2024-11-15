@@ -14,4 +14,7 @@ public interface SeatHistoryRepository extends JpaRepository<SeatHistory, Long> 
             "FROM SeatHistory sh " +
             "WHERE sh.purchaseHistory.id = :purchaseHistoryId")
     List<SeatHistory> findByPurchaseHistory(@Param("purchaseHistoryId") Long purchaseHistoryId);
+
+    @Query("SELECT sh.seatId FROM SeatHistory sh WHERE sh.purchaseHistory.id = :purchaseHistoryId" )
+    List<Long> findIdsByPurchaseId(@Param("purchaseHistoryId") Long purchaseHistoryId);
 }

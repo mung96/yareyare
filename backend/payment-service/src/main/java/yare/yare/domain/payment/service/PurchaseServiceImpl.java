@@ -140,19 +140,21 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     @Transactional
     public CheckValidSeatsRes checkValidSeats(CheckValidSeatsReq checkValidSeatsReq) {
-        Purchase purchase = purchaseRepository.findByIdempotencyKey(checkValidSeatsReq.getIdempotencyKey())
+        PurchaseHistory purchaseHistory = purchaseHistoryRepository.findByIdempotencyKey(checkValidSeatsReq.getIdempotencyKey())
                 .orElse(null);
-
-        if(purchase == null) {
+        log.info("id {}", checkValidSeatsReq.getIdempotencyKey());
+        if(purchaseHistory == null) {
+            log.info("purchase가 null이에요!!");
             return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
 
-        List<Long> seatIds = purchasedSeatRepository.findIdsByPurchaseId(purchase.getId());
+        List<Long> seatIds = seatHistoryRepository.findIdsByPurchaseId(purchaseHistory.getId());
 
         Collections.sort(checkValidSeatsReq.getSeatIds());
         Collections.sort(seatIds);
 
         if(!checkValidSeatsReq.getSeatIds().equals(seatIds)) {
+            log.info("두개가 같지 않아요!!");
             return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
 
