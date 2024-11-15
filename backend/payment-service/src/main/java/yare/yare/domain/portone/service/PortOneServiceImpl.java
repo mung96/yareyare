@@ -43,8 +43,8 @@ public class PortOneServiceImpl implements PortOneService {
 
                 PortOneTokenRes newToken = portOneFeignClientCustom.getToken(portOneTokenReq);
 
-                redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccessToken(), 86300L);
-                redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefreshToken(), 604000L);
+                redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccessToken(), 3600L);
+                redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefreshToken(), 4000L);
 
                 return TOKEN_PREFIX + newToken.getAccessToken();
             }
@@ -59,8 +59,8 @@ public class PortOneServiceImpl implements PortOneService {
         PortOneRefreshTokenReq req = new PortOneRefreshTokenReq(refreshToken);
         PortOneTokenRes newToken = portOneFeignClientCustom.refreshToken(req);
 
-        redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccessToken(), 86300L);
-        redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefreshToken(), 604000L);
+        redisUtils.setDataWithExpiration("portOneAccessToken", newToken.getAccessToken(), 3600L);
+        redisUtils.setDataWithExpiration("portOneRefreshToken", newToken.getRefreshToken(), 4000L);
 
         return TOKEN_PREFIX + newToken.getAccessToken();
     }
