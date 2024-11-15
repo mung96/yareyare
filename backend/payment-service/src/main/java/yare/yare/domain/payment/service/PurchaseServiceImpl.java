@@ -1,6 +1,7 @@
 package yare.yare.domain.payment.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ import static yare.yare.global.statuscode.ErrorCode.*;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class PurchaseServiceImpl implements PurchaseService {
     private static final String PREFIX_TICKET_UNIQUE = "T327";
     private final GameService gameService;
@@ -118,9 +120,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                 lastReservationId = ticketUuid;
             }
         }
+        purchaseHistoryRepository.flush();
 
         purchaseRepository.save(purchase);
 
+        purchaseRepository.flush();
         purchase.updateReservationId(lastReservationId);
 
         CheckSeatReq checkSeatReq = CheckSeatReq.toDto(purchase.getIdempotencyKey(), seatIds);
