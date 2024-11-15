@@ -10,7 +10,6 @@ import useTeamModel from '@/main/services/hooks/useTeamModel.ts';
 import {useGetGamePlanWithTeamQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
 import useGameModel from '@/main/services/hooks/useGameModel.ts';
 import {convertGamePlanListDataToView} from '@/main/services/helper/game/convert.ts';
-import Skeleton from '@/main/ui/widgets/Skeleton.tsx';
 
 function HomeScreen() {
   const {teamList} = useTeamModel();
@@ -28,7 +27,6 @@ function HomeScreen() {
         onChange={item => setTeamId(String(item.teamId))}
       />
 
-      <Skeleton width={300} height={300} />
       <GamePlanCardList
         list={
           teamId && gamePlanListWithTeamData

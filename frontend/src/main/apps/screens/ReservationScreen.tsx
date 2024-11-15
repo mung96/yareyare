@@ -17,7 +17,7 @@ import {COLORS} from '@/main/shared/styles';
 import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
 import {Suspense} from 'react';
-import Skeleton from '@/main/ui/widgets/Skeleton.tsx';
+import LoadingScreen from '@/main/apps/screens/LoadingScreen.tsx';
 
 function ReservationScreen() {
   const {
@@ -53,7 +53,7 @@ function ReservationScreen() {
         />
       )}
       {reservationStep === 'SeatStep' && (
-        <Suspense fallback={<Skeleton />}>
+        <Suspense fallback={<LoadingScreen />}>
           <SeatScreen
             onPrev={() => history.back()}
             context={context}

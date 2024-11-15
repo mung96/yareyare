@@ -1,4 +1,4 @@
-import {useQuery} from '@tanstack/react-query';
+import {useQuery, useSuspenseQuery} from '@tanstack/react-query';
 import {
   getGameDetail,
   getGamePlan,
@@ -7,7 +7,7 @@ import {
 } from '@/main/apis/game.ts';
 
 export function useGetGamePlanQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryFn: () => getGamePlan(),
     queryKey: ['gamePlan'],
   });
