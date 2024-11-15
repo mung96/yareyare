@@ -98,6 +98,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         Purchase purchase = purchaseAddReq.toEntity(purchaseHistory, totalPrice);
 
+        purchaseRepository.save(purchase);
+
+        purchaseRepository.flush();
+
         List<SeatHistory> seatHistoryList = seatHistoryRepository.findByPurchaseHistory(purchaseHistory.getId());
 
         String lastReservationId = null;
@@ -120,11 +124,9 @@ public class PurchaseServiceImpl implements PurchaseService {
                 lastReservationId = ticketUuid;
             }
         }
+
         purchasedSeatRepository.flush();
 
-        purchaseRepository.save(purchase);
-
-        purchaseRepository.flush();
         purchase.updateReservationId(lastReservationId);
 
         CheckSeatReq checkSeatReq = CheckSeatReq.toDto(purchase.getIdempotencyKey(), seatIds);
