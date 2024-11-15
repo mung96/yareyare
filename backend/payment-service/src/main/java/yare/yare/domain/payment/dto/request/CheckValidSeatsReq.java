@@ -16,5 +16,5 @@ public class CheckValidSeatsReq {
 
     private Long gameId;
 
-    private List<Long> seatIds;
+    private List<Long> seatsId;
 }

@@ -145,16 +145,16 @@ public class PurchaseServiceImpl implements PurchaseService {
             return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
 
-        log.info("request Ids {}", Arrays.toString(checkValidSeatsReq.getSeatIds().toArray()));
+        log.info("request Ids {}", Arrays.toString(checkValidSeatsReq.getSeatsId().toArray()));
 
         List<Long> seatIds = seatHistoryRepository.findIdsByPurchaseId(purchaseHistory.getId());
 
         log.info("select Ids {}", Arrays.toString(seatIds.toArray()));
 
-        Collections.sort(checkValidSeatsReq.getSeatIds());
+        Collections.sort(checkValidSeatsReq.getSeatsId());
         Collections.sort(seatIds);
 
-        if(!checkValidSeatsReq.getSeatIds().equals(seatIds)) {
+        if(!checkValidSeatsReq.getSeatsId().equals(seatIds)) {
             log.info("두개가 같지 않아요!!");
             return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
