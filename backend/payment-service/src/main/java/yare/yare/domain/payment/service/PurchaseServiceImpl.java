@@ -125,7 +125,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         CheckSeatReq checkSeatReq = CheckSeatReq.toDto(purchase.getIdempotencyKey(), seatIds);
 
-        gameService.checkValidSeats(purchase.getId(), checkSeatReq);
+        gameService.checkValidSeats(purchase.getGame().getId(), checkSeatReq);
 
         redisUtils.unlock(lockKey);
     }
