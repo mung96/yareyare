@@ -215,9 +215,11 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional
     public Boolean rollBackSeat(Long gameId, RollbackSeatReq rollbackSeatReq) {
-
+        List<GameSeat> gameSeats = new ArrayList<>();
+        List<String> keys = new ArrayList<>();
         for (Long seatId : rollbackSeatReq.getSeats()) {
             String key = String.format("lock:seat:%d:%d", gameId, seatId);
+            keys.add(key);
             String idemKey = redisUtil.getStringData(key);
             if (idemKey == null || !idemKey.equals(rollbackSeatReq.getIdempotentKey())) {
                 return FALSE;
@@ -225,10 +227,11 @@ public class GameServiceImpl implements GameService {
             GameSeat gameSeat = gameSeatRepository.findByGameIdAndSeatId(gameId, seatId).orElse(null);
             if (gameSeat != null) {
                 gameSeat.setAvailable();
-                gameSeatRepository.save(gameSeat);
+                gameSeats.add(gameSeat);
             }
-            redisUtil.deleteData(key);
         }
+        gameSeatRepository.saveAll(gameSeats);
+        keys.forEach(redisUtil::deleteData);
         return TRUE;
     }
 }
