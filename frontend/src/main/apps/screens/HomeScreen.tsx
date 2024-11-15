@@ -10,6 +10,7 @@ import useTeamModel from '@/main/services/hooks/useTeamModel.ts';
 import {useGetGamePlanWithTeamQuery} from '@/main/services/hooks/queries/useGameQuery.ts';
 import useGameModel from '@/main/services/hooks/useGameModel.ts';
 import {convertGamePlanListDataToView} from '@/main/services/helper/game/convert.ts';
+import {removeEncryptStorage} from '@/main/shared/utils/encryptStorage.ts';
 
 function HomeScreen() {
   const {teamList} = useTeamModel();
@@ -17,6 +18,7 @@ function HomeScreen() {
   const {gamePlanList} = useGameModel();
   const {data: gamePlanListWithTeamData} = useGetGamePlanWithTeamQuery(teamId);
 
+  removeEncryptStorage('token');
   return (
     <CommonLayout>
       <DropdownComponent

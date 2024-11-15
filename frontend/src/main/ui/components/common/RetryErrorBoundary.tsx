@@ -15,12 +15,14 @@ function RetryErrorBoundary({children}: PropsWithChildren) {
           <Text style={styles.descriptionText}>
             요청 사항을 처리하는데 실패했습니다.
           </Text>
-          <MainButton
-            label="다시 시도"
-            size="medium"
-            variant="outlined"
-            onPress={resetErrorBoundary}
-          />
+          <View style={{width: '50%'}}>
+            <MainButton
+              label="다시 시도"
+              size="medium"
+              variant="outlined"
+              onPress={resetErrorBoundary}
+            />
+          </View>
         </View>
       )}>
       {children}
