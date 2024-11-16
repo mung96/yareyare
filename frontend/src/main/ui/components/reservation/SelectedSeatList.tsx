@@ -1,6 +1,5 @@
-import ReservationBox from '@/main/ui/components/reservation/ReservationBox.tsx';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import SelectedSeatItem from '@/main/ui/components/reservation/SelectedSeatItem.tsx';
 import {Seat} from '@/main/shared/types';
@@ -11,7 +10,7 @@ type Props = {
 
 function SelectedSeatList({seatList}: Props) {
   return (
-    <ReservationBox>
+    <>
       <View style={styles.textContainer}>
         <CustomText style={styles.text}>선택한 좌석</CustomText>
         <View style={styles.seatCnt}>
@@ -24,7 +23,7 @@ function SelectedSeatList({seatList}: Props) {
           seat={seat}
         />
       ))}
-    </ReservationBox>
+    </>
   );
 }
 

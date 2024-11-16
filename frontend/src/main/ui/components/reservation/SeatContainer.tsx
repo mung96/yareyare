@@ -53,7 +53,7 @@ function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
                           includeSeat(value, seat.seatId)
                             ? onRemove(String(seat.seatId))
                             : onAdd({
-                                seatId: seat.seatId,
+                                seatId: Number(seat.seatId),
                                 section: name,
                                 row: row.rowName,
                                 col: String(seat.seatNumber),
