@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Seat, SeatContext, SeatStep} from '@/main/shared/types';
@@ -53,11 +53,22 @@ function SeatScreen({context, onNext}: Props) {
       });
     },
   });
+  const getSeatArrLength = () => {
+    const seatCount = seatListData?.sections.reduce((acc, section) => {
+      return acc + (control._formValues[section.sectionName] as Seat[]).length;
+    }, 0);
+    return seatCount;
+  };
   const onSubmit = () => {
-    const seatIdList = (control._formValues.seatList as Seat[]).map(
-      seat => seat.seatId,
+    const seatIdList: number[] = [];
+    const seatArr: Seat[] = [];
+    seatListData?.sections.forEach(section =>
+      (control._formValues[section.sectionName] as Seat[]).forEach(seat => {
+        seatArr.push(seat);
+        seatIdList.push(seat.seatId);
+      }),
     );
-    setSeatList(control._formValues.seatList);
+    setSeatList(seatArr);
     selectSeat({
       gameId: String(gameId),
       seats: seatIdList,
@@ -89,9 +100,16 @@ function SeatScreen({context, onNext}: Props) {
         <ReservationBox>
           <View style={styles.textContainer}>
             <CustomText style={styles.text}>선택한 좌석</CustomText>
-            <View style={styles.seatCnt}>
-              <Text style={styles.seatCntText}>{seatList.length}</Text>
-            </View>
+            {/*<View style={styles.seatCnt}>*/}
+            {/*  <Text style={styles.seatCntText}>*/}
+            {/*    {seatListData?.sections.reduce((acc, section) => {*/}
+            {/*      return (*/}
+            {/*        acc +*/}
+            {/*        (control._formValues[section.sectionName] as Seat[]).length*/}
+            {/*      );*/}
+            {/*    }, 0)}*/}
+            {/*  </Text>*/}
+            {/*</View>*/}
           </View>
           {seatListData?.sections.map(section => (
             <Controller
