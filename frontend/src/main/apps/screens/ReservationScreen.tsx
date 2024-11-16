@@ -16,6 +16,8 @@ import PaymentScreen from '@/main/apps/screens/reservationProcess/PaymentScreen.
 import {COLORS} from '@/main/shared/styles';
 import StepBar from '@/main/ui/components/reservation/StepBar.tsx';
 import {convertReservationStepToStepNumber} from '@/main/services/helper/reservation/reservation.ts';
+import {Suspense} from 'react';
+import LoadingScreen from '@/main/apps/screens/LoadingScreen.tsx';
 
 function ReservationScreen() {
   const {
@@ -51,13 +53,15 @@ function ReservationScreen() {
         />
       )}
       {reservationStep === 'SeatStep' && (
-        <SeatScreen
-          onPrev={() => history.back()}
-          context={context}
-          onNext={(seatContext: SeatContext) =>
-            history.push('UserStep', seatContext)
-          }
-        />
+        <Suspense fallback={<LoadingScreen />}>
+          <SeatScreen
+            onPrev={() => history.back()}
+            context={context}
+            onNext={(seatContext: SeatContext) =>
+              history.push('UserStep', seatContext)
+            }
+          />
+        </Suspense>
       )}
       {reservationStep === 'UserStep' && (
         <UserScreen
