@@ -19,9 +19,11 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
+import yare.yare.domain.payment.dto.SeatInfoDto;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
+import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
 import yare.yare.global.dto.SliceDto;
@@ -311,6 +313,124 @@ public class PurchaseControllerTest {
                                 )
                                 .requestSchema(Schema.schema("나의 티켓 취소 내역 조회 Request"))
                                 .responseSchema(Schema.schema("나의 티켓 취소 내역 조회 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 나의_티켓_상세_조회_성공() throws Exception {
+        //given
+        PurchaseDetailsRes result = new PurchaseDetailsRes();
+
+        List<SeatInfoDto> seats = new ArrayList<>();
+
+        for(int i = 1; i <= 4; i++) {
+            SeatInfoDto seatInfo = SeatInfoDto.builder()
+                    .ticketId("T3271382"+i)
+                    .gradeName("중앙테이블석")
+                    .seatNo("111구역 A열 23")
+                    .unitPrice("15,000")
+                    .build();
+
+            seats.add(seatInfo);
+        }
+
+        result.setImageUrl("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/temp.png");
+        result.setSeasonName("2024 신한SOL뱅크 KBO 리그");
+        result.setHomeTeamName("두산");
+        result.setAwayTeamName("LG");
+        result.setStadiumName("잠실야구장");
+        result.setGameDateTime("2024.07.25(목) 18:30");
+        result.setReservationDate("2024.07.22");
+        result.setStartTicketId("T32713821");
+        result.setEndTicketId("T32713824");
+        result.setTicketCount(4);
+        result.setPurchaseStatus("예매완료");
+        result.setTicketType("모바일티켓");
+        result.setSeatPrice("80,000");
+        result.setChargePrice("4,000");
+        result.setTotalPrice("84,000");
+        result.setSeats(seats);
+        result.setCancelDeadline("2024.07.24(수) 23:59");
+
+        when(purchaseService.purchaseDetails(anyString(), anyLong()))
+                .thenReturn(result);
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                get("/api/payments/tickets/{purchaseId}", 1L)
+                        .header("Authorization", "Bearer " + JWT_TOKEN)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "나의 티켓 상세 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Payment API")
+                                .summary("나의 티켓 상세 조회 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .pathParameters(
+                                        parameterWithName("purchaseId")
+                                                .description("구매 내역 ID")
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.imageUrl").type(STRING)
+                                                        .description("기본 이미지"),
+                                                fieldWithPath("body.seasonName").type(STRING)
+                                                        .description("시즌 이름"),
+                                                fieldWithPath("body.awayTeamName").type(STRING)
+                                                        .description("원정 팀 이름"),
+                                                fieldWithPath("body.homeTeamName").type(STRING)
+                                                        .description("홈 팀 이름"),
+                                                fieldWithPath("body.stadiumName").type(STRING)
+                                                        .description("장소 이름"),
+                                                fieldWithPath("body.gameDateTime").type(STRING)
+                                                        .description("경기 시작일"),
+                                                fieldWithPath("body.reservationDate").type(STRING)
+                                                        .description("예매일"),
+                                                fieldWithPath("body.startTicketId").type(STRING)
+                                                        .description("첫번째 티켓 예매내역 아이디"),
+                                                fieldWithPath("body.endTicketId").type(STRING)
+                                                        .description("마지막 티켓 예매내역 아이디"),
+                                                fieldWithPath("body.ticketCount").type(NUMBER)
+                                                        .description("예매 티켓 개수"),
+                                                fieldWithPath("body.purchaseStatus").type(STRING)
+                                                        .description("티켓 상태"),
+                                                fieldWithPath("body.ticketType").type(STRING)
+                                                        .description("티켓 종류"),
+                                                fieldWithPath("body.seatPrice").type(STRING)
+                                                        .description("좌석 전체 가격"),
+                                                fieldWithPath("body.chargePrice").type(STRING)
+                                                        .description("예매 수수료"),
+                                                fieldWithPath("body.totalPrice").type(STRING)
+                                                        .description("전체 가격"),
+                                                fieldWithPath("body.seats[].ticketId").type(NUMBER)
+                                                        .description("티켓 아이디"),
+                                                fieldWithPath("body.seats[].gradeName").type(NUMBER)
+                                                        .description("좌석 등급"),
+                                                fieldWithPath("body.seats[].seatNo").type(NUMBER)
+                                                        .description("좌석 정보"),
+                                                fieldWithPath("body.seats[].unitPrice").type(NUMBER)
+                                                        .description("개별 가격"),
+                                                fieldWithPath("body.cancelDeadline").type(STRING)
+                                                        .description("취소 가능 기한")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("나의 티켓 상세 조회 Request"))
+                                .responseSchema(Schema.schema("나의 티켓 상세 조회 Response"))
                                 .build()
                         ))
                 );

@@ -16,7 +16,7 @@ public enum ErrorCode {
     NOT_FOUND_HISTORY(NOT_FOUND, "등록되지 않은 결제 요청입니다."),
     INVALID_TOTAL_PRICE(BAD_REQUEST, "결제 금액이 맞지 않습니다."),
     GAME_NOT_FOUND(NOT_FOUND, "존재하지 않는 경기입니다."),
-    PURCHASE_NOT_MINE(FORBIDDEN, "권한이 없는 결제입니다"),
+    PURCHASE_NOT_MINE(FORBIDDEN, "나의 결제가 아닙니다."),
     PURCHASE_NOT_FOUND(NOT_FOUND, "존재하지 않는 구매내역입니다.")
     ;
 

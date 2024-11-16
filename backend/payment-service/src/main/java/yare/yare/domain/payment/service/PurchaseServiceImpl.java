@@ -13,11 +13,13 @@ import yare.yare.domain.history.entity.PurchaseHistory;
 import yare.yare.domain.history.entity.SeatHistory;
 import yare.yare.domain.history.repository.PurchaseHistoryRepository;
 import yare.yare.domain.history.repository.SeatHistoryRepository;
+import yare.yare.domain.payment.dto.SeatInfoDto;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.dto.request.CheckValidSeatsReq;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
 import yare.yare.domain.payment.dto.response.CheckValidSeatsRes;
+import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.entity.Purchase;
 import yare.yare.domain.payment.entity.PurchasedSeat;
@@ -29,6 +31,7 @@ import yare.yare.global.exception.CustomException;
 import yare.yare.global.utils.RedisUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static yare.yare.global.statuscode.ErrorCode.*;
 
@@ -38,6 +41,8 @@ import static yare.yare.global.statuscode.ErrorCode.*;
 @Slf4j
 public class PurchaseServiceImpl implements PurchaseService {
     private static final String PREFIX_TICKET_UNIQUE = "T327";
+    private static final int CHARGE = 1000;
+
     private final GameService gameService;
     private final PortOneService portOneService;
     private final PurchaseRepository purchaseRepository;
@@ -139,17 +144,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     public CheckValidSeatsRes checkValidSeats(CheckValidSeatsReq checkValidSeatsReq) {
         PurchaseHistory purchaseHistory = purchaseHistoryRepository.findByIdempotencyKey(checkValidSeatsReq.getIdempotencyKey())
                 .orElse(null);
-        log.info("id {}", checkValidSeatsReq.getIdempotencyKey());
+
         if(purchaseHistory == null) {
             log.info("purchase가 null이에요!!");
             return CheckValidSeatsRes.isInValid(checkValidSeatsReq.getIdempotencyKey());
         }
 
-        log.info("request Ids {}", Arrays.toString(checkValidSeatsReq.getSeatsId().toArray()));
-
         List<Long> seatIds = seatHistoryRepository.findIdsByPurchaseId(purchaseHistory.getId());
-
-        log.info("select Ids {}", Arrays.toString(seatIds.toArray()));
 
         Collections.sort(checkValidSeatsReq.getSeatsId());
         Collections.sort(seatIds);
@@ -160,6 +161,31 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
 
         return CheckValidSeatsRes.isValid(checkValidSeatsReq.getIdempotencyKey());
+    }
+
+    @Override
+    public PurchaseDetailsRes purchaseDetails(String memberUuid, Long purchaseId) {
+        Purchase purchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new CustomException(PURCHASE_NOT_FOUND));
+
+        if(!purchase.getMemberUuid().equals(memberUuid)) {
+            throw new CustomException(PURCHASE_NOT_MINE);
+        }
+
+        List<PurchasedSeat> purchasedSeats = purchasedSeatRepository.findPurchasedSeatByPurchaseId(purchaseId);
+
+        List<SeatInfoDto> seatsInfo = purchasedSeats.stream()
+                .map(seat -> SeatInfoDto.toDto(purchase, seat))
+                .toList();
+
+        String startTicketId = purchasedSeats.getFirst().getTicketUuid();
+        String endTicketId = purchasedSeats.getLast().getTicketUuid();
+        Integer ticketCount = purchasedSeats.size();
+        Integer seatPrice = purchasedSeats.getFirst().getUnitPrice() * ticketCount;
+        Integer chargePrice = ticketCount * CHARGE;
+
+        return PurchaseDetailsRes.toDto(purchase, purchase.getGame(),
+                startTicketId, endTicketId, ticketCount, seatPrice, chargePrice, seatsInfo);
     }
 
     private String makeTicketUuid(Long gameId, Long seatId, Long ticketId) {
