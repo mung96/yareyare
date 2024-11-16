@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {Seat, SeatContext, SeatStep} from '@/main/shared/types';
@@ -13,6 +13,9 @@ import SeatContainer from '@/main/ui/components/reservation/SeatContainer.tsx';
 import {addSeat, removeSeat} from '@/main/services/helper/reservation/seat.ts';
 import ReservationLayout from '../../layout/ReservationLayout';
 import {useState} from 'react';
+import ReservationBox from '@/main/ui/components/reservation/ReservationBox';
+import CustomText from '@/main/ui/widgets/CustomText.tsx';
+import SelectedSeatItem from '@/main/ui/components/reservation/SelectedSeatItem.tsx';
 
 type Props = {
   onPrev: () => void;
@@ -33,8 +36,6 @@ function SeatScreen({context, onNext}: Props) {
 
     return defaultValues;
   };
-  console.log(setDefaultValues());
-  //TODO: value가 key별로 있어야함.
 
   const {
     control,
@@ -66,26 +67,6 @@ function SeatScreen({context, onNext}: Props) {
     <>
       <ReservationLayout>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {/*<Controller*/}
-          {/*  control={control}*/}
-          {/*  render={({field: {onChange, value}}) => (*/}
-          {/*    <>*/}
-          {/*      {seatListData?.sections.map(section => (*/}
-          {/*        <SeatContainer*/}
-          {/*          value={value[section.sectionName]}*/}
-          {/*          list={section.rows}*/}
-          {/*          name={section.sectionName}*/}
-          {/*          onAdd={(seat: Seat) => addSeat(value, seat, onChange)}*/}
-          {/*          onRemove={(seatId: string) =>*/}
-          {/*            removeSeat(value, seatId, onChange)*/}
-          {/*          }*/}
-          {/*        />*/}
-          {/*      ))}*/}
-          {/*    </>*/}
-          {/*  )}*/}
-          {/*  name="seatList"*/}
-          {/*/>*/}
-
           {seatListData?.sections.map(section => (
             <Controller
               control={control}
@@ -105,13 +86,32 @@ function SeatScreen({context, onNext}: Props) {
           ))}
         </ScrollView>
 
-        {/*<Controller*/}
-        {/*  control={control}*/}
-        {/*  rules={{required: true}}*/}
-        {/*  render={({field: {value}}) => <SelectedSeatList seatList={value} />}*/}
-        {/*  name="seatList"*/}
-        {/*/>*/}
+        <ReservationBox>
+          <View style={styles.textContainer}>
+            <CustomText style={styles.text}>선택한 좌석</CustomText>
+            <View style={styles.seatCnt}>
+              <Text style={styles.seatCntText}>{seatList.length}</Text>
+            </View>
+          </View>
+          {seatListData?.sections.map(section => (
+            <Controller
+              control={control}
+              render={({field: {value}}) => (
+                <>
+                  {value.map(seat => (
+                    <SelectedSeatItem
+                      key={seat.section + seat.row + ' ' + seat.col}
+                      seat={seat}
+                    />
+                  ))}
+                </>
+              )}
+              name={section.sectionName}
+            />
+          ))}
+        </ReservationBox>
       </ReservationLayout>
+
       <View style={styles.buttonContainer}>
         <MainButton
           label={'다음'}
@@ -144,6 +144,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderTopWidth: 0.3,
     borderColor: COLORS.GRAY_200,
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: 4,
+  },
+  text: {
+    fontWeight: '900',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  seatCnt: {
+    borderRadius: 100,
+    width: 20,
+    height: 20,
+    backgroundColor: COLORS.PURPLE_100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  seatCntText: {
+    color: COLORS.WHITE,
+    fontWeight: '500',
   },
 });
 
