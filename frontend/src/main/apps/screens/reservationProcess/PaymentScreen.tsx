@@ -5,7 +5,6 @@ import MainButton from '@/main/ui/widgets/MainButton.tsx';
 import {COLORS} from '@/main/shared/styles';
 import {Controller, useForm} from 'react-hook-form';
 import {PaymentContext, PaymentStep} from '@/main/shared/types';
-import {useSelectSeatMutation} from '@/main/services/hooks/queries/useSeatQuery.ts';
 import {usePaymentHistoryMutation} from '@/main/services/hooks/queries/usePaymentQuery.ts';
 import {PATH} from '@/main/shared/constants';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -53,7 +52,10 @@ function PaymentScreen({onPrev, context}: Props) {
           )}
           name="paymentMethod"
         />
-        <ExpectedPayment />
+        <ExpectedPayment
+          price={context.price * context.seatList.length}
+          charge={context.seatList.length * 1000}
+        />
       </View>
       <View style={styles.buttonContainer}>
         <MainButton

@@ -53,12 +53,7 @@ function SeatScreen({context, onNext}: Props) {
       });
     },
   });
-  const getSeatArrLength = () => {
-    const seatCount = seatListData?.sections.reduce((acc, section) => {
-      return acc + (control._formValues[section.sectionName] as Seat[]).length;
-    }, 0);
-    return seatCount;
-  };
+
   const onSubmit = () => {
     const seatIdList: number[] = [];
     const seatArr: Seat[] = [];
