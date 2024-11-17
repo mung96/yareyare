@@ -1,13 +1,11 @@
 package yare.yare.domain.portone.feign_client;
 
 
+import jakarta.ws.rs.Path;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import yare.yare.domain.portone.dto.PortOnePriceRes;
-import yare.yare.domain.portone.dto.PortOneRefreshTokenReq;
-import yare.yare.domain.portone.dto.PortOneTokenReq;
-import yare.yare.domain.portone.dto.PortOneTokenRes;
+import yare.yare.domain.portone.dto.*;
 
 @FeignClient(name = "portOneFeignClientCustom", url = "https://api.portone.io")
 public interface PortOneFeignClientCustom {
@@ -19,4 +17,9 @@ public interface PortOneFeignClientCustom {
 
     @GetMapping(value = "/payments/{paymentId}")
     PortOnePriceRes getPrice(@PathVariable("paymentId") String paymentId, @RequestHeader("Authorization") String authorization);
+
+    @PostMapping(value = "/payments/{paymentId}/cancel")
+    PortOneCancelRes cancelPayment(@PathVariable("paymentId") String paymentId,
+                                   @RequestBody PortOneCancelReq request,
+                                   @RequestHeader("Authorization") String authorization);
 }
