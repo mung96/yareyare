@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import yare.yare.domain.active.service.ActiveService;
+import yare.yare.global.exception.CustomException;
 import yare.yare.global.kafka.dto.Message;
+
+import static yare.yare.global.statuscode.ErrorCode.BAD_REQUEST;
 
 @Component
 @RequiredArgsConstructor
@@ -25,7 +28,7 @@ public class KafkaConsumer {
         try {
             message = mapper.readValue(jsonMessage, Message.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new CustomException(BAD_REQUEST);
         }
 
         activeService.addActiveMember(message.getGameId(), message.getMemberId(), message.getToken());

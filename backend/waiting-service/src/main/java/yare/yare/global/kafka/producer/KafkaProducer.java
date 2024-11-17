@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import yare.yare.global.exception.CustomException;
 import yare.yare.global.kafka.dto.Message;
+
+import static yare.yare.global.statuscode.ErrorCode.BAD_REQUEST;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class KafkaProducer {
         try {
             jsonMessage = mapper.writeValueAsString(message);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException();
+            throw new CustomException(BAD_REQUEST);
         }
 
         kafkaTemplate.send("yareyare.ticket.game-" + gameId + ".waiting", jsonMessage);
