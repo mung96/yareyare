@@ -13,17 +13,17 @@ import yare.yare.domain.history.entity.SeatHistory;
 import yare.yare.domain.history.repository.PurchaseHistoryRepository;
 import yare.yare.domain.history.repository.SeatHistoryRepository;
 import yare.yare.domain.payment.dto.SeatInfoDto;
+import yare.yare.domain.payment.dto.TicketDetailDto;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.dto.request.CheckValidSeatsReq;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
-import yare.yare.domain.payment.dto.response.CancelReservationListRes;
-import yare.yare.domain.payment.dto.response.CheckValidSeatsRes;
-import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
-import yare.yare.domain.payment.dto.response.ReservationListRes;
+import yare.yare.domain.payment.dto.response.*;
 import yare.yare.domain.payment.entity.Purchase;
 import yare.yare.domain.payment.entity.PurchasedSeat;
+import yare.yare.domain.payment.entity.Ticket;
 import yare.yare.domain.payment.repository.PurchaseRepository;
 import yare.yare.domain.payment.repository.PurchasedSeatRepository;
+import yare.yare.domain.payment.repository.TicketRepository;
 import yare.yare.domain.portone.service.PortOneService;
 import yare.yare.global.dto.SliceDto;
 import yare.yare.global.exception.CustomException;
@@ -50,6 +50,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final SeatHistoryRepository seatHistoryRepository;
     private final RedisUtils redisUtils;
     private final KafkaPaymentProducer kafkaPaymentProducer;
+    private final TicketRepository ticketRepository;
 
     @Override
     public ReservationListRes reservationList(String memberUuid, Long lastPurchaseId, Pageable pageable) {
@@ -103,12 +104,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         purchaseRepository.save(purchase);
 
-        purchaseRepository.flush();
-
         List<SeatHistory> seatHistoryList = seatHistoryRepository.findByPurchaseHistory(purchaseHistory.getId());
 
         String lastReservationId = null;
         List<Long> seatIds = new ArrayList<>();
+        List<Ticket> tickets = new ArrayList<>();
 
         for (int i = 0; i < seatHistoryList.size(); i++) {
             SeatHistory seatHistory = seatHistoryList.get(i);
@@ -123,12 +123,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 
             purchasedSeat.updateTicketUuid(ticketUuid);
 
+            tickets.add(TicketDetailDto.toEntity(purchasedSeat));
+
             if (i == seatHistoryList.size() - 1) {
                 lastReservationId = ticketUuid;
             }
         }
 
-        purchasedSeatRepository.flush();
+        ticketRepository.saveAll(tickets);
 
         purchase.updateReservationId(lastReservationId);
 
@@ -217,6 +219,24 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.updateCanceled(true);
 
         redisUtils.unlock(lockKey);
+    }
+
+    @Override
+    public GetTicketRes getTickets(String memberUuid, Long purchaseId) {
+        Purchase purchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new CustomException(PURCHASE_NOT_FOUND));
+
+        if(!purchase.getMemberUuid().equals(memberUuid)) {
+            throw new CustomException(PURCHASE_NOT_MINE);
+        }
+
+        if(purchase.getCanceled()) {
+            throw new CustomException(ALREADY_CANCELED);
+        }
+
+        List<TicketDetailDto> ticketsDto = ticketRepository.getTicketDetailByPurchaseId(purchaseId);
+
+        return GetTicketRes.toDto(ticketsDto);
     }
 
     private String makeTicketUuid(Long gameId, Long seatId, Long ticketId) {
