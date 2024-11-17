@@ -4,8 +4,8 @@ import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
 import {useGetTicketDetailQuery} from '@/main/services/hooks/queries/useTicketRecordQuery.ts';
 import {isAxiosError} from 'axios';
 import TicketDetailBox from '@/main/ui/components/member/TicketDetailBox.tsx';
-import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {COLORS} from '@/main/shared/styles';
+import TicketDetailChip from '@/main/ui/components/member/TicketDetailChip.tsx';
 
 function TicketDetailScreen({
   route,
@@ -31,8 +31,9 @@ function TicketDetailScreen({
   return (
     <ScrollView contentContainerStyle={styles.layout}>
       <TicketDetailBox title={'예매정보'}>
-        <CustomText>관람일시</CustomText>
-        <CustomText>2024</CustomText>
+        <TicketDetailChip label={'관람일시'} value={'2024'} />
+        <TicketDetailChip label={'수수료'} value={'2024'} />
+        <TicketDetailChip label={'관람일시'} value={'2024'} />
       </TicketDetailBox>
       {/*<Text*/}
       {/*    onPress={() =>*/}
