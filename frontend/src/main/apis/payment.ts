@@ -3,6 +3,7 @@ import {apiRequester} from '@/main/apis/requester.ts';
 import {END_POINT} from '@/main/shared/constants/api.ts';
 import {TicketType} from '@/main/shared/types/payment/domain.ts';
 import {
+  PaymentDetailResponse,
   PaymentHistoryRequest,
   PaymentHistoryResponse,
   PaymentRegistRequest,
@@ -15,7 +16,7 @@ export async function getTicketRecord(
   lastPurchaseId?: number,
 ): Promise<TicketListResponse> {
   const params = lastPurchaseId ? {lastPurchaseId} : {};
-  const {data, request} = await apiRequester.get<Response<TicketListResponse>>(
+  const {data} = await apiRequester.get<Response<TicketListResponse>>(
     END_POINT.TICKET_RECORD(type),
     {params: {...params}},
   );
@@ -35,6 +36,15 @@ export async function postPaymentHistory(request: PaymentHistoryRequest) {
     {
       ...request,
     },
+  );
+  return data.body;
+}
+
+export async function getTicketDetail(
+  purchaseId: number,
+): Promise<PaymentDetailResponse> {
+  const {data} = await apiRequester.get<Response<PaymentDetailResponse>>(
+    END_POINT.TICKET_DETAIL(purchaseId),
   );
   return data.body;
 }
