@@ -1,10 +1,12 @@
-import {Pressable, SafeAreaView, StyleSheet, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {COLORS} from '@/main/shared/styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import useCalendar from '@/main/services/hooks/useCalendar.ts';
 import useGameScheduleModel from '@/main/services/hooks/useGameScheduleModel.ts';
 import {SvgUri} from 'react-native-svg';
+import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
+import React from 'react';
 
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -17,51 +19,56 @@ function Calendar() {
     calendarDays,
   } = useCalendar();
   //TODO: teamId에 myteam을 넣어야함
+  const {member} = useMemberModel();
   const {gameSchedule} = useGameScheduleModel(
-    '1',
+    member?.myTeamId ? String(member?.myTeamId) : '1',
     String(currentYear),
     String(currentMonth + 1),
   );
 
   return (
-    <SafeAreaView
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         paddingHorizontal: 12,
+        paddingTop: 12,
+        gap: 8,
+        paddingBottom: 24,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '100%',
         backgroundColor: COLORS.WHITE,
       }}>
-      <View style={styles.header}>
-        <Pressable style={styles.btnBox} onPress={handlePrevMonth}>
-          <Icon name={'caretleft'} size={16} />
-        </Pressable>
-        <CustomText>
-          <CustomText
-            style={[
-              styles.text,
-              {fontWeight: 'bold', color: COLORS.PURPLE_100},
-            ]}>
-            {currentYear}
-          </CustomText>
-          <CustomText style={[styles.text]}>년 </CustomText>
+      <View style={styles.headerContainer}>
+        <View style={styles.header}>
+          <Pressable style={styles.btnBox} onPress={handlePrevMonth}>
+            <Icon name={'caretleft'} size={16} />
+          </Pressable>
+          <CustomText>
+            <CustomText
+              style={[
+                styles.text,
+                {fontWeight: 'bold', color: COLORS.PURPLE_100},
+              ]}>
+              {currentYear}
+            </CustomText>
+            <CustomText style={[styles.text]}>년 </CustomText>
 
-          <CustomText
-            style={[
-              styles.text,
-              {fontWeight: 'bold', color: COLORS.PURPLE_100},
-            ]}>
-            {currentMonth + 1}
+            <CustomText
+              style={[
+                styles.text,
+                {fontWeight: 'bold', color: COLORS.PURPLE_100},
+              ]}>
+              {currentMonth + 1}
+            </CustomText>
+            <CustomText style={[styles.text]}>월</CustomText>
           </CustomText>
-          <CustomText style={[styles.text]}>월</CustomText>
-        </CustomText>
-        <Pressable style={styles.btnBox} onPress={handleNextMonth}>
-          <Icon name={'caretright'} size={16} />
-        </Pressable>
+          <Pressable style={styles.btnBox} onPress={handleNextMonth}>
+            <Icon name={'caretright'} size={16} />
+          </Pressable>
+        </View>
         <View style={styles.schedule}>
-          <CustomText>경기 일정</CustomText>
-          <CustomText>나의 팀 로고</CustomText>
+          <CustomText style={styles.scheduleText}>경기 일정</CustomText>
+          <SvgUri uri={String(member?.myTeamLogo!)} width={32} height={32} />
         </View>
       </View>
 
@@ -105,7 +112,7 @@ function Calendar() {
                         gameSchedule[day].description === 'WIN' &&
                           styles.descriptionWin,
                       ]}>
-                      {gameSchedule[day].description}`1 qA
+                      {gameSchedule[day].description}
                     </CustomText>
                     <View
                       style={[
@@ -135,11 +142,19 @@ function Calendar() {
           ))}
         </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 52,
+    paddingRight: 64,
+  },
+
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -192,10 +207,14 @@ const styles = StyleSheet.create({
   },
   schedule: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    alignItems: 'center',
+    gap: 12,
   },
-
+  scheduleText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 3,
+  },
   description: {
     fontSize: 14,
     color: COLORS.GRAY_300,
