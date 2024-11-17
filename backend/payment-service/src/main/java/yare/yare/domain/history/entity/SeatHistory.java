@@ -35,8 +35,8 @@ public class SeatHistory extends BaseEntity {
     private String rowName;
 
     @NotNull
-    @Column(length = 20)
-    private String seatNo;
+    @Column(columnDefinition = "SMALLINT")
+    private Integer seatNo;
 
     @NotNull
     @Column(name = "seat_id", columnDefinition = "INT UNSIGNED")

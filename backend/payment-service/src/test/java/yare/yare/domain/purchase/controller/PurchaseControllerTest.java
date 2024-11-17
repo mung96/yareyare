@@ -23,10 +23,8 @@ import yare.yare.domain.payment.dto.SeatInfoDto;
 import yare.yare.domain.payment.dto.TicketDetailDto;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
-import yare.yare.domain.payment.dto.response.CancelReservationListRes;
-import yare.yare.domain.payment.dto.response.GetTicketRes;
-import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
-import yare.yare.domain.payment.dto.response.ReservationListRes;
+import yare.yare.domain.payment.dto.response.*;
+import yare.yare.domain.payment.entity.PurchasedSeat;
 import yare.yare.domain.payment.service.PurchaseService;
 import yare.yare.global.dto.SliceDto;
 
@@ -544,6 +542,93 @@ public class PurchaseControllerTest {
                                 )
                                 .requestSchema(Schema.schema("나의 티켓 이미지 조회 Request"))
                                 .responseSchema(Schema.schema("나의 티켓 이미지 조회 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 나의_좌석_조회_성공() throws Exception {
+        //given
+        List<PurchasedSeat> seats = new ArrayList<>();
+
+        for(int i = 1; i < 5; i++) {
+            PurchasedSeat seat = PurchasedSeat.builder()
+                    .id((long) i)
+                    .sectionName("101")
+                    .rowName("A")
+                    .seatNo(i)
+                    .seatId((long) i)
+                    .unitPrice(15000)
+                    .ticketUuid("T1223432")
+                    .build();
+            seats.add(seat);
+        }
+
+        for(int i = 5; i < 9; i++) {
+            PurchasedSeat seat = PurchasedSeat.builder()
+                    .id((long) i)
+                    .sectionName("101")
+                    .rowName("A")
+                    .seatNo(i)
+                    .seatId((long) i)
+                    .unitPrice(15000)
+                    .ticketUuid("T1223432")
+                    .build();
+            seats.add(seat);
+        }
+
+        GetMySeatsRes result = new GetMySeatsRes(seats);
+
+        when(purchaseService.getMySeats(anyString(), anyLong()))
+                .thenReturn(result);
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                get("/api/payments/{purchaseId}/seats", 1L)
+                        .header("Authorization", "Bearer " + JWT_TOKEN)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "나의 좌석 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Payment API")
+                                .summary("나의 좌석 조회 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .pathParameters(
+                                        parameterWithName("purchaseId")
+                                                .description("구매 내역 ID")
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.sections").type(ARRAY)
+                                                        .description("구역 목록"),
+                                                fieldWithPath("body.sections[].sectionName").type(STRING)
+                                                        .description("구역 이름"),
+                                                fieldWithPath("body.sections[].rows").type(ARRAY)
+                                                        .description("행 목록"),
+                                                fieldWithPath("body.sections[].rows[].rowName").type(STRING)
+                                                        .description("행 이름"),
+                                                fieldWithPath("body.sections[].rows[].seats").type(ARRAY)
+                                                        .description("좌석 목록"),
+                                                fieldWithPath("body.sections[].rows[].seats[].seatNumber").type(NUMBER)
+                                                        .description("좌석 번호")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("나의 좌석 조회 Request"))
+                                .responseSchema(Schema.schema("나의 좌석 조회 Response"))
                                 .build()
                         ))
                 );
