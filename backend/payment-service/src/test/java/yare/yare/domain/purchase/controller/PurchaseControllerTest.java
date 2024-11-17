@@ -20,9 +20,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.payment.dto.SeatInfoDto;
+import yare.yare.domain.payment.dto.TicketDetailDto;
 import yare.yare.domain.payment.dto.TicketDto;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
 import yare.yare.domain.payment.dto.response.CancelReservationListRes;
+import yare.yare.domain.payment.dto.response.GetTicketRes;
 import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
 import yare.yare.domain.payment.dto.response.ReservationListRes;
 import yare.yare.domain.payment.service.PurchaseService;
@@ -359,7 +361,7 @@ public class PurchaseControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/api/payments/tickets/{purchaseId}", 1L)
+                get("/api/payments/{purchaseId}", 1L)
                         .header("Authorization", "Bearer " + JWT_TOKEN)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -478,6 +480,70 @@ public class PurchaseControllerTest {
                                 )
                                 .requestSchema(Schema.schema("결제 취소 Request"))
                                 .responseSchema(Schema.schema("결제 취소 Response"))
+                                .build()
+                        ))
+                );
+    }
+
+    @Test
+    public void 나의_티켓_이미지_조회_성공() throws Exception {
+        //given
+        GetTicketRes result = new GetTicketRes();
+
+        List<TicketDetailDto> tickets = new ArrayList<>();
+
+        for(int i = 1; i <= 4; i++) {
+            TicketDetailDto ticketDetailDto = TicketDetailDto.builder()
+                    .ticketId("T3271382"+i)
+                    .src("https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/ticket.png")
+                    .build();
+
+            tickets.add(ticketDetailDto);
+        }
+
+        result.setTickets(tickets);
+
+        when(purchaseService.getTickets(anyString(), anyLong()))
+                .thenReturn(result);
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                get("/api/payments/{purchaseId}/tickets", 1L)
+                        .header("Authorization", "Bearer " + JWT_TOKEN)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+        );
+
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.header.message").value(OK.getMessage()))
+                .andDo(document(
+                        "나의 티켓 이미지 조회 성공",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Payment API")
+                                .summary("나의 티켓 이미지 조회 API")
+                                .requestHeaders(
+                                        headerWithName("Authorization")
+                                                .description("JWT 토큰")
+                                )
+                                .pathParameters(
+                                        parameterWithName("purchaseId")
+                                                .description("구매 내역 ID")
+                                )
+                                .responseFields(
+                                        getCommonResponseFields(
+                                                fieldWithPath("body.tickets[].ticketId").type(STRING)
+                                                        .description("티켓 아이디"),
+                                                fieldWithPath("body.tickets[].src").type(STRING)
+                                                        .description("티켓 이미지 url")
+                                        )
+                                )
+                                .requestSchema(Schema.schema("나의 티켓 이미지 조회 Request"))
+                                .responseSchema(Schema.schema("나의 티켓 이미지 조회 Response"))
                                 .build()
                         ))
                 );
