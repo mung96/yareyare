@@ -3,7 +3,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
 import {COLORS} from '@/main/shared/styles';
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconA from 'react-native-vector-icons/AntDesign';
 
@@ -11,7 +11,7 @@ function TicketImageScreen({
   route,
 }: NativeStackScreenProps<MypageParamList, 'TicketImage'>) {
   const ticket = route.params;
-  console.log(ticket.imageUrl);
+  const [seatIdx, setSeatIdx] = useState(0);
   return (
     <View
       style={{
@@ -22,9 +22,13 @@ function TicketImageScreen({
         justifyContent: 'space-between',
         paddingHorizontal: 24,
       }}>
-      <Pressable>
-        <IconA name={'caretleft'} size={24} />
-      </Pressable>
+      <View style={{width: 24, height: 24}}>
+        {seatIdx !== 0 && (
+          <Pressable onPress={() => setSeatIdx(prev => prev - 1)}>
+            <IconA name={'caretleft'} size={24} />
+          </Pressable>
+        )}
+      </View>
       <View>
         <ScrollView contentContainerStyle={styles.container}>
           <View
@@ -75,9 +79,15 @@ function TicketImageScreen({
           </View>
         </ScrollView>
       </View>
-      <Pressable>
-        <IconA name={'caretright'} size={24} />
-      </Pressable>
+      <View>
+        <View style={{width: 24, height: 24}}>
+          {seatIdx !== ticket.seats.length - 1 && (
+            <Pressable onPress={() => setSeatIdx(prev => prev + 1)}>
+              <IconA name={'caretright'} size={24} />
+            </Pressable>
+          )}
+        </View>
+      </View>
     </View>
   );
 }
