@@ -18,7 +18,7 @@ public class SeatDto {
 
     private String rowName;
 
-    private String seatNo;
+    private Integer seatNo;
 
     public SeatHistory toEntity(Integer unitPrice, PurchaseHistory purchaseHistory) {
         return SeatHistory.builder()
