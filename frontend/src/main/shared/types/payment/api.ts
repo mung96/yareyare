@@ -39,6 +39,12 @@ export type PaymentHistoryRequest = {
   seatIds: number[];
 };
 
+export type SeatDetailResponse = {
+  unitPrice: number;
+  gradeName: number;
+  seatNo: number;
+  ticketId: number;
+};
 export type PaymentDetailResponse = {
   ticketCount: number;
   startTicketId: string;
@@ -47,12 +53,7 @@ export type PaymentDetailResponse = {
   stadiumName: string;
   ticketType: string;
   reservationDate: string;
-  seats: {
-    unitPrice: number;
-    gradeName: number;
-    seatNo: number;
-    ticketId: number;
-  }[];
+  seats: SeatDetailResponse[];
   gameDateTime: string;
   seasonName: string;
   imageUrl: string;
