@@ -24,7 +24,24 @@ export const END_POINT = {
   TICKET_RECORD: (type: TicketType) => `payments/tickets/${type}`,
   PAYMENT_HISTORY: 'payments/history',
   PAYMENT: 'payments',
+  TICKET_DETAIL: (purchaseId: number) => `payments/tickets/${purchaseId}`,
 
   //stadium
   STADIUM: 'games/stadiums',
 };
+export const HTTP_STATUS_CODE = {
+  SUCCESS: 200,
+  CREATED: 201,
+  NO_CONTENT: 204,
+
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  CONFLICT: 404,
+  CONTENT_TOO_LARGE: 413,
+
+  INTERNAL_SERVER_ERROR: 500,
+} as const;
+
+export const ERROR_MESSAGE = {};

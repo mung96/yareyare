@@ -38,3 +38,28 @@ export type PaymentHistoryRequest = {
   idempotencyKey: string;
   seatIds: number[];
 };
+
+export type PaymentDetailResponse = {
+  ticketCount: number;
+  startTicketId: string;
+  totalPrice: string;
+  chargePrice: string;
+  stadiumName: string;
+  ticketType: string;
+  reservationDate: string;
+  seats: {
+    unitPrice: number;
+    gradeName: number;
+    seatNo: number;
+    ticketId: number;
+  }[];
+  gameDateTime: string;
+  seasonName: string;
+  imageUrl: string;
+  awayTeamName: string;
+  purchaseStatus: string;
+  cancelDeadline: string;
+  endTicketId: string;
+  seatPrice: string;
+  homeTeamName: string;
+};

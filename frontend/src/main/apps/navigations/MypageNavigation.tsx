@@ -9,6 +9,9 @@ import UpdateTeamScreen from '@/main/apps/screens/mypage/UpdateTeamScreen.tsx';
 import MyPageScreen from '@/main/apps/screens/MyPageScreen.tsx';
 import {TicketType} from '@/main/shared/types/payment/domain.ts';
 import IconI from 'react-native-vector-icons/Ionicons';
+import TicketImageScreen from '@/main/apps/screens/mypage/TicketImageScreen.tsx';
+import TicketDetailScreen from '@/main/apps/screens/mypage/TicketDetailScreen.tsx';
+import {PaymentDetailResponse} from '@/main/shared/types/payment/api.ts';
 
 type TicketCategory = {
   type: TicketType;
@@ -16,7 +19,11 @@ type TicketCategory = {
 
 export type MypageParamList = {
   [PATH.MY_PAGE]: undefined;
+
   [PATH.TICKET_RECORD]: TicketCategory;
+  [PATH.TICKET_DETAIL]: {purchaseId: number};
+  [PATH.TICKET_IMAGE]: PaymentDetailResponse;
+
   [PATH.UPDATE_MYTEAM]: undefined;
 };
 
@@ -38,7 +45,7 @@ function MyPageNavigation() {
           <IconI
             name={'chevron-back'}
             size={22}
-            onPress={() => navigation.navigate(PATH.MY_PAGE)}
+            onPress={() => navigation.pop()}
           />
         ),
       })}>
@@ -55,6 +62,20 @@ function MyPageNavigation() {
         }}
         name={PATH.TICKET_RECORD}
         component={TicketRecordScreen}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: '티켓 상세 조회',
+        }}
+        name={PATH.TICKET_DETAIL}
+        component={TicketDetailScreen}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: '티켓 상세 조회',
+        }}
+        name={PATH.TICKET_IMAGE}
+        component={TicketImageScreen}
       />
       <Stack.Screen
         options={{

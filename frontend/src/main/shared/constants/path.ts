@@ -11,6 +11,8 @@ export const PATH = {
   MY_PAGE_INTRO: 'MyPageIntro',
   MY_PAGE: 'MyPage',
   TICKET_RECORD: 'TicketRecord',
+  TICKET_DETAIL: 'TicketDetail',
+  TICKET_IMAGE: 'TicketImage',
   CANCEL_TICKET: 'CancelTicket',
   UPDATE_MYTEAM: 'UpdateMyTeam',
 

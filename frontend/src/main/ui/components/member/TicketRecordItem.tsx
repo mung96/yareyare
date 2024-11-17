@@ -1,15 +1,25 @@
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import {TicketResponse} from '@/main/shared/types/payment/api.ts';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {MypageParamList} from '@/main/apps/navigations/MypageNavigation.tsx';
+import {PATH} from '@/main/shared/constants';
 
 type Props = {
   ticket: TicketResponse;
 };
 
 function TicketRecordItem({ticket}: Props) {
+  const navigation = useNavigation<NavigationProp<MypageParamList>>();
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate(PATH.TICKET_DETAIL, {
+          purchaseId: ticket.purchaseId,
+        })
+      }>
       <CustomText style={styles.title}>
         {ticket.seasonName} {ticket.homeTeamName} vs {ticket.awayTeamName}
       </CustomText>
@@ -67,9 +77,10 @@ function TicketRecordItem({ticket}: Props) {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',

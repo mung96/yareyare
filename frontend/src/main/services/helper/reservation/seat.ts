@@ -1,7 +1,5 @@
 import {convertCharToNumber} from '@/main/shared/utils/type.ts';
 import {Seat} from '@/main/shared/types';
-import {RestSeatListWithSectionResponse} from '@/main/shared/types/game/api.ts';
-import {SeatList} from '@/main/ui/components/reservation/SeatContainer.tsx';
 
 export function convertRowToIdx(row: string) {
   return convertCharToNumber(row) - 65;
@@ -9,16 +7,16 @@ export function convertRowToIdx(row: string) {
 
 export function includeSeat(seatList: Seat[], seatId: string) {
   // return includeObjectWithKeyAndValue(seatList, ['seatId'], [seatId]);
-  return seatList.some(seat => seat.seatId === seatId);
+  return seatList.some(seat => Number(seat.seatId) === Number(seatId));
 }
 
-export function convertSeatResponseToView(
-  response: RestSeatListWithSectionResponse['sections'],
-): SeatList {
-  const seatList: SeatList = {};
-
-  return seatList;
-}
+// export function convertSeatResponseToView(
+//   response: RestSeatListWithSectionResponse['sections'],
+// ): SeatList {
+//   const seatList: SeatList = {};
+//
+//   return seatList;
+// }
 
 export function addSeat(
   arr: Seat[],
