@@ -13,6 +13,7 @@ import yare.yare.global.kafka.dto.KafkaGameDto;
 import yare.yare.global.kafka.dto.base.Field;
 import yare.yare.global.kafka.dto.base.Schema;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,8 +30,7 @@ public class KafkaGameProducer {
             new Field("string", false, "away_team_name"),
             new Field("string", false, "home_team_name"),
             new Field("string", false, "stadium_name"),
-            new Field("date", false, "game_date"),
-            new Field("time", false, "start_time")
+            new Field("datetime", false, "game_datetime")
     );
 
     private final Schema schema = Schema.builder()
@@ -48,8 +48,7 @@ public class KafkaGameProducer {
                 .awayTeamName(game.getAwayTeamName())
                 .homeTeamName(game.getHomeTeamName())
                 .stadiumName(game.getStadiumName())
-                .gameDate(game.getGameDate())
-                .startTime(game.getStartTime())
+                .gameDateTime(LocalDateTime.of(game.getGameDate(),game.getStartTime()))
                 .build();
 
         KafkaGameDto kafkaGameDto = new KafkaGameDto(schema, payload);

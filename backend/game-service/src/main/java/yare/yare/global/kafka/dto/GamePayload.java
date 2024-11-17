@@ -3,8 +3,7 @@ package yare.yare.global.kafka.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -21,7 +20,6 @@ public class GamePayload {
 
     private String stadiumName;
 
-    private LocalDate gameDate;
+    private LocalDateTime gameDateTime;
 
-    private LocalTime startTime;
 }
