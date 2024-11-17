@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import useCalendar from '@/main/services/hooks/useCalendar.ts';
 import useGameScheduleModel from '@/main/services/hooks/useGameScheduleModel.ts';
 import {SvgUri} from 'react-native-svg';
+import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -17,8 +18,9 @@ function Calendar() {
     calendarDays,
   } = useCalendar();
   //TODO: teamId에 myteam을 넣어야함
+  const {member} = useMemberModel();
   const {gameSchedule} = useGameScheduleModel(
-    '1',
+    member?.myTeamId ? String(member?.myTeamId) : '1',
     String(currentYear),
     String(currentMonth + 1),
   );
