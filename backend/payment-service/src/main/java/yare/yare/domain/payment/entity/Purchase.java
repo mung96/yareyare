@@ -61,4 +61,8 @@ public class Purchase extends BaseEntity {
     public void updateReservationId(String reservationId) {
         this.reservationId = reservationId;
     }
+
+    public void updateCanceled(Boolean canceled) {
+        this.canceled = canceled;
+    }
 }

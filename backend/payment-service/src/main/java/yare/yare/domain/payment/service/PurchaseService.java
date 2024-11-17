@@ -14,4 +14,5 @@ public interface PurchaseService {
     void addPurchase(PurchaseAddReq purchaseAddReq, String memberUuid);
     CheckValidSeatsRes checkValidSeats(CheckValidSeatsReq checkValidSeatsReq);
     PurchaseDetailsRes purchaseDetails(String memberUuid, Long purchaseId);
+    void cancelPurchased(String memberUuid, Long purchaseId);
 }

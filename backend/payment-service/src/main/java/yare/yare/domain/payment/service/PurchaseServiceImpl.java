@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import yare.yare.domain.game.dto.CheckSeatReq;
 import yare.yare.domain.game.service.GameService;
@@ -28,10 +27,10 @@ import yare.yare.domain.payment.repository.PurchasedSeatRepository;
 import yare.yare.domain.portone.service.PortOneService;
 import yare.yare.global.dto.SliceDto;
 import yare.yare.global.exception.CustomException;
+import yare.yare.global.kafka.producer.KafkaPaymentProducer;
 import yare.yare.global.utils.RedisUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static yare.yare.global.statuscode.ErrorCode.*;
 
@@ -50,6 +49,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final PurchasedSeatRepository purchasedSeatRepository;
     private final SeatHistoryRepository seatHistoryRepository;
     private final RedisUtils redisUtils;
+    private final KafkaPaymentProducer kafkaPaymentProducer;
 
     @Override
     public ReservationListRes reservationList(String memberUuid, Long lastPurchaseId, Pageable pageable) {
@@ -186,6 +186,37 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         return PurchaseDetailsRes.toDto(purchase, purchase.getGame(),
                 startTicketId, endTicketId, ticketCount, seatPrice, chargePrice, seatsInfo);
+    }
+
+    @Override
+    @Transactional
+    public void cancelPurchased(String memberUuid, Long purchaseId) {
+        Purchase purchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new CustomException(PURCHASE_NOT_FOUND));
+
+        String lockKey = String.format("cancellation:%s", purchaseId);
+
+        if (!redisUtils.lock(lockKey, 3000L)) {
+            throw new CustomException(CONFLICT_WITH_PURCHASE);
+        }
+
+        if(!purchase.getMemberUuid().equals(memberUuid)) {
+            throw new CustomException(PURCHASE_NOT_MINE);
+        }
+
+        if(purchase.getCanceled()) {
+            throw new CustomException(ALREADY_CANCELED);
+        }
+
+        List<Long> seatsId = purchasedSeatRepository.findSeatsIdByPurchaseId(purchaseId);
+
+        portOneService.cancelPortOne(purchase.getIdempotencyKey());
+
+        kafkaPaymentProducer.sendCanceledSeats(purchase.getGame().getId(), seatsId);
+
+        purchase.updateCanceled(true);
+
+        redisUtils.unlock(lockKey);
     }
 
     private String makeTicketUuid(Long gameId, Long seatId, Long ticketId) {
