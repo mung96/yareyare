@@ -105,7 +105,7 @@ function Calendar() {
                         gameSchedule[day].description === 'WIN' &&
                           styles.descriptionWin,
                       ]}>
-                      {gameSchedule[day].description}`1 qA
+                      {gameSchedule[day].description}
                     </CustomText>
                     <View
                       style={[
