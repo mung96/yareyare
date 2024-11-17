@@ -2,6 +2,7 @@ package yare.yare.global.kafka.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +26,12 @@ public class KafkaGameProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     private final List<Field> fields = Arrays.asList(
-            new Field("long", false, "game_id"),
+            new Field("int64", false, "game_id"),
             new Field("string", false, "season_name"),
             new Field("string", false, "away_team_name"),
             new Field("string", false, "home_team_name"),
             new Field("string", false, "stadium_name"),
-            new Field("datetime", false, "game_datetime")
+            new Field("string", false, "game_datetime")
     );
 
     private final Schema schema = Schema.builder()
@@ -41,21 +42,21 @@ public class KafkaGameProducer {
             .build();
 
     public Game sendGame(final Game game) {
-
+        log.info(String.valueOf(game.getId()));
         GamePayload payload = GamePayload.builder()
-                .gameId(game.getId())
-                .seasonName(game.getSeasonName())
-                .awayTeamName(game.getAwayTeamName())
-                .homeTeamName(game.getHomeTeamName())
-                .stadiumName(game.getStadiumName())
-                .gameDateTime(LocalDateTime.of(game.getGameDate(),game.getStartTime()))
+                .game_id(game.getId())
+                .season_name(game.getSeasonName())
+                .away_team_name(game.getAwayTeamName())
+                .home_team_name(game.getHomeTeamName())
+                .stadium_name(game.getStadiumName())
+                .game_datetime(LocalDateTime.of(game.getGameDate(),game.getStartTime()))
                 .build();
 
         KafkaGameDto kafkaGameDto = new KafkaGameDto(schema, payload);
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         try {
             String jsonInString = mapper.writeValueAsString(kafkaGameDto);
             kafkaTemplate.send("game", jsonInString);
