@@ -23,7 +23,7 @@ public class WaitingController {
             @RequestBody JoinQueueReq joinQueueReq) {
 
         String memberId = jwtTokenService.getMemberUuid(token);
-        waitingService.joinQueue(memberId, joinQueueReq);
+        waitingService.joinQueue(memberId, joinQueueReq, "1111");
 
         return ResponseDto.success(CREATED);
     }
