@@ -16,4 +16,6 @@ public class Message implements Serializable {
     private String memberId;
 
     private String token;
+
+    private String sessionId;
 }
