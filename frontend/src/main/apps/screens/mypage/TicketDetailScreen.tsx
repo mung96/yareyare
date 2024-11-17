@@ -6,6 +6,7 @@ import {isAxiosError} from 'axios';
 import TicketDetailBox from '@/main/ui/components/member/TicketDetailBox.tsx';
 import {COLORS} from '@/main/shared/styles';
 import TicketDetailChip from '@/main/ui/components/member/TicketDetailChip.tsx';
+import TicketDetailButton from '@/main/ui/components/member/TicketDetailButton.tsx';
 
 function TicketDetailScreen({
   route,
@@ -30,7 +31,14 @@ function TicketDetailScreen({
   }
   return (
     <ScrollView contentContainerStyle={styles.layout}>
-      <TicketDetailBox title={'예매정보'}>
+      <TicketDetailBox
+        title={'예매정보'}
+        button={
+          <TicketDetailButton
+            title={'버튼'}
+            onPress={() => console.log('클릭')}
+          />
+        }>
         <TicketDetailChip label={'관람일시'} value={'2024'} />
         <TicketDetailChip label={'수수료'} value={'2024'} />
         <TicketDetailChip label={'관람일시'} value={'2024'} />

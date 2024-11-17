@@ -6,12 +6,16 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 type Props = {
   children: ReactNode;
   title: string;
+  button?: ReactNode;
 };
 
-function TicketDetailBox({children, title}: Props) {
+function TicketDetailBox({children, title, button}: Props) {
   return (
     <View style={styles.layout}>
-      <CustomText style={styles.title}>{title}</CustomText>
+      <View style={styles.titleBox}>
+        <CustomText style={styles.title}>{title}</CustomText>
+        {button}
+      </View>
       <View style={styles.container}>{children}</View>
     </View>
   );
@@ -23,8 +27,14 @@ const styles = StyleSheet.create({
     gap: 12,
     width: '100%',
   },
+  titleBox: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   title: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold',
     paddingHorizontal: 6,
   },
