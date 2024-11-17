@@ -38,7 +38,8 @@ public class PurchasedSeat extends BaseEntity {
     private String rowName;
 
     @NotNull
-    private String seatNo;
+    @Column(columnDefinition = "SMALLINT")
+    private Integer seatNo;
 
     @NotNull
     @Column(name = "seat_id", columnDefinition = "INT UNSIGNED")
