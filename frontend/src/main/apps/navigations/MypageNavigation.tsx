@@ -9,9 +9,9 @@ import UpdateTeamScreen from '@/main/apps/screens/mypage/UpdateTeamScreen.tsx';
 import MyPageScreen from '@/main/apps/screens/MyPageScreen.tsx';
 import {TicketType} from '@/main/shared/types/payment/domain.ts';
 import IconI from 'react-native-vector-icons/Ionicons';
-import TicketImageScreen from '@/main/apps/screens/mypage/TicketImageScreen.tsx';
 import TicketDetailScreen from '@/main/apps/screens/mypage/TicketDetailScreen.tsx';
 import {PaymentDetailResponse} from '@/main/shared/types/payment/api.ts';
+import TicketImageScreen from '@/main/apps/screens/mypage/TicketImageScreen.tsx';
 
 type TicketCategory = {
   type: TicketType;
