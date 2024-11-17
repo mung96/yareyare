@@ -29,9 +29,5 @@ public class Ticket extends BaseEntity {
 
     @NotNull
     @Column(length = 100)
-    private String stadiumImg;
-
-    @NotNull
-    @Column(length = 100)
-    private String qrImg;
+    private String imgSrc;
 }
