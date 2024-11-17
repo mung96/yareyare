@@ -11,6 +11,7 @@ import {TicketType} from '@/main/shared/types/payment/domain.ts';
 import IconI from 'react-native-vector-icons/Ionicons';
 import TicketImageScreen from '@/main/apps/screens/mypage/TicketImageScreen.tsx';
 import TicketDetailScreen from '@/main/apps/screens/mypage/TicketDetailScreen.tsx';
+import {PaymentDetailResponse} from '@/main/shared/types/payment/api.ts';
 
 type TicketCategory = {
   type: TicketType;
@@ -20,8 +21,8 @@ export type MypageParamList = {
   [PATH.MY_PAGE]: undefined;
 
   [PATH.TICKET_RECORD]: TicketCategory;
-  [PATH.TICKET_DETAIL]: undefined;
-  [PATH.TICKET_IMAGE]: undefined;
+  [PATH.TICKET_DETAIL]: {purchaseId: number};
+  [PATH.TICKET_IMAGE]: PaymentDetailResponse;
 
   [PATH.UPDATE_MYTEAM]: undefined;
 };
@@ -44,7 +45,7 @@ function MyPageNavigation() {
           <IconI
             name={'chevron-back'}
             size={22}
-            onPress={() => navigation.navigate(PATH.MY_PAGE)}
+            onPress={() => navigation.pop()}
           />
         ),
       })}>
