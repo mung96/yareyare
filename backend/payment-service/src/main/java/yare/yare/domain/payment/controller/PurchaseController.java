@@ -6,10 +6,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import yare.yare.domain.payment.dto.request.CheckValidSeatsReq;
 import yare.yare.domain.payment.dto.request.PurchaseAddReq;
-import yare.yare.domain.payment.dto.response.CancelReservationListRes;
-import yare.yare.domain.payment.dto.response.CheckValidSeatsRes;
-import yare.yare.domain.payment.dto.response.PurchaseDetailsRes;
-import yare.yare.domain.payment.dto.response.ReservationListRes;
+import yare.yare.domain.payment.dto.response.*;
 import yare.yare.domain.payment.service.PurchaseService;
 import yare.yare.global.auth.JwtTokenService;
 import yare.yare.global.dto.ResponseDto;
@@ -63,7 +60,7 @@ public class PurchaseController {
         return ResponseDto.success(OK, result);
     }
 
-    @GetMapping("/tickets/{purchaseId}")
+    @GetMapping("/{purchaseId}")
     public ResponseDto<PurchaseDetailsRes> purchaseDetails(@RequestHeader("Authorization") String token,
                                                            @PathVariable Long purchaseId) {
         String memberUuid = jwtTokenService.getMemberUuid(token);
@@ -81,6 +78,15 @@ public class PurchaseController {
         purchaseService.cancelPurchased(memberUuid, purchaseId);
 
         return ResponseDto.success(OK, null);
+    }
 
+    @GetMapping("/{purchaseId}/tickets")
+    public ResponseDto<GetTicketRes> getTickets(@RequestHeader("Authorization") String token,
+                                                @PathVariable Long purchaseId) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
+
+        GetTicketRes result = purchaseService.getTickets(memberUuid, purchaseId);
+
+        return ResponseDto.success(OK, result);
     }
 }
