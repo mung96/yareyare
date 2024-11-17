@@ -72,4 +72,15 @@ public class PurchaseController {
 
         return ResponseDto.success(OK, result);
     }
+
+    @PostMapping("/{purchaseId}/cancel")
+    public ResponseDto<Void> purchasedCancel(@RequestHeader("Authorization") String token,
+                                             @PathVariable Long purchaseId) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
+
+        purchaseService.cancelPurchased(memberUuid, purchaseId);
+
+        return ResponseDto.success(OK, null);
+
+    }
 }

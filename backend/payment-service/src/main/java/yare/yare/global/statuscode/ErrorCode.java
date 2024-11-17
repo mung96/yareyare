@@ -17,7 +17,8 @@ public enum ErrorCode {
     INVALID_TOTAL_PRICE(BAD_REQUEST, "결제 금액이 맞지 않습니다."),
     GAME_NOT_FOUND(NOT_FOUND, "존재하지 않는 경기입니다."),
     PURCHASE_NOT_MINE(FORBIDDEN, "나의 결제가 아닙니다."),
-    PURCHASE_NOT_FOUND(NOT_FOUND, "존재하지 않는 구매내역입니다.")
+    PURCHASE_NOT_FOUND(NOT_FOUND, "존재하지 않는 구매내역입니다."),
+    ALREADY_CANCELED(BAD_REQUEST, "이미 취소된 구매건입니다."),
     ;
 
     private final HttpStatus httpStatusCode;
