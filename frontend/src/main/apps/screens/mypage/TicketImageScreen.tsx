@@ -49,7 +49,7 @@ function TicketImageScreen({
               }}
             />
             <CustomText>
-              - - - - - - - - - - - - - - - - - - - - - - - - -
+              - - - - - - - - - - - - - - - - - - - - - - - - - - -
             </CustomText>
             <View
               style={{
@@ -66,15 +66,21 @@ function TicketImageScreen({
             style={{width: 180, height: 180, borderRadius: 180}}
           />
           <View style={styles.textBox}>
-            <CustomText>{ticket.gameDateTime}</CustomText>
-            <CustomText>{ticket.gameDateTime}</CustomText>
-            <CustomText>{ticket.gameDateTime}</CustomText>
+            <CustomText style={styles.description}>
+              {ticket.gameDateTime}
+            </CustomText>
+            <CustomText style={styles.description}>
+              {ticket.seats[seatIdx].gradeName + ticket.seats[seatIdx].seatNo}
+            </CustomText>
+            <CustomText style={styles.stadiumText}>
+              {ticket.stadiumName}
+            </CustomText>
           </View>
           <View style={styles.barcodeBox}>
             <Icon name={'barcode'} size={120} color={COLORS.BLACK} />
             <CustomText
               style={{position: 'absolute', top: 115, color: COLORS.GRAY_300}}>
-              {ticket.gameDateTime}
+              {ticket.seats[seatIdx].ticketId}
             </CustomText>
           </View>
         </ScrollView>
@@ -94,8 +100,8 @@ function TicketImageScreen({
 
 const styles = StyleSheet.create({
   container: {
-    width: 250,
-    height: 430,
+    width: 265,
+    height: 435,
     backgroundColor: COLORS.GRAY_400,
     flexDirection: 'column',
     alignItems: 'center',
@@ -110,6 +116,14 @@ const styles = StyleSheet.create({
   barcodeBox: {
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  stadiumText: {
+    color: COLORS.GRAY_300,
+  },
+  description: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: COLORS.GRAY_300,
   },
 });
 
