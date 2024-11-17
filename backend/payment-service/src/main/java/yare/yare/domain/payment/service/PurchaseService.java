@@ -13,4 +13,5 @@ public interface PurchaseService {
     PurchaseDetailsRes purchaseDetails(String memberUuid, Long purchaseId);
     void cancelPurchased(String memberUuid, Long purchaseId);
     GetTicketRes getTickets(String memberUuid, Long purchaseId);
+    GetMySeatsRes getMySeats(String memberUuid, Long purchaseId);
 }

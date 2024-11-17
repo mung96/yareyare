@@ -89,4 +89,14 @@ public class PurchaseController {
 
         return ResponseDto.success(OK, result);
     }
+
+    @GetMapping("/{purchaseId}/seats")
+    public ResponseDto<GetMySeatsRes> getMySeats(@RequestHeader("Authorization") String token,
+                                              @PathVariable Long purchaseId) {
+        String memberUuid = jwtTokenService.getMemberUuid(token);
+
+        GetMySeatsRes result = purchaseService.getMySeats(memberUuid, purchaseId);
+
+        return ResponseDto.success(OK, result);
+    }
 }

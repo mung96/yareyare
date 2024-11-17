@@ -239,6 +239,24 @@ public class PurchaseServiceImpl implements PurchaseService {
         return GetTicketRes.toDto(ticketsDto);
     }
 
+    @Override
+    public GetMySeatsRes getMySeats(String memberUuid, Long purchaseId) {
+        Purchase purchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new CustomException(PURCHASE_NOT_FOUND));
+
+        if(!purchase.getMemberUuid().equals(memberUuid)) {
+            throw new CustomException(PURCHASE_NOT_MINE);
+        }
+
+        if(purchase.getCanceled()) {
+            throw new CustomException(ALREADY_CANCELED);
+        }
+
+        List<PurchasedSeat> seats = purchasedSeatRepository.findPurchasedSeatByPurchaseId(purchaseId);
+
+        return new GetMySeatsRes(seats);
+    }
+
     private String makeTicketUuid(Long gameId, Long seatId, Long ticketId) {
         return PREFIX_TICKET_UNIQUE+gameId+seatId+ticketId;
     }
