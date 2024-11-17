@@ -24,7 +24,7 @@ function TicketDetailBox({children, title, button}: Props) {
 const styles = StyleSheet.create({
   layout: {
     flexDirection: 'column',
-    gap: 12,
+    gap: 8,
     width: '100%',
   },
   titleBox: {
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     gap: 16,
-    minHeight: 100,
   },
 });
 
