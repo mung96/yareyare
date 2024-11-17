@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    flexBasis: 60,
+    flexBasis: 80,
     flexShrink: 0,
     // textAlign: 'center',
     color: COLORS.GRAY_300,

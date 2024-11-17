@@ -5,12 +5,15 @@ import CustomText from '@/main/ui/widgets/CustomText.tsx';
 type Props = {
   title: string;
   onPress: () => void;
+  warn?: boolean;
 };
 
-function TicketDetailButton({title, onPress}: Props) {
+function TicketDetailButton({title, warn, onPress}: Props) {
   return (
     <Pressable style={styles.layout} onPress={onPress}>
-      <CustomText style={styles.title}>{title}</CustomText>
+      <CustomText style={[styles.title, warn && styles.warn]}>
+        {title}
+      </CustomText>
     </Pressable>
   );
 }
@@ -25,6 +28,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.GRAY_500,
+  },
+  warn: {
+    color: 'red',
   },
   title: {
     fontSize: 12,
