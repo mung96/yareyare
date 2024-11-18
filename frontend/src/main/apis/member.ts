@@ -1,7 +1,3 @@
-import {
-  StadiumResponse,
-  TeamListResponse,
-} from '@/main/shared/types/team/api.ts';
 import {apiRequester} from '@/main/apis/requester.ts';
 import {END_POINT} from '@/main/shared/constants/api.ts';
 import {Response} from '@/main/shared/types/common/api.ts';

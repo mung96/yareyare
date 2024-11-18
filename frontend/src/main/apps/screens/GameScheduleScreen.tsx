@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   calendar: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '100%',
+    width: 320,
     borderColor: COLORS.GRAY_200,
   },
   date: {
