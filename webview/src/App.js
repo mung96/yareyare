@@ -1,9 +1,12 @@
-import Router from "./router";
+import './App.css';
+import yare from './yareLogo.png'
 
 function App() {
-
   return (
-      <Router/>
+      <div id={'container'}>
+        <img src={yare} alt={'logo'}/>
+        <h1>로그인 중입니다.</h1>
+      </div>
   );
 }
 

@@ -29,8 +29,6 @@ function WaitingScreen() {
     }
   };
   const handleOnMessage = async (event: WebViewMessageEvent) => {
-    console.log(event.nativeEvent);
-    console.log(event.nativeEvent.data === '대기열 탈출');
     if (event.nativeEvent.data === '대기열 탈출') {
       dispatch(moveNavigation('reservation'));
     }
