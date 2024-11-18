@@ -5,6 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -30,5 +35,25 @@ public class RedisUtilImpl implements RedisUtil {
     public void addActiveMember(Long gameId, String memberId, String token) {
 
         redisTemplate.opsForValue().set("active:" + gameId + ":" + memberId, token, 1800);
+    }
+
+    @Override
+    public Long getMemberRank(Long gameId, String token) {
+        Long rank = redisTemplate.opsForZSet().rank("waiting:" + gameId, token);
+        return rank != null ? rank + 1 : null; // 1-based index로 변환
+    }
+
+    @Override
+    public Long getBehindCount(Long gameId, String token) {
+        Long totalSize = redisTemplate.opsForZSet().size("waiting:" + gameId); // 대기열 크기
+        Long rank = redisTemplate.opsForZSet().rank("waiting:" + gameId, token); // 현재 rank
+
+        log.info(String.valueOf(totalSize));
+        log.info(String.valueOf(rank));
+        if (rank == null || totalSize == null) {
+            return null; // 멤버가 대기열에 없거나 대기열이 없는 경우
+        }
+
+        return totalSize- rank - 1;
     }
 }

@@ -17,14 +17,16 @@ public class WaitingServiceImpl implements WaitingService {
     private final KafkaProducer kafkaProducer;
 
     @Override
-    public void joinQueue(String memberId, JoinQueueReq joinQueueReq) {
+    public String joinQueue(String memberId, JoinQueueReq joinQueueReq, String sessionId) {
 
         String token = UUID.randomUUID().toString();
         long timeStamp = System.currentTimeMillis();
 
-        Message message = new Message(joinQueueReq.getGameId(), memberId, token);
+        Message message = new Message(joinQueueReq.getGameId(), memberId, token, sessionId);
 
         redisUtil.addWaitingMember(joinQueueReq.getGameId(), token, timeStamp);
         kafkaProducer.send(joinQueueReq.getGameId(), message);
+
+        return message.getToken();
     }
 }
