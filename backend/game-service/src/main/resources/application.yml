@@ -39,5 +39,6 @@ spring:
   profiles:
     active: ${PROFILE}
 kafka-endpoint: ${KAFKA_SERVER_ENDPOINT}
+kafka-group: ${KAFKA_GROUP_ID}
 
 
