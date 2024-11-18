@@ -101,7 +101,11 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     @Query("""
             select g 
-            from Game g 
+            from Game g
+            join fetch g.homeTeam ht 
+            join fetch g.awayTeam at
+            join fetch g.homeTeam.stadium st
+            join fetch g.season s
             where g.gameDate = :dateOption 
             """)
     List<Game> findAllGamesAfter8Days(LocalDate dateOption);
