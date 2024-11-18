@@ -22,24 +22,29 @@ function GameScheduleCard({dateTime, homeTeam, awayTeam, onPress}: Props) {
       <View style={styles.body}>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
-            <SvgUri uri={homeTeam.logo} width={48} height={48} />
+            <SvgUri uri={homeTeam.logo} width={72} height={72} />
           </View>
           <CustomText style={styles.teamName}>{homeTeam.name}</CustomText>
         </View>
-        <CustomText>VS</CustomText>
+        <CustomText style={{fontSize: 20}}>VS</CustomText>
         <View style={styles.teamCard}>
           <View style={styles.imageBox}>
             <SvgUri
               uri={awayTeam.logo}
               style={styles.image}
-              width={48}
-              height={48}
+              width={72}
+              height={72}
             />
           </View>
           <CustomText style={styles.teamName}>{awayTeam.name}</CustomText>
         </View>
       </View>
-      <MainButton label={'예매하기'} onPress={onPress} variant={'filledSub'} />
+      <MainButton
+        label={'예매하기'}
+        onPress={onPress}
+        variant={'filledSub'}
+        size="large"
+      />
     </View>
   );
 }
@@ -49,10 +54,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 22,
-    width: 180,
+    width: 270,
+    height: 320,
     backgroundColor: COLORS.GRAY_400,
-    paddingVertical: 20,
+    paddingVertical: 24,
     paddingHorizontal: 16,
     borderRadius: 10,
   },
@@ -63,27 +70,28 @@ const styles = StyleSheet.create({
     gap: 3,
   },
   date: {
-    fontSize: 14,
+    fontSize: 20,
     color: COLORS.BLACK,
   },
   place: {
-    fontSize: 14,
+    fontSize: 18,
     color: COLORS.BLACK,
     fontWeight: '700',
   },
   body: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: 24,
   },
   image: {
     width: '100%',
   },
   imageBox: {
-    width: 48,
-    height: 48,
+    width: 52,
+    height: 52,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -91,11 +99,11 @@ const styles = StyleSheet.create({
   teamCard: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 6,
+    gap: 14,
     alignItems: 'center',
   },
   teamName: {
-    fontSize: 12,
+    fontSize: 18,
     fontWeight: 'bold',
     color: COLORS.BLACK,
   },

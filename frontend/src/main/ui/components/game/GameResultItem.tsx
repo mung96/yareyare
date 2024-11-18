@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     gap: 6,
     width: '48%',
     minWidth: '48%',
-    maxWidth: '48%',
-    paddingHorizontal: 4,
-    paddingVertical: 4,
+    maxWidth: '46%',
+    paddingHorizontal: 8,
+    paddingVertical: 12,
   },
   imageBox: {
     width: 48,

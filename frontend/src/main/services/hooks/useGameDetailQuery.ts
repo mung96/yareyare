@@ -8,6 +8,7 @@ import weekday from 'dayjs/plugin/weekday';
 
 dayjs.extend(weekday);
 dayjs.locale('ko');
+
 function useGameDetailModel() {
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: gameDetailData} = useGetGameDetailQuery(gameId);
@@ -35,7 +36,7 @@ function useGameDetailModel() {
     };
   }, [gameDetailData]);
 
-  return {gameDetail};
+  return {gameDetail, gameId};
 }
 
 export default useGameDetailModel;

@@ -29,13 +29,13 @@ function Calendar() {
   return (
     <ScrollView
       contentContainerStyle={{
-        paddingHorizontal: 12,
-        paddingTop: 12,
-        gap: 8,
+        paddingHorizontal: 8,
+        paddingTop: 24,
+        gap: 24,
         paddingBottom: 24,
         alignItems: 'center',
-        justifyContent: 'center',
         width: '100%',
+        height: '100%',
         backgroundColor: COLORS.WHITE,
       }}>
       <View style={styles.headerContainer}>
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   calendar: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '100%',
+    width: 320,
     borderColor: COLORS.GRAY_200,
   },
   date: {

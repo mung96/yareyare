@@ -16,7 +16,9 @@ function UserInput({totalPrice, control}: Props) {
     <View style={styles.componentContainer}>
       <View style={styles.titleContainer}>
         <CustomText style={styles.categoryText}>일반</CustomText>
-        <CustomText style={styles.totalPrice}>{totalPrice}원</CustomText>
+        <CustomText style={styles.totalPrice}>
+          {Number(totalPrice).toLocaleString()}원
+        </CustomText>
       </View>
       <CustomText style={styles.inputContainerTitle}>
         예매자 정보 입력

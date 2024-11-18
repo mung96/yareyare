@@ -7,6 +7,8 @@ import {Controller, useForm} from 'react-hook-form';
 import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 import ReservationLayout from '@/main/apps/layout/ReservationLayout.tsx';
 import {COLORS} from '@/main/shared/styles';
+import {useGetMyInfoQuery} from '@/main/services/hooks/queries/useMemberQuery.ts';
+import {useEffect} from 'react';
 
 type Props = {
   onPrev: () => void;
@@ -15,20 +17,33 @@ type Props = {
 };
 
 function UserScreen({onPrev, context, onNext}: Props) {
-  const {member} = useMemberModel();
+  const {data: member, refetch: refetchMember, isSuccess} = useGetMyInfoQuery();
+  console.log(member);
   const {
     control,
     handleSubmit,
     formState: {isValid: isFormValid, isSubmitting},
+    reset,
   } = useForm<UserContext>({
     defaultValues: {
-      name: member?.name!,
-      birthday: member?.birth!,
-      phoneNumber: member?.tel!,
-      email: member?.email!,
+      name: member?.name,
+      birthday: member?.birth,
+      phoneNumber: member?.tel,
+      email: member?.email,
       receiveMethod: '모바일 티켓',
     },
   });
+  useEffect(() => {
+    if (isSuccess && member) {
+      reset({
+        name: member.name,
+        birthday: member.birth,
+        phoneNumber: member.tel,
+        email: member.email,
+        receiveMethod: '모바일 티켓',
+      });
+    }
+  }, [isSuccess, member, reset]);
   return (
     <>
       <ReservationLayout>
