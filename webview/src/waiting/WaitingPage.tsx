@@ -63,6 +63,7 @@ function WaitingPage() {
       return () => disConnect(client);
     }
     return () => disConnect(client);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nativeData]);
 
   useEffect(() => {
