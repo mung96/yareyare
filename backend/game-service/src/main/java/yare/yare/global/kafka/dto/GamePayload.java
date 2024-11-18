@@ -10,16 +10,16 @@ import java.time.LocalDateTime;
 @Builder
 public class GamePayload {
 
-    private Long gameId;
+    private Long game_id;
 
-    private String seasonName;
+    private String season_name;
 
-    private String awayTeamName;
+    private String away_team_name;
 
-    private String homeTeamName;
+    private String home_team_name;
 
-    private String stadiumName;
+    private String stadium_name;
 
-    private LocalDateTime gameDateTime;
+    private LocalDateTime game_datetime;
 
 }
