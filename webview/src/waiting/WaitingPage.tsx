@@ -2,17 +2,19 @@ import React, {useEffect, useRef, useState} from 'react';
 import './wait.css';
 import * as StompJs from '@stomp/stompjs';
 import {connect, disConnect} from "./webSocketUtil";
+
 type Response = {
-  "gameId":number;
-  "token":string;
-  "position":number;
-  "behind":number;
+  "gameId": number;
+  "token": string;
+  "position": number;
+  "behind": number;
 }
+
 function App() {
   const client = useRef<StompJs.Client | null>(null);
-  const [data,setData] = useState<Response|null>();
+  const [data, setData] = useState<Response | null>();
   const onConnect = () => {
-    if(client.current !== null){
+    if (client.current !== null) {
       client.current.publish({
         destination: '/app/join-queue/693',
         body: JSON.stringify({gameId: 693}),
@@ -49,12 +51,9 @@ function App() {
           <p className="queue-info-behind">
             뒤에 <span className="footer-highlight">{data?.behind}</span>명
           </p>
-          <div id="timerBar"></div>
         </div>
         <div className="footer">
-          <p className="footer-text">잠시만 기다려주시면, 예매하기 페이지로 연결됩니다.</p>
-          <p className="footer-text">
-            새로고침 하거나 재접속 하시면 대기순서가
+          <p className="footer-text">잠시만 기다려주시면, 예매하기 페이지로 연결됩니다. 새로고침 하거나 재접속 하시면 대기순서가
             <span className="footer-highlight"> 초기화</span> 되어 대기시간이 더 길어집니다.
           </p>
         </div>
