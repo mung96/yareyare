@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static yare.yare.domain.stadium.enums.SeatStatus.AVAILABLE;
 import static yare.yare.domain.stadium.enums.SeatStatus.PENDING;
 import static yare.yare.global.statuscode.ErrorCode.ALREADY_RESERVED;
@@ -124,7 +126,7 @@ public class GameServiceImpl implements GameService {
 
         for (Long seatId : reserveSeatReq.getSeats()) {
             String key = String.format("seat:%d:%d", gameId, seatId);
-            boolean lock = redisUtil.lock(key, reserveSeatReq.getIdempotentKey(), 600L);
+            boolean lock = redisUtil.lock(key, reserveSeatReq.getIdempotentKey(), 600000L);
 
             if (lock) {
                 keys.add(key);
@@ -189,7 +191,7 @@ public class GameServiceImpl implements GameService {
 
             AtomicInteger cnt = new AtomicInteger(0);
 
-            if(cnt.getAndIncrement() == 0){
+            if (cnt.getAndIncrement() == 0) {
                 gameSeatDetailListRes.setPrice(gameSeat.getPrice());
                 gameSeatDetailListRes.setGradeId(gameSeat.getGradeId());
                 gameSeatDetailListRes.setGradeName(gameSeat.getGradeName());
@@ -204,9 +206,32 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional
     public void updateSeatStatus(final Long gameId, final GameSeatStatusUpdateDto gameSeatStatusUpdateDto) {
-        List<GameSeat> gameSeats = gameSeatStatusUpdateDto.getSeatIds().stream().map((seatId)-> gameSeatRepository.findByGameIdAndSeatId(gameId,seatId)
+        List<GameSeat> gameSeats = gameSeatStatusUpdateDto.getSeatIds().stream().map((seatId) -> gameSeatRepository.findByGameIdAndSeatId(gameId, seatId)
                 .orElseThrow(() -> new CustomException(NOT_FOUND))).toList();
         gameSeats.forEach(GameSeat::setSoldOut);
         gameSeatRepository.saveAll(gameSeats);
+    }
+
+    @Override
+    @Transactional
+    public Boolean rollBackSeat(Long gameId, RollbackSeatReq rollbackSeatReq) {
+        List<GameSeat> gameSeats = new ArrayList<>();
+        List<String> keys = new ArrayList<>();
+        for (Long seatId : rollbackSeatReq.getSeats()) {
+            String key = String.format("lock:seat:%d:%d", gameId, seatId);
+            keys.add(key);
+            String idemKey = redisUtil.getStringData(key);
+            if (idemKey == null || !idemKey.equals(rollbackSeatReq.getIdempotentKey())) {
+                return FALSE;
+            }
+            GameSeat gameSeat = gameSeatRepository.findByGameIdAndSeatId(gameId, seatId).orElse(null);
+            if (gameSeat != null) {
+                gameSeat.setAvailable();
+                gameSeats.add(gameSeat);
+            }
+        }
+        gameSeatRepository.saveAll(gameSeats);
+        keys.forEach(redisUtil::deleteData);
+        return TRUE;
     }
 }
