@@ -40,12 +40,13 @@ public class KafkaPaymentProducer {
                 .seatsId(seatsId)
                 .build();
 
-        KafkaCancelDto kafkaCancelDto = new KafkaCancelDto(schema, payload);
+//        KafkaCancelDto kafkaCancelDto = new KafkaCancelDto(schema, payload);
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            String jsonInString = mapper.writeValueAsString(kafkaCancelDto);
+//            String jsonInString = mapper.writeValueAsString(kafkaCancelDto);
+            String jsonInString = mapper.writeValueAsString(payload);
             kafkaTemplate.send(topicName, jsonInString);
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());
