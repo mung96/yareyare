@@ -16,7 +16,7 @@ import yare.yare.global.kafka.dto.KafkaGameSeatDto;
 public class KafkaGameStatusConsumer {
     private final GameSeatRepository gameSeatRepository;
 
-    @KafkaListener(topicPattern = "yareyare.ticket.game-*.cancellation")
+    @KafkaListener(topicPattern = "yareyare.ticket.game-.*.cancellation")
     public void updateSeatStatus(String message){
         log.info("kafka message: {}", message);
         ObjectMapper mapper = new ObjectMapper();
