@@ -1,4 +1,4 @@
-package yare.yare.global.kafka.Consumer;
+package yare.yare.global.kafka.consumer;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.common.serialization.StringDeserializer;
