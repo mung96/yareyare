@@ -9,41 +9,79 @@ type Response = {
   "position": number;
   "behind": number;
 }
+type NativeData = {
+  gameName: string,
+  accessToken: string
+  gameId: number,
+  memberId: string
+}
 
-function App() {
+function WaitingPage() {
   const client = useRef<StompJs.Client | null>(null);
   const [data, setData] = useState<Response | null>();
+  const [nativeData, setNativeData] = useState<NativeData | null>(null);
   const onConnect = () => {
     if (client.current !== null) {
       client.current.publish({
-        destination: '/app/join-queue/693',
-        body: JSON.stringify({gameId: 693}),
+        destination: `/app/join-queue/${nativeData?.gameId}`,
+        body: JSON.stringify({gameId: nativeData?.gameId}),
         headers: {
-          Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc0NlcnRpZmljYXRlZCI6dHJ1ZSwic3ViIjoiODQxNTg1NjctZDAxZC00MjY0LTgyNDQtZDY1ZWQ1N2YxMjYyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlzcyI6Ind3dy5zYW1zdW5nLmNvbSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJleHAiOjE3MzIwMDY5NzR9.D_HDpPqGjau3trZoMkUikU7Eheaop4-nIkp_K0uViHRDgSW7HLwcrV-KBRVte2LUvhM3d2qWnIbAf27mklK2ZA',
+          Authorization: `Bearer ${nativeData?.accessToken}`
         },
       });
 
       client.current.subscribe(
-          '/topic/queue-status/game/693/memberId/84158567-d01d-4264-8244-d65ed57f1262',
+          `/topic/queue-status/game/${nativeData?.gameId}/memberId/${nativeData?.memberId}`,
           message => {
-            const response = JSON.parse(message.body);
             setData(JSON.parse(message.body))
           },
       );
     }
   };
+  const onMessageHandler = (e: { data: string; }) => {
+    // @ts-ignore
+    // window.ReactNativeWebView.postMessage("페이지 진입")
+    // // @ts-ignore
+    // window.ReactNativeWebView.postMessage(e.data)
+    setNativeData(JSON.parse(e.data))
+  }
+  useEffect(() => {
+
+    // 안드로이드에서는 document / IOS 에서는 window 객체를 참조한다고 한다
+
+    // @ts-ignore
+    document.addEventListener("message", onMessageHandler);
+    return () => {
+      // @ts-ignore
+      document.removeEventListener("message", onMessageHandler);
+    };
+  }, []);
 
   useEffect(() => {
-    connect(client, onConnect);
-    console.log('useEffect 호출됨');
+    if (nativeData) {
+      connect(client, onConnect);
+      return () => disConnect(client);
+    }
     return () => disConnect(client);
-  }, []);
+  }, [nativeData]);
+
+  useEffect(() => {
+    // @ts-ignore
+    window.ReactNativeWebView.postMessage('대기열 입장')
+
+    // @ts-ignore
+    window.ReactNativeWebView.postMessage(data?.position)
+    if (data?.position && data?.position! <= 10) {
+      // @ts-ignore
+      window.ReactNativeWebView.postMessage('대기열 탈출')
+    }
+  }, [data?.position])
 
   return (
       <div className="container">
         <div className="header">
           <p className="header-title">접속 인원이 많아 대기중입니다.</p>
-          {/*<p className="header-subtitle">{gameDetail.name}</p>*/}
+          <p className="header-subtitle">{nativeData?.gameName}</p>
         </div>
         <div className="queue-info">
           <p className="queue-info-title">나의 대기순서</p>
@@ -61,4 +99,4 @@ function App() {
   );
 }
 
-export default App;
+export default WaitingPage;
