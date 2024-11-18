@@ -8,10 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 @Slf4j
 @Component
@@ -37,8 +33,11 @@ public class RedisUtilImpl implements RedisUtil {
     @Override
     public void addActiveMember(Long gameId, String memberId, String token) {
 
+        if (redisTemplate.opsForValue().get("active:member:" + gameId + ":" + memberId) == null) {
+            redisTemplate.opsForValue().increment("active:count:" + gameId);
+        }
+
         redisTemplate.opsForValue().set("active:member:" + gameId + ":" + memberId, token, 1800, TimeUnit.SECONDS);
-        redisTemplate.opsForValue().increment("active:count:" + gameId);
     }
 
     @Override
