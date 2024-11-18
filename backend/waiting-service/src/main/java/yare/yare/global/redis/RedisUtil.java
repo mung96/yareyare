@@ -12,6 +12,4 @@ public interface RedisUtil {
     Long getMemberRank(Long gameId, String token);
 
     Long getBehindCount(Long gameId, String token);
-
-    Map<String, Integer> getQueueWithRanks(Long gameId);
 }

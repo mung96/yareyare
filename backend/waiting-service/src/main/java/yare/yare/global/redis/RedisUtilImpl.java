@@ -56,26 +56,4 @@ public class RedisUtilImpl implements RedisUtil {
 
         return totalSize- rank - 1;
     }
-
-    @Override
-    public Map<String, Integer> getQueueWithRanks(Long gameId) {
-        Set<Object> queue = redisTemplate.opsForZSet().range("waiting:" + gameId, 0, -1);
-
-        if (queue == null || queue.isEmpty()) {
-            return Collections.emptyMap();
-        }
-
-        Map<String, Integer> queueWithRanks = new LinkedHashMap<>();
-        for (Object user : queue) {
-            if (user instanceof String) {
-                Long rank = redisTemplate.opsForZSet().rank("waiting:" + gameId, user);
-                if (rank != null) {
-                    queueWithRanks.put((String) user, rank.intValue() + 1); // 1-based index
-                }
-            }
-        }
-
-        return queueWithRanks;
-    }
-
 }
