@@ -90,7 +90,4 @@ public class GameSeat {
         return Boolean.TRUE;
     }
 
-    public void setAvailable() {
-        this.seatStatus=SeatStatus.AVAILABLE;
-    }
 }
