@@ -21,7 +21,7 @@ public class RedisExpirationHandler implements MessageListener {
         String expiredKey = message.toString();
 
         if (expiredKey.startsWith(MESSAGE_PREFIX)) {
-            String gameSeatKey = expiredKey.substring(MESSAGE_PREFIX.length());
+            String gameSeatKey = expiredKey.substring(MESSAGE_PREFIX.length()+1);
 
             long gameId = getGameId(gameSeatKey);
             long seatId = getSeatId(gameSeatKey);
