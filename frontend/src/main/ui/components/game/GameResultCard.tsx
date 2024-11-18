@@ -39,16 +39,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 22,
+    width: '100%',
+    gap: 32,
 
     backgroundColor: COLORS.GRAY_400,
     paddingVertical: 20,
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     borderRadius: 8,
+    height: 300,
 
     flexWrap: 'wrap',
-    width: '100%',
   },
   textContainer: {
     display: 'flex',
@@ -65,11 +65,8 @@ const styles = StyleSheet.create({
   resultList: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-
     flexWrap: 'wrap',
-    gap: 4,
+    gap: 14,
   },
 });
 

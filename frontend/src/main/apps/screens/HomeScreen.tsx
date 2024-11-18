@@ -1,9 +1,8 @@
 import GameResultCard from '@/main/ui/components/game/GameResultCard.tsx';
 import React, {useState} from 'react';
-import CommonLayout from '@/main/apps/layout/CommonLayout.tsx';
 import GamePlanCardList from '@/main/ui/components/game/GamePlanCardList.tsx';
 import DropdownComponent from '@/main/ui/components/game/DropDownComponent.tsx';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TeamItem from '@/main/ui/components/game/TeamItem.tsx';
 import useTeamModel from '@/main/services/hooks/useTeamModel.ts';
@@ -19,13 +18,12 @@ function HomeScreen() {
   const {data: gamePlanListWithTeamData} = useGetGamePlanWithTeamQuery(teamId);
 
   return (
-    <SafeAreaView
+    <View
       style={{
-        paddingHorizontal: 12,
-        paddingTop: 12,
+        paddingHorizontal: 20,
+        paddingTop: 32,
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: 12,
+        gap: 20,
         width: '100%',
         height: '100%',
         backgroundColor: COLORS.WHITE,
@@ -48,7 +46,7 @@ function HomeScreen() {
         }
       />
       <GameResultCard />
-    </SafeAreaView>
+    </View>
   );
 }
 

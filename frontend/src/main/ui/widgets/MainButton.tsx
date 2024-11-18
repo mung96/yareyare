@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '900',
   },
 

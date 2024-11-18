@@ -55,7 +55,7 @@ function GamePlanCardList({list}: Props) {
             }}
           />
         )}
-        ItemSeparatorComponent={() => <View style={{width: 12}} />}
+        ItemSeparatorComponent={() => <View style={{width: 18}} />}
       />
     </View>
   );
