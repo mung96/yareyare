@@ -1,6 +1,7 @@
 package yare.yare.global.redis;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RedisUtil {
     void addWaitingMember(Long gameId, String token, Long timeStamp);
@@ -14,4 +15,8 @@ public interface RedisUtil {
     Integer countActiveMember(String gameId);
 
     void addGame(Long gameId);
+
+    Long getMemberRank(Long gameId, String token);
+
+    Long getBehindCount(Long gameId, String token);
 }
