@@ -1,10 +1,14 @@
 package yare.yare.global.websocket.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
 import org.springframework.web.socket.config.annotation.*;
 import yare.yare.global.jwt.JwtTokenService;
+
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -23,6 +27,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws")
                 .setAllowedOrigins("*");
 //                .withSockJS();
+    }
+
+    @Bean
+    public WebSocketMessageBrokerStats webSocketStats() {
+        WebSocketMessageBrokerStats webSocketMessageBrokerStats = new WebSocketMessageBrokerStats();
+        webSocketMessageBrokerStats.setLoggingPeriod(TimeUnit.SECONDS.toMillis(10L));
+        return webSocketMessageBrokerStats;
     }
 }
 
