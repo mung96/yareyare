@@ -74,39 +74,33 @@ function SeatScreen({context, onNext}: Props) {
   return (
     <>
       <ReservationLayout>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {seatListData?.sections.map(section => (
-            <Controller
-              control={control}
-              render={({field: {onChange, value}}) => (
-                <SeatContainer
-                  value={value}
-                  list={section.rows}
-                  name={section.sectionName}
-                  onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
-                  onRemove={(seatId: string) =>
-                    removeSeat(value, seatId, onChange)
-                  }
-                />
-              )}
-              name={section.sectionName}
-            />
-          ))}
-        </ScrollView>
-
+        <ReservationBox>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContainer}>
+            {seatListData?.sections.map(section => (
+              <Controller
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <SeatContainer
+                    value={value}
+                    list={section.rows}
+                    name={section.sectionName}
+                    onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
+                    onRemove={(seatId: string) =>
+                      removeSeat(value, seatId, onChange)
+                    }
+                  />
+                )}
+                name={section.sectionName}
+              />
+            ))}
+          </ScrollView>
+        </ReservationBox>
         <ReservationBox>
           <View style={styles.textContainer}>
             <CustomText style={styles.text}>선택한 좌석</CustomText>
-            {/*<View style={styles.seatCnt}>*/}
-            {/*  <Text style={styles.seatCntText}>*/}
-            {/*    {seatListData?.sections.reduce((acc, section) => {*/}
-            {/*      return (*/}
-            {/*        acc +*/}
-            {/*        (control._formValues[section.sectionName] as Seat[]).length*/}
-            {/*      );*/}
-            {/*    }, 0)}*/}
-            {/*  </Text>*/}
-            {/*</View>*/}
           </View>
           {seatListData?.sections.map(section => (
             <Controller
@@ -144,6 +138,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     display: 'flex',
     flexDirection: 'column',
+    gap: 12,
+  },
+  scrollContainer: {
+    backgroundColor: COLORS.GRAY_400,
+    flexDirection: 'row',
     gap: 12,
   },
   buttonContainer: {

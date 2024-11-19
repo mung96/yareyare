@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.GRAY_400,
     paddingHorizontal: 20,
-    paddingVertical: 14,
+    paddingVertical: 20,
     display: 'flex',
     flexDirection: 'column',
     gap: 12,
     width: '100%',
-    maxWidth: 360,
+    maxWidth: 400,
     minHeight: 200,
+    overflow: 'hidden',
   },
   title: {
     fontSize: 14,

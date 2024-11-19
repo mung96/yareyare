@@ -19,89 +19,93 @@ type Props = {
 
 function SeatContainer({name, value, onAdd, onRemove, list}: Props) {
   return (
-    <ReservationBox>
-      <View>
-        <View style={styles.groundBox}>
-          <Icon name={'arrow-up'} size={50} color={COLORS.GRAY_400} />
-          <CustomText style={styles.groundText}>GROUND</CustomText>
-          <Icon name={'arrow-up'} size={50} color={COLORS.GRAY_400} />
-        </View>
-        <View style={styles.seatContainer}>
-          <CustomText style={styles.seatNumber}>{name}</CustomText>
-          <View style={styles.column}>
-            {list.map(row => {
-              return (
-                <View style={styles.row} key={row.rowName + ' ' + name}>
-                  {row.seats.map(seat => {
-                    const disabled = !seat.isAvailable;
-                    return (
-                      <Pressable
-                        disabled={disabled}
-                        key={seat.seatId + ' ' + name}
-                        style={[
-                          styles.seatBox,
-                          seat.seatNumber % 4 === 1 && {
-                            paddingLeft: 5,
-                            width: 17,
-                          },
-                          seat.seatNumber % 4 === 0 && {
-                            paddingRight: 5,
-                            width: 17,
-                          },
-                        ]}
-                        onPress={() => {
-                          includeSeat(value, seat.seatId)
-                            ? onRemove(String(seat.seatId))
-                            : onAdd({
-                                seatId: Number(seat.seatId),
-                                section: name,
-                                row: row.rowName,
-                                col: String(seat.seatNumber),
-                              });
-                        }}>
-                        <View
-                          style={[
-                            styles.seat,
-                            disabled && styles.disabledSeat,
-                            includeSeat(value, seat.seatId) &&
-                              styles.selectedSeat,
-                          ]}
-                        />
-                      </Pressable>
-                    );
-                  })}
-                  <View style={styles.colBox}>
-                    <CustomText
-                      style={{
-                        fontSize: 10,
-                        lineHeight: 10,
-                        fontWeight: '900',
+    <View style={styles.container}>
+      <View style={styles.groundBox}>
+        <Icon name={'arrow-up'} size={50} color={COLORS.GRAY_400} />
+        <CustomText style={styles.groundText}>GROUND</CustomText>
+        <Icon name={'arrow-up'} size={50} color={COLORS.GRAY_400} />
+      </View>
+      <View style={styles.seatContainer}>
+        <CustomText style={styles.seatNumber}>{name}</CustomText>
+        <View style={styles.column}>
+          {list.map(row => {
+            return (
+              <View style={styles.row} key={row.rowName + ' ' + name}>
+                {row.seats.map(seat => {
+                  const disabled = !seat.isAvailable;
+                  return (
+                    <Pressable
+                      disabled={disabled}
+                      key={seat.seatId + ' ' + name}
+                      style={[
+                        styles.seatBox,
+                        seat.seatNumber % 4 === 1 && {
+                          paddingLeft: 5,
+                          width: 17,
+                        },
+                        seat.seatNumber % 4 === 0 && {
+                          paddingRight: 5,
+                          width: 17,
+                        },
+                      ]}
+                      onPress={() => {
+                        includeSeat(value, seat.seatId)
+                          ? onRemove(String(seat.seatId))
+                          : onAdd({
+                              seatId: Number(seat.seatId),
+                              section: name,
+                              row: row.rowName,
+                              col: String(seat.seatNumber),
+                            });
                       }}>
-                      {row.rowName}
-                    </CustomText>
-                  </View>
+                      <View
+                        style={[
+                          styles.seat,
+                          disabled && styles.disabledSeat,
+                          includeSeat(value, seat.seatId) &&
+                            styles.selectedSeat,
+                        ]}
+                      />
+                    </Pressable>
+                  );
+                })}
+                <View style={styles.colBox}>
+                  <CustomText
+                    style={{
+                      fontSize: 10,
+                      lineHeight: 10,
+                      fontWeight: '900',
+                    }}>
+                    {row.rowName}
+                  </CustomText>
                 </View>
-              );
-            })}
-          </View>
+              </View>
+            );
+          })}
         </View>
       </View>
-    </ReservationBox>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: 360,
+    height: 360,
+    backgroundColor: COLORS.WHITE,
+  },
   groundBox: {
     backgroundColor: COLORS.GREEN_200,
     opacity: 0.8,
     paddingVertical: 32,
+
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderTopRightRadius: 12,
     borderTopLeftRadius: 12,
-    gap: 30,
+    gap: 36,
   },
   groundText: {
     color: COLORS.GRAY_100,
@@ -124,8 +128,8 @@ const styles = StyleSheet.create({
   },
 
   seatBox: {
-    width: 12,
-    height: 14,
+    width: 14,
+    height: 16,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
