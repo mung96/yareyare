@@ -1,5 +1,5 @@
 import CustomText from '@/main/ui/widgets/CustomText.tsx';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import {COLORS} from '@/main/shared/styles';
 import {TicketResponse} from '@/main/shared/types/payment/api.ts';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -12,6 +12,7 @@ type Props = {
 
 function TicketRecordItem({ticket}: Props) {
   const navigation = useNavigation<NavigationProp<MypageParamList>>();
+  // @ts-ignore
   return (
     <Pressable
       style={styles.container}
@@ -24,11 +25,20 @@ function TicketRecordItem({ticket}: Props) {
         {ticket.seasonName} {ticket.homeTeamName} vs {ticket.awayTeamName}
       </CustomText>
       <View style={styles.content}>
-        <View style={styles.ticketImageBox} />
+        <View style={styles.ticketImageBox}>
+          <Image
+            source={{
+              uri: 'https://yareyare-s3.s3.ap-northeast-2.amazonaws.com/logos/temp.png',
+            }}
+            width={120}
+            height={160}
+          />
+        </View>
+
         <View style={styles.textContainer}>
           <View style={styles.textBox}>
             <CustomText style={[styles.ticketText, styles.label]}>
-              예매번호 {ticket.purchaseId}
+              예매번호
             </CustomText>
             <CustomText style={[styles.ticketText, styles.value]}>
               {ticket.reservationId}
@@ -106,7 +116,6 @@ const styles = StyleSheet.create({
   ticketImageBox: {
     width: 120,
     height: 160,
-    backgroundColor: COLORS.GRAY_500,
   },
   textContainer: {
     display: 'flex',
