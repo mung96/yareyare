@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: 10,
   },
   buttonContainer: {

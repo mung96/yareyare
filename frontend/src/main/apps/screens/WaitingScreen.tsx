@@ -46,36 +46,6 @@ function WaitingScreen() {
       ref={webViewRef}
       onLoad={onLoad}
     />
-    // <View style={styles.container}>
-    //   <View style={styles.titleBox}>
-    //     <CustomText style={{fontSize: 20, fontWeight: '900'}}>
-    //       접속 인원이 많아 대기중입니다.
-    //     </CustomText>
-    //     <CustomText style={{fontSize: 14}}>{gameDetail.name}</CustomText>
-    //   </View>
-    //   <View style={styles.waitBox}>
-    //     <CustomText style={styles.title}>나의 대기순서</CustomText>
-    //     <CustomText style={styles.peopleText}>1240</CustomText>
-    //     <CustomText style={styles.text}>
-    //       뒤에 <CustomText style={styles.pointText}>324</CustomText>명 / 1시간
-    //       3분 43초 소요 예상
-    //     </CustomText>
-    //     <TimerBar />
-    //   </View>
-    //   <View style={styles.descriptionBox}>
-    //     <CustomText style={styles.description}>
-    //       잠시만 기다려주시면, 예매하기 페이지로 연결됩니다.
-    //     </CustomText>
-    //     <CustomText style={styles.description}>
-    //       새로고침 하거나 재접속 하시면 대기순서가
-    //       <CustomText style={styles.pointText}> 초기화</CustomText>
-    //       되어 대기시간이 더 길어집니다.
-    //     </CustomText>
-    //   </View>
-    //   <Pressable onPress={() => dispatch(moveNavigation('reservation'))}>
-    //     <CustomText>예매하러가기</CustomText>
-    //   </Pressable>
-    // </View>
   );
 }
 

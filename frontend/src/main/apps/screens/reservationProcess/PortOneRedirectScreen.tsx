@@ -1,12 +1,12 @@
-import {Alert, Image} from 'react-native';
+import {Alert, Image, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {moveNavigation} from '@/main/stores/navigationCategory.ts';
 
 function PortOneRedirectScreen({}) {
   const dispatch = useDispatch();
-  Alert.alert('알림', '아직 개발 중이에요. 다른 방법으로 로그인해주세요', [
+  Alert.alert('알림', '결제가 완료되었어요.', [
     {
-      text: '결제가 완료되었습니다',
+      text: '홈으로',
       onPress: () => {
         dispatch(moveNavigation('navbar'));
       },
@@ -14,10 +14,17 @@ function PortOneRedirectScreen({}) {
     },
   ]);
   return (
-    <Image
-      source={require('@/main/assets/yareLogo.png')}
-      resizeMode={'contain'}
-    />
+    <View
+      style={{
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Image
+        source={require('@/main/assets/yareLogo.png')}
+        resizeMode={'contain'}
+      />
+    </View>
   );
 }
 
