@@ -7,7 +7,6 @@ import useGameScheduleModel from '@/main/services/hooks/useGameScheduleModel.ts'
 import {SvgUri} from 'react-native-svg';
 import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 import React from 'react';
-import LoadingScreen from '@/main/apps/screens/LoadingScreen.tsx';
 
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -21,14 +20,11 @@ function Calendar() {
   } = useCalendar();
   //TODO: teamId에 myteam을 넣어야함
   const {member} = useMemberModel();
-  const {gameSchedule, isLoading} = useGameScheduleModel(
+  const {gameSchedule} = useGameScheduleModel(
     member?.myTeamId ? String(member?.myTeamId) : '1',
     String(currentYear),
     String(currentMonth + 1),
   );
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
 
   return (
     <ScrollView

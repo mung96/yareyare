@@ -20,7 +20,7 @@ function TicketImageScreen({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 24,
+        paddingHorizontal: 8,
       }}>
       <View style={{width: 24, height: 24}}>
         {seatIdx !== 0 && (
@@ -37,25 +37,25 @@ function TicketImageScreen({
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
-              top: 280,
+              top: 400,
             }}>
             <View
               style={{
                 backgroundColor: COLORS.WHITE,
-                width: 32,
-                height: 32,
+                width: 48,
+                height: 48,
                 borderRadius: 100,
                 transform: [{translateX: -16}],
               }}
             />
             <CustomText>
-              - - - - - - - - - - - - - - - - - - - - - - - - - - -
+              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             </CustomText>
             <View
               style={{
                 backgroundColor: COLORS.WHITE,
-                width: 32,
-                height: 32,
+                width: 48,
+                height: 48,
                 borderRadius: 100,
                 transform: [{translateX: 16}],
               }}
@@ -63,7 +63,7 @@ function TicketImageScreen({
           </View>
           <Image
             source={{uri: ticket.imageUrl}}
-            style={{width: 180, height: 180, borderRadius: 180}}
+            style={{width: 240, height: 240, borderRadius: 240}}
           />
           <View style={styles.textBox}>
             <CustomText style={styles.description}>
@@ -77,9 +77,9 @@ function TicketImageScreen({
             </CustomText>
           </View>
           <View style={styles.barcodeBox}>
-            <Icon name={'barcode'} size={120} color={COLORS.BLACK} />
+            <Icon name={'barcode'} size={190} color={COLORS.BLACK} />
             <CustomText
-              style={{position: 'absolute', top: 115, color: COLORS.GRAY_300}}>
+              style={{position: 'absolute', top: 175, color: COLORS.GRAY_300}}>
               {ticket.seats[seatIdx].ticketId}
             </CustomText>
           </View>
@@ -100,13 +100,13 @@ function TicketImageScreen({
 
 const styles = StyleSheet.create({
   container: {
-    width: 265,
-    height: 435,
+    width: 320,
+    height: 620,
     backgroundColor: COLORS.GRAY_400,
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: 20,
-    gap: 14,
+    gap: 40,
   },
   textBox: {
     flexDirection: 'column',
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   barcodeBox: {
     flexDirection: 'column',
     alignItems: 'center',
+    gap: 40,
   },
   stadiumText: {
     color: COLORS.GRAY_300,
