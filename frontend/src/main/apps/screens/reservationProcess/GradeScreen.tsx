@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'column',
-    paddingVertical: 12,
-    paddingHorizontal: 12,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
   },
   title: {
     color: COLORS.BLACK,

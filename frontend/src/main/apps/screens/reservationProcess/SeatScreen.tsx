@@ -25,6 +25,8 @@ type Props = {
 type SeatForm = Record<string, Seat[]> & {price: number};
 
 //TODO:이전으로 넘어갈떄 로직
+//TODO: 멱등키 등록하기
+//TODO: Button 레이아웃
 function SeatScreen({context, onNext}: Props) {
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);

@@ -10,7 +10,7 @@ const ReservationLayout = ({children}: {children: ReactNode}) => {
         paddingTop: 12,
         paddingBottom: 64,
         alignItems: 'center',
-        justifyContent: 'center',
+        height: '100%',
         gap: 12,
         width: '100%',
         backgroundColor: COLORS.WHITE,
