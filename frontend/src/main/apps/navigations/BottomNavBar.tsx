@@ -41,7 +41,7 @@ function TabBarIcons(route: RouteProp<BottomParamList>, focused: boolean) {
     <Icon
       name={iconName}
       color={focused ? COLORS.BLACK : COLORS.GRAY_200}
-      size={22}
+      size={23}
     />
   );
 }
@@ -58,11 +58,11 @@ function BottomNavBar() {
           backgroundColor: COLORS.GRAY_100,
           paddingTop: 4,
           paddingBottom: 4,
-          height: 52,
+          height: 60,
         },
         tabBarIcon: ({focused}) => TabBarIcons(route, focused),
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 13,
         },
         tabBarActiveTintColor: COLORS.BLACK,
         tabBarInActiveTintColor: COLORS.GRAY_200,

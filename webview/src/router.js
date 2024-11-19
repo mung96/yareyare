@@ -5,10 +5,12 @@ import CertificateRedirectPage from "./certificate/CertificateRedirectPage";
 import CertificatePage from "./certificate/CertificatePage";
 import WaitingPage from "./waiting/WaitingPage";
 import App from "./App";
+import SocialRedirectPage from "./social/SocialRedirectPage";
 
 const Router = () => {
   const routes = [
     {path: '/', element: <App/>},
+    {path: '/exist', element: <SocialRedirectPage/>},
 
     {path: '/payment', element: <PaymentPage/>},
     {path: '/paymentRedirect', element: <PaymentRedirectPage/>},

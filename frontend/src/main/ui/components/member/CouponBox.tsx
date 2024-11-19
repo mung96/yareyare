@@ -19,7 +19,7 @@ function CouponBox() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 135,
+    top: 170,
     backgroundColor: COLORS.GRAY_400,
     paddingHorizontal: 24,
     paddingVertical: 22,

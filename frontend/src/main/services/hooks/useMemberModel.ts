@@ -5,8 +5,12 @@ import {setMember} from '@/main/stores/member.ts';
 import {useTeamQuery} from '@/main/services/hooks/queries/useTeamQuery.ts';
 
 function useMemberModel() {
-  const {data: myInfoData, refetch: refetchMember} = useGetMyInfoQuery();
-  const {data: teamListData} = useTeamQuery();
+  const {
+    data: myInfoData,
+    refetch: refetchMember,
+    isLoading: memberLoading,
+  } = useGetMyInfoQuery();
+  const {data: teamListData, isLoading: teamLoading} = useTeamQuery();
   const dispatch = useDispatch();
 
   const member = useMemo(() => {
@@ -20,7 +24,10 @@ function useMemberModel() {
     }
   }, [myInfoData, dispatch, teamListData]);
 
-  return {member, refetchMember};
+  const isLoading = useMemo(() => {
+    return memberLoading || teamLoading;
+  }, [memberLoading, teamLoading]);
+  return {member, refetchMember, isLoading};
 }
 
 export default useMemberModel;
