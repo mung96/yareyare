@@ -50,15 +50,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    rowGap: 12,
+    rowGap: 24,
     columnGap: 20,
   },
   item: {
     borderRadius: 6,
-    width: 128,
-    height: 36,
+    width: 160,
+    height: 52,
     borderColor: COLORS.GRAY_200,
-    borderWidth: 1,
     backgroundColor: COLORS.WHITE,
 
     display: 'flex',

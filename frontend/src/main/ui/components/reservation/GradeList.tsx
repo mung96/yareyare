@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
   imgContainer: {
     width: '100%',
     backgroundColor: COLORS.GRAY_400,
-    borderRadius: 5,
+    borderRadius: 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 24,
   },
   sectionContainer: {
     width: '100%',
@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'column',
-
-    paddingVertical: 8,
+    gap: 6,
+    paddingTop: 16,
+    paddingBottom: 16,
   },
 });
 

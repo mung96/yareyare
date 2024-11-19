@@ -9,6 +9,10 @@ import ReservationLayout from '@/main/apps/layout/ReservationLayout.tsx';
 import {COLORS} from '@/main/shared/styles';
 import {useGetMyInfoQuery} from '@/main/services/hooks/queries/useMemberQuery.ts';
 import {useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {RootState} from '@/main/stores/rootReducer.ts';
+import {useMutation} from '@tanstack/react-query';
+import {patchSelectSeatCancel} from '@/main/apis/game.ts';
 
 type Props = {
   onPrev: () => void;
@@ -17,8 +21,20 @@ type Props = {
 };
 
 function UserScreen({onPrev, context, onNext}: Props) {
-  const {data: member, refetch: refetchMember, isSuccess} = useGetMyInfoQuery();
-  console.log(member);
+  const gameId = useSelector((state: RootState) => state.game.gameId);
+  const {mutate: cancelSeat} = useMutation({
+    mutationFn: () =>
+      patchSelectSeatCancel(String(gameId), {
+        idempotencyKey: context.idempotencyKey,
+        seats: context.seatList.map(seat => seat.seatId),
+      }),
+    onSuccess: data => {
+      onPrev();
+      console.log(data);
+    },
+  });
+
+  const {data: member, isSuccess} = useGetMyInfoQuery();
   const {
     control,
     handleSubmit,
@@ -58,12 +74,21 @@ function UserScreen({onPrev, context, onNext}: Props) {
           name="receiveMethod"
         />
       </ReservationLayout>
+
       <View style={styles.buttonContainer}>
+        <MainButton
+          label={'이전'}
+          onPress={() => cancelSeat()}
+          size={'large'}
+          variant={'outlined'}
+          style={{width: '25%'}}
+        />
         <MainButton
           label={'다음'}
           onPress={handleSubmit(onNext)}
           size={'large'}
           disabled={!isFormValid || isSubmitting}
+          style={{width: '75%'}}
         />
       </View>
     </>
@@ -78,15 +103,15 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: COLORS.WHITE,
-    width: '100%',
-    height: 56,
     position: 'absolute',
     bottom: 0,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: 12,
+    paddingRight: 32,
+    gap: 12,
+    paddingVertical: 12,
     borderTopWidth: 0.3,
     borderColor: COLORS.GRAY_200,
   },

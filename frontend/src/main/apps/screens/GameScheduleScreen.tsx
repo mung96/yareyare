@@ -100,23 +100,32 @@ function Calendar() {
                     </CustomText>
                   </View>
                   <View style={styles.content}>
-                    <SvgUri
-                      uri={gameSchedule[day].opponentTeamLogo}
-                      width={24}
-                      height={24}
-                    />
-                    <CustomText
-                      key={index}
-                      style={[
-                        styles.description,
-                        gameSchedule[day].description === 'WIN' &&
-                          styles.descriptionWin,
-                      ]}>
-                      {gameSchedule[day].description}
-                    </CustomText>
+                    <View
+                      style={{
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingTop: 8,
+                      }}>
+                      <SvgUri
+                        uri={gameSchedule[day].opponentTeamLogo}
+                        width={32}
+                        height={32}
+                      />
+                      <CustomText
+                        key={index}
+                        style={[
+                          styles.description,
+                          gameSchedule[day].description === 'WIN' &&
+                            styles.descriptionWin,
+                        ]}>
+                        {gameSchedule[day].description}
+                      </CustomText>
+                    </View>
                     <View
                       style={[
                         styles.timeBox,
+                        styles.timeBottomBox,
                         gameSchedule[day].isHome && styles.homeBox,
                       ]}>
                       <CustomText
@@ -131,7 +140,7 @@ function Calendar() {
                   </View>
                 </>
               ) : (
-                <View style={[styles.timeBox]}>
+                <View style={[styles.timeBox, styles.timeBottomBox]}>
                   <CustomText key={index} style={[styles.timeText]}>
                     {day}
                   </CustomText>
@@ -180,18 +189,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderColor: COLORS.GRAY_200,
-    width: 45,
+    width: 52,
     paddingVertical: 4,
   },
   calendar: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 320,
+    width: 364,
+
     borderColor: COLORS.GRAY_200,
   },
   date: {
-    width: 45,
-    height: 85,
+    width: 52,
+    height: 120,
     borderWidth: 1,
     borderColor: COLORS.GRAY_200,
     display: 'flex',
@@ -203,7 +213,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    // borderWidth: 2,
+    height: 93,
   },
   schedule: {
     flexDirection: 'row',
@@ -223,20 +235,21 @@ const styles = StyleSheet.create({
   },
   descriptionWin: {
     color: COLORS.PURPLE_100,
-    width: '100%',
   },
   timeBox: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    height: 24,
     backgroundColor: COLORS.GRAY_100,
     width: '100%',
   },
+  timeBottomBox: {},
   timeText: {
     width: '100%',
     color: COLORS.GRAY_300,
     textAlign: 'center',
-    lineHeight: 20,
+    fontSize: 14,
   },
   homeBox: {
     backgroundColor: COLORS.PURPLE_500,

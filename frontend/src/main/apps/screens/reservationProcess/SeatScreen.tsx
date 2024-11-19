@@ -25,7 +25,9 @@ type Props = {
 type SeatForm = Record<string, Seat[]> & {price: number};
 
 //TODO:이전으로 넘어갈떄 로직
-function SeatScreen({context, onNext}: Props) {
+//TODO: 멱등키 등록하기
+//TODO: Button 레이아웃
+function SeatScreen({context, onPrev, onNext}: Props) {
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
   const setDefaultValues: () => Record<string, Seat[]> = () => {
@@ -72,65 +74,73 @@ function SeatScreen({context, onNext}: Props) {
   return (
     <>
       <ReservationLayout>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {seatListData?.sections.map(section => (
-            <Controller
-              control={control}
-              render={({field: {onChange, value}}) => (
-                <SeatContainer
-                  value={value}
-                  list={section.rows}
-                  name={section.sectionName}
-                  onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
-                  onRemove={(seatId: string) =>
-                    removeSeat(value, seatId, onChange)
-                  }
-                />
-              )}
-              name={section.sectionName}
-            />
-          ))}
-        </ScrollView>
-
+        <ReservationBox>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContainer}>
+            {seatListData?.sections.map(section => (
+              <Controller
+                control={control}
+                render={({field: {onChange, value}}) => (
+                  <SeatContainer
+                    value={value}
+                    list={section.rows}
+                    name={section.sectionName}
+                    onAdd={(seat: Seat) => addSeat(value, seat, onChange)}
+                    onRemove={(seatId: string) =>
+                      removeSeat(value, seatId, onChange)
+                    }
+                  />
+                )}
+                name={section.sectionName}
+              />
+            ))}
+          </ScrollView>
+        </ReservationBox>
         <ReservationBox>
           <View style={styles.textContainer}>
             <CustomText style={styles.text}>선택한 좌석</CustomText>
-            {/*<View style={styles.seatCnt}>*/}
-            {/*  <Text style={styles.seatCntText}>*/}
-            {/*    {seatListData?.sections.reduce((acc, section) => {*/}
-            {/*      return (*/}
-            {/*        acc +*/}
-            {/*        (control._formValues[section.sectionName] as Seat[]).length*/}
-            {/*      );*/}
-            {/*    }, 0)}*/}
-            {/*  </Text>*/}
-            {/*</View>*/}
           </View>
-          {seatListData?.sections.map(section => (
-            <Controller
-              control={control}
-              render={({field: {value}}) => (
-                <>
-                  {value.map(seat => (
-                    <SelectedSeatItem
-                      key={seat.section + seat.row + ' ' + seat.col}
-                      seat={seat}
-                    />
-                  ))}
-                </>
-              )}
-              name={section.sectionName}
-            />
-          ))}
+          <View style={{maxHeight: 200}}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: 10}}>
+              {seatListData?.sections.map(section => (
+                <Controller
+                  control={control}
+                  render={({field: {value}}) => (
+                    <>
+                      {value.map(seat => (
+                        <SelectedSeatItem
+                          key={seat.section + seat.row + ' ' + seat.col}
+                          seat={seat}
+                        />
+                      ))}
+                    </>
+                  )}
+                  name={section.sectionName}
+                />
+              ))}
+            </ScrollView>
+          </View>
         </ReservationBox>
       </ReservationLayout>
 
       <View style={styles.buttonContainer}>
         <MainButton
+          label={'이전'}
+          onPress={onPrev}
+          size={'large'}
+          variant={'outlined'}
+          style={{width: '25%'}}
+        />
+        <MainButton
           label={'다음'}
           onPress={handleSubmit(onSubmit)}
           size={'large'}
           disabled={!isFormValid || isSubmitting}
+          style={{width: '75%'}}
         />
       </View>
     </>
@@ -144,17 +154,22 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 12,
   },
+  scrollContainer: {
+    backgroundColor: COLORS.GRAY_400,
+    flexDirection: 'row',
+    gap: 12,
+  },
   buttonContainer: {
     backgroundColor: COLORS.WHITE,
-    width: '100%',
-    height: 56,
     position: 'absolute',
     bottom: 0,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: 12,
+    paddingRight: 32,
+    gap: 12,
+    paddingVertical: 12,
     borderTopWidth: 0.3,
     borderColor: COLORS.GRAY_200,
   },

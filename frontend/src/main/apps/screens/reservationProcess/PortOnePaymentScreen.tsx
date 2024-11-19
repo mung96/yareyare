@@ -1,17 +1,19 @@
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {PORTONE_REDIRECT_URI, WEB_VIEW_SERVER} from '@env';
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import useMemberModel from '@/main/services/hooks/useMemberModel.ts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ReservationParamList} from '@/main/apps/navigations/ReservationNavigation.tsx';
 import {usePaymentRegistMutation} from '@/main/services/hooks/queries/usePaymentQuery.ts';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {PATH} from '@/main/shared/constants';
+import LoadingScreen from '@/main/apps/screens/LoadingScreen.tsx';
 
 function PortOnePaymentScreen({
   route,
 }: NativeStackScreenProps<ReservationParamList, 'PortOnePayment'>) {
   const {member} = useMemberModel();
+  const [isLoading, setIsLoading] = useState(true);
   const params = route.params;
   const navigation = useNavigation<NavigationProp<ReservationParamList>>();
   const {mutate: registPayment} = usePaymentRegistMutation({
@@ -37,6 +39,7 @@ function PortOnePaymentScreen({
     if (webViewRef.current) {
       webViewRef.current.postMessage(JSON.stringify({...message}));
     }
+    setIsLoading(false);
   };
   const handleOnMessage = async (event: WebViewMessageEvent) => {
     console.log(event.nativeEvent);
@@ -55,17 +58,20 @@ function PortOnePaymentScreen({
   };
 
   return (
-    <WebView
-      source={{
-        uri: `${WEB_VIEW_SERVER}/payment`,
-      }}
-      onMessage={handleOnMessage}
-      javaScriptEnabled={true}
-      mixedContentMode="always"
-      domStorageEnabled={true}
-      ref={webViewRef}
-      onLoad={onLoad}
-    />
+    <>
+      {isLoading && <LoadingScreen />}
+      <WebView
+        source={{
+          uri: `${WEB_VIEW_SERVER}/payment`,
+        }}
+        onMessage={handleOnMessage}
+        javaScriptEnabled={true}
+        mixedContentMode="always"
+        domStorageEnabled={true}
+        ref={webViewRef}
+        onLoad={onLoad}
+      />
+    </>
   );
 }
 
