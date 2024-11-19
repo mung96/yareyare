@@ -26,12 +26,12 @@ function LoadingComponent() {
         if (dot2.current) {
           dot2.current.animate(keyframes, options);
         }
-      }, 200);
+      }, 300);
       setTimeout(() => {
         if (dot3.current) {
           dot3.current.animate(keyframes, options);
         }
-      }, 400);
+      }, 600);
 
       setTimeout(animateDots, 2000);
     };

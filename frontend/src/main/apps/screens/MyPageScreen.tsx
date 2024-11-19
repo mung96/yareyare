@@ -14,12 +14,12 @@ function MyPageScreen() {
   return (
     <ScrollView
       contentContainerStyle={{
-        paddingHorizontal: 12,
+        paddingHorizontal: 24,
         paddingBottom: 16,
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: 48,
+        gap: 52,
         width: '100%',
+        height: '100%',
         backgroundColor: COLORS.WHITE,
       }}>
       <View style={styles.container}>
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: width,
-    height: 200,
-    paddingHorizontal: 20,
+    height: 240,
+    paddingHorizontal: 24,
     paddingBottom: 16,
     bottom: 12,
   },
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
   },
   logoBox: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     backgroundColor: COLORS.WHITE,
     borderRadius: 50,
   },
