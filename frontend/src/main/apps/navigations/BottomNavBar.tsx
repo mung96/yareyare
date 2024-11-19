@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import HomeScreen from '@/main/apps/screens/HomeScreen.tsx';
 import {PATH} from '@/main/shared/constants';
 import GameScheduleScreen from '@/main/apps/screens/GameScheduleScreen.tsx';
