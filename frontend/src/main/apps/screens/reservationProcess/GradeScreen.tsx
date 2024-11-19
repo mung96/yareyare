@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 12,

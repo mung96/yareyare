@@ -27,7 +27,7 @@ type SeatForm = Record<string, Seat[]> & {price: number};
 //TODO:이전으로 넘어갈떄 로직
 //TODO: 멱등키 등록하기
 //TODO: Button 레이아웃
-function SeatScreen({context, onNext}: Props) {
+function SeatScreen({context, onPrev, onNext}: Props) {
   const gameId = useSelector((state: RootState) => state.game.gameId);
   const {data: seatListData} = useSeatQuery(gameId, context.grade.gradeId!);
   const setDefaultValues: () => Record<string, Seat[]> = () => {
@@ -129,10 +129,18 @@ function SeatScreen({context, onNext}: Props) {
 
       <View style={styles.buttonContainer}>
         <MainButton
+          label={'이전'}
+          onPress={onPrev}
+          size={'large'}
+          variant={'outlined'}
+          style={{width: '25%'}}
+        />
+        <MainButton
           label={'다음'}
           onPress={handleSubmit(onSubmit)}
           size={'large'}
           disabled={!isFormValid || isSubmitting}
+          style={{width: '75%'}}
         />
       </View>
     </>
@@ -153,15 +161,15 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: COLORS.WHITE,
-    width: '100%',
-    height: 56,
     position: 'absolute',
     bottom: 0,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: 12,
+    paddingRight: 32,
+    gap: 12,
+    paddingVertical: 12,
     borderTopWidth: 0.3,
     borderColor: COLORS.GRAY_200,
   },
