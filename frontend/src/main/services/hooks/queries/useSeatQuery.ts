@@ -3,8 +3,12 @@ import {
   getRestSeatListWithGrade,
   getRestSeatListWithSection,
   patchSelectSeat,
+  patchSelectSeatCancel,
 } from '@/main/apis/game.ts';
-import {SeatPriceResponse} from '@/main/shared/types/game/api.ts';
+import {
+  SeatCancelRequest,
+  SeatPriceResponse,
+} from '@/main/shared/types/game/api.ts';
 import {MutationOptionsWithoutFn} from '@/main/shared/types/common/api.ts';
 
 export function useGradeQuery(gameId: string | null) {

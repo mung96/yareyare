@@ -5,6 +5,7 @@ import {
   RecentGameResultResponse,
   RestSeatListWithGradeResponse,
   RestSeatListWithSectionResponse,
+  SeatCancelRequest,
   SeatPriceResponse,
 } from '@/main/shared/types/game/api.ts';
 import {Response} from '@/main/shared/types/common/api.ts';
@@ -89,6 +90,18 @@ export async function getGameSchedule(
   const {data} = await apiRequester.get<Response<GameScheduleResponse>>(
     END_POINT.GAME_SCHEDULE(teamId),
     {params: {year, month}},
+  );
+  return data.body;
+}
+
+//좌석 선택 취소
+export async function patchSelectSeatCancel(
+  gameId: string,
+  request: SeatCancelRequest,
+): Promise<Boolean> {
+  const {data} = await apiRequester.patch<Response<Boolean>>(
+    END_POINT.GAME_SEAT_ROLLBACK(gameId),
+    request,
   );
   return data.body;
 }

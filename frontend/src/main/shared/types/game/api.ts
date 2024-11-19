@@ -42,6 +42,11 @@ export type SeatPriceResponse = {
   price: number;
 };
 
+export type SeatCancelRequest = {
+  idempotencyKey: string;
+  seats: number[];
+};
+
 export type RecentGameResultResponse = {
   gameDate: string;
   results: {

@@ -10,6 +10,7 @@ export const END_POINT = {
   GAME_DETAIL: (gameId: string) => `games/${gameId}/details`,
   GAME_GRADE: (gameId: string) => `games/${gameId}/grades`,
   GAME_SEAT: (gameId: string) => `games/${gameId}/seats`,
+  GAME_SEAT_ROLLBACK: (gameId: string) => `games/${gameId}/seats/rollback`,
 
   //member
   CERTIFICATION: 'members/authentication',
@@ -17,7 +18,7 @@ export const END_POINT = {
   LOGOUT: 'members/logout',
   MY_TEAM: 'members/my-team',
 
-  //teamrr
+  //team
   TEAM: 'games/teams',
 
   //payment
