@@ -19,7 +19,7 @@ type NativeData = {
 function WaitingPage() {
   const client = useRef<StompJs.Client | null>(null);
   const [data, setData] = useState<Response | null>();
-  const [nativeData, setNativeData] = useState<NativeData | null>(null);
+  const [nativeData, setNativeData] = useState<NativeData | null>({gameName: '', accessToken: '', gameId: 0, memberId: ''});
   const onConnect = () => {
     if (client.current !== null) {
       client.current.publish({
@@ -31,7 +31,7 @@ function WaitingPage() {
       });
 
       client.current.subscribe(
-          `/topic/queue-status/game/${nativeData?.gameId}/memberId/${nativeData?.memberId}`,
+          `/topic/queue-status/game/${nativeData?.gameId || 693}/memberId/${nativeData?.memberId || '84158567-d01d-4264-8244-d65ed57f1262'}`,
           message => {
             setData(JSON.parse(message.body))
           },
@@ -39,16 +39,9 @@ function WaitingPage() {
     }
   };
   const onMessageHandler = (e: { data: string; }) => {
-    // @ts-ignore
-    // window.ReactNativeWebView.postMessage("페이지 진입")
-    // // @ts-ignore
-    // window.ReactNativeWebView.postMessage(e.data)
     setNativeData(JSON.parse(e.data))
   }
   useEffect(() => {
-
-    // 안드로이드에서는 document / IOS 에서는 window 객체를 참조한다고 한다
-
     // @ts-ignore
     document.addEventListener("message", onMessageHandler);
     return () => {
@@ -72,9 +65,10 @@ function WaitingPage() {
 
     // @ts-ignore
     window.ReactNativeWebView.postMessage(data?.position)
-    if (data?.position && data?.position! <= 10) {
+    if (!data?.position && data?.position! <= 10) {
       // @ts-ignore
       window.ReactNativeWebView.postMessage('대기열 탈출')
+      disConnect(client);
     }
   }, [data?.position])
 
@@ -86,9 +80,9 @@ function WaitingPage() {
         </div>
         <div className="queue-info">
           <p className="queue-info-title">나의 대기순서</p>
-          <p className="queue-info-number">{data?.position}</p>
+          <p className="queue-info-number">{data?.position || 1}</p>
           <p className="queue-info-behind">
-            뒤에 <span className="footer-highlight">{data?.behind}</span>명
+            뒤에 <span className="footer-highlight">{data?.behind || 0}</span>명
           </p>
         </div>
         <div className="footer">
