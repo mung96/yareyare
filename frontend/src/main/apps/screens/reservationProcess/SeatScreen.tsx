@@ -102,22 +102,28 @@ function SeatScreen({context, onNext}: Props) {
           <View style={styles.textContainer}>
             <CustomText style={styles.text}>선택한 좌석</CustomText>
           </View>
-          {seatListData?.sections.map(section => (
-            <Controller
-              control={control}
-              render={({field: {value}}) => (
-                <>
-                  {value.map(seat => (
-                    <SelectedSeatItem
-                      key={seat.section + seat.row + ' ' + seat.col}
-                      seat={seat}
-                    />
-                  ))}
-                </>
-              )}
-              name={section.sectionName}
-            />
-          ))}
+          <View style={{maxHeight: 200}}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: 10}}>
+              {seatListData?.sections.map(section => (
+                <Controller
+                  control={control}
+                  render={({field: {value}}) => (
+                    <>
+                      {value.map(seat => (
+                        <SelectedSeatItem
+                          key={seat.section + seat.row + ' ' + seat.col}
+                          seat={seat}
+                        />
+                      ))}
+                    </>
+                  )}
+                  name={section.sectionName}
+                />
+              ))}
+            </ScrollView>
+          </View>
         </ReservationBox>
       </ReservationLayout>
 

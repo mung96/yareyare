@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.4,
     borderColor: COLORS.GRAY_200,
 
-    paddingVertical: 4,
+    paddingVertical: 12,
   },
   box: {
     width: 8,
