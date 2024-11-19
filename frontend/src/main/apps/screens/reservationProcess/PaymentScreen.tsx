@@ -31,7 +31,6 @@ function PaymentScreen({onPrev, context}: Props) {
   const navigation = useNavigation<NavigationProp<ReservationParamList>>();
   const {mutate: postPaymentHistory} = usePaymentHistoryMutation({
     onSuccess: data => {
-      console.log(data);
       navigation.navigate(PATH.PORTONE_PAYMENT, {
         ...context,
         totalPrice: data.totalPrice,
@@ -57,9 +56,18 @@ function PaymentScreen({onPrev, context}: Props) {
           charge={context.seatList.length * 1000}
         />
       </View>
+
       <View style={styles.buttonContainer}>
         <MainButton
+          label={'이전'}
+          onPress={onPrev}
+          size={'large'}
+          variant={'outlined'}
+          style={{width: '25%'}}
+        />
+        <MainButton
           label={'다음'}
+          style={{width: '75%'}}
           onPress={handleSubmit(() =>
             postPaymentHistory({
               idempotencyKey: context.idempotencyKey,
@@ -81,19 +89,22 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    height: '100%',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     gap: 10,
   },
   buttonContainer: {
     backgroundColor: COLORS.WHITE,
-    width: '100%',
-    height: 56,
     position: 'absolute',
     bottom: 0,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: 12,
+    paddingRight: 32,
+    gap: 12,
+    paddingVertical: 12,
     borderTopWidth: 0.3,
     borderColor: COLORS.GRAY_200,
   },
