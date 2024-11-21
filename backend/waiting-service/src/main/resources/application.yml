@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: waiting-service
+
+  config:
+    import: optional:file:.env[.properties]
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+
+kafka:
+  endpoint: ${KAFKA_SERVER_ENDPOINT}
+  group_id: ${KAFKA_GROUP_ID}
