@@ -1,0 +1,44 @@
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://43.202.255.139:8761/eureka
+
+server:
+  servlet:
+    session:
+      timeout: 0
+      tracking-modes: cookie
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+  application:
+    name: game-service
+  profiles:
+    active: ${PROFILE}
+kafka-endpoint: ${KAFKA_SERVER_ENDPOINT}
+kafka-group: ${KAFKA_GROUP_ID}
+
+
