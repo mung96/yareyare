@@ -1,6 +1,6 @@
 #!/bin/sh
-if [ -d "front" ]; then
-  cd front && npm run build || exit 1
+if [ -d "frontend" ]; then
+  cd frontend && yarn test && yarn android || exit 1
   cd ..
 fi
 
