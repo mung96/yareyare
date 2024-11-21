@@ -1,0 +1,92 @@
+spring:
+  application:
+    name: apigateway-service
+
+  config:
+    import: optional:file:.env[.properties]
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+
+  cloud:
+    gateway:
+      routes:
+        - id: game-service
+          uri: lb://GAME-SERVICE
+          predicates:
+            - Path=/api/admin/games/**, /api/games/**
+          filters:
+            - AuthorizationHeaderFilter
+
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/members/signin/social/**, /api/members/token/**, /api/members/oauth2/code/**
+            - Method=POST,GET
+
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/api/admin/members/**, /api/members/**
+          filters:
+            - AuthorizationHeaderFilter
+
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/admin/payments/**, /api/payments/**
+          filters:
+            - AuthorizationHeaderFilter
+
+      default-filters:
+        - name: GlobalFilter
+        - name: CircuitBreaker
+          args:
+            name: globalCircuitBreaker
+
+    config:
+      uri: ${CONFIG_ENDPOINT}
+      name: config-service
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_ENDPOINT}
+
+management:
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_ENDPOINT}
+
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httpexchanges, busrefresh, info, metrics, prometheus
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      globalCircuitBreaker:
+        failure-rate-threshold: 50  # 실패율 임계값 (예: 50%)
+        wait-duration-in-open-state: 10s  # 열린 상태에서 대기 시간
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+  timelimiter:
+    instances:
+      globalCircuitBreaker:
+        timeout-duration: 2s
