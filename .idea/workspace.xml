@@ -1,7 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0664afc7-3ac2-4c78-9aa6-831b27fb9ed6" name="Changes" comment="" />
+    <list default="true" id="0664afc7-3ac2-4c78-9aa6-831b27fb9ed6" name="Changes" comment="Develop fe">
+      <change afterPath="$PROJECT_DIR$/frontend/.bundle/config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.prettierrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.watchmanconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.yarn/releases/yarn-3.6.4.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.yarnrc.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Gemfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ReactotronConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/debug.keystore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/java/com/frontend/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/java/com/frontend/MainApplication.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/drawable/rn_edit_text_material.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/android/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/.xcode.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/Podfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend.xcodeproj/xcshareddata/xcschemes/frontend.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/AppDelegate.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/AppDelegate.mm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/Images.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/Images.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/PrivacyInfo.xcprivacy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontend/main.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontendTests/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/ios/frontendTests/frontendTests.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/jest.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/metro.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react-native.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/declarations.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apis/game.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apis/member.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apis/payment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apis/queryClient.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apis/requester.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apis/team.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/layout/CommonLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/layout/ReservationLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/AuthNavigation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/BottomNavBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/CertificateNavigation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/MypageNavigation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/ReservationNavigation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/RootNavigation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/navigations/WaitingNavigation.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/GameScheduleScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/HomeScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/LoadingScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/LoginScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/MapScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/MyPageScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/ReservationScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/SocialLoginScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/WaitingScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/certificate/CertificateScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/certificate/CertificateStartScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/mypage/TicketDetailScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/mypage/TicketImageScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/mypage/TicketRecordScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/mypage/UpdateTeamScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/GradeScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/PaymentScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/PortOnePaymentScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/PortOneRedirectScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/SeatScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/UserScreen.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/apps/screens/reservationProcess/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/Google.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/Kakao.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/Naver.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/baseball.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/center.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/defaultStadium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/firstInfield.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/firstoutfield.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-Black.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-Bold.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-ExtraBold.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-ExtraLight.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-Light.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-Medium.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-Regular.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-SemiBold.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/fonts/Pretendard-Thin.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/glove.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/thirdInfield.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/thirdOutfield.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/assets/yareLogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/dummy.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/LocalConfig.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/date.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/game/convert.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/member/member.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/reservation/reservation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/helper/reservation/seat.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/useGameQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/useGameScheduleQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/useMemberQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/usePaymentQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/useSeatQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/useTeamQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/queries/useTicketRecordQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useCalendar.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useGameDetailQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useGameModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useGameScheduleModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useGradeModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useMemberModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useModal.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useReservationModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useTeamModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/services/hooks/useTicketRecordModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/constants/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/constants/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/constants/keys.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/constants/path.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/constants/reservation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/styles/color.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/styles/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/common/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/common/date.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/game/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/game/domain.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/member/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/member/domain.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/payment/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/payment/domain.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/reservation/domain.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/types/team/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/utils/array.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/utils/common.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/utils/date.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/utils/encryptStorage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/utils/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/shared/utils/type.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/stores/game.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/stores/member.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/stores/navigationCategory.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/stores/rootReducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/common/DayPicker.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/common/InputField.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/common/RetryErrorBoundary.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/common/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/DropDownComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/GamePlanCardList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/GameResultCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/GameResultItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/GameScheduleCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/TeamItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/TimerBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/game/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/CouponBox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/MyPageList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/MypageItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/TicketDetailBox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/TicketDetailButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/TicketDetailChip.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/member/TicketRecordItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/ExpectedPayment.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/GradeItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/GradeList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/MethodSelector.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/PaymentMethodList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/ReservationBox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/SeatContainer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/SelectedSeatItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/SelectedSeatList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/StepBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/UserInput.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/components/reservation/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/widgets/CustomText.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/widgets/MainButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main/ui/widgets/Skeleton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/apps/layout/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/apps/navigations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/apps/screens/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/assets/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/services/helper/date.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/services/helper/reservation/seat.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/services/hooks/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/shared/apis/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/shared/utils/array.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/shared/utils/date.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/shared/utils/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/stores/clients/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/stores/servers/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/ui/components/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/test/ui/widgets/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/LodingComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/certificate/CertificatePage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/certificate/CertificateRedirectPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/certificate/Certification.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/color.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/loding.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/payment/Payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/payment/PaymentPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/payment/PaymentRedirectPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/social/SocialRedirectPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/waiting/WaitingPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/waiting/wait.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/waiting/webSocketUtil.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/src/yareLogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webview/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/shared/constants/team.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,10 +260,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
+  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPENED",
+    "assignee": {
+      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
+      "username": "10ohj",
+      "fullname": "오주원"
+    }
+  }
 }]]></component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "first": "https://lab.ssafy.com/s11-final/S11P31A106.git",
+    "second": "753306be-01da-470f-9c6f-eff0a9513ee8"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2oBzMb0C9X6yCSYLXrT1TH5eN8L" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -21,8 +288,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/SSAFY/Desktop/S11P31A106/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -30,8 +303,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.13" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.13" />
       </set>
     </attachedChunks>
   </component>
@@ -44,10 +317,50 @@
       <option name="presentableId" value="Default" />
       <updated>1730357710962</updated>
       <workItem from="1730357711675" duration="63000" />
+      <workItem from="1732594033954" duration="326000" />
     </task>
+    <task id="LOCAL-00001" summary="Develop be game">
+      <option name="closed" value="true" />
+      <created>1732594200091</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732594200091</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Develop be game">
+      <option name="closed" value="true" />
+      <created>1732594206056</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732594206056</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Develop be game">
+      <option name="closed" value="true" />
+      <created>1732594255425</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732594255425</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Develop be payment">
+      <option name="closed" value="true" />
+      <created>1732594291246</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732594291246</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Develop be game" />
+    <MESSAGE value="Develop be payment" />
+    <MESSAGE value="Develop fe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Develop fe" />
   </component>
 </project>
